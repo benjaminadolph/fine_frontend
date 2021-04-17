@@ -2,17 +2,20 @@
 <div>
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld />
+  <Dashboard />
 </div>
   
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import Dashboard from './components/Dashboard'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Dashboard
   }
 }
 </script>
