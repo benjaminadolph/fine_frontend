@@ -1,6 +1,7 @@
 <template>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link> | 
+      <router-link to="/exampleview">ExampleView</router-link> | 
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Register</router-link>
     </div>
@@ -16,7 +17,6 @@ export default {
       // if you ever get an unauthorized, logout the user
         resolve(resp);
         this.$store.dispatch(AUTH_LOGOUT); // you can also redirect to /login if needed !
-
         reject(err);
       }
       throw err;
