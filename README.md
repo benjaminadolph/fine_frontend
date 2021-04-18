@@ -44,6 +44,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 # ESLINT
 The linter is enabled by default and always runs at `npm run serve`
 You can manually lint with `npm run lint`
+Lint specifications in detail: https://github.com/airbnb/javascript 
 
 ## Autofix Problems, Style and Syntax with ESLINT 
 -> inside the fine_frontend-Folder
