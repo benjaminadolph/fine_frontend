@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data() {
@@ -23,7 +22,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((success) => {
+        .then(() => {
           console.log('Logged In');
           this.$router.push('/');
         })
@@ -35,6 +34,6 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+  @import "@/assets/scss/views/login.scss";
 </style>

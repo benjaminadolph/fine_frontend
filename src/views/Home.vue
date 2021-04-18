@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/images/logo.png">
     <Posts/>
     <button @click="logout" type="button">Logout</button>
     <p>You are logged in as: {{getProfile}}</p>
@@ -33,3 +33,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  @import "@/assets/scss/views/home.scss";
+</style>

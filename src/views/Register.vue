@@ -28,7 +28,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((success) => {
+        .then(() => {
           console.log('New User created');
           this.$router.push('/login');
         })
@@ -39,3 +39,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  @import "@/assets/scss/views/register.scss";
+</style>
