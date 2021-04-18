@@ -12,15 +12,15 @@ fine_app
 ## Project setup
 We use docker compose because it makes it easy to start the container, specify volumes and provide hot-reload for development. 
 ## Build Containers
--> inside the fine_app-Folder
+-> inside the fine_frontend-Folder
 `docker compose build`
 
 ### Run Containers in Docker 
--> inside the fine_app-Folder
+-> inside the fine_frontend-Folder
 `docker compose up`
 
 ## Tear down Containers in Docker
--> inside the fine_app-Folder
+-> inside the fine_frontend-Folder
 `docker compose down`
 
 
@@ -39,3 +39,13 @@ We use docker compose because it makes it easy to start the container, specify v
 
 ## Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# ESLINT
+The linter is enabled by default and always runs at `npm run serve`
+You can manually lint with `npm run lint`
+Lint specifications in detail: https://github.com/airbnb/javascript 
+
+## Autofix Problems, Style and Syntax with ESLINT 
+-> inside the fine_frontend-Folder
+`npm run lint --fix`

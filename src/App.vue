@@ -1,32 +1,30 @@
 <template>
-<div>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld />
-  <Dashboard />
-</div>
-  
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/exampleview">ExampleView</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/register">Register</router-link>
+    </div>
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import Dashboard from './components/Dashboard'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-    Dashboard
-  }
-}
+  created() {
+    axios.interceptors.response.use(undefined, (err) => new Promise(function (resolve, reject) {
+      if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+      // if you ever get an unauthorized, logout the user
+        resolve(resp);
+        this.$store.dispatch(AUTH_LOGOUT); // you can also redirect to /login if needed !
+        reject(err);
+      }
+      throw err;
+    }));
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import "@/assets/scss/views/app.scss";
 </style>

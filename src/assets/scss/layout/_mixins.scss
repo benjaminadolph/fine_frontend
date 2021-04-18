@@ -1,0 +1,35 @@
+@mixin boxshadow {
+    -webkit-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
+    box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
+}
+
+@mixin resetButton {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    cursor: pointer;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
+
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+}

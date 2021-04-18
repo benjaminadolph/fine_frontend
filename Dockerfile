@@ -2,7 +2,7 @@
 FROM node:14.16-alpine
 
 # Set the working directory 
-WORKDIR /app
+WORKDIR /frontend
 
 # copy package.json into the container 
 COPY package*.json ./
@@ -13,8 +13,6 @@ RUN npm install
 # Copy the current directory contents into the container
 COPY . .
 
-# Make port 8080 available to the world outside this container
-ENV PORT=8080
 EXPOSE 8080
 
 # Run the app when the container launches
