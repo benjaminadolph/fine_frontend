@@ -15,12 +15,6 @@ export default {
 };
 </script>
 
-<style>
-  h1 {
-    text-align: center;
-    color: white;
-  }
-  .component{
-      background-color: aquamarine;
-  }
+<style lang="scss" scoped>
+  @import "@/assets/scss/components/example-component.scss";
 </style>
