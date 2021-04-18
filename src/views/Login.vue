@@ -1,10 +1,11 @@
 <template>
-    <form @submit.prevent="login">
-        <h1>Please sign in</h1>
-        <input v-model="email" type="email" placeholder="email" required>
-        <input v-model="password" type="password" placeholder="password" required>
-        <button type="submit">Sign in</button>
-    </form>
+  <form @submit.prevent="login">
+      <img class="fine-logo" src="@/assets/images/fineLogo.svg" />
+      <h1>Please sign in</h1>
+      <input v-model="email" type="email" placeholder="email" required>
+      <input v-model="password" type="password" placeholder="password" required>
+      <button type="submit">Sign in</button>
+  </form>
 </template>
 
 <script>
@@ -34,6 +35,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "@/assets/scss/views/login.scss";
 </style>
