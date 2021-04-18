@@ -25,13 +25,5 @@ export default {
 </script>
 
 <style lang="scss">
-  $COLOR: red;
-  h1 {
-    text-align: center;
-    color: $COLOR;
-  }
-  .view{
-      background-color: rgb(11, 94, 66);
-      padding: 20px;
-  }
+  @import "@/assets/scss/views/example-view.scss";
 </style>

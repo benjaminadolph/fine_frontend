@@ -39,3 +39,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  @import "@/assets/scss/views/register.scss";
+</style>

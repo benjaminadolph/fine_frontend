@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data() {
@@ -35,6 +34,6 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+  @import "@/assets/scss/views/login.scss";
 </style>
