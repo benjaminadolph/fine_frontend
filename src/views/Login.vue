@@ -23,7 +23,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((success) => {
+        .then(() => {
           console.log('Logged In');
           this.$router.push('/');
         })

@@ -7,7 +7,8 @@
 
 <script>
 
-// IF YOU WANT TO USE A NEW VIEW YOU HAVE TO ADD IT TO src/router/index.js AND THE ROUTER LINK TO src/App.vue
+// IF YOU WANT TO USE A NEW VIEW YOU HAVE TO ADD IT TO
+// src/router/index.js AND THE ROUTER LINK TO src/App.vue
 
 import ExampleComponent from '@/components/ExampleComponent.vue';
 
@@ -23,10 +24,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+  $COLOR: red;
   h1 {
     text-align: center;
-    color: #2c3e50;
+    color: $COLOR;
   }
   .view{
       background-color: rgb(11, 94, 66);

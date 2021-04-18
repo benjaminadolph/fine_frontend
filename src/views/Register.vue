@@ -28,7 +28,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((success) => {
+        .then(() => {
           console.log('New User created');
           this.$router.push('/login');
         })
