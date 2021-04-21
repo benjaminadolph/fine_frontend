@@ -12,7 +12,7 @@
       </header>
       <!-- needs to be an input with values -->
       <p id="label">Schlaf | 21.02.2021 | 6h 28min</p>
-      <input type="range" min="0" max="6" name="intensity">
+      <input type="range" min="0" max="6" name="quality">
     </div>
     <AddButton />
   </div>
