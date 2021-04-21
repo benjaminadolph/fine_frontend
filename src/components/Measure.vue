@@ -14,17 +14,18 @@
       <p id="label">Paracetamol200 | 21.02.2021 | 19 Uhr</p>
       <input type="range" min="0" max="6" name="effect">
     </div>
-    <AddButton />
+    <button type="submit">
+      <img src="@/assets/images/add_icon_measure_s.svg" />
+      Maßnahmen hinzufügen
+    </button>
   </div>
 </template>
 
 <script>
-import AddButton from '@/components/AddButton.vue';
 
 export default {
   name: 'Measure',
   components: {
-    AddButton,
   },
   data() {
     return {};

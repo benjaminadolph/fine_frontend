@@ -20,17 +20,18 @@
       </p>
       <input type="range" min="0" max="6" name="tolerability">
     </div>
-    <AddButton />
+    <button type="submit">
+      <img src="@/assets/images/add_icon_nutrition_s.svg" />
+      Ernährung hinzufügen
+    </button>
   </div>
 </template>
 
 <script>
-import AddButton from '@/components/AddButton.vue';
 
 export default {
   name: 'Nutrition',
   components: {
-    AddButton,
   },
   data() {
     return {};

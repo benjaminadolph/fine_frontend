@@ -14,17 +14,18 @@
       <p id="label">Wut | 09.12.2020 | 19 Uhr</p>
       <input type="range" min="0" max="6" name="intensity">
     </div>
-    <AddButton />
+    <button type="submit">
+      <img src="@/assets/images/add_icon_emotions_s.svg" />
+      Gefühl hinzufügen
+    </button>
   </div>
 </template>
 
 <script>
-import AddButton from '@/components/AddButton.vue';
 
 export default {
   name: 'Emotions',
   components: {
-    AddButton,
   },
   data() {
     return {};

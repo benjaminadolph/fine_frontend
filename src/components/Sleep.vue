@@ -14,17 +14,15 @@
       <p id="label">Schlaf | 21.02.2021 | 6h 28min</p>
       <input type="range" min="0" max="6" name="quality">
     </div>
-    <AddButton />
+    <button type="submit">Jetzt schlafen</button>
   </div>
 </template>
 
 <script>
-import AddButton from '@/components/AddButton.vue';
 
 export default {
   name: 'Sleep',
   components: {
-    AddButton,
   },
   data() {
     return {};

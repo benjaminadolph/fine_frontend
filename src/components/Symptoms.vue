@@ -14,17 +14,19 @@
       <p id="label">Migräne | Nacken | 21.02.2021 | 15:35 Uhr</p>
       <input type="range" min="0" max="6" name="intensity">
     </div>
-    <AddButton />
+    <button type="submit">
+      <img src="@/assets/images/add_icon_symptoms_s.svg" />
+      Symptome hinzufügen
+    </button>
   </div>
 </template>
 
 <script>
-import AddButton from '@/components/AddButton.vue';
 
 export default {
   name: 'Symptoms',
   components: {
-    AddButton,
+
   },
   data() {
     return {};
