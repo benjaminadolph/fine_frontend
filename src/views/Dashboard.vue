@@ -7,6 +7,7 @@
     <Emotions />
     <Movement />
     <Sleep />
+    <Nutrition />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import Symptoms from '@/components/Symptoms.vue';
 import Emotions from '@/components/Emotions.vue';
 import Movement from '@/components/Movement.vue';
 import Sleep from '@/components/Sleep.vue';
+import Nutrition from '@/components/Nutrition.vue';
 
 export default {
   name: 'Dashboard',
@@ -29,6 +31,7 @@ export default {
     Emotions,
     Movement,
     Sleep,
+    Nutrition,
   },
   data() {
     return {
