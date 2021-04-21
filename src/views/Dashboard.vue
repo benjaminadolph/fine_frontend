@@ -4,6 +4,7 @@
     <!-- <h2>{{ today }}</h2> -->
     <Widget />
     <Symptoms />
+    <Emotions />
   </div>
 </template>
 
@@ -14,12 +15,14 @@
 
 import Widget from '@/components/Widget.vue';
 import Symptoms from '@/components/Symptoms.vue';
+import Emotions from '@/components/Emotions.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     Widget,
     Symptoms,
+    Emotions,
   },
   data() {
     return {
