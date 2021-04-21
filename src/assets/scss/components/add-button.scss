@@ -1,0 +1,22 @@
+@import '../init';
+
+button {
+    @include resetButton();
+    border-radius: 20px;
+    outline:none;
+    padding: 10px;
+    width: 100%;
+    margin: 1.5em auto 1em auto;
+    background-color: $SYMPTOMS_PRIMARY;
+    color: $FINE_WHITE;
+    font-size: 13pt;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    
+    &:hover {
+        opacity: 0.8;
+        /* 0.2 seconds transition on hover */
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+}
