@@ -1,1 +1,16 @@
 @import '../init';
+
+h1 {
+    color: $FINE_GREY_DARK;
+
+    /* integrate mixins for each value? */
+    font-size: 22pt;
+    font-weight: medium;
+
+    /* what entity is this? */
+    letter-spacing: 0px;
+};
+
+body {
+    background-color: $BACKGROUND_COLOR;
+}
