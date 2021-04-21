@@ -9,6 +9,14 @@
     <Sleep />
     <Nutrition />
     <Measure />
+    <nav id="navbar">
+      <div class="nav-icons">
+        <img src="@/assets/images/statistics_m.svg" />
+        <img src="@/assets/images/calendar_m.svg" />
+        <img src="@/assets/images/home_m.svg" />
+        <img src="@/assets/images/plus_main_menu.svg" id="plus" />
+      </div>
+    </nav>
   </div>
 </template>
 

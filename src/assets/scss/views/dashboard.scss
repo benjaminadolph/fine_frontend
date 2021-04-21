@@ -1,16 +1,40 @@
 @import '../init';
 
-h1 {
-    color: $FINE_GREY_DARK;
-
-    /* integrate mixins for each value? */
-    font-size: 22pt;
-    font-weight: medium;
-
-    /* what entity is this? */
-    letter-spacing: 0px;
-};
-
 body {
     background-color: $BACKGROUND_COLOR;
+    box-sizing: inherit;
+
+    h1 {
+        color: $FINE_GREY_DARK;
+    
+        /* integrate mixins for each value? */
+        font-size: 22pt;
+        font-weight: medium;
+    
+        /* what entity is this? */
+        letter-spacing: 0px;
+    }
+
+    nav {
+        @include boxshadow();
+        background-color: $FINE_WHITE;
+        width: 90%;
+        margin: 0 auto;
+        padding: 1.5em;
+
+        .nav-icons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        #plus {
+            vertical-align: -80%;
+        }
+
+        .sticky {
+            position: fixed;
+            bottom: 0;
+        }
+    }
 }
