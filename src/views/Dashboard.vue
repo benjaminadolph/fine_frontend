@@ -5,6 +5,7 @@
     <Widget />
     <Symptoms />
     <Emotions />
+    <Movement />
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import Widget from '@/components/Widget.vue';
 import Symptoms from '@/components/Symptoms.vue';
 import Emotions from '@/components/Emotions.vue';
+import Movement from '@/components/Movement.vue';
 
 export default {
   name: 'Dashboard',
@@ -23,6 +25,7 @@ export default {
     Widget,
     Symptoms,
     Emotions,
+    Movement,
   },
   data() {
     return {
