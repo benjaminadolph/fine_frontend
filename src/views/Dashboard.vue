@@ -3,12 +3,7 @@
     <h1>Dashboard</h1>
     <!-- <h2>{{ today }}</h2> -->
     <Widget />
-    <Symptoms />
-    <Emotions />
-    <Movement />
-    <Sleep />
-    <Nutrition />
-    <Measure />
+    <Module />
     <nav id="navbar">
       <div class="nav-icons">
         <img src="@/assets/images/statistics_m.svg" />
@@ -26,23 +21,16 @@
 // src/router/index.js AND THE ROUTER LINK TO src/App.vue
 
 import Widget from '@/components/Widget.vue';
-import Symptoms from '@/components/Symptoms.vue';
-import Emotions from '@/components/Emotions.vue';
-import Movement from '@/components/Movement.vue';
-import Sleep from '@/components/Sleep.vue';
-import Nutrition from '@/components/Nutrition.vue';
-import Measure from '@/components/Measure.vue';
+import Module from '@/components/Module.vue';
 
 export default {
   name: 'Dashboard',
+  props: {
+    modules: Array,
+  },
   components: {
     Widget,
-    Symptoms,
-    Emotions,
-    Movement,
-    Sleep,
-    Nutrition,
-    Measure,
+    Module,
   },
   data() {
     return {
