@@ -9,17 +9,17 @@
 
 <script>
 export default {
-    name: 'Button',
-    props: {
-        text: String,
-        color: String,
-    },
-    //methods: {
-        //onClick() {
-            //this.$show()
-      //  }
-   // }
-}
+  name: 'Button',
+  props: {
+    text: String,
+    color: String,
+  },
+  /* methods: {
+    onClick() {
+      this.$show()
+    }
+  } */
+};
 </script>
 
 <style lang="scss" scoped>

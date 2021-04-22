@@ -12,14 +12,14 @@
 
 <script>
 export default {
-    name: 'LastEntry',       
-    props: {
+  name: 'LastEntry',
+  props: {
+    entry: Object,
+  },
+  /* methods: {
 
-    },
-    methods: {
-
-    }
-}
+  } */
+};
 </script>
 
 <style lang="scss" scoped>

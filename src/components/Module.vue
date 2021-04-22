@@ -5,12 +5,14 @@
       <!-- add media queries to icons -->
       <h2>Symptome</h2>
     </header>
+    <LastEntry />
+    <Button />
   </div>
 </template>
 
 <script>
 import LastEntry from '@/components/LastEntry.vue';
-import Button from '@/component/Button';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'Module',
