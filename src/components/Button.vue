@@ -1,8 +1,8 @@
 <template>
     <div>
-        <button type="submit">
+        <button class="search" @click="onClick()" :style="{ background: color }">
         <img src="@/assets/images/add_icon_symptoms_s.svg" />
-        Symptome hinzufügen
+        {{ text }}
         </button>
     </div>
 </template>
@@ -14,11 +14,11 @@ export default {
     text: String,
     color: String,
   },
-  /* methods: {
+  methods: {
     onClick() {
-      this.$show()
-    }
-  } */
+      this.$show('search-click');
+    },
+  },
 };
 </script>
 

@@ -3,10 +3,10 @@
     <header class="top">
       <img src="@/assets/images/symptoms_icon_l.svg" />
       <!-- add media queries to icons -->
-      <h2>Symptome</h2>
+      <h2>{{ heading }}</h2> <!-- :color="" -->
     </header>
-    <LastEntry />
-    <Button />
+    <LastEntry /> <!-- :text="" :color="" -->
+    <Button /> <!-- :text="" :color="" -->
   </div>
 </template>
 
@@ -17,7 +17,9 @@ import Button from '@/components/Button.vue';
 export default {
   name: 'Module',
   props: {
-    text: String,
+    heading: String,
+    color: String,
+    addEntry: Array,
   },
   components: {
     LastEntry,
