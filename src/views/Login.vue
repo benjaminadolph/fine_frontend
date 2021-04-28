@@ -13,13 +13,13 @@ export default {
   name: 'Login',
   data() {
     return {
-      email: 'Benjamin.Adolph@gmx.de',
-      password: '12345678',
+      email: '',
+      password: '',
     };
   },
   methods: {
     login() {
-      this.$store.dispatch('AUTH_REQUEST', {
+      this.$store.dispatch('AUTH_LOGIN', {
         email: this.email,
         password: this.password,
       })

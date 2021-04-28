@@ -10,23 +10,23 @@ export default ({
     authStatus: (state) => state.status,
   },
   mutations: {
-    AUTH_REQUEST: (state) => {
+    AUTH_LOGIN: (state) => {
       state.status = 'loading';
     },
-    AUTH_SUCCESS: (state, token) => {
+    AUTH_LOGIN_SUCCESS: (state, token) => {
       state.status = 'success';
       state.token = token;
     },
-    AUTH_ERROR: (state) => {
+    AUTH_LOGIN_ERROR: (state) => {
       state.status = 'error';
     },
-    AUTH_REQUEST_REGISTER: (state) => {
+    AUTH_REGISTER: (state) => {
       state.status = 'loading';
     },
-    AUTH_SUCCESS_REGISTER: (state) => {
+    AUTH_REGISTER_SUCCESS: (state) => {
       state.status = 'success';
     },
-    AUTH_ERROR_REGISTER: (state) => {
+    AUTH_REGISTER_ERROR: (state) => {
       state.status = 'error';
     },
     AUTH_LOGOUT: (state) => {
@@ -35,36 +35,35 @@ export default ({
 
   },
   actions: {
-    AUTH_REQUEST: ({ commit, dispatch }, user) => new Promise((resolve, reject) => {
+    AUTH_LOGIN: ({ commit, dispatch }, user) => new Promise((resolve, reject) => {
       // The Promise used for router redirect in login
-      commit('AUTH_REQUEST');
+      commit('AUTH_LOGIN');
       axios.post('http://localhost:3000/api/user/login', user)
         .then((resp) => {
           const { token } = resp.data;
           const { userid } = resp.data;
           localStorage.setItem('user-token', token); // store the token in localstorage
           axios.defaults.headers.common.Authorization = token;
-          commit('AUTH_SUCCESS', resp);
-          // ToDo User Objekt zurückgeben
+          commit('AUTH_LOGIN_SUCCESS', resp);
           dispatch('USER_REQUEST', userid);
           resolve(resp);
         })
         .catch((err) => {
-          commit('AUTH_ERROR', err);
+          commit('AUTH_LOGIN_ERROR', err);
           localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
           reject(err);
         });
     }),
     AUTH_REGISTER: ({ commit }, user) => new Promise((resolve, reject) => {
       // The Promise used for router redirect in login
-      commit('AUTH_REQUEST_REGISTER');
+      commit('AUTH_REGISTER');
       axios.post('http://localhost:3000/api/user/register', user)
         .then((resp) => {
-          commit('AUTH_SUCCESS_REGISTER', resp);
+          commit('AUTH_REGISTER_SUCCESS', resp);
           resolve(resp);
         })
         .catch((err) => {
-          commit('AUTH_ERROR_REGISTER', err);
+          commit('AUTH_REGISTER_ERROR', err);
           reject(err);
         });
     }),

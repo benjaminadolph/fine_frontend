@@ -1,7 +1,7 @@
 <template>
   <div class="view">
     <h1>I am an example view</h1>
-    <ExampleComponent />
+    <ExampleComponent/>
   </div>
 </template>
 

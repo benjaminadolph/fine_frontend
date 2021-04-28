@@ -19,20 +19,11 @@
 </template>
 
 <script>
-
 // /posts wenn in production mode
-const url = 'http://localhost:3000/posts/';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Posts',
-  async mounted() {
-    try {
-      const res = await axios.get(url);
-      this.posts = res.data;
-    } catch (err) {
-      this.error = err.message;
-    }
-  },
   data() {
     return {
       posts: [],
@@ -40,29 +31,51 @@ export default {
       description: '',
     };
   },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getUserPosts']),
+  },
+  mounted() {
+    this.$store.dispatch('GET_ALL_POSTS')
+      .then(() => {
+        this.posts = this.getUserPosts;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   methods: {
-    async createPost() {
-      // Push new Post to MongoDB
-      await axios.post(url, { title: this.title, description: this.description });
-      // update the Data from MongoDB
-      try {
-        const res = await axios.get(url);
-        this.posts = res.data;
-      } catch (err) {
-        this.error = err.message;
-      }
+    getAllPosts() {
+      this.$store.dispatch('GET_ALL_POSTS')
+        .then(() => {
+          this.posts = this.getUserPosts;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    async deletePost(id) {
+    createPost() {
+      this.$store.dispatch('CREATE_POST', {
+        title: this.title,
+        description: this.description,
+      })
+        .then(() => {
+          this.posts = this.getUserPosts;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deletePost(id) {
       console.log(id);
-      // Delete Post to MongoDB
-      await axios.delete(`${url}${id}`);
-      // update the Data from MongoDB
-      try {
-        const res = await axios.get(url);
-        this.posts = res.data;
-      } catch (err) {
-        this.error = err.message;
-      }
+      this.$store.dispatch('DELETE_POST', {
+        post_id: id,
+      })
+        .then(() => {
+          this.getAllPosts();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
