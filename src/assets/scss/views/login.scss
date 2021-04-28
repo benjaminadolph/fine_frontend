@@ -3,7 +3,7 @@
 form {
     @include boxshadow();
     padding: 50px;
-    background-color: white;
+    background-color: $FINE_WHITE;
     width: 90%;
     margin: 0 auto;
 
@@ -19,19 +19,4 @@ form {
         text-align: left;
     }
 
-    button {
-        @include resetButton;
-        font-size: 15px;
-        border-radius: 20px;
-        background-color: $FINE_PRIMARY;
-        color: white;
-        padding: 10px;
-        display: block;
-        width: 100%;
-        cursor: pointer;
-
-        &:hover {
-            background-color: black;
-        }
-    }
 }
