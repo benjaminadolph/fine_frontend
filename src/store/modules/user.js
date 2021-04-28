@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
 export default ({
   state: {
     status: '',
@@ -30,7 +28,6 @@ export default ({
   actions: {
     USER_REQUEST: async ({ commit, dispatch }, userid) => {
       commit('USER_REQUEST');
-      // TO DO CALL TO GET USER
       await axios.get(`http://localhost:3000/api/user/${userid}`)
         .then((resp) => {
           commit('USER_SUCCESS', resp);

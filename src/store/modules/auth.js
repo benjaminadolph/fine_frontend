@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
 export default ({
   state: {
     token: localStorage.getItem('user-token') || '',

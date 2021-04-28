@@ -19,7 +19,6 @@
 </template>
 
 <script>
-// /posts wenn in production mode
 import { mapGetters } from 'vuex';
 
 export default {

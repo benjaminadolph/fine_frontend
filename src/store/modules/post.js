@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
 export default ({
   state: {
     status: '',
@@ -45,13 +43,10 @@ export default ({
   actions: {
     GET_ALL_POSTS: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
-      console.log(userid);
       commit('GET_ALL_POSTS');
-      // TO DO CALL TO GET USER
       await axios.get('http://localhost:3000/posts/', { params: { userid } })
         .then((resp) => {
           commit('GET_ALL_POSTS_SUCCESS', resp);
-          console.log(resp);
         })
         .catch(() => {
           commit('GET_ALL_POSTS_ERROR');
@@ -61,7 +56,6 @@ export default ({
       const post = req;
       post.userid = await rootState.user.id;
       commit('CREATE_POST');
-      // TO DO CALL TO GET USER
       await axios.post('http://localhost:3000/posts/', post)
         .then((resp) => {
           commit('CREATE_POST_SUCCESS', resp);
@@ -74,7 +68,6 @@ export default ({
       const postid = req.post_id;
       const userid = rootState.user.id;
       commit('DELETE_POST');
-      // TO DO CALL TO GET USER
       await axios.delete(`http://localhost:3000/posts/${postid}`, { params: { postid, userid } })
         .then((resp) => {
           commit('DELETE_POST_SUCCESS', resp);
