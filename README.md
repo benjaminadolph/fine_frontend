@@ -13,15 +13,15 @@ fine_app
 We use docker compose because it makes it easy to start the container, specify volumes and provide hot-reload for development. 
 ## Build Containers
 -> inside the fine_frontend-Folder
-`docker compose build`
+`docker-compose build`
 
 ### Run Containers in Docker 
 -> inside the fine_frontend-Folder
-`docker compose up`
+`docker-compose up`
 
 ## Tear down Containers in Docker
 -> inside the fine_frontend-Folder
-`docker compose down`
+`docker-compose down`
 
 
 # FRONTEND SPECIFIC: QUICK START VUE
