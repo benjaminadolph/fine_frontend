@@ -1,7 +1,54 @@
 @import url("https://cloud.typography.com/6993774/6173032/css/fonts.css");
+$SCALE_FACTOR: 1.25;
+$BASE_FONT_SIZE: 11px;
 
-body {
+* {
     font-family: "Gotham SSm A", "Gotham SSm B";
     font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+@mixin plain-l-medium {
+    font-weight: 500;
+    font-size: 2*$SCALE_FACTOR*$BASE_FONT_SIZE;
+}
+
+@mixin plain-m-bold {
+    font-weight: 700;
+    font-size: $BASE_FONT_SIZE*$SCALE_FACTOR;
+    letter-spacing: 0.015em;
+    line-height: 2*$BASE_FONT_SIZE*$SCALE_FACTOR;
+}
+
+@mixin plain-m-book {
+    font-weight: 400;
+    font-size: $BASE_FONT_SIZE*$SCALE_FACTOR;
+    letter-spacing: 0.005em;
+    line-height: 2*$BASE_FONT_SIZE*$SCALE_FACTOR;
+}
+
+@mixin plain-s-book {
+    font-weight: 400;
+    font-size: $BASE_FONT_SIZE;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: $BASE_FONT_SIZE*$SCALE_FACTOR;
+}
+
+h1, .plain-l-medium {
+    @include plain-l-medium;
+}
+
+.plain-m-bold {
+    @include plain-m-bold;
+}
+
+p, .plain-m-book {
+    @include plain-m-book;
+}
+
+.plain-s-book {
+    @include plain-s-book;
+}
+  
