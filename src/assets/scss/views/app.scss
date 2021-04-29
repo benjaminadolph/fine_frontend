@@ -3,6 +3,8 @@
 * {
     text-align: center;
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
   
 body {
@@ -13,6 +15,10 @@ body {
 a {
   color: $TEXT_BASE_COLOR;
   text-decoration: none;
+}
+
+#app {
+  margin-bottom: 150px;
 }
 
 //TODO: remove if not necessary anymore
