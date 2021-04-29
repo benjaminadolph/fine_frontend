@@ -8,7 +8,7 @@
       "replaceColor": "#434343"
     }
   },
-    "scripts": {
+  "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -22,6 +22,7 @@
     "replace-in-file": "^6.2.0",
     "svg-sprite": "^1.5.0",
     "vue": "^3.0.0",
+    "vue-panzoom": "^1.1.6",
     "vue-router": "^4.0.5",
     "vuex": "^4.0.0-0",
     "vuex-persistedstate": "^4.0.0-beta.3"
