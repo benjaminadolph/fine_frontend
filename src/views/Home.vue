@@ -4,18 +4,21 @@
     <Posts/>
     <button @click="logout" type="button">Logout</button>
     <p>You are logged in as: {{getUserProfile.email}}</p>
+    <IconComponent name="mail-icon" :size="31" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Posts from '@/components/Posts.vue';
+import IconComponent from '@/components/IconComponent.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     Posts,
+    IconComponent,
   },
   data() {
     return {};

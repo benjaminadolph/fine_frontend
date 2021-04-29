@@ -41,6 +41,13 @@ const routes = [
     beforeEnter: ifNotAuthenticated,
   },
   {
+    path: '/module-page/:module',
+    name: 'Module Page',
+    component: () => import('../views/ModulePage.vue'),
+    beforeEnter: ifNotAuthenticated,
+    props: true,
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
