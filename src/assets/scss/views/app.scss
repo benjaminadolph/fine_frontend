@@ -1,28 +1,25 @@
 @import '../init';
 
 * {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-align: center;
     box-sizing: border-box;
-    color: #2c3e50;
+    color: $TEXT_BASE_COLOR;
 }
 
 body {
     background-color: $BACKGROUND_COLOR;
 }
 
-  
-  #nav {
-    padding: 30px;
-  }
-  
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  #nav a.router-link-exact-active {
-    color: #42b983;
-  }
+//TODO: remove if not necessary anymore
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: $FINE_PRIMARY;
+}
