@@ -10,6 +10,11 @@ body {
     background-color: $BACKGROUND_COLOR;
 }
 
+a {
+  color: $TEXT_BASE_COLOR;
+  text-decoration: none;
+}
+
 //TODO: remove if not necessary anymore
 #nav {
   padding: 30px;
