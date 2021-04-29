@@ -1,7 +1,7 @@
 <template>
     <span
-        class="icon-wrapper"
-        :style="{ width: size + 'px', height: size + 'px' }"
+        :class="['icon-wrapper', color]"
+        :style="{ width: size + 'px', height: size + 'px', color: color}"
         @click="$emit('click')"
     >
         <!-- Icon can't be resized -->
@@ -26,13 +26,16 @@
 export default {
   props: {
     size: {
-      // eslint-disable-next-line vue/require-prop-type-constructor
       type: Number,
       default: 16,
     },
     name: {
       type: String,
       default: 'arrow-right',
+    },
+    color: {
+      type: String,
+      default: 'fine-primary',
     },
     strictMode: {
       type: Boolean,
@@ -51,8 +54,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.icon-wrapper {
-    display: flex;
-    user-select: none;
-}
+  @import "@/assets/scss/components/icon-component.scss";
 </style>

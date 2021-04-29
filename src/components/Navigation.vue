@@ -17,7 +17,7 @@
             </router-link>
         </li>
         <li>
-            <router-link to="/module-entry">
+            <router-link to="/module-entry/symptoms">
                 <IconComponent name="plus-full" :size="50" />
             </router-link>
         </li>

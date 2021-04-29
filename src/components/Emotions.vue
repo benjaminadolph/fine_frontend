@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  name: 'Feelings',
+  name: 'Emotions',
 };
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/components/module.scss";
+ // @import "@/assets/scss/components/emotions.scss";
 </style>

@@ -1,7 +1,8 @@
 /* basic colors */
 $FINE_PRIMARY: #1AE2C5;
 $FINE_GREY_DARK: #434343;
-$FINE_GREY_LIGHT: #979797;
+$FINE_GREY_MEDIUM: #979797;
+$FINE_GREY_LIGHT: #DEDEDE;
 $FINE_WHITE: #FFFFFF;
 
 /* symptoms */
@@ -47,3 +48,59 @@ $MEASURE_SOFT: #EDF9F9;
 
 $BACKGROUND_COLOR: #EFF0F2;
 $TEXT_BASE_COLOR: $FINE_GREY_DARK;
+
+.fine-primary {
+    color: $FINE_PRIMARY;
+}
+
+.fine-grey-dark {
+    color: $FINE_GREY_DARK;
+}
+.fine-grey-medium {
+    color: $FINE_GREY_MEDIUM;
+}
+
+.fine-grey-light {
+    color: $FINE_GREY_LIGHT;
+}
+
+.fine-white {
+    color: $FINE_WHITE;
+}
+
+.symptoms-primary {
+    color: $SYMPTOMS_PRIMARY;
+}
+
+.symptoms-soft {
+    color: $SYMPTOMS_SOFT;
+}
+
+.emotions-primary {
+    color: $EMOTIONS_PRIMARY;
+}
+
+.emotions-soft {
+    color: $EMOTIONS_SOFT;
+}
+
+.nutrition-primary {
+    color: $NUTRITION_PRIMARY;
+}
+.nutrition-soft {
+    color: $NUTRITION_SOFT;
+}
+
+.sleep-primary {
+    color: $SLEEP_PRIMARY;
+}
+.sleep-soft {
+    color: $SLEEP_SOFT;
+}
+
+.movement-primary {
+    color: $MOVEMENT_PRIMARY;
+}
+.movement-soft {
+    color: $MOVEMENT_SOFT;
+}

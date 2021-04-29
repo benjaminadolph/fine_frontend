@@ -1,5 +1,7 @@
 <template>
-    <div>fff</div>
+    <div>
+      <div class="symptoms-figure-container"></div>
+    </div>
 </template>
 
 <script>
@@ -9,5 +11,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/components/module.scss";
+  @import "@/assets/scss/components/symptoms.scss";
 </style>
