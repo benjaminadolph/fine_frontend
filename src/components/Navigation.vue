@@ -3,26 +3,25 @@
     <ul>
         <li>
             <router-link to="/statistics">
-                <IconComponent name="statistics" :size="32" />
+                <IconComponent name="statistics" :size="24" />
             </router-link>
         </li>
         <li>
             <router-link to="/calendar">
-                <IconComponent name="calendar" :size="32" />
+                <IconComponent name="calendar" :size="24" />
             </router-link>
         </li>
         <li>
             <router-link to="/dashboard">
-                <IconComponent name="home" :size="32" />
+                <IconComponent name="home" :size="24" />
             </router-link>
         </li>
         <li>
             <router-link to="/module-entry">
-                <IconComponent name="add-full" :size="32" />
+                <IconComponent name="plus-full" :size="50" />
             </router-link>
         </li>
     </ul>
-    <router-view/>
   </div>
 </template>
 
