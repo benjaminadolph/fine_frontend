@@ -3,11 +3,22 @@
 * {
     text-align: center;
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+  
+body {
     color: $TEXT_BASE_COLOR;
+    background-color: $BACKGROUND_COLOR;
 }
 
-body {
-    background-color: $BACKGROUND_COLOR;
+a {
+  color: $TEXT_BASE_COLOR;
+  text-decoration: none;
+}
+
+#app {
+  margin-bottom: 150px;
 }
 
 //TODO: remove if not necessary anymore

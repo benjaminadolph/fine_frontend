@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/exampleview">ExampleView</router-link> |
@@ -6,13 +7,20 @@
       <router-link to="/dashboard">Dashboard</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Register</router-link>
-      <router-view/>
     </div>
+    <Navigation/>
+    <router-view/>
+  </div>
 </template>
 
 <script>
+import Navigation from '@/components/Navigation.vue';
+
 export default {
   name: 'App',
+  components: {
+    Navigation,
+  },
   created() {
     axios.interceptors.response.use(undefined, (err) => new Promise(function (resolve, reject) {
       if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
