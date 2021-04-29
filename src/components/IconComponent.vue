@@ -1,5 +1,5 @@
 <template>
-    <div
+    <span
         class="icon-wrapper"
         :style="{ width: size + 'px', height: size + 'px' }"
         @click="$emit('click')"
@@ -19,7 +19,7 @@
         <svg v-else xmlns="http://www.w3.org/2000/svg">
             <use :href="require('@/assets/icons/icon-sprite/sprite.css.svg') + '#' + id" />
         </svg>
-    </div>
+    </span>
 </template>
 
 <script>
