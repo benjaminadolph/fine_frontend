@@ -4,8 +4,8 @@
     <Symptoms v-if="module==='symptoms'" />
     <Feelings v-if="module==='feelings'" />
     <ul>
-      <li><router-link to="/module-page/symptoms">Symptome</router-link></li>
-      <li><router-link to="/module-page/feelings">Feelings</router-link></li>
+      <li><router-link to="/module-entry/symptoms">Symptome</router-link></li>
+      <li><router-link to="/module-entry/feelings">Feelings</router-link></li>
     </ul>
   </div>
 </template>
@@ -15,7 +15,7 @@ import Symptoms from '@/components/Symptoms.vue';
 import Feelings from '@/components/Feelings.vue';
 
 export default {
-  name: 'ModulePage',
+  name: 'ModuleEntry',
   components: {
     Symptoms,
     Feelings,
@@ -30,5 +30,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/views/module-page.scss";
+  @import "@/assets/scss/views/module-entry.scss";
 </style>
