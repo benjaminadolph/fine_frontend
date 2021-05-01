@@ -11,4 +11,5 @@ if (token) {
   axios.defaults.headers.common.Authorization = token;
 }
 
-createApp(App).use(router).use(store).mount('#app');
+createApp(App).use(router).use(store)
+  .mount('#app');

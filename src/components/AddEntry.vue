@@ -6,10 +6,10 @@
 
 <script>
 export default {
-    name: 'AddEntry',
-    props: {
+  name: 'AddEntry',
+  props: {
 
-    },
+  },
 };
 </script>
 

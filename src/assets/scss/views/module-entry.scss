@@ -1,0 +1,23 @@
+@import '../init';
+
+.module-entry-layer {
+    @include grayWhiteBlur;
+    height: 100vh;
+    z-index: 10000;
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    top: 30px;
+
+    .module-entry-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .text {
+            margin-left: 10px;
+        }
+    }
+}

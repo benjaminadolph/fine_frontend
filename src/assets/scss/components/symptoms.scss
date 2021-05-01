@@ -1,0 +1,8 @@
+@import '../init';
+
+#symptoms-figure-container {
+    border-radius: $BASE_BORDER_RADIUS;
+    border: solid 1px $SYMPTOMS_PRIMARY;
+    overflow: hidden;
+    height: 60vh;
+}
