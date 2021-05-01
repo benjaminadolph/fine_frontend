@@ -1,18 +1,15 @@
 <template>
   <!-- TODO: add to own component -->
-    <div v-bind:class="module + '-primary-border'" class="select-entry-wrapper">
+    <div v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
       <div
-        v-bind:class="
-          [{ 'open': isOpen },
-          module + '-primary ' +
-          module + '-soft-bgcolor']"
+        v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
         class="select-entry-input plain-m-bold"
         v-on:click="toggleOpen()"
         >
         <div
           class="add-button"
           v-show="!isOpen"
-          v-bind:class="[{ open: isOpen }, module + '-primary-border', module + '-primary-bgcolor']"
+          v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
           {{ buttonLabel }}
         </div>
@@ -22,62 +19,57 @@
           type="text"
           id="select-entry-title"
           class="plain-m-bold"
-          v-bind:class="
-            module + '-primary ' +
-            module + '-soft-bgcolor ' +
-            module + '-primary-border'"
+          v-bind:class="[primaryColor, softBgColor, primaryBorderColor]"
         />
         <div v-show="isOpen" class="close-button">
           <IconComponent
             v-bind:name="'close-full'"
             :size="32"
-            v-bind:color="module + '-primary'"
+            v-bind:color="[primaryColor]"
           />
         </div>
       </div>
       <div
         v-show="isOpen"
-        v-bind:class="module + '-primary-border'"
+        v-bind:class="[primaryBorderColor]"
         class="btn select-entry-details"
         >
         <button
           class="btn"
-          v-bind:class="
-            module + '-primary-border ' +
-            module + '-primary-bgcolor'"
+          v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
           Eingabe bestätigen
         </button>
         <div class="results">
           <div
             class="result-header plain-s-book"
-            v-bind:class="module + '-primary'">
+            v-bind:class="[primaryColor]">
             Suchergebnisse
           </div>
           <ul class="result-list">
             <!-- TODO: make dynamically-->
-            <li v-bind:class="module + '-primary-border'">
+            <li v-bind:class="[primaryBorderColor]">
               Schmerzen
               <IconComponent
                 v-bind:name="'plus-full'"
                 :size="32"
-                v-bind:color="module + '-primary'"
+                v-bind:color="[primaryColor]"
               />
             </li>
-            <li v-bind:class="module + '-primary-border'">
+            <li v-bind:class="[primaryBorderColor]">
               Migräne
               <IconComponent
                 v-bind:name="'plus-full'"
                 :size="32"
-                v-bind:color="module + '-primary'"
+                v-bind:color="[primaryColor]"
               />
             </li>
-            <li v-bind:class="module + '-primary-border'">
+            <li v-bind:class="[primaryBorderColor]">
               Hautauschlag
               <IconComponent
                 v-bind:name="'plus-full'"
                 :size="32"
-                v-bind:color="module + '-primary'"
+                v-bind:color="[primaryColor]"
               />
             </li>
           </ul>
@@ -109,6 +101,24 @@ export default {
       this.$nextTick(() => {
         this.$refs.selectEntryInput.focus();
       });
+    },
+  },
+  computed: {
+    primaryColor() {
+      const className = `${this.module}-primary`;
+      return className;
+    },
+    primaryBorderColor() {
+      const className = `${this.module}-primary-border`;
+      return className;
+    },
+    primaryBgColor() {
+      const className = `${this.module}-primary-bgcolor`;
+      return className;
+    },
+    softBgColor() {
+      const className = `${this.module}-soft-bgcolor`;
+      return className;
     },
   },
 };
