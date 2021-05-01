@@ -1,15 +1,14 @@
 <template>
     <div>
-        <input type="search" />
+        <input type="search" @click="$emit('show-search')" />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'AddEntry',
-    props: {
-
-    },
+  name: 'AddEntry',
+  props: {
+  },
 };
 </script>
 

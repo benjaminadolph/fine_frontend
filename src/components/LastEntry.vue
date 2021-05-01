@@ -5,7 +5,7 @@
         <img src="@/assets/images/editButton_m.svg" />
       </header>
       <!-- needs to be an input with values -->
-      <p id="label">{{ entry }}</p>
+      <p id="label">{{ label }} | {{ date }} | {{ time }}</p>
       <input type="range" min="0" max="6" name="intensity">
     </div>
 </template>
@@ -14,7 +14,9 @@
 export default {
   name: 'LastEntry',
   props: {
-    entry: Object,
+    label: String,
+    date: String,
+    time: String,
     color: String,
   },
   /* methods: {
