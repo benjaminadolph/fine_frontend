@@ -21,14 +21,17 @@ button,
 input,
 optgroup,
 select,
-textarea,html input[type="button"],
+textarea,
+input[type="button"],
 input[type="reset"],
-input[type="submit"],button[disabled],
-html input[disabled],button::-moz-focus-inner,
-input::-moz-focus-inner, input[type="checkbox"],
-input[type="radio"], input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button, input[type="search"], input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+input[type="submit"],
+button[disabled],
+input[disabled],
+button::-moz-focus-inner,
+input::-moz-focus-inner,
+input:focus, 
+select:focus,
+input:focus-visible {
   @include resetButton;
   border:none;
   background-image:none;
@@ -36,6 +39,15 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  outline: 0;
+  margin:0;
+	border:0;
+	padding:0;
+	display:inline-block;
+	vertical-align:middle;
+	white-space:normal;
+	background:none;
+	line-height:1;
 }
 
 ul {

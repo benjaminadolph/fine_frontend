@@ -7,7 +7,7 @@
         <Time />
       </div>
     </div>
-    <SelectEntry :module=module />
+    <SelectEntry :module=module buttonLabel="Kategorie wählen"/>
     <Symptoms v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>
