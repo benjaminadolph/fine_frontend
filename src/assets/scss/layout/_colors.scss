@@ -98,11 +98,11 @@ $MODULE_COLORS:
   }
 
   .#{$MODULE}-primary-border {
-    border-color: #{$PRIMARY};
+    border-color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft-border {
-    border-color: #{$SOFT};
+    border-color: #{$SOFT} !important;
   }
 }
 

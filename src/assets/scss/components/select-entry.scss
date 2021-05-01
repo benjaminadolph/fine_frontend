@@ -32,6 +32,7 @@
     .select-entry-details {
         padding: 10px;
         border-top: solid 2px;
+        border-color: inherit;
 
         .btn {
             width: 100%;
@@ -39,6 +40,7 @@
     
         .result-header {
             border-bottom: solid 1px;
+            border-color: inherit;
             padding-bottom: 5px;
             margin-top: 20px;
         }
