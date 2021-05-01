@@ -35,7 +35,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'fine-primary',
+      default: 'fine-grey-dark',
     },
     strictMode: {
       type: Boolean,
