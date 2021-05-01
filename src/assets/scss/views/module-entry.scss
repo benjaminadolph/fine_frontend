@@ -21,20 +21,3 @@
         }
     }
 }
-
-.select-entry-wrapper {
-    border: solid 1px $FINE_BASE;
-    border-radius: $BASE_BORDER_RADIUS;
-    overflow: hidden;
-    
-    #select-entry-title {
-        background-color: rgba($FINE_BASE, 0.3);
-        width: 100%;
-        border-radius: $BASE_BORDER_RADIUS BASE_BORDER_RADIUS 0 0;
-        padding: 20px 10px;
-    }
-
-    .select-entry-details {
-        padding: 10px;
-    }
-}

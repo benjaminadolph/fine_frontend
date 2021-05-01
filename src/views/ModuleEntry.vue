@@ -7,22 +7,7 @@
         <Time />
       </div>
     </div>
-    <div class="select-entry-wrapper">
-      <input type="text" id="select-entry-title" v-bind:class="module + '-primary, plain-m-bold'" />
-      <div class="select-entry-details">
-        <button v-bind:class="module + '-primary, btn'">
-          Eingabe bestätigen
-        </button>
-        <div class="results">
-          <div v-bind:class="module + '-primary, result-header plain-s-book'">Suchergebnisse</div>
-          <ul>
-            <li class="checked">Schmerzen</li>
-            <li>Migräne</li>
-            <li>Hautauschlag</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <SelectEntry :module=module />
     <Symptoms v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>
@@ -36,6 +21,7 @@
 import Symptoms from '@/components/Symptoms.vue';
 import Emotions from '@/components/Emotions.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import SelectEntry from '@/components/SelectEntry.vue';
 import Time from '@/components/Time.vue';
 
 export default {
@@ -45,6 +31,7 @@ export default {
     Emotions,
     IconComponent,
     Time,
+    SelectEntry,
   },
   props: {
     module: String,
