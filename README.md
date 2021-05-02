@@ -13,15 +13,15 @@ fine_app
 We use docker compose because it makes it easy to start the container, specify volumes and provide hot-reload for development. 
 ## Build Containers
 -> inside the fine_frontend-Folder
-`docker compose build`
+`docker-compose build`
 
 ### Run Containers in Docker 
 -> inside the fine_frontend-Folder
-`docker compose up`
+`docker-compose up`
 
 ## Tear down Containers in Docker
 -> inside the fine_frontend-Folder
-`docker compose down`
+`docker-compose down`
 
 
 # FRONTEND SPECIFIC: QUICK START VUE
@@ -49,3 +49,8 @@ Lint specifications in detail: https://github.com/airbnb/javascript
 ## Autofix Problems, Style and Syntax with ESLINT 
 -> inside the fine_frontend-Folder
 `npm run lint --fix`
+
+# Icon Sprite
+The Icon Sprite will be generated with the module svg-sprite. It replaces the default icon color with currentColor, so it can be styled inside the code. All svg icons must be named by 'size'-'name' and placed inside src/assets/icons.
+To generate a sprite run (inside the fine_frontend-Folder)
+`npm run icons`

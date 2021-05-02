@@ -1,13 +1,13 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
 export default ({
   state: {
     status: '',
     profile: {},
+    id: '',
   },
   getters: {
-    getProfile: (state) => state.profile,
-    isProfileLoaded: (state) => !!state.profile.name,
+    getUserProfile(state) {
+      return state.profile;
+    },
   },
   mutations: {
     USER_REQUEST: (state) => {
@@ -15,8 +15,8 @@ export default ({
     },
     USER_SUCCESS: (state, resp) => {
       state.status = 'success';
-      // To Do Profil anzeigen
       state.profile = resp.data;
+      state.id = resp.data._id;
     },
     USER_ERROR: (state) => {
       state.status = 'error';
@@ -26,10 +26,9 @@ export default ({
     },
   },
   actions: {
-    USER_REQUEST: ({ commit, dispatch }, userid) => {
+    USER_REQUEST: async ({ commit, dispatch }, userid) => {
       commit('USER_REQUEST');
-      // TO DO CALL TO GET USER
-      axios.get(`http://localhost:3000/api/user/${userid}`)
+      await axios.get(`http://localhost:3000/api/user/${userid}`)
         .then((resp) => {
           commit('USER_SUCCESS', resp);
         })

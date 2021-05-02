@@ -3,18 +3,22 @@
     <img alt="Vue logo" src="../assets/images/logo.png">
     <Posts/>
     <button @click="logout" type="button">Logout</button>
-    <p>You are logged in as: {{getProfile}}</p>
+    <p>You are logged in as: {{getUserProfile.email}}</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Posts from '@/components/Posts.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     Posts,
+  },
+  data() {
+    return {};
   },
   methods: {
     logout() {
@@ -26,10 +30,7 @@ export default {
     },
   },
   computed: {
-    getProfile() {
-      return this.$store.state.user.profile.name;
-    },
-
+    ...mapGetters(['getUserProfile']),
   },
 };
 </script>

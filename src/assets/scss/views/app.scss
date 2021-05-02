@@ -1,28 +1,75 @@
 @import '../init';
 
 * {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     box-sizing: border-box;
-    color: #2c3e50;
+    padding: 0;
+    margin: 0;
 }
-
+  
 body {
+    color: $TEXT_BASE_COLOR;
     background-color: $BACKGROUND_COLOR;
 }
 
-  
-  #nav {
-    padding: 30px;
-  }
-  
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  #nav a.router-link-exact-active {
-    color: #42b983;
-  }
+a {
+  color: $TEXT_BASE_COLOR;
+  text-decoration: none;
+}
+
+// reset input style
+button,
+input,
+optgroup,
+select,
+textarea,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button[disabled],
+input[disabled],
+button::-moz-focus-inner,
+input::-moz-focus-inner,
+input:focus, 
+select:focus,
+input:focus-visible {
+  @include resetButton;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
+  margin:0;
+	border:0;
+	padding:0;
+	display:inline-block;
+	vertical-align:middle;
+	white-space:normal;
+	background:none;
+	line-height:1;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  margin-bottom: 150px;
+}
+
+//TODO: remove if not necessary anymore
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: $FINE_PRIMARY;
+}

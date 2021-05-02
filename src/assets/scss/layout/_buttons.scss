@@ -1,0 +1,19 @@
+@mixin button($disabled:false, $color:$FINE_PRIMARY) {
+    @if $disabled {
+        $color: $FINE_GREY_LIGHT;
+    }
+
+    @include resetButton;
+    @include plain-m-bold;
+    color: $FINE_WHITE;
+    background-color: $color;
+    border: solid 1px $color;
+    cursor: pointer;
+    display: inline-block;
+    padding: 7px 20px;
+    border-radius: $BASE_BORDER_RADIUS;
+}
+
+.btn-primary, button, .button {
+    @include button(false);
+}

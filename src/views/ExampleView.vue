@@ -1,7 +1,8 @@
 <template>
   <div class="view">
     <h1>I am an example view</h1>
-    <ExampleComponent />
+    <ExampleComponent/>
+    <IconComponent name="symptoms" :size="32" />
   </div>
 </template>
 
@@ -11,11 +12,13 @@
 // src/router/index.js AND THE ROUTER LINK TO src/App.vue
 
 import ExampleComponent from '@/components/ExampleComponent.vue';
+import IconComponent from '@/components/IconComponent.vue';
 
 export default {
   name: 'ExampleView',
   components: {
     ExampleComponent,
+    IconComponent,
   },
   data() {
     return {};

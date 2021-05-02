@@ -4,7 +4,7 @@
       <h1>Please sign in</h1>
       <input v-model="email" type="email" placeholder="email" required>
       <input v-model="password" type="password" placeholder="password" required>
-      <button type="submit">Sign in</button>
+      <button type="submit" class="btn-primary">Sign in</button>
   </form>
 </template>
 
@@ -13,13 +13,13 @@ export default {
   name: 'Login',
   data() {
     return {
-      email: 'Benjamin.Adolph@gmx.de',
-      password: '12345678',
+      email: '',
+      password: '',
     };
   },
   methods: {
     login() {
-      this.$store.dispatch('AUTH_REQUEST', {
+      this.$store.dispatch('AUTH_LOGIN', {
         email: this.email,
         password: this.password,
       })
