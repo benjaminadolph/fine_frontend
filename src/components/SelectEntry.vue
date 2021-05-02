@@ -1,4 +1,5 @@
 <template>
+  <div>
     <form v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
       <div
         v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
@@ -68,6 +69,29 @@
         </div>
       </transition>
     </form>
+    <div v-show="isMultiselect" class="selected-options-list-wrapper">
+      <div
+        class="selected-options-header plain-s-book"
+        v-bind:class="[primaryColor]">
+        Deine Auswahl
+      </div>
+      <ul class="selected-options-list">
+        <li
+          v-for="option in selectedOptions"
+          :key="option.title"
+          class="button"
+          v-bind:class="[primaryBorderColor, primaryBgColor]"
+          >
+          <IconComponent
+            v-bind:name="'close-full'"
+            :size="32"
+            v-bind:color="primaryColor"
+          />
+          {{ option.title }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -81,11 +105,14 @@ export default {
   props: {
     module: String,
     buttonLabel: String,
+    multiselect: Boolean,
   },
   data() {
     return {
       isOpen: false,
       option: Object,
+      isMultiselect: this.multiselect,
+      selectedOptions: [],
       searchValue: '',
       options: [
         {
@@ -111,10 +138,18 @@ export default {
       });
     },
     setOption(option) {
-      this.option.isSelected = false;
-      this.option = option;
-      this.option.isSelected = true;
-      this.isOpen = !this.isOpen;
+      if (this.multiselect === true) {
+        this.option = option;
+        this.option.isSelected = true;
+        if (!this.selectedOptions.includes(option)) {
+          this.selectedOptions.push(option);
+        }
+      } else {
+        this.option.isSelected = false;
+        this.option = option;
+        this.option.isSelected = true;
+        this.isOpen = !this.isOpen;
+      }
       this.searchValue = '';
       // unshift option to top if selected
       /* if (this.options.indexOf(option) > 0) {

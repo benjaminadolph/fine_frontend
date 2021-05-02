@@ -82,19 +82,19 @@ $MODULE_COLORS:
 
 @each $MODULE, $PRIMARY, $SOFT in $MODULE_COLORS {
   .#{$MODULE}-primary {
-    color: #{$PRIMARY};
+    color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft {
-    color: #{$SOFT};
+    color: #{$SOFT} !important;
   }
 
   .#{$MODULE}-primary-bgcolor {
-    background-color: #{$PRIMARY};
+    background-color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft-bgcolor {
-    background-color: #{$SOFT};
+    background-color: #{$SOFT} !important;
   }
 
   .#{$MODULE}-primary-border {

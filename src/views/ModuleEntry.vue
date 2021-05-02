@@ -7,7 +7,8 @@
         <Time />
       </div>
     </div>
-    <SelectEntry :module=module buttonLabel="Kategorie wählen"/>
+    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
+    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=false />
     <Symptoms v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>

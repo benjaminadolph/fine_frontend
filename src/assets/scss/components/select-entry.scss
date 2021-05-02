@@ -31,7 +31,7 @@
 
     .select-entry-details {
         padding: 10px;
-        border-top: solid 2px;
+        border-top: solid 1px;
         border-color: inherit;
 
         .btn {
@@ -62,6 +62,33 @@
         }
     }
 }
+
+.selected-options-list-wrapper {
+    .selected-options-header {
+        border-bottom: solid 1px;
+        border-color: inherit;
+        padding-bottom: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .selected-options-list {
+        display: flex;
+        justify-content: flex-start;
+    
+        li {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            .icon-wrapper {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
 
 .bounce-enter-active {
     animation: bounce-in .5s;
