@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: add to own component -->
-    <div v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
+    <form v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
       <div
         v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
         class="select-entry-input plain-m-bold"
@@ -14,6 +14,7 @@
           {{ buttonLabel }}
         </div>
         <input
+          v-model="searchValue"
           ref="selectEntryInput"
           v-show="isOpen"
           type="text"
@@ -25,7 +26,7 @@
           <IconComponent
             v-bind:name="'close-full'"
             :size="32"
-            v-bind:color="[primaryColor]"
+            v-bind:color="primaryColor"
           />
         </div>
       </div>
@@ -44,38 +45,27 @@
           <div
             class="result-header plain-s-book"
             v-bind:class="[primaryColor]">
-            Suchergebnisse
+            Vorschläge
           </div>
           <ul class="result-list">
             <!-- TODO: make dynamically-->
-            <li v-bind:class="[primaryBorderColor]">
-              Schmerzen
+            <li
+              v-for="option in filteredOptions"
+              :key="option.title"
+              v-bind:class="[primaryBorderColor]"
+              v-on:click="setOption(option)"
+              >
+              {{ option.title }}
               <IconComponent
-                v-bind:name="'plus-full'"
+                v-bind:name="getSelectedIcon(option)"
                 :size="32"
-                v-bind:color="[primaryColor]"
-              />
-            </li>
-            <li v-bind:class="[primaryBorderColor]">
-              Migräne
-              <IconComponent
-                v-bind:name="'plus-full'"
-                :size="32"
-                v-bind:color="[primaryColor]"
-              />
-            </li>
-            <li v-bind:class="[primaryBorderColor]">
-              Hautauschlag
-              <IconComponent
-                v-bind:name="'plus-full'"
-                :size="32"
-                v-bind:color="[primaryColor]"
+                v-bind:color="primaryColor"
               />
             </li>
           </ul>
         </div>
       </div>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -93,6 +83,22 @@ export default {
   data() {
     return {
       isOpen: false,
+      option: Object,
+      searchValue: '',
+      options: [
+        {
+          title: 'Schmerzen',
+          isSelected: false,
+        },
+        {
+          title: 'Migräne',
+          isSelected: false,
+        },
+        {
+          title: 'Hautausschlag',
+          isSelected: false,
+        },
+      ],
     };
   },
   methods: {
@@ -101,6 +107,26 @@ export default {
       this.$nextTick(() => {
         this.$refs.selectEntryInput.focus();
       });
+    },
+    setOption(option) {
+      this.option.isSelected = false;
+      this.option = option;
+      this.option.isSelected = true;
+      // unshift option to top if selected
+      /* if (this.options.indexOf(option) > 0) {
+        this.options.splice(this.options.indexOf(option), 1);
+        this.options.unshift(option);
+      } */
+      this.$refs.selectEntryInput.value = option.title;
+    },
+    getSelectedIcon(option) {
+      let iconName = '';
+      if (option.isSelected) {
+        iconName = 'check';
+      } else {
+        iconName = 'plus-full';
+      }
+      return iconName;
     },
   },
   computed: {
@@ -119,6 +145,18 @@ export default {
     softBgColor() {
       const className = `${this.module}-soft-bgcolor`;
       return className;
+    },
+    filteredOptions() {
+      let tempOptions = this.options;
+      // Process search input
+      if (this.searchValue !== '' && this.searchValue) {
+        tempOptions = tempOptions.filter((item) => (
+          item.title
+            .toUpperCase()
+            .includes(this.searchValue.toUpperCase())
+        ));
+      }
+      return tempOptions;
     },
   },
 };
