@@ -62,6 +62,9 @@
               v-bind:class="[primaryColor]">
               Vorschläge
             </div>
+            <div v-show="!filteredOptions.length" class="no-results">
+              Keine Ergebnisse gefunden
+            </div>
             <ul class="result-list">
               <!-- TODO: make dynamically-->
               <li
@@ -86,6 +89,7 @@
     <div v-show="isMultiselect" class="selected-options-list-wrapper">
       <div
         class="selected-options-header plain-s-book"
+        v-show="selectedOptions.length"
         v-bind:class="[primaryColor]">
         Deine Auswahl
       </div>
@@ -186,11 +190,7 @@ export default {
         title: value,
         isSelected: false,
       };
-      console.log(this.options);
-      // this.options = Object.assign(this.options, newOption);
-      // $.extend(this.options, newOption);
       this.options.unshift(newOption);
-      // this.selectedOptions.push(option);
       this.setOption(newOption);
     },
     deselectOption(option) {
