@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: add to own component -->
     <form v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
       <div
         v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
@@ -30,41 +29,44 @@
           />
         </div>
       </div>
-      <div
-        v-show="isOpen"
-        v-bind:class="[isOpen ? 'open' : '', primaryBorderColor]"
-        class="btn select-entry-details"
-        >
-        <!-- TODO: only when Mehrauswahl <button
-          class="btn"
-          v-bind:class="[primaryBorderColor, primaryBgColor]"
+      <transition name="bounce">
+        <div
+          v-show="isOpen"
+          v-bind:class="[isOpen ? 'open' : '', primaryBorderColor]"
+          class="btn select-entry-details"
           >
-          Eingabe bestätigen
-        </button> -->
-        <div class="results">
-          <div
-            class="result-header plain-s-book"
-            v-bind:class="[primaryColor]">
-            Vorschläge
+          <!-- TODO: only when Mehrauswahl <button
+            class="btn"
+            v-bind:class="[primaryBorderColor, primaryBgColor]"
+            >
+            Eingabe bestätigen
+          </button> -->
+          <div class="results">
+            <div
+              class="result-header plain-s-book"
+              v-bind:class="[primaryColor]">
+              Vorschläge
+            </div>
+            <ul class="result-list">
+              <!-- TODO: make dynamically-->
+              <li
+                v-for="option in filteredOptions"
+                :key="option.title"
+                v-bind:class="[primaryBorderColor]"
+                v-on:click="setOption(option)"
+                class="plain-m-bold"
+                >
+                {{ option.title }}
+                <IconComponent
+                  v-bind:name="getSelectedIcon(option)"
+                  :size="32"
+                  v-bind:color="primaryColor"
+                />
+              </li>
+            </ul>
           </div>
-          <ul class="result-list">
-            <!-- TODO: make dynamically-->
-            <li
-              v-for="option in filteredOptions"
-              :key="option.title"
-              v-bind:class="[primaryBorderColor]"
-              v-on:click="setOption(option)"
-              >
-              {{ option.title }}
-              <IconComponent
-                v-bind:name="getSelectedIcon(option)"
-                :size="32"
-                v-bind:color="primaryColor"
-              />
-            </li>
-          </ul>
         </div>
-      </div>
+      </transition>
     </form>
 </template>
 
