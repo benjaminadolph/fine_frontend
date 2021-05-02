@@ -33,6 +33,7 @@
         padding: 10px;
         border-top: solid 2px;
         border-color: inherit;
+        height: 0;
 
         .btn {
             width: 100%;
@@ -59,6 +60,10 @@
                     border-bottom: 0 none;
                 }
             }
+        }
+
+        &.open {
+            height: auto;
         }
     }
 }

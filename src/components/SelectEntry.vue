@@ -11,7 +11,7 @@
           v-show="!isOpen"
           v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
-          {{ buttonLabel }}
+          {{ getButtonLabel() }}
         </div>
         <input
           v-model="searchValue"
@@ -32,7 +32,7 @@
       </div>
       <div
         v-show="isOpen"
-        v-bind:class="[primaryBorderColor]"
+        v-bind:class="[isOpen ? 'open' : '', primaryBorderColor]"
         class="btn select-entry-details"
         >
         <button
@@ -112,12 +112,13 @@ export default {
       this.option.isSelected = false;
       this.option = option;
       this.option.isSelected = true;
+      this.isOpen = !this.isOpen;
       // unshift option to top if selected
       /* if (this.options.indexOf(option) > 0) {
         this.options.splice(this.options.indexOf(option), 1);
         this.options.unshift(option);
       } */
-      this.$refs.selectEntryInput.value = option.title;
+      // this.$refs.selectEntryInput.value = option.title;
     },
     getSelectedIcon(option) {
       let iconName = '';
@@ -127,6 +128,15 @@ export default {
         iconName = 'plus-full';
       }
       return iconName;
+    },
+    getButtonLabel() {
+      let buttonLabelText = '';
+      if (this.option.title) {
+        buttonLabelText = this.option.title;
+      } else {
+        buttonLabelText = this.buttonLabel;
+      }
+      return buttonLabelText;
     },
   },
   computed: {
