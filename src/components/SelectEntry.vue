@@ -35,12 +35,12 @@
         v-bind:class="[isOpen ? 'open' : '', primaryBorderColor]"
         class="btn select-entry-details"
         >
-        <button
+        <!-- TODO: only when Mehrauswahl <button
           class="btn"
           v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
           Eingabe bestätigen
-        </button>
+        </button> -->
         <div class="results">
           <div
             class="result-header plain-s-book"
@@ -113,6 +113,7 @@ export default {
       this.option = option;
       this.option.isSelected = true;
       this.isOpen = !this.isOpen;
+      this.searchValue = '';
       // unshift option to top if selected
       /* if (this.options.indexOf(option) > 0) {
         this.options.splice(this.options.indexOf(option), 1);
