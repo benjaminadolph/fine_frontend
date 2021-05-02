@@ -80,6 +80,7 @@
           v-for="option in selectedOptions"
           :key="option.title"
           class="button"
+          v-on:click="deselectOption(option)"
           v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
           <IconComponent
@@ -140,8 +141,11 @@ export default {
     setOption(option) {
       if (this.multiselect === true) {
         this.option = option;
-        this.option.isSelected = true;
-        if (!this.selectedOptions.includes(option)) {
+        if (this.selectedOptions.includes(option)) {
+          this.option.isSelected = false;
+          this.deselectOption(option);
+        } else {
+          this.option.isSelected = true;
           this.selectedOptions.push(option);
         }
       } else {
@@ -158,6 +162,11 @@ export default {
       } */
       // this.$refs.selectEntryInput.value = option.title;
     },
+    deselectOption(option) {
+      this.option = option;
+      this.option.isSelected = false;
+      this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+    },
     getSelectedIcon(option) {
       let iconName = '';
       if (option.isSelected) {
@@ -169,7 +178,7 @@ export default {
     },
     getButtonLabel() {
       let buttonLabelText = '';
-      if (this.option.title) {
+      if (this.option.title && !this.multiselect) {
         buttonLabelText = this.option.title;
       } else {
         buttonLabelText = this.buttonLabel;
