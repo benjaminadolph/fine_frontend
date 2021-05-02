@@ -9,10 +9,10 @@
 <script>
 
 export default {
-  name: 'Symptoms',
+  name: 'SymptomsEntry',
 };
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/components/symptoms.scss";
+  @import "@/assets/scss/components/symptoms-entry.scss";
 </style>

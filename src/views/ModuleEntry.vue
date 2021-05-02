@@ -9,7 +9,7 @@
     </div>
     <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
     <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=false />
-    <Symptoms v-if="module==='symptoms'" />
+    <SymptomsEntry v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>
       <li><router-link to="/module-entry/symptoms">Symptome</router-link></li>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Symptoms from '@/components/Symptoms.vue';
+import SymptomsEntry from '@/components/SymptomsEntry.vue';
 import Emotions from '@/components/Emotions.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
@@ -28,7 +28,7 @@ import Time from '@/components/Time.vue';
 export default {
   name: 'ModuleEntry',
   components: {
-    Symptoms,
+    SymptomsEntry,
     Emotions,
     IconComponent,
     Time,
