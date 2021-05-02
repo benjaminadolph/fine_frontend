@@ -5,6 +5,8 @@ $FINE_GREY_MEDIUM: #979797;
 $FINE_GREY_LIGHT: #DEDEDE;
 $FINE_WHITE: #FFFFFF;
 
+$FINE_BASE: $FINE_GREY_DARK;
+
 /* symptoms */
 $SYMPTOMS_PRIMARY: #E28BB2;
 $SYMPTOMS_9: #E597BA;
@@ -80,27 +82,27 @@ $MODULE_COLORS:
 
 @each $MODULE, $PRIMARY, $SOFT in $MODULE_COLORS {
   .#{$MODULE}-primary {
-    color: #{$PRIMARY};
+    color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft {
-    color: #{$SOFT};
+    color: #{$SOFT} !important;
   }
 
   .#{$MODULE}-primary-bgcolor {
-    background-color: #{$PRIMARY};
+    background-color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft-bgcolor {
-    background-color: #{$SOFT};
+    background-color: #{$SOFT} !important;
   }
 
   .#{$MODULE}-primary-border {
-    border-color: #{$PRIMARY};
+    border-color: #{$PRIMARY} !important;
   }
 
   .#{$MODULE}-soft-border {
-    border-color: #{$SOFT};
+    border-color: #{$SOFT} !important;
   }
 }
 

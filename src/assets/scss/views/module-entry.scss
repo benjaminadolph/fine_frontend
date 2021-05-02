@@ -2,11 +2,10 @@
 
 .module-entry-layer {
     @include grayWhiteBlur;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 10000;
-    position: fixed;
+    position: absolute;
     width: 100%;
-    overflow: hidden;
     padding: 20px;
     top: 30px;
 

@@ -7,6 +7,8 @@
         <Time />
       </div>
     </div>
+    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
+    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=false />
     <Symptoms v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>
@@ -20,6 +22,7 @@
 import Symptoms from '@/components/Symptoms.vue';
 import Emotions from '@/components/Emotions.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import SelectEntry from '@/components/SelectEntry.vue';
 import Time from '@/components/Time.vue';
 
 export default {
@@ -29,6 +32,7 @@ export default {
     Emotions,
     IconComponent,
     Time,
+    SelectEntry,
   },
   props: {
     module: String,
