@@ -4,11 +4,11 @@
       <div
         v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
         class="select-entry-input plain-m-bold"
-        v-on:click="toggleOpen()"
         >
         <div
           class="add-button"
           v-show="!isOpen"
+          v-on:click="toggleOpen()"
           v-bind:class="[primaryBorderColor, primaryBgColor]"
           >
           {{ getButtonLabel() }}
@@ -25,6 +25,7 @@
         <div v-show="isOpen" class="close-button">
           <IconComponent
             v-bind:name="'close-full'"
+            v-on:click="toggleOpen()"
             :size="32"
             v-bind:color="primaryColor"
           />
@@ -43,6 +44,19 @@
             Eingabe bestätigen
           </button> -->
           <div class="results">
+            <div
+              v-bind:class="[primaryBorderColor]"
+              v-on:click="setNewOption(currentValue)"
+              v-if="currentValue"
+              class="plain-m-bold current-value-option"
+              >
+              {{ currentValue }}
+              <IconComponent
+                v-bind:name="'plus-full'"
+                :size="32"
+                v-bind:color="primaryColor"
+              />
+            </div>
             <div
               class="result-header plain-s-book"
               v-bind:class="[primaryColor]">
@@ -111,9 +125,15 @@ export default {
   data() {
     return {
       isOpen: false,
-      option: Object,
+      option: [
+        {
+          isSelected: false,
+        },
+      ],
       isMultiselect: this.multiselect,
       selectedOptions: [],
+      selectEntryInput: '',
+      currentValueText: '',
       searchValue: '',
       options: [
         {
@@ -153,14 +173,25 @@ export default {
         this.option = option;
         this.option.isSelected = true;
         this.isOpen = !this.isOpen;
+        // unshift option to top if selected
+        if (this.options.indexOf(option) > 0) {
+          this.options.splice(this.options.indexOf(option), 1);
+          this.options.unshift(option);
+        }
       }
       this.searchValue = '';
-      // unshift option to top if selected
-      /* if (this.options.indexOf(option) > 0) {
-        this.options.splice(this.options.indexOf(option), 1);
-        this.options.unshift(option);
-      } */
-      // this.$refs.selectEntryInput.value = option.title;
+    },
+    setNewOption(value) {
+      const newOption = {
+        title: value,
+        isSelected: false,
+      };
+      console.log(this.options);
+      // this.options = Object.assign(this.options, newOption);
+      // $.extend(this.options, newOption);
+      this.options.unshift(newOption);
+      // this.selectedOptions.push(option);
+      this.setOption(newOption);
     },
     deselectOption(option) {
       this.option = option;
@@ -214,6 +245,13 @@ export default {
         ));
       }
       return tempOptions;
+    },
+    currentValue() {
+      let currentValueText = '';
+      if (this.searchValue !== '' && this.searchValue) {
+        currentValueText = this.searchValue;
+      }
+      return currentValueText;
     },
   },
 };

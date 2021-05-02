@@ -44,20 +44,19 @@
             padding-bottom: 5px;
             margin-top: 20px;
         }
-    
-        .result-list {
-            li {
-                padding: 15px 0;
-                border-bottom: solid 1px;
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                cursor: pointer;
-    
-                &:last-child {
-                    border-bottom: 0 none;
-                }
+
+        .current-value-option, 
+        .result-list li {
+            padding: 15px 0;
+            border-bottom: solid 1px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            &:last-child {
+                border-bottom: 0 none;
             }
         }
     }
