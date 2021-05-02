@@ -10,5 +10,14 @@ export default createStore({
     auth: Auth,
     post: Post,
   },
-  plugins: [createPersistedState()],
+  /* plugins: [createPersistedState()], */
+  plugins: [createPersistedState({
+    key: 'vuex',
+    reducer(val) {
+      if (val.auth.token === '') { // check if usertoken is there, if not delete storage
+        return {};
+      }
+      return val;
+    },
+  })],
 });
