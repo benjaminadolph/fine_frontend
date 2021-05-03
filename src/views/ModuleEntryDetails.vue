@@ -1,10 +1,19 @@
 <template>
   <div class="module-entry-layer">
     <div class="module-entry-header">
+      <div class="close">
+        <IconComponent
+            v-bind:name="'close-full'"
+            v-on:click="closeEntryDetailis()"
+            :size="32"
+            v-bind:color="module + '-primary'"
+          />
+      </div>
       <div class="text">
         <h1 v-bind:class="module + '-primary'">Details</h1>
         <Time />
       </div>
+      <div class="save-entry"></div>
     </div>
     <div class="media-entry">
       <ul class="tabs">
@@ -75,7 +84,9 @@ export default {
         this.tabs[key] = false;
       });
       this.tabs[tabName] = true;
-      // document.getElementById(tab).style.display = 'block';
+    },
+    closeEntryDetails() {
+      router.go(-1);
     },
   },
   computed: {

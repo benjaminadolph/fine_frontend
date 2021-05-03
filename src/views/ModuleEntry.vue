@@ -7,14 +7,13 @@
         <Time />
       </div>
     </div>
-    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
-    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=false />
     <SymptomsEntry v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
     <ul>
       <li><router-link to="/module-entry/symptoms">Symptome</router-link></li>
       <li><router-link to="/module-entry/emotions">Feelings</router-link></li>
     </ul>
+    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
   </div>
 </template>
 
