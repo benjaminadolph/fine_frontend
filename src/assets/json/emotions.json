@@ -1,12 +1,12 @@
 { 
     "emotions": [
         {
-            "id*": 1,
-            "userId*": 2,
-            "date*": "2021-05-03T08:09:42+00:00",
-            "module*": "emotions",
+            "id": 1,
+            "userId": 2,
+            "date": "2021-05-03T08:09:42+00:00",
+            "module": "emotions",
             "intensity": 2,
-            "title*": "Traurigkeit",
+            "title": "Traurigkeit",
             "entry-details": {
                 "photos": [
                     "https://picsum.photos/200/300",

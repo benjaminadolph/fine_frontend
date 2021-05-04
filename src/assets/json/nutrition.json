@@ -1,12 +1,12 @@
 { 
     "nutrition": [
         {
-            "id*": 1,
-            "userId*": 1,
-            "date*": "2021-05-03T08:09:42+00:00",
-            "module*": "nutrition",
+            "id": 1,
+            "userId": 2,
+            "date": "2021-05-03T08:09:42+00:00",
+            "module": "nutrition",
             "compatibility": 2,
-            "food*": [
+            "food": [
                 {
                     "title": "Pizza",
                     "ingredients": [
@@ -38,6 +38,29 @@
                     "Übelkeit",
                     "Kopfschmerzen"
                 ]
+            }
+        },
+        {
+            "id": 2,
+            "userId": 2,
+            "date": "2021-05-04T08:09:42+00:00",
+            "module": "nutrition",
+            "compatibility": 2,
+            "food": [
+                {
+                    "title": "Salat",
+                    "ingredients": {}
+                },
+                {
+                    "title": "Brot mit Wurst und Käse",
+                    "ingredients": {}
+                }
+            ],
+            "entry-details": {
+                "photos": [],
+                "audio": [],
+                "detailsText": "",
+                "tags": []
             }
         }
     ]

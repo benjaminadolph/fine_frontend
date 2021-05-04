@@ -1,42 +1,52 @@
 { 
     "user": [
         {
-            "id*": 1, 
-            "lastLogin*": "2021-05-03T08:09:42+00:00",
-            "firstName*": "Hans",
-            "lastName*": "Peter",
-            "gender*": "male",
-            "birthDate*": "2000-03-01",
-            "email*": "hans.peter@gmail.de",
-            "password*": "123",
-            "modulesSelected*": [
-                "emotions", "symptoms"
+            "id": 1, 
+            "lastLogin": "2021-05-03T08:09:42+00:00",
+            "firstName": "Hans",
+            "lastName": "Peter",
+            "gender": "male",
+            "birthDate": "2000-03-01",
+            "email": "hans.peter@gmail.de",
+            "password": "123",
+            "modulesSelected": [
+                "sleep", "symptoms", "emotions"
             ],
-            "emotions": [
-                33, 222
-            ],
+            "emotions": [],
             "nutrition": [],
-            "symptoms": [],
-            "activity": []
+            "symptoms": [
+                1,2
+            ],
+            "activity": [],
+            "sleep": [
+                1
+            ]
         },
         {
-            "id*": 2, 
-            "lastLogin*": "2021-05-03T08:09:42+00:00",
-            "firstName*": "Hannelore",
-            "lastName*": "Hannsen",
-            "gender*": "female",
-            "birthDate*": "1991-05-03",
-            "email*": "hannelore@hannsen.de",
-            "password*": "123",
-            "modulesSelected*": [
+            "id": 2, 
+            "lastLogin": "2021-05-03T08:09:42+00:00",
+            "firstName": "Hannelore",
+            "lastName": "Hannsen",
+            "gender": "female",
+            "birthDate": "1991-05-03",
+            "email": "hannelore@hannsen.de",
+            "password": "123",
+            "modulesSelected": [
                 "symptoms", "nutrition", "sleep", "activity", "emotions"
             ],
             "emotions": [
-                33, 222
+                1
             ],
-            "nutrition": [],
-            "symptoms": [],
-            "activity": []
+            "nutrition": [
+                1,2
+            ],
+            "symptoms": [
+                3,4
+            ],
+            "activity": [
+                1
+            ],
+            "sleep": []
         }
     ]
 }

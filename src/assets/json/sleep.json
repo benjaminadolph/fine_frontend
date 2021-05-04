@@ -1,12 +1,12 @@
 { 
     "sleep": [
         {
-            "id*": 1,
-            "userId*": 1,
-            "date*": "2021-05-03T08:09:42+00:00",
-            "module*": "sleep",
+            "id": 1,
+            "userId": 1,
+            "date": "2021-05-03T08:09:42+00:00",
+            "module": "sleep",
             "intensity": 5,
-            "sleepstart*": "2021-05-03T08:09:42+00:00",
+            "sleepstart": "2021-05-03T08:09:42+00:00",
             "sleepend": "2021-05-03T08:09:42+00:00",
             "entry-details": {
                 "photos": [
