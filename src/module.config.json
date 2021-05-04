@@ -1,39 +1,29 @@
 { 
     "symptoms": {
-        "icon": "@/assets/images/symptoms_icon_l.svg",
         "heading": "Symptome",
-        "font_size": "22pt",
-        "color": "$SYMPTOMS_PRIMARY",
         "entry": {
             "category": [
                 "Kopfschmerzen",
                 "Schmerzen",
                 "Magen und Darm"
             ],
-            "background_color": "$SYMPTOMS_SOFT",
             "label": "Migräne",
             "date": "28.04.2021",
             "time": "15:45 Uhr"
         },
         "button": {
-            "button_color": "$SYMPTOMS_PRIMARY",
-            "button_label": "Symptome hinzufügen"
+            "buttonLabel": "Symptome hinzufügen"
         }
     },
     "emotions": {
-        "icon": "@/assets/images/emotions_icon_l.svg",
         "heading": "Gefühle",
-        "font_size": "22pt",
-        "color": "$EMOTIONS_PRIMARY",
         "entry": {
-            "background_color": "$EMOTIONS_SOFT",
             "label": "Wut",
             "date": "09.12.2020",
             "time": "19 Uhr"
         },
         "button": {
-            "button_color": "$EMOTIONS_PRIMARY",
-            "button_label": "Gefühle hinzufügen"
+            "buttonLabel": "Gefühle hinzufügen"
         }
     }
 }
