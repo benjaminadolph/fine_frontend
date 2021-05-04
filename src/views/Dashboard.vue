@@ -5,7 +5,7 @@
       <div class="time plain-s-book fine-grey-medium">{{ date }}</div>
     </header>
     <SmartStack />
-    <ModuleTeaser :module="'emotions'" />
+    <ModuleTeaser :module="'symptoms'" />
   </div>
 </template>
 
