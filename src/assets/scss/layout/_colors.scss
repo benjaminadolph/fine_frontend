@@ -1,8 +1,11 @@
 /* basic colors */
 $FINE_PRIMARY: #1AE2C5;
 $FINE_GREY_DARK: #434343;
-$FINE_GREY_LIGHT: #979797;
+$FINE_GREY_MEDIUM: #979797;
+$FINE_GREY_LIGHT: #DEDEDE;
 $FINE_WHITE: #FFFFFF;
+
+$FINE_BASE: $FINE_GREY_DARK;
 
 /* symptoms */
 $SYMPTOMS_PRIMARY: #E28BB2;
@@ -42,8 +45,64 @@ $SLEEP_PRIMARY: #706BE5;
 $SLEEP_SOFT: #EEEDFF;
 
 /* activity */
-$MEASURE_PRIMARY: #4EC0C1;
-$MEASURE_SOFT: #EDF9F9;
+$MOVEMENT_PRIMARY: #4EC0C1;
+$MOVEMENT_SOFT: #EDF9F9;
+
+/* countermeasures */
+$COUNTERMEASURES_PRIMARY: #4EC0C1;
+$COUNTERMEASURES_SOFT: #F4FFFF;
 
 $BACKGROUND_COLOR: #EFF0F2;
 $TEXT_BASE_COLOR: $FINE_GREY_DARK;
+
+.fine-grey-dark {
+    color: $FINE_GREY_DARK;
+}
+.fine-grey-medium {
+    color: $FINE_GREY_MEDIUM;
+}
+
+.fine-grey-light {
+    color: $FINE_GREY_LIGHT;
+}
+
+.fine-white {
+    color: $FINE_WHITE;
+}
+
+$MODULE_COLORS:
+    "fine" $FINE_PRIMARY $FINE_PRIMARY,
+    "base" $FINE_GREY_DARK $FINE_GREY_LIGHT,
+    "symptoms" $SYMPTOMS_PRIMARY $SYMPTOMS_SOFT,
+    "nutrition" $NUTRITION_PRIMARY $NUTRITION_SOFT,
+    "movement" $MOVEMENT_PRIMARY $MOVEMENT_SOFT,
+    "emotions" $EMOTIONS_PRIMARY $EMOTIONS_SOFT,
+    "countermeasures" $COUNTERMEASURES_PRIMARY $COUNTERMEASURES_SOFT,
+    "sleep" $SLEEP_PRIMARY $SLEEP_SOFT;
+
+@each $MODULE, $PRIMARY, $SOFT in $MODULE_COLORS {
+  .#{$MODULE}-primary {
+    color: #{$PRIMARY} !important;
+  }
+
+  .#{$MODULE}-soft {
+    color: #{$SOFT} !important;
+  }
+
+  .#{$MODULE}-primary-bgcolor {
+    background-color: #{$PRIMARY} !important;
+  }
+
+  .#{$MODULE}-soft-bgcolor {
+    background-color: #{$SOFT} !important;
+  }
+
+  .#{$MODULE}-primary-border {
+    border-color: #{$PRIMARY} !important;
+  }
+
+  .#{$MODULE}-soft-border {
+    border-color: #{$SOFT} !important;
+  }
+}
+

@@ -1,0 +1,22 @@
+@import '../init';
+
+.module-entry-layer {
+    @include grayWhiteBlur;
+    min-height: 100vh;
+    z-index: 10000;
+    position: absolute;
+    width: 100%;
+    padding: 20px;
+    top: 30px;
+
+    .module-entry-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .text {
+            margin-left: 10px;
+        }
+    }
+}

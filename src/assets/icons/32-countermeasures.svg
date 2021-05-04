@@ -1,0 +1,11 @@
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.0061 3.05972C22.3228 1.74176 24.1092 1.00086 25.9722 1C27.8353 0.999143 29.6223 1.7384 30.9403 3.05515C32.2582 4.3719 32.9991 6.15828 33 8.0213C33.0009 9.88432 32.2616 11.6714 30.9449 12.9893L12.9143 30.9925C11.591 32.2776 9.81527 32.9904 7.97073 32.977C6.12619 32.9635 4.36103 32.2248 3.05671 30.9204C1.75239 29.6161 1.01367 27.851 1.00019 26.0064C0.986707 24.1619 1.69955 22.3861 2.98467 21.0629L21.0061 3.05972Z" stroke="#434343" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
+<path d="M6.20312 18.3107L15.8676 27.9752" stroke="#434343" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
+<path d="M18.1716 5.89417L27.8361 15.5586" stroke="#434343" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
+<circle cx="28" cy="10" r="1" transform="rotate(-180 28 10)" fill="#434343"/>
+<circle cx="28" cy="6" r="1" transform="rotate(-180 28 6)" fill="#434343"/>
+<circle cx="24" cy="6" r="1" transform="rotate(-180 24 6)" fill="#434343"/>
+<circle cx="6" cy="24" r="1" fill="#434343"/>
+<circle cx="6" cy="28" r="1" fill="#434343"/>
+<circle cx="10" cy="28" r="1" fill="#434343"/>
+</svg>

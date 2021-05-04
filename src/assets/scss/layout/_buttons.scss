@@ -14,6 +14,6 @@
     border-radius: $BASE_BORDER_RADIUS;
 }
 
-.btn-primary, button {
+.btn-primary, button, .button {
     @include button(false);
 }

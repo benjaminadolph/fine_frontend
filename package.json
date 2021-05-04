@@ -2,14 +2,25 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "icons": {
+      "path": "src/assets/icons/",
+      "replaceColor": "#434343"
+    }
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "icons:build-sprite": "svg-sprite --s --symbol-dest=$npm_package_config_icons_path/icon-sprite/ --symbol-prefix=.%s --symbol-sprite=sprite.css.svg $npm_package_config_icons_path/*.svg",
+    "icons:replace-color": "replace-in-file /$npm_package_config_icons_replaceColor/g 'currentColor' $npm_package_config_icons_path/icon-sprite/sprite.css.svg --isRegex",
+    "icons": "npm run icons:build-sprite && npm run icons:replace-color"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "replace-in-file": "^6.2.0",
+    "svg-sprite": "^1.5.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.5",
     "vuex": "^4.0.0-0",
