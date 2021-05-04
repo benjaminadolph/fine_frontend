@@ -2,15 +2,15 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import User from './modules/user';
 import Auth from './modules/auth';
-import module from './modules/module';
 import Post from './modules/post';
+import Module from './modules/module';
 
 export default createStore({
   modules: {
     user: User,
     auth: Auth,
-    module,
     post: Post,
+    module: Module,
   },
   plugins: [createPersistedState()],
 });
