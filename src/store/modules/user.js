@@ -26,9 +26,9 @@ export default ({
     },
   },
   actions: {
-    USER_REQUEST: async ({ commit, dispatch }, userid) => {
+    USER_REQUEST: async ({ commit, dispatch }, id) => {
       commit('USER_REQUEST');
-      await axios.get(`http://localhost:3000/api/user/${userid}`)
+      await axios.get(`http://localhost:3000/api/user/${id}`)
         .then((resp) => {
           commit('USER_SUCCESS', resp);
         })

@@ -37,6 +37,7 @@ export default {
     this.$store.dispatch('GET_ALL_POSTS')
       .then(() => {
         this.posts = this.getUserPosts;
+        console.log('mounted');
       })
       .catch((err) => {
         console.log(err);
