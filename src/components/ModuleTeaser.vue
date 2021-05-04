@@ -10,10 +10,9 @@
     </header>
     <LastEntry :module="module" />
     <SelectEntry
-      :module="module"
-      buttonLabel="Symptome hinzufügen"
-      :multiselect="true"
-    />
+    :module="module"
+    :buttonLabel="getButtonLabel(module)"
+    :multiselect="true" />
   </div>
 </template>
 
@@ -44,6 +43,15 @@ export default {
         moduleName = 'Gefühle';
       }
       return moduleName;
+    },
+    getButtonLabel(module) {
+      let buttonLabel = 'Button Label';
+      if (module === 'symptoms') {
+        buttonLabel = 'Symptome hinzufügen';
+      } else if (module === 'emotions') {
+        buttonLabel = 'Gefühl hinzufügen';
+      }
+      return buttonLabel;
     },
   },
 };
