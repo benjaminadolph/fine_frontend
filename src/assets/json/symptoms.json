@@ -1,0 +1,94 @@
+{ 
+    "symptoms": [
+        {
+            "id*": 1,
+            "userId*": 1,
+            "date*": "2021-05-03T08:09:42+00:00",
+            "module*": "symptoms",
+            "intensity": 5,
+            "category*": 1,
+            "location": {
+                "x": 333,
+                "y": 200
+            },
+            "entry-details": {
+                "photos": [
+                    "https://picsum.photos/200/300",
+                    "https://picsum.photos/200/300"
+                ],
+                "audio": [
+                    "https://urltoaudiofile"
+                ],
+                "detailsText": "Hier steht mein Detailtext, den ich eingegeben habe",
+                "tags": [
+                    "Übelkeit",
+                    "Kopfschmerzen",
+                    "Schnappfinger"
+                ]
+            }
+        },
+        {
+            "id*": 2,
+            "userId*": 1,
+            "date*": "2021-05-03T08:09:42+00:00",
+            "module*": "symptoms",
+            "intensity": 2,
+            "category*": 3,
+            "location": {
+                "x": 333,
+                "y": 200
+            },
+            "entry-details": {
+                "photos": [
+                    "https://picsum.photos/200/300"
+                ],
+                "audio": [],
+                "detailsText": "Blabffdsaj",
+                "tags": [
+                    "Schnappfinger"
+                ]
+            }
+        },
+        {
+            "id*": 3,
+            "userId*": 2,
+            "date*": "2021-05-03T08:09:42+00:00",
+            "module*": "symptoms",
+            "intensity": 2,
+            "category*": 2,
+            "location": {
+                "x": 333,
+                "y": 200
+            },
+            "entry-details": {
+                "photos": [
+                    "https://picsum.photos/200/300",
+                    "https://picsum.photos/200/300",
+                    "https://picsum.photos/200/300"
+                ],
+                "audio": [],
+                "detailsText": "Details hier stehen",
+                "tags": []
+            }
+        },
+        {
+            "id*": 4,
+            "userId*": 2,
+            "date*": "2021-05-03T08:09:42+00:00",
+            "module*": "symptoms",
+            "intensity": 2,
+            "category*": 2,
+            "location": {
+                "x": 333,
+                "y": 200
+            },
+            "entry-details": {
+                "photos": [],
+                "audio": [],
+                "detailsText": "",
+                "tags": []
+            }
+        }
+    ]
+   
+}

@@ -1,0 +1,25 @@
+{ 
+    "symptomsCategories": [
+        {
+            "id": 1,
+            "userIds": [
+                1, 2
+            ],
+            "title": "Schmerzen"
+        },
+        {
+            "id": 2,
+            "userIds": [
+                2
+            ],
+            "title": "Migräne"
+        },
+        {
+            "id": 3,
+            "userIds": [
+                1
+            ],
+            "title": "Akne"
+        }
+    ]
+}
