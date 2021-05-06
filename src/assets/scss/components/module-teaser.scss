@@ -2,22 +2,18 @@
 
 .component {
     @include boxshadow();
-    padding: 2em;
+    padding: 1em;
     background-color: white;
     width: 90%;
-    margin: 1.5em auto 1.5em auto;
+    margin: 1em;
     box-sizing: inherit;
 
-    .top {
+    .module-header {
         display: flex;
         flex-direction: row;
         width: 90%;
 
         h2 {
-            color: $SYMPTOMS_PRIMARY;
-            font-size: 22pt;
-            font-weight: medium;
-            letter-spacing: 0px;
             margin: 0.5em;
         }
     }
