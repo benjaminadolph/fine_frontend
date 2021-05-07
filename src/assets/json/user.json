@@ -17,7 +17,9 @@
             ],
             "nutrition": [],
             "symptoms": [],
-            "activity": []
+            "symptomsCategories": [],
+            "activity": [],
+            "sleep": []
         },
         {
             "id*": 2, 
@@ -36,6 +38,7 @@
             ],
             "nutrition": [],
             "symptoms": [],
+            "symptomsCategories": [],
             "activity": []
         }
     ]

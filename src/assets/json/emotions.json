@@ -7,22 +7,19 @@
             "module*": "emotions",
             "intensity": 2,
             "title*": "Traurigkeit",
-            "entry-details": {
-                "photos": [
-                    "https://picsum.photos/200/300",
-                    "https://picsum.photos/200/300"
-                ],
-                "audio": [
-                    "https://urltoaudiofile",
-                    "https://urltoaudiofile"
-                ],
-                "detailsText": "Hier steht mein Detailtext, den ich eingegeben habe",
-                "tags": [
-                    "Übelkeit",
-                    "Kopfschmerzen",
-                    "Schnappfinger"
-                ]
-            }
+            "photos": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300"
+            ],
+            "audio": [
+                "https://urltoaudiofile",
+                "https://urltoaudiofile"
+            ],
+            "detailsText": "Hier steht mein Detailtext, den ich eingegeben habe",
+            "tags": [
+                "Übelkeit",
+                "Kopfschmerzen"
+            ]
         }
     ]
 }
