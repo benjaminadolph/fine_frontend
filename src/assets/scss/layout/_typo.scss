@@ -1,12 +1,14 @@
 @import url("https://cloud.typography.com/6993774/6173032/css/fonts.css");
 $SCALE_FACTOR: 1.25;
 $BASE_FONT_SIZE: 11px;
+// TODO: use math.pow
 
 * {
     font-family: "Gotham SSm A", "Gotham SSm B";
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    // TODO: optimize for legibility
 }
 
 @mixin plain-l-medium {

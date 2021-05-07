@@ -14,13 +14,10 @@
             ],
             "emotions": [],
             "nutrition": [],
-            "symptoms": [
-                1,2
-            ],
+            "symptoms": [],
+            "symptomsCategories": [],
             "activity": [],
-            "sleep": [
-                1
-            ]
+            "sleep": []
         },
         {
             "id": 2, 
@@ -37,16 +34,10 @@
             "emotions": [
                 1
             ],
-            "nutrition": [
-                1,2
-            ],
-            "symptoms": [
-                3,4
-            ],
-            "activity": [
-                1
-            ],
-            "sleep": []
+            "nutrition": [],
+            "symptoms": [],
+            "symptomsCategories": [],
+            "activity": []
         }
     ]
 }
