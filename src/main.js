@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import panZoom from 'vue-panzoom';
 import App from './App.vue';
 import store from './store';
 import router from './router';
@@ -12,5 +13,5 @@ if (token) {
   axios.defaults.headers.common.Authorization = token;
 }
 
-createApp(App).use(router).use(store)
+createApp(App).use(router).use(store).use(panZoom)
   .mount('#app');

@@ -1,17 +1,17 @@
 <template>
     <span
         :class="['icon-wrapper', color]"
-        :style="{ width: size + 'px', height: size + 'px', color: color}"
+        :style="{ width: sizeWidth + 'px', height: size + 'px', color: color}"
         @click="$emit('click')"
     >
         <!-- Icon can't be resized -->
-        <svg v-if="strictMode" xmlns="http://www.w3.org/2000/svg" :width="size + 'px'" :height="size + 'px'">
+        <svg v-if="strictMode" xmlns="http://www.w3.org/2000/svg" :width="sizeWidth + 'px'" :height="size + 'px'">
             <use
                 x="0"
                 y="0"
-                :width="size + 'px'"
+                :width="sizeWidth + 'px'"
                 :height="size + 'px'"
-                :viewBox="'0 0 ' + size + ' ' + size"
+                :viewBox="'0 0 ' + sizeWidth + ' ' + size"
                 :href="require('@/assets/icons/icon-sprite/sprite.css.svg') + '#' + id"
             />
         </svg>
@@ -28,6 +28,9 @@ export default {
     size: {
       type: Number,
       default: 16,
+    },
+    width: {
+      type: Number,
     },
     name: {
       type: String,
@@ -49,6 +52,13 @@ export default {
         return `${this.size}-${this.name}`;
       }
       return this.name;
+    },
+    sizeWidth() {
+      let _sizeWidth = this.size;
+      if (this.width) {
+        _sizeWidth = this.width;
+      }
+      return _sizeWidth;
     },
   },
 };
