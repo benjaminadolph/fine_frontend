@@ -5,4 +5,10 @@
     border: solid 1px $SYMPTOMS_PRIMARY;
     overflow: hidden;
     height: 60vh;
+    position: relative;
+
+    .vue-pan-zoom-scene {
+        display: flex;
+        justify-content: center;
+    }
 }

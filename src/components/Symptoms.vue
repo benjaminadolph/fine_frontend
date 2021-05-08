@@ -1,32 +1,25 @@
 <template>
-    <div>
-      <SelectEntry module='symptoms' buttonLabel="Kategorie wählen" :multiselect=false />
-      <panZoom
-        id="symptoms-figure-container"
-        v-on:click='addEntry($event)'
-        :options="{minZoom: 0.5, maxZoom: 5, center: true}" >
-          <IconComponent
-            v-bind:name="'woman-front'"
-            :size="653"
-            :width="227"
-            v-bind:color="primaryColor"
-          />
-        <!-- <img src="@/assets/images/woman-front.svg" /> -->
-      </panZoom>
-      <router-link to="/module-entry/symptoms/33/details">
-          <IconComponent name="plus-full" :size="50" />
-      </router-link>
-    </div>
+    <panZoom
+      id="symptoms-figure-container"
+      v-on:click='addEntry($event)'
+      :options="{minZoom: 0.5, maxZoom: 5, center: true}" >
+        <IconComponent
+          v-bind:name="'woman-front'"
+          :size="653"
+          :width="227"
+          v-bind:color="primaryColor"
+        />
+      <!-- <img src="@/assets/images/woman-front.svg" /> -->
+    </panZoom>
 </template>
 
 <script>
-import SelectEntry from '@/components/SelectEntry.vue';
+// https://github.com/thecodealer/vue-panzoom
 import IconComponent from '@/components/IconComponent.vue';
 
 export default {
-  name: 'SymptomsEntry',
+  name: 'Symptoms',
   components: {
-    SelectEntry,
     IconComponent,
   },
   methods: {
@@ -50,6 +43,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-  @import "@/assets/scss/components/symptoms-entry.scss";
+<style lang="scss">
+  @import "@/assets/scss/components/symptoms.scss";
 </style>

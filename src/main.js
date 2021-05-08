@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import panZoom from 'vue-panzoom';
 import Vue3TouchEvents from 'vue3-touch-events';
 import App from './App.vue';
 import store from './store';
@@ -13,5 +14,9 @@ if (token) {
   axios.defaults.headers.common.Authorization = token;
 }
 
-createApp(App).use(router).use(store).use(Vue3TouchEvents)
+createApp(App)
+  .use(router)
+  .use(store)
+  .use(panZoom)
+  .use(Vue3TouchEvents)
   .mount('#app');
