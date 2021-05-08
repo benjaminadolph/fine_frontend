@@ -1,0 +1,22 @@
+{ 
+    "modules": {
+        "symptoms": {
+            "icon": "@/assets/images/symptoms_icon_l.svg",
+            "heading": "Symptome",
+            "color": "$SYMPTOMS_PRIMARY",
+            "last-entry-color": "$SYMPTOMS_SOFT",
+            "entry": {
+                "category": [
+                    "Kopfschmerzen",
+                    "Schmerzen",
+                    "Magen und Darm"
+                ],
+                "label": "string??",
+                "date": "dd-mm-yyyy"
+            },
+            "button-color": "$SYMPTOMS_PRIMARY",
+            "button-text": "Wirkung bewerten",
+            "button-toggle": "entsprechend komponente öffnen?"
+        }
+    }
+}
