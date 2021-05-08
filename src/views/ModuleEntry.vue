@@ -1,5 +1,8 @@
 <template>
-  <div class="module-entry-layer" v-touch:swipe.left="swipeHandler">
+  <div
+    class="module-entry-layer"
+    v-touch:swipe.left="swipeHandler"
+    v-touch:swipe.right="swipeHandlerRight">
     <div class="module-entry-header">
       <IconComponent v-bind:name="module" :size="32" v-bind:color="module + '-primary'" />
       <div class="text">
@@ -50,6 +53,10 @@ export default {
     swipeHandler() {
       console.log('hey');
       this.$router.push('/module-entry/emotions');
+    },
+    swipeHandlerRight() {
+      console.log('hey');
+      this.$router.push('/module-entry/symptoms');
     },
   },
 };
