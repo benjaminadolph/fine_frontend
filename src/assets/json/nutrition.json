@@ -1,0 +1,42 @@
+{ 
+    "nutrition": [
+        {
+            "id": 1,
+            "userId": 2,
+            "date": "2021-05-03T08:09:42+00:00",
+            "module": "nutrition",
+            "compatibility": 2,
+            "food": [
+                {
+                    "title": "Pizza",
+                    "ingredients": [
+                        "Hefeteig",
+                        "Tomaten",
+                        "Mozarella"
+                    ]
+                },
+                {
+                    "title": "Apfelschorle",
+                    "ingredients": {}
+                },
+                {
+                    "title": "Brot mit Wurst und Käse",
+                    "ingredients": {}
+                }
+            ],
+            "photos": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300"
+            ],
+            "audio": [
+                "https://urltoaudiofile",
+                "https://urltoaudiofile"
+            ],
+            "detailsText": "Hier steht mein Detailtext, den ich eingegeben habe",
+            "tags": [
+                "Übelkeit",
+                "Kopfschmerzen"
+            ]
+        }
+    ]
+}

@@ -3,9 +3,8 @@
 .lastentry {
     box-shadow: none;
     padding: 20px;
-    background-color: $SYMPTOMS_SOFT;
     width: 100%;
-    margin: 0;
+    margin-bottom: 1em;
 
     header {
         font-size: 13pt;
@@ -15,8 +14,6 @@
     }
     
     #label {
-        font-size: 13pt;
-        font-weight: bold;
         margin: 0;
         text-align: left;
     }

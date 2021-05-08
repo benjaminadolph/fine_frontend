@@ -1,0 +1,26 @@
+{ 
+    "activity": [
+        {
+            "id": 1,
+            "userId": 2,
+            "date": "2021-05-03T08:09:42+00:00",
+            "module": "activity",
+            "intensity": 2,
+            "title": "Laufen",
+            "duration": 30,
+            "photos": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300"
+            ],
+            "audio": [
+                "https://urltoaudiofile",
+                "https://urltoaudiofile"
+            ],
+            "detailsText": "Hier steht mein Detailtext, den ich eingegeben habe",
+            "tags": [
+                "Übelkeit",
+                "Kopfschmerzen"
+            ]
+        }
+    ]
+}

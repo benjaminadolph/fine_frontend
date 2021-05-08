@@ -2,8 +2,8 @@
   <div class="component">
         <img src="@/assets/images/fine_smile.svg" />
         <header>
-          <p id="bold">Hallo Eva!</p>
-          <p>Hier könnte eine Nachricht stehen</p>
+          <p class="plain-m-bold">Hallo Eva!</p>
+          <p class="plain-m-book">Hier könnte eine Nachricht stehen</p>
         </header>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script>
 
 export default {
-  name: 'Widget',
+  name: 'SmartStack',
   data() {
     return {};
   },
@@ -20,5 +20,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/components/widget.scss";
+  @import "@/assets/scss/components/smart-stack.scss";
 </style>
