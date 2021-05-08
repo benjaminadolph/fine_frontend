@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import Vue3TouchEvents from 'vue3-touch-events';
 import App from './App.vue';
 import store from './store';
 import router from './router';
@@ -12,5 +13,5 @@ if (token) {
   axios.defaults.headers.common.Authorization = token;
 }
 
-createApp(App).use(router).use(store)
+createApp(App).use(router).use(store).use(Vue3TouchEvents)
   .mount('#app');
