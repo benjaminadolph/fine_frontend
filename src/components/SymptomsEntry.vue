@@ -3,7 +3,7 @@
       <SelectEntry module='symptoms' buttonLabel="Kategorie wählen" :multiselect=false />
       <div
         id="symptoms-figure-container"
-        v-touch:tap='addEntry'
+        v-touch:press="addEntry"
       >
         <panZoom
           id="figure"
@@ -17,6 +17,9 @@
           />
         </panZoom>
       </div>
+      <div v-show="entryDetails" >
+          <ModuleEntryDetails module="symptoms" />
+      </div>
       <router-link to="/module-entry/symptoms/33/details">
           <IconComponent name="plus-full" :size="50" />
       </router-link>
@@ -26,12 +29,19 @@
 <script>
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import ModuleEntryDetails from '@/views/ModuleEntryDetails.vue';
 
 export default {
   name: 'SymptomsEntry',
   components: {
     SelectEntry,
     IconComponent,
+    ModuleEntryDetails,
+  },
+  data() {
+    return {
+      entryDetails: false,
+    };
   },
   methods: {
     addEntry(mouseEvent) {
@@ -52,12 +62,14 @@ export default {
         circle.setAttributeNS(null, 'cy', y);
         circle.setAttributeNS(null, 'r', 10);
         circle.setAttributeNS(null, 'style', 'fill: currentColor;');
-        circle.setAttributeNS(null, 'onClick', 'console.log(\'hello\');');
+        circle.setAttributeNS(null, 'onClick', 'changeColor();');
         circle.setAttributeNS(null, 'id', `circle-${x}-${y}`);
         target.appendChild(circle);
       }
-      
-
+      if (target instanceof SVGCircleElement) {
+        target.setAttributeNS(null, 'style', 'fill: blue;');
+        this.entryDetails = true;
+      }
       // const panContainer = document.getElementsByClassName('vue-pan-zoom-scene')[0];
       /* const div = document.createElement('div');
       div.classList.add('entry-circle');
