@@ -72,3 +72,7 @@ npm run lint --fix
 The Icon Sprite will be generated with the module svg-sprite. It replaces the default icon color with currentColor, so it can be styled inside the code. All svg icons must be named by 'size'-'name' and placed inside src/assets/icons.
 To generate a sprite run (inside the fine_frontend-Folder)
 `npm run icons`
+
+# Touch Events
+Library: https://github.com/robinrodricks/vue3-touch-events#readme
+
