@@ -20,9 +20,6 @@
       <div v-show="entryDetails" >
           <ModuleEntryDetails module="symptoms" />
       </div>
-      <router-link to="/module-entry/symptoms/33/details">
-          <IconComponent name="plus-full" :size="50" />
-      </router-link>
     </div>
 </template>
 
