@@ -6,7 +6,7 @@
             "date": "2021-05-03T08:09:42+00:00",
             "module": "symptoms",
             "intensity": 5,
-            "symptomsCategory*": 1,
+            "symptomsCategory": 1,
             "location": {
                 "x": 333,
                 "y": 200
@@ -31,7 +31,7 @@
             "date": "2021-05-03T08:09:42+00:00",
             "module": "symptoms",
             "intensity": 2,
-            "symptomsCategory*": 3,
+            "symptomsCategory": 3,
             "location": {
                 "x": 333,
                 "y": 200
@@ -51,7 +51,7 @@
             "date": "2021-05-03T08:09:42+00:00",
             "module": "symptoms",
             "intensity": 2,
-            "symptomsCategory*": 2,
+            "symptomsCategory": 2,
             "location": {
                 "x": 333,
                 "y": 200
@@ -71,7 +71,7 @@
             "date": "2021-05-03T08:09:42+00:00",
             "module": "symptoms",
             "intensity": 2,
-            "symptomsCategory*": 2,
+            "symptomsCategory": 2,
             "location": {
                 "x": 333,
                 "y": 200
