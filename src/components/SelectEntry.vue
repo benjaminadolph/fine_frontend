@@ -99,7 +99,7 @@
           :key="option.title"
           class="button"
           v-on:click="deselectOption(option)"
-          v-bind:class="[primaryBorderColor, primaryBgColor]"
+          v-bind:class="[primaryBorderColor, softBgColor, primaryColor]"
           >
           <IconComponent
             v-bind:name="'close-full'"
