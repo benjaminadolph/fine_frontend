@@ -10,5 +10,25 @@
     .vue-pan-zoom-scene {
         display: flex;
         justify-content: center;
+
+        .icon-wrapper {
+            color: $SYMPTOMS_PRIMARY;
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+    }
+
+    #figure {
+        position: relative;
+    }
+
+    .entry-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $SYMPTOMS_PRIMARY;
+        position: absolute;
     }
 }
+
