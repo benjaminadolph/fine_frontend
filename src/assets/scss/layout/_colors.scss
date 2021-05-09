@@ -9,48 +9,65 @@ $FINE_BASE: $FINE_GREY_DARK;
 
 /* symptoms */
 $SYMPTOMS_PRIMARY: #E28BB2;
-$SYMPTOMS_9: #E597BA;
-$SYMPTOMS_8: #E8A3C2;
-$SYMPTOMS_7: #ECAECA;
-$SYMPTOMS_6: #EFBAD2;
-$SYMPTOMS_5: #F2C6DA;
-$SYMPTOMS_4: #F5D2E2;
-$SYMPTOMS_3: #F9DDEA;
-$SYMPTOMS_2: #FCE9F2;
-$SYMPTOMS_SOFT: #FFF5FA;
+$SYMPTOMS_DARK: #B4527D;
+$SYMPTOMS_87-5: #E599BB;
+$SYMPTOMS_75: #E8A7C4;
+$SYMPTOMS_62-5: #EBB5CD;
+$SYMTPOMS_50: #EEC2D6;
+$SYMPTOMS_37-5: #EEC2D6;
+$SYMPTOMS_25: #F4DEE8;
+$SYMPTOMS_SOFT: #F7ECF1;
 
 /* emotions */
 $EMOTIONS_PRIMARY: #F5B84A;
-$EMOTIONS_9: #F6BF5C;
-$EMOTIONS_8: #F7C66E;
-$EMOTIONS_7: #F8CE81;
-$EMOTIONS_6: #F9D593;
-$EMOTIONS_5: #FBDCA5;
-$EMOTIONS_4: #FCE3B7;
-$EMOTIONS_3: #FDEBCA;
-$EMOTIONS_2: #FEF2DC;
-$EMOTIONS_SOFT: #FFF9EE;
+$EMOTIONS_DARK: #CB8F24;
+$EMOTIONS_87-5: #F6C060;
+$EMOTIONS_75: #F7C976;
+$EMOTIONS_62-5: #F7D18C;
+$EMOTIONS_50: #F8D9A2;
+$EMOTIONS_37-5: #F8E1B8;
+$EMOTIONS_25: #F9EACE;
+$EMOTIONS_SOFT: #F9F2E4;
 
-/* nutritions */
-$NUTRITION_PRIMARY: #62C797;
-$NUTRITION_SOFT: #F0FAF5;
+$NUTRITION_PRIMARY: #50C79C;
+$NUTRITION_DARK: #1E9A6D;
+$NUTRITION_87-5: #65CDA8;
+$NUTRITION_75: #7AD4B3;
+$NUTRITION_62-5: #90DABF;
+$NUTRITION_50: #A5E0CB;
+$NUTRITION_37-5: #BAE7D7;
+$NUTRITION_25: #D0EDE2;
+$NUTRITION_SOFT: #E5F4EE;
 
-/* movement */
-$MOVEMENT_PRIMARY: #4262DE;
-$MOVEMENT_SOFT: #EEF2FF;
-$MOVEMENT_HOVER: #1130A7;
+$SLEEP_PRIMARY: #9D7AFF;
+$SLEEP_DARK: #9D7AFF;
+$SLEEP_87-5: #A98AFE;
+$SLEEP_75: #B49AFE;
+$SLEEP_62-5: #C0AAFD;
+$SLEEP_50: #CBBAFD;
+$SLEEP_37-5: #D7CAFC;
+$SLEEP_25: #E3DAFB;
+$SLEEP_SOFT: #EEEAFB;
 
-/* sleep */
-$SLEEP_PRIMARY: #706BE5;
-$SLEEP_SOFT: #EEEDFF;
+$COUNTERMEASURES_PRIMARY: #31C3D7;
+$COUNTERMEASURES_DARK: #1496A8;
+$COUNTERMEASURES_87-5: #4ACADB;
+$COUNTERMEASURES_75: #63D1E0;
+$COUNTERMEASURES_62-5: #7CD8E4;
+$COUNTERMEASURES_50: #96DFE8;
+$COUNTERMEASURES_37-5: #AFE5ED;
+$COUNTERMEASURES_25: #C8ECF1;
+$COUNTERMEASURES_SOFT: #E1F3F6;
 
-/* activity */
-$MOVEMENT_PRIMARY: #4EC0C1;
-$MOVEMENT_SOFT: #EDF9F9;
-
-/* countermeasures */
-$COUNTERMEASURES_PRIMARY: #4EC0C1;
-$COUNTERMEASURES_SOFT: #F4FFFF;
+$ACTIVITY_PRIMARY: #4262DE;
+$ACTIVITY_DARK: #243FAB;
+$ACTIVITY_87-5: #5975E1;
+$ACTIVITY_75: #7088E5;
+$ACTIVITY_62-5: #879BE8;
+$ACTIVITY_50: #9EAEEC;
+$ACTIVITY_37-5: #B5C1EF;
+$ACTIVITY_25: #CCD4F3;
+$ACTIVITY_SOFT: #E3E7F7;
 
 $BACKGROUND_COLOR: #EFF0F2;
 $TEXT_BASE_COLOR: $FINE_GREY_DARK;
@@ -61,48 +78,83 @@ $TEXT_BASE_COLOR: $FINE_GREY_DARK;
 .fine-grey-medium {
     color: $FINE_GREY_MEDIUM;
 }
-
 .fine-grey-light {
     color: $FINE_GREY_LIGHT;
 }
-
 .fine-white {
     color: $FINE_WHITE;
 }
 
 $MODULE_COLORS:
-    "fine" $FINE_PRIMARY $FINE_PRIMARY,
-    "base" $FINE_GREY_DARK $FINE_GREY_LIGHT,
-    "symptoms" $SYMPTOMS_PRIMARY $SYMPTOMS_SOFT,
-    "nutrition" $NUTRITION_PRIMARY $NUTRITION_SOFT,
-    "movement" $MOVEMENT_PRIMARY $MOVEMENT_SOFT,
-    "emotions" $EMOTIONS_PRIMARY $EMOTIONS_SOFT,
-    "countermeasures" $COUNTERMEASURES_PRIMARY $COUNTERMEASURES_SOFT,
-    "sleep" $SLEEP_PRIMARY $SLEEP_SOFT;
+    "fine-primary" $FINE_PRIMARY,
+    "base" $FINE_GREY_DARK,
+    "base-light" $FINE_GREY_LIGHT,
+    "symptoms-primary" $SYMPTOMS_PRIMARY,
+    "symptoms-soft" $SYMPTOMS_SOFT
+    "symptoms-dark" $SYMPTOMS_DARK,
+    "symptoms-87-5" $SYMPTOMS_87-5,
+    "symptoms-75" $SYMPTOMS_75,
+    "symptoms-62-5" $SYMPTOMS_62-5,
+    "symptoms-50" $SYMTPOMS_50,
+    "symptoms-37-5" $SYMPTOMS_37-5,
+    "symptoms-25" $SYMPTOMS_25,
+    "nutrition-primary" $NUTRITION_PRIMARY,
+    "nutrition-soft" $NUTRITION_SOFT
+    "nutrition-dark" $NUTRITION_DARK,
+    "nutrition-87-5" $NUTRITION_87-5,
+    "nutrition-75" $NUTRITION_75,
+    "nutrition-62-5" $NUTRITION_62-5,
+    "nutrition-50" $NUTRITION_50,
+    "nutrition-37-5" $NUTRITION_37-5,
+    "nutrition-25" $NUTRITION_25,
+    "sleep-primary" $SLEEP_PRIMARY,
+    "sleep-soft" $SLEEP_SOFT
+    "sleep-dark" $SLEEP_DARK,
+    "sleep-87-5" $SLEEP_87-5,
+    "sleep-75" $SLEEP_75,
+    "sleep-62-5" $SLEEP_62-5,
+    "sleep-50" $SLEEP_50,
+    "sleep-37-5" $SLEEP_37-5,
+    "sleep-25" $SLEEP_25,
+    "activity-primary" $ACTIVITY_PRIMARY,
+    "activity-soft" $ACTIVITY_SOFT
+    "activity-dark" $ACTIVITY_DARK,
+    "activity-87-5" $ACTIVITY_87-5,
+    "activity-75" $ACTIVITY_75,
+    "activity-62-5" $ACTIVITY_62-5,
+    "activity-50" $ACTIVITY_50,
+    "activity-37-5" $ACTIVITY_37-5,
+    "activity-25" $ACTIVITY_25,
+    "emotions-primary" $EMOTIONS_PRIMARY,
+    "emotions-soft" $EMOTIONS_SOFT
+    "emotions-dark" $EMOTIONS_DARK,
+    "emotions-87-5" $EMOTIONS_87-5,
+    "emotions-75" $EMOTIONS_75,
+    "emotions-62-5" $EMOTIONS_62-5,
+    "emotions-50" $EMOTIONS_50,
+    "emotions-37-5" $EMOTIONS_37-5,
+    "emotions-25" $EMOTIONS_25,
+    "countermeasures-primary" $COUNTERMEASURES_PRIMARY,
+    "countermeasures-soft" $COUNTERMEASURES_SOFT
+    "countermeasures-dark" $COUNTERMEASURES_DARK,
+    "countermeasures-87-5" $COUNTERMEASURES_87-5,
+    "countermeasures-75" $COUNTERMEASURES_75,
+    "countermeasures-62-5" $COUNTERMEASURES_62-5,
+    "countermeasures-50" $COUNTERMEASURES_50,
+    "countermeasures-37-5" $COUNTERMEASURES_37-5,
+    "countermeasures-25" $COUNTERMEASURES_25;
 
-@each $MODULE, $PRIMARY, $SOFT in $MODULE_COLORS {
-  .#{$MODULE}-primary {
-    color: #{$PRIMARY} !important;
+@each $CLASSNAME, $COLOR in $MODULE_COLORS {
+  .#{$CLASSNAME} {
+    color: #{$COLOR} !important;
   }
 
-  .#{$MODULE}-soft {
-    color: #{$SOFT} !important;
+  .#{$CLASSNAME}-bgcolor {
+    background-color: #{$COLOR} !important;
   }
 
-  .#{$MODULE}-primary-bgcolor {
-    background-color: #{$PRIMARY} !important;
-  }
-
-  .#{$MODULE}-soft-bgcolor {
-    background-color: #{$SOFT} !important;
-  }
-
-  .#{$MODULE}-primary-border {
-    border-color: #{$PRIMARY} !important;
-  }
-
-  .#{$MODULE}-soft-border {
-    border-color: #{$SOFT} !important;
+  .#{$CLASSNAME}-border {
+    border-color: #{$COLOR} !important;
   }
 }
 
