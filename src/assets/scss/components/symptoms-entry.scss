@@ -23,12 +23,33 @@
         position: relative;
     }
 
-    .entry-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: $SYMPTOMS_PRIMARY;
+    .intensity-control {
         position: absolute;
+        border-radius: 30px;
+        background-color: $SYMPTOMS_PRIMARY;
+        color: $FINE_WHITE;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        right: 10px;
+        top: 10px;
+
+        span {
+            padding: 10px;
+
+            &.icon-wrapper {
+                width: auto !important;
+                height: auto !important;
+            }
+        }
+    }
+
+    .color-5 {
+        color: $SYMPTOMS_PRIMARY;
+    }
+    .color-1 {
+        color: $SYMPTOMS_SOFT;
+        border: solid 1px $SYMPTOMS_PRIMARY;
     }
 }
 

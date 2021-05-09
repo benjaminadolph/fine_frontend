@@ -4,7 +4,7 @@
     @include grayWhiteBlur;
     min-height: 100vh;
     z-index: 10000;
-    position: absolute;
+    position: fixed;
     width: 100%;
     padding: 20px;
     top: 0;

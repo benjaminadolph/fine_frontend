@@ -1,9 +1,13 @@
+/* eslint-disable */
 <template>
     <div>
       <SelectEntry module='symptoms' buttonLabel="Kategorie wählen" :multiselect=false />
+      <span v-touch:drag.once="movedHandler">Triggered</span>
+      <span v-touch:drag="movingHandler">Continuously triggered while dragging</span>
       <div
         id="symptoms-figure-container"
-        v-touch:press="addEntry"
+        v-touch:tap="openIntensity"
+        v-touch:drag="setIntensity"
       >
         <panZoom
           id="figure"
@@ -16,6 +20,18 @@
             v-bind:color="primaryColor"
           />
         </panZoom>
+        <div v-show="showIntensityControl" class="intensity-control">
+          <span v-on:click="setIntensity(5)" class="five intensity">5</span>
+          <span v-on:click="setIntensity(4)" class="four intensity">4</span>
+          <span v-on:click="setIntensity(3)" class="three intensity">3</span>
+          <span v-on:click="setIntensity(2)" class="two intensity">2</span>
+          <span v-on:click="setIntensity(1)" class="one intensity">1</span>
+          <IconComponent
+            name="trash"
+            size="24"
+            color="#fff"
+          />
+        </div>
       </div>
       <div v-show="entryDetails" >
           <ModuleEntryDetails module="symptoms" />
@@ -38,15 +54,19 @@ export default {
   data() {
     return {
       entryDetails: false,
+      showIntensityControl: false,
+      lastClickedElement: false,
     };
   },
   methods: {
-    addEntry(mouseEvent) {
+    openIntensity(mouseEvent) {
       const { target } = mouseEvent;
 
-      const figure = document.getElementById('653-woman-front');
-      if (figure === target) {
-        const figureRect = figure.getBoundingClientRect();
+      const figureSVG = document.getElementById('653-woman-front');
+      // const figure = document.getElementById('figure');
+      if (figureSVG === target) {
+        this.showIntensityControl = true;
+        const figureRect = figureSVG.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
         const relativeY = mouseEvent.clientY - figureRect.top;
@@ -54,18 +74,57 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttributeNS(null, 'cx', x);
-        circle.setAttributeNS(null, 'cy', y);
-        circle.setAttributeNS(null, 'r', 10);
-        circle.setAttributeNS(null, 'style', 'fill: currentColor;');
-        circle.setAttributeNS(null, 'onClick', 'changeColor();');
-        circle.setAttributeNS(null, 'id', `circle-${x}-${y}`);
-        target.appendChild(circle);
+        this.createSVG('circle', {
+          cx: x,
+          cy: y,
+          r: 10,
+          style: 'fill: currentColor;',
+          onClick: 'changeColor();',
+          id: `circle-${x}-${y}`,
+        }, target);
+
+        this.lastClickedElement = document.getElementById(`circle-${x}-${y}`);
       }
+    },
+    setIntensity(intensity) {
+      // console.log(intensity);
+      this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity}`);
+    },
+    addEntry(mouseEvent) {
+      const { target } = mouseEvent;
+
       if (target instanceof SVGCircleElement) {
-        target.setAttributeNS(null, 'style', 'fill: blue;');
-        this.entryDetails = true;
+        this.createSVG('animate', {
+          attributeType: 'SVG',
+          attributeName: 'r',
+          begin: '0s',
+          dur: '1.5s',
+          repeatCount: 'indefinite',
+          from: '2%',
+          to: '6%',
+        }, target);
+
+        this.createSVG('animate', {
+          attributeType: 'CSS',
+          attributeName: 'stroke-width',
+          begin: '0s',
+          dur: '1.5s',
+          repeatCount: 'indefinite',
+          from: '3%',
+          to: '0%',
+        }, target);
+
+        this.createSVG('animate', {
+          attributeType: 'CSS',
+          attributeName: 'opacity',
+          begin: '0s',
+          dur: '1.5s',
+          repeatCount: 'indefinite',
+          from: '1',
+          to: '0',
+        }, target);
+        // target.setAttributeNS(null, 'style', 'fill: blue;');
+        // this.entryDetails = true;
       }
       // const panContainer = document.getElementsByClassName('vue-pan-zoom-scene')[0];
       /* const div = document.createElement('div');
@@ -73,6 +132,13 @@ export default {
       div.style.top = `${y}px`;
       div.style.left = `${x}px`;
       figureContainer.appendChild(div); */
+    },
+    createSVG(elementType, elements, target) {
+      const element = document.createElementNS('http://www.w3.org/2000/svg', elementType);
+      Object.keys(elements).forEach((key) => {
+        element.setAttributeNS(null, key, elements[key]);
+      });
+      target.appendChild(element);
     },
   },
 };
