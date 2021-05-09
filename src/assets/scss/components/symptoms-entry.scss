@@ -45,11 +45,19 @@
     }
 
     .color-5 {
+        color: $SYMPTOMS_DARK;
+    }
+    .color-4 {
         color: $SYMPTOMS_PRIMARY;
     }
+    .color-3 {
+        color: $SYMPTOMS_75;
+    }
+    .color-2 {
+        color: $SYMPTOMS_50;
+    }
     .color-1 {
-        color: $SYMPTOMS_SOFT;
-        border: solid 1px $SYMPTOMS_PRIMARY;
+        color: $SYMPTOMS_25;
     }
 }
 

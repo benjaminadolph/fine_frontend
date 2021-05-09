@@ -2,8 +2,6 @@
 <template>
     <div>
       <SelectEntry module='symptoms' buttonLabel="Kategorie wählen" :multiselect=false />
-      <span v-touch:drag.once="movedHandler">Triggered</span>
-      <span v-touch:drag="movingHandler">Continuously triggered while dragging</span>
       <div
         id="symptoms-figure-container"
         v-touch:tap="openIntensity"
@@ -11,7 +9,7 @@
       >
         <panZoom
           id="figure"
-          :options="{maxZoom: 3}"
+          :options="{maxZoom: 3, minZoom: 1}"
         >
           <IconComponent
             v-bind:name="'woman-front'"
@@ -30,6 +28,7 @@
             name="trash"
             size="24"
             color="#fff"
+            v-on:click="removeCircle()"
           />
         </div>
       </div>
@@ -80,58 +79,68 @@ export default {
           r: 10,
           style: 'fill: currentColor;',
           onClick: 'changeColor();',
+          stroke: '#E28BB2',
+          'stroke-width': 2,
           id: `circle-${x}-${y}`,
         }, target);
 
         this.lastClickedElement = document.getElementById(`circle-${x}-${y}`);
+        this.addCirclePulsation(this.lastClickedElement);
+      }
+      if (target instanceof SVGCircleElement) {
+        this.lastClickedElement = target;
       }
     },
     setIntensity(intensity) {
-      // console.log(intensity);
       this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity}`);
+      this.showIntensityControl = false;
+      this.removeCirclePulsation(this.lastClickedElement);
     },
-    addEntry(mouseEvent) {
-      const { target } = mouseEvent;
+    removeCircle() {
+      this.lastClickedElement.remove();
+      this.showIntensityControl = false;
+    },
+    addCirclePulsation(target) {
+      this.createSVG('animate', {
+        attributeType: 'SVG',
+        attributeName: 'r',
+        begin: '0s',
+        dur: '1.5s',
+        repeatCount: 'indefinite',
+        from: '2%',
+        to: '6%',
+        class: 'circle-pulsation-animation',
+      }, target);
 
-      if (target instanceof SVGCircleElement) {
-        this.createSVG('animate', {
-          attributeType: 'SVG',
-          attributeName: 'r',
-          begin: '0s',
-          dur: '1.5s',
-          repeatCount: 'indefinite',
-          from: '2%',
-          to: '6%',
-        }, target);
+      this.createSVG('animate', {
+        attributeType: 'CSS',
+        attributeName: 'stroke-width',
+        begin: '0s',
+        dur: '1.5s',
+        repeatCount: 'indefinite',
+        from: '3%',
+        to: '0%',
+        class: 'circle-pulsation-animation',
+      }, target);
 
-        this.createSVG('animate', {
-          attributeType: 'CSS',
-          attributeName: 'stroke-width',
-          begin: '0s',
-          dur: '1.5s',
-          repeatCount: 'indefinite',
-          from: '3%',
-          to: '0%',
-        }, target);
-
-        this.createSVG('animate', {
-          attributeType: 'CSS',
-          attributeName: 'opacity',
-          begin: '0s',
-          dur: '1.5s',
-          repeatCount: 'indefinite',
-          from: '1',
-          to: '0',
-        }, target);
-        // target.setAttributeNS(null, 'style', 'fill: blue;');
-        // this.entryDetails = true;
+      this.createSVG('animate', {
+        attributeType: 'CSS',
+        attributeName: 'opacity',
+        begin: '0s',
+        dur: '1.5s',
+        repeatCount: 'indefinite',
+        from: '1',
+        to: '0',
+        class: 'circle-pulsation-animation',
+      }, target);
+    },
+    removeCirclePulsation(target) {
+      const animationElements = target.children;
+      const keys = Object.keys(animationElements);
+      const values = Object.values(animationElements);
+      for (let i = 0; i < keys.length; i += 1) {
+        values[i].remove();
       }
-      // const panContainer = document.getElementsByClassName('vue-pan-zoom-scene')[0];
-      /* const div = document.createElement('div');
-      div.classList.add('entry-circle');
-      div.style.top = `${y}px`;
-      div.style.left = `${x}px`;
-      figureContainer.appendChild(div); */
     },
     createSVG(elementType, elements, target) {
       const element = document.createElementNS('http://www.w3.org/2000/svg', elementType);
