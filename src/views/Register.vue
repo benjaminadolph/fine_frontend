@@ -2,7 +2,14 @@
   <div class="about">
     <form @submit.prevent="register">
         <h1>Please register</h1>
-        <input v-model="name" type="text" placeholder="name" required>
+        <!--
+          TODO @JEN & SARAH: HTML FORM AKTUALISIEREN MIT
+          ALLEN DATEN DIE ZUR ANMELDUNG BENÖTIGT WERDEN
+        -->
+        <input v-model="firstName" type="text" placeholder="first name" required>
+        <input v-model="lastName" type="text" placeholder="last name" required>
+        <input v-model="gender" type="text" placeholder="gender" required>
+        <input v-model="birthDate" type="text" placeholder="birthDate" required>
         <input v-model="email" type="email" placeholder="email" required>
         <input v-model="password" type="password" placeholder="password" required>
         <button type="submit">Register</button>
@@ -16,7 +23,10 @@ export default {
   name: 'Register',
   data() {
     return {
-      name: '',
+      firstName: '',
+      lastName: '',
+      gender: '',
+      birthDate: '',
       email: '',
       password: '',
     };
@@ -24,7 +34,10 @@ export default {
   methods: {
     register() {
       this.$store.dispatch('AUTH_REGISTER', {
-        name: this.name,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        gender: this.gender,
+        birthDate: this.birthDate,
         email: this.email,
         password: this.password,
       })
