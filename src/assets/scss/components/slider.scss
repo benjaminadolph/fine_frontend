@@ -1,0 +1,61 @@
+@import '../init';
+
+.slider
+{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  max-width: 100%;
+  margin: 0 auto;
+
+  input[type=range]{
+    -webkit-appearance: none;
+    position: absolute;
+    width: 85%; // not okay on mobile
+    margin: 0;
+    background: transparent;
+    cursor: grab;
+    padding: 0.5rem 0rem;
+    border-radius: $BASE_BORDER_RADIUS;
+    flex-grow: 0;
+    transition: all .4s ease-out;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    border: none;
+    height: 100%;
+    width: 10%;
+    padding: 0.5rem 1rem;
+    border-radius:$BASE_BORDER_RADIUS;
+    background-color: #E28BB2;
+  }
+
+  // Firefox
+  input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 100%;
+    width: 10%;
+    padding: 0.5rem 1rem;
+    border-radius: $BASE_BORDER_RADIUS;
+    background-color: #E28BB2;
+  }
+
+  // Internet Explorer 10+
+  input[type=range]::-ms-thumb {
+    border: none;
+    height: 100%;
+    width: 10%;
+    padding: 0.5rem 1rem;
+    border-radius: $BASE_BORDER_RADIUS;
+    background-color: #E28BB2;
+  }
+
+  .slider-text {
+    text-align: center;
+    width: 100%;
+    background: $FINE_WHITE;
+    padding: 0.3rem 0.6rem;
+    border-radius: $BASE_BORDER_RADIUS;
+  }
+}
+  

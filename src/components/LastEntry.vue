@@ -10,14 +10,18 @@
       {{ getLastEntryDate(module) }} |
       {{ getLastEntryTime(module) + 'Uhr' }}
     </p>
-    <input type="range" min="0" max="6" name="intensity" />
+    <Slider :module="module" />
   </div>
 </template>
 
 <script>
+import Slider from '@/components/Slider.vue';
 
 export default {
   name: 'LastEntry',
+  components: {
+    Slider,
+  },
   props: {
     module: String,
   },
