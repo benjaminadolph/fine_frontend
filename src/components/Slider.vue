@@ -7,10 +7,13 @@
       min="0"
       max="5"
       value="1"
-      v-touch:drag="onLoad()"
+      v-touch:drag="mounted"
+      :oninput="mounted"
+      :onchange="mounted"
     />
     <!-- :oninput="stretchSlider()"
-      :onchange="stretchSlider()" -->
+      :onchange="stretchSlider()"
+      v-touch:drag="onLoad()" -->
     <div class="slider-text plain-m-book">Wirkung bewerten</div>
   </div>
 </template>
@@ -30,10 +33,12 @@ export default {
       trackWidth: 4,
     };
   },
-  methods: {
-    onLoad() {
-      document.addEventListener('DOMContentLoaded', stretchSlider(() => {
+  mounted() {
+    this.$nextTick(
+      stretchSlider(() => {
         const slider = document.querySelector('.slider');
+        const sliderPos = slider.value / slider.max;
+        console.log(sliderPos);
         // const style = getComputedStyle(slider);
 
         // let flexGrow = style.flexGrow[0];
@@ -74,10 +79,10 @@ export default {
           thumb.addEventListener('mouseleave', touchEnd);
           thumb.addEventListener('mousemove', touchMove);
         });
-      }));
-    },
-    computed: {
-    },
+      }),
+    );
+  },
+  computed: {
   },
 };
 </script>
