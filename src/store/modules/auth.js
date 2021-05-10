@@ -55,11 +55,9 @@ export default ({
       await axios.post('http://localhost:3000/api/user/register', user)
         .then((resp) => {
           commit('AUTH_REGISTER_SUCCESS', resp);
-          resolve(resp);
         })
         .catch((err) => {
           commit('AUTH_REGISTER_ERROR', err);
-          reject(err);
         });
     },
     AUTH_LOGOUT: ({ commit }) => {
