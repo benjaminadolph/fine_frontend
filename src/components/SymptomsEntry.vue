@@ -76,8 +76,6 @@ export default {
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-
-      console.log(mouseEvent);
       const figureSVG = document.getElementById('653-woman-front');
       // const figure = document.getElementById('symptoms-figure-container');
       if (figureSVG === target) {

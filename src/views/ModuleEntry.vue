@@ -12,12 +12,6 @@
     </div>
     <SymptomsEntry v-if="module==='symptoms'" />
     <Emotions v-if="module==='emotions'" />
-    <Emotions v-if="module==='emotions'" />
-    <ul>
-      <li><router-link to="/module-entry/symptoms">Symptome</router-link></li>
-      <li><router-link to="/module-entry/emotions">Feelings</router-link></li>
-    </ul>
-    <SelectEntry :module=module buttonLabel="Kategorie wählen" :multiselect=true />
   </div>
 </template>
 
@@ -25,7 +19,6 @@
 import SymptomsEntry from '@/components/SymptomsEntry.vue';
 import Emotions from '@/components/Emotions.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import SelectEntry from '@/components/SelectEntry.vue';
 import Time from '@/components/Time.vue';
 
 export default {
@@ -35,7 +28,6 @@ export default {
     Emotions,
     IconComponent,
     Time,
-    SelectEntry,
   },
   props: {
     module: String,
