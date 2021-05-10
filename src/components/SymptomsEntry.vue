@@ -1,12 +1,23 @@
 /* eslint-disable */
 <template>
     <div>
-      <SelectEntry module='symptoms' buttonLabel="Kategorie wählen" :multiselect=false />
+      <SelectEntry
+        ref="selectEntryData"
+        module='symptoms'
+        buttonLabel="Kategorie wählen"
+        :multiselect=false
+        v-on:update="onSelect"
+      />
       <div
         id="symptoms-figure-container"
         v-touch:tap="openIntensity"
-        v-touch:drag="setIntensity"
       >
+      <div
+        v-show="!isCategorySelected"
+        class="symptoms-figure-container-overlay"
+      >
+        <span class="text">Wähle erst eine Kategorie</span>
+      </div>
         <panZoom
           id="figure"
           :options="{maxZoom: 3, minZoom: 1}"
@@ -18,11 +29,11 @@
             v-bind:color="primaryColor"
           />
         </panZoom>
-        <div v-show="showIntensityControl" class="intensity-control">
+        <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
           <span v-on:click="setIntensity(5)" class="five intensity">5</span>
           <span v-on:click="setIntensity(4)" class="four intensity">4</span>
           <span v-on:click="setIntensity(3)" class="three intensity">3</span>
-          <span v-on:click="setIntensity(2)" class="two intensity">2</span>
+          <span v-on:click="setIntensity(2)" class="two intensity selected">2</span>
           <span v-on:click="setIntensity(1)" class="one intensity">1</span>
           <IconComponent
             name="trash"
@@ -55,17 +66,24 @@ export default {
       entryDetails: false,
       showIntensityControl: false,
       lastClickedElement: false,
+      isCategorySelected: false,
+      // selectEntryData: null,
     };
   },
   methods: {
+    onSelect(selected) {
+      this.isCategorySelected = selected;
+    },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
 
+      console.log(mouseEvent);
       const figureSVG = document.getElementById('653-woman-front');
-      // const figure = document.getElementById('figure');
+      // const figure = document.getElementById('symptoms-figure-container');
       if (figureSVG === target) {
         this.showIntensityControl = true;
         const figureRect = figureSVG.getBoundingClientRect();
+        // const figureContainerRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
         const relativeY = mouseEvent.clientY - figureRect.top;
@@ -73,14 +91,22 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
+        /* const divX = Math.ceil(mouseEvent.clientX - figureContainerRect.left);
+          const divY = Math.ceil(mouseEvent.clientY - figureContainerRect.top);
+
+          const _intensityControl = this.$refs.intensityControl;
+
+          _intensityControl.style.left = `${divX}px`;
+          _intensityControl.style.top = `${divY - 245}px`; */
+
         this.createSVG('circle', {
           cx: x,
           cy: y,
           r: 10,
           style: 'fill: currentColor;',
-          onClick: 'changeColor();',
-          stroke: '#E28BB2',
-          'stroke-width': 2,
+          // onClick: 'changeColor();',
+          // stroke: '#E28BB2',
+          // 'stroke-width': 2,
           id: `circle-${x}-${y}`,
         }, target);
 
@@ -89,10 +115,16 @@ export default {
       }
       if (target instanceof SVGCircleElement) {
         this.lastClickedElement = target;
+        if (target.classList.contains('intensity-set')) {
+          this.entryDetails = true;
+        } else {
+          this.showIntensityControl = true;
+          this.addCirclePulsation(this.lastClickedElement);
+        }
       }
     },
     setIntensity(intensity) {
-      this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity}`);
+      this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
     },
