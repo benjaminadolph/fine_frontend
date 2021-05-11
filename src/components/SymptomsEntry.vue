@@ -10,7 +10,7 @@
       />
       <div
         id="symptoms-figure-container"
-        v-touch:tap="openIntensity"
+        v-touch:press="openIntensity"
       >
       <div
         v-show="!isCategorySelected"
@@ -80,7 +80,7 @@ export default {
       // const figure = document.getElementById('symptoms-figure-container');
       if (figureSVG === target) {
         this.showIntensityControl = true;
-        const figureRect = figureSVG.getBoundingClientRect();
+        const figureRect = target.getBoundingClientRect();
         // const figureContainerRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
