@@ -7,9 +7,7 @@
       min="0"
       max="5"
       value="1"
-      v-touch:drag="mounted"
-      :oninput="mounted"
-      :onchange="mounted"
+      @v-touch:drag="stretchSlider"
     />
     <!-- :oninput="stretchSlider()"
       :onchange="stretchSlider()"
@@ -33,54 +31,101 @@ export default {
       trackWidth: 4,
     };
   },
-  mounted() {
-    this.$nextTick(
-      stretchSlider(() => {
-        const slider = document.querySelector('.slider');
-        const sliderPos = slider.value / slider.max;
-        console.log(sliderPos);
-        // const style = getComputedStyle(slider);
+  methods: {
+    stretchSlider() {
+      const slider = document.querySelector('.range-slider');
+      const sliderPos = slider.value / slider.max;
+      console.log(sliderPos);
+      // const style = getComputedStyle(slider);
 
-        // let flexGrow = style.flexGrow[0];
-        let isDragging = false;
-        console.log(isDragging);
+      // let flexGrow = style.flexGrow[0];
+      let isDragging = false;
+      let startPos = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let animationID = 0;
+      let currentIndex = 0;
+      console.log(isDragging);
 
-        function touchStart(flexgrow) {
-          return function (event) {
-            isDragging = true;
-            flexGrow = flexgrow;
-            console.log(event.type.includes('mouse'));
-            console.log('start');
-          };
+      function setSliderPosition() {
+        slider.style.transform = `translateX(${currentTranslate}px)`;
+      }
+
+      function animation() {
+        setSliderPosition();
+        if (isDragging) requestAnimationFrame(animation);
+      }
+
+      function getPositionX(event) {
+        return event.type.includes('mouse')
+          ? event.pageX
+          : event.touches[0].clientX;
+      }
+
+      function touchStart(index) {
+        return function (event) {
+          currentIndex = index;
+          startPos = getPositionX(event);
+          console.log(startPos);
+          isDragging = true;
+          animationID = requestAnimationFrame(animation);
+          slider.classList.add('grabbing');
+        };
+      }
+
+      function setPositionByIndex() {
+        currentTranslate = currentIndex * -window.innerWidth;
+        prevTranslate = currentTranslate;
+        setSliderPosition();
+      }
+
+      function touchEnd(event) {
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+
+        const movedBy = currentTranslate - prevTranslate;
+
+        if (movedBy < -100) {
+          currentIndex += 1;
         }
-        function touchEnd(event) {
-          isDragging = false;
+        if (movedBy > 100) {
+          currentIndex -= 1;
+        }
+        setPositionByIndex();
+
+        slider.classList.remove('grabbing');
+        console.log(event);
+        console.log('end');
+      }
+
+      function touchMove(event) {
+        if (isDragging) {
+          const currentPosition = getPositionX(event);
+          currentTranslate = prevTranslate + currentPosition - startPos;
           console.log(event);
-          console.log('end');
+          console.log('move');
         }
-        function touchMove(event) {
-          if (isDragging) {
-            console.log(event);
-            console.log('move');
-          }
-        }
-        slider.onDrag((flexgrow) => {
-          const thumb = document.querySelector('.range-slider');
-          thumb.addEventListener('dragstart', (e) => e.preventDefault());
+      }
 
-          // Touch events
-          thumb.addEventListener('touchstart', touchStart(flexgrow));
-          thumb.addEventListener('touchend', touchEnd);
-          thumb.addEventListener('touchmove', touchMove);
+      slider.prototype.forEach((index) => {
+        const thumb = document.querySelector('.range-slider');
+        thumb.addEventListener('dragstart', (e) => e.preventDefault());
 
-          // Mouse events
-          thumb.addEventListener('mousedown', touchStart(flexgrow));
-          thumb.addEventListener('mouseup', touchEnd);
-          thumb.addEventListener('mouseleave', touchEnd);
-          thumb.addEventListener('mousemove', touchMove);
-        });
-      }),
-    );
+        // Touch events
+        thumb.addEventListener('touchstart', touchStart(index));
+        thumb.addEventListener('touchend', touchEnd);
+        thumb.addEventListener('touchmove', touchMove);
+
+        // Mouse events
+        thumb.addEventListener('mousedown', touchStart(index));
+        thumb.addEventListener('mouseup', touchEnd);
+        thumb.addEventListener('mouseleave', touchEnd);
+        thumb.addEventListener('mousemove', touchMove);
+      });
+    },
+  },
+  mounted() {
+    this.stretchSlider();
   },
   computed: {
   },
