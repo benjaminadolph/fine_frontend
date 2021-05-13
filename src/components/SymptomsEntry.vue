@@ -10,7 +10,7 @@
       />
       <div
         id="symptoms-figure-container"
-        v-touch:press="openIntensity"
+        v-on:click="openIntensity"
       >
       <div
         v-show="!isCategorySelected"
