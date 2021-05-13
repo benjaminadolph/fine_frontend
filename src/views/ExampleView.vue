@@ -1,8 +1,7 @@
 <template>
-  <div class="view">
-    <h1>I am an example view</h1>
-    <ExampleComponent/>
-    <IconComponent name="symptoms" :size="32" />
+  <div>
+    <SymptomsExampleComponent/>
+    <EmotionsExampleComponent/>
   </div>
 </template>
 
@@ -11,14 +10,14 @@
 // IF YOU WANT TO USE A NEW VIEW YOU HAVE TO ADD IT TO
 // src/router/index.js AND THE ROUTER LINK TO src/App.vue
 
-import ExampleComponent from '@/components/ExampleComponent.vue';
-import IconComponent from '@/components/IconComponent.vue';
+import SymptomsExampleComponent from '@/components/SymptomsExampleComponent.vue';
+import EmotionsExampleComponent from '@/components/EmotionsExampleComponent.vue';
 
 export default {
   name: 'ExampleView',
   components: {
-    ExampleComponent,
-    IconComponent,
+    SymptomsExampleComponent,
+    EmotionsExampleComponent,
   },
   data() {
     return {};
@@ -26,7 +25,3 @@ export default {
   methods: {},
 };
 </script>
-
-<style lang="scss" scoped>
-  @import "@/assets/scss/views/example-view.scss";
-</style>

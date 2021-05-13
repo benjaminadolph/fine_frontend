@@ -57,6 +57,7 @@ const routes = [
     path: '/exampleview',
     name: 'ExampleView',
     component: () => import('../views/ExampleView.vue'),
+    beforeEnter: ifAuthenticated,
   },
 ];
 

@@ -2,13 +2,17 @@ import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import User from './modules/user';
 import Auth from './modules/auth';
-import Post from './modules/post';
+import Posts from './modules/posts';
+import Symptoms from './modules/symptoms';
+import Emotions from './modules/emotions';
 
 export default createStore({
   modules: {
     user: User,
     auth: Auth,
-    post: Post,
+    post: Posts,
+    symptoms: Symptoms,
+    emotions: Emotions,
   },
   /* plugins: [createPersistedState()], */
   plugins: [createPersistedState({
