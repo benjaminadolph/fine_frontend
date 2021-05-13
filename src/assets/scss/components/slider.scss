@@ -5,30 +5,73 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
+  box-sizing: border-box;
   max-width: 100%;
   margin: 0 auto;
   position: sticky;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+  cursor: grab;
+
+  .grabbing {
+    cursor: grabbing;
+  }
 
   input[type=range]{
     -webkit-appearance: none;
     position: absolute;
     width: 85%; // not okay on mobile
     margin: 0;
+    padding: 0.5rem 0rem; // für Chrome: padding: 0rem 0rem;
     background: transparent;
-    cursor: grab;
-    padding: 0.5rem 0rem;
+    border: none;
     border-radius: $BASE_BORDER_RADIUS;
-    flex-grow: 0;
-    transition: all .4s ease-out;
+    display: flex;
   }
 
-  input[type=range]::-webkit-slider-thumb {
+  input[type=range]:focus {
+    outline: none;
+  }
+
+  // Internet Explorer 10+
+  .ms-touch.slider {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+    -ms-overflow-style: none;
+    /* Hides the scrollbar. */
+    
+    -ms-scroll-chaining: none;
+    /* Prevents Metro from swiping to the next tab or app. */
+  }  
+
+  // style Track of Slider
+  input[type=range]::-webkit-slider-runnable-track {
+    width: inherit;
+    height: inherit;
     border: none;
-    height: 100%;
+    border-radius: $BASE_BORDER_RADIUS;
+  }
+
+  // Track for Firefox
+  input[type=range]::-webkit-slider-runnable-track {
+    width: inherit;
+    height: inherit;
+    border: none;
+    border-radius: $BASE_BORDER_RADIUS;
+  }
+
+  // style Thumb of Slider
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
     width: 10%;
-    padding: 0.5rem 1rem;
+    padding: 1.2rem 2rem;
+    margin: 0;
+    background: cadetblue;
     border-radius:$BASE_BORDER_RADIUS;
-    background-color: #E28BB2;
+    display: flex;
   }
 
   // Firefox
@@ -36,9 +79,10 @@
     border: none;
     height: 100%;
     width: 10%;
-    padding: 0.5rem 1rem;
+    margin: 0;
+    padding: 0.6rem 1.5rem;
     border-radius: $BASE_BORDER_RADIUS;
-    background-color: #E28BB2;
+    display: flex;
   }
 
   // Internet Explorer 10+
@@ -48,7 +92,7 @@
     width: 10%;
     padding: 0.5rem 1rem;
     border-radius: $BASE_BORDER_RADIUS;
-    background-color: #E28BB2;
+    display: flex;
   }
 
   .slider-text {
