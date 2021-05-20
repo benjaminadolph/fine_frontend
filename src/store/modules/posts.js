@@ -44,7 +44,7 @@ export default ({
     GET_ALL_POSTS: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
       commit('GET_ALL_POSTS');
-      await axios.get('http://localhost:3000/posts/', { params: { userid } })
+      await axios.get('http://localhost:3000/api/posts/', { params: { userid } })
         .then((resp) => {
           commit('GET_ALL_POSTS_SUCCESS', resp);
         })
@@ -56,7 +56,7 @@ export default ({
       const post = req;
       post.userid = await rootState.user.id;
       commit('CREATE_POST');
-      await axios.post('http://localhost:3000/posts/', post)
+      await axios.post('http://localhost:3000/api/posts/', post)
         .then((resp) => {
           commit('CREATE_POST_SUCCESS', resp);
         })
@@ -68,7 +68,7 @@ export default ({
       const postid = req.post_id;
       const userid = rootState.user.id;
       commit('DELETE_POST');
-      await axios.delete(`http://localhost:3000/posts/${postid}`, { params: { postid, userid } })
+      await axios.delete(`http://localhost:3000/api/posts/${postid}`, { params: { postid, userid } })
         .then((resp) => {
           commit('DELETE_POST_SUCCESS', resp);
         })
