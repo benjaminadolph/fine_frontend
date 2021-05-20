@@ -6,9 +6,18 @@ form {
     background-color: $FINE_WHITE;
     width: 90%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 
     .fine-logo {
         max-width: 200px;
+        display: flex;
+        margin: 0 auto 2rem auto;
+    }
+
+    h1 {
+        margin: 2rem auto 1rem;
     }
 
     input {
@@ -17,6 +26,17 @@ form {
         margin: 20px 0;
         padding: 10px;
         text-align: left;
+        border: 1px solid grey;
+        border-radius: 20px;
+        
+    }
+
+    input:focus {
+        border-color: $FINE_PRIMARY;
+    }
+
+    button.btn-primary {
+        margin: 2rem 0 0 0;
     }
 
 }
