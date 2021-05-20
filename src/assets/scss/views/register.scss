@@ -1,8 +1,8 @@
 @import '../init';
 
 .about {
-    display: block;
     @include boxshadow();
+    display: block;
     padding: 50px;
     background-color: $FINE_WHITE;
     width: 90%;
@@ -22,8 +22,8 @@
             margin: .5rem auto;
             text-align: left;
             width: 100%;
-            border: 1px solid grey;
-            border-radius: 20px;
+            border: 1px solid $FINE_GREY_DARK;
+            border-radius: $BASE_BORDER_RADIUS;
         }
 
         input:focus {
