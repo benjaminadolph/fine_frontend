@@ -1,2 +1,37 @@
 @import '../init';
 
+.about {
+    display: block;
+    @include boxshadow();
+    padding: 50px;
+    background-color: $FINE_WHITE;
+    width: 90%;
+    margin: 0 auto;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            margin-bottom: .5rem;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: .5rem auto;
+            text-align: left;
+            width: 100%;
+            border: 1px solid grey;
+            border-radius: 20px;
+        }
+
+        input:focus {
+            border-color: $FINE_PRIMARY;
+        }
+
+        button {
+            margin-top: .5rem;
+        }
+    }
+}
