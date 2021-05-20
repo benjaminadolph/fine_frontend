@@ -50,9 +50,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import ModuleEntryDetails from '@/views/ModuleEntryDetails.vue';
+import ModuleEntryDetails from '@/components/ModuleEntryDetails.vue';
 
 export default {
   name: 'SymptomsEntry',
@@ -63,7 +64,9 @@ export default {
   },
   data() {
     return {
+      symptoms: [],
       entryDetails: false,
+      category: '',
       showIntensityControl: false,
       lastClickedElement: false,
       isCategorySelected: false,
@@ -71,8 +74,17 @@ export default {
     };
   },
   methods: {
-    onSelect(selected) {
-      this.isCategorySelected = selected;
+    onSelect(option) {
+      this.isCategorySelected = true;
+      this.category = option.title;
+      this.removeCircles();
+      this.setSymptoms(option.title);
+    },
+    removeCircles() {
+      const circles = document.getElementsByClassName('circle');
+      circles.forEach((element) => {
+        element.remove();
+      });
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
@@ -89,24 +101,7 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
-        /* const divX = Math.ceil(mouseEvent.clientX - figureContainerRect.left);
-          const divY = Math.ceil(mouseEvent.clientY - figureContainerRect.top);
-
-          const _intensityControl = this.$refs.intensityControl;
-
-          _intensityControl.style.left = `${divX}px`;
-          _intensityControl.style.top = `${divY - 245}px`; */
-
-        this.createSVG('circle', {
-          cx: x,
-          cy: y,
-          r: 10,
-          style: 'fill: currentColor;',
-          // onClick: 'changeColor();',
-          // stroke: '#E28BB2',
-          // 'stroke-width': 2,
-          id: `circle-${x}-${y}`,
-        }, target);
+        this.setCircle({ location: { x, y } });
 
         this.lastClickedElement = document.getElementById(`circle-${x}-${y}`);
         this.addCirclePulsation(this.lastClickedElement);
@@ -125,9 +120,50 @@ export default {
       this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
+      const lastClickedElementPosition = this.lastClickedElement.id;
+      const location = {
+        x: lastClickedElementPosition.split('-')[1],
+        y: lastClickedElementPosition.split('-')[2],
+      };
+      const newSymptom = {
+        date: new Date(),
+        module: 'symptoms',
+        intensity,
+        // category: this.category,
+        location,
+        // detailsText: this.detailsText,
+        // photos: this.photos,
+        // audio: this.audio,
+        // tags: this.tags,
+      };
+      this.createSymptom(newSymptom);
     },
-    removeCircle() {
-      this.lastClickedElement.remove();
+    setCircle(element) {
+      const target = document.getElementById('653-woman-front');
+      let intensityClass = 'circle';
+      let _id = '';
+      if (element.intensity) {
+        intensityClass = `circle color-${element.intensity} intensity-set`;
+      }
+      if (element._id) {
+        _id = element._id;
+      }
+      this.createSVG('circle', {
+        cx: element.location.x,
+        cy: element.location.y,
+        class: intensityClass,
+        r: 10,
+        _id,
+        style: 'fill: currentColor;',
+        id: `circle-${element.location.x}-${element.location.y}`,
+      }, target);
+    },
+    removeCircle(element) {
+      if (!element) {
+        this.lastClickedElement.remove();
+      } else {
+        element.remove();
+      }
       this.showIntensityControl = false;
     },
     addCirclePulsation(target) {
@@ -179,6 +215,59 @@ export default {
       });
       target.appendChild(element);
     },
+    getAllSymptoms() {
+      this.$store.dispatch('GET_ALL_SYMPTOMS')
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createSymptom(newSymptom) {
+      this.$store.dispatch('CREATE_SYMPTOM', {
+        date: newSymptom.date,
+        module: newSymptom.module,
+        intensity: newSymptom.intensity,
+        category: this.category,
+        location: newSymptom.location,
+        detailsText: newSymptom.detailsText,
+        // photos: this.photos,
+        // audio: this.audio,
+        tags: newSymptom.tags,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteSymptom(id) {
+      this.$store.dispatch('DELETE_SYMPTOM', {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.getAllSymptoms();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    setSymptoms(category) {
+      const _this = this;
+      this.symptoms.forEach((element) => {
+        if (element.category === category) {
+          _this.setCircle(element);
+        }
+      });
+    },
+  },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
+  },
+  mounted() {
+    this.getAllSymptoms();
   },
 };
 </script>
