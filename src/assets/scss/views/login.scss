@@ -26,8 +26,8 @@ form {
         margin: 20px 0;
         padding: 10px;
         text-align: left;
-        border: 1px solid grey;
-        border-radius: 20px;
+        border: 1px solid $FINE_GREY_DARK;
+        border-radius: $BASE_BORDER_RADIUS;
         
     }
 
@@ -35,7 +35,7 @@ form {
         border-color: $FINE_PRIMARY;
     }
 
-    button.btn-primary {
+    button {
         margin: 2rem 0 0 0;
     }
 
