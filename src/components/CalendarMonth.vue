@@ -19,16 +19,11 @@
     </div>
     <div class="calendar-month">
       <div class="calendar-month-header">
-        <CalendarDateIndicator
-          :selected-date="selectedDate"
-          class="calendar-month-header-selected-month"
-        />
-
-        <CalendarDateSelector
+        <!-- <CalendarDateSelector
           :current-date="today"
           :selected-date="selectedDate"
           @dateSelected="selectDate"
-        />
+        /> -->
       </div>
 
       <ol class="days-grid">
@@ -50,8 +45,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import Header from '@/components/Header.vue';
 import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/CalendarMonthDayItem.vue';
-import CalendarDateIndicator from '@/components/CalendarDateIndicator.vue';
-import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
+// import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -61,8 +55,7 @@ export default {
 
   components: {
     CalendarMonthDayItem,
-    CalendarDateIndicator,
-    CalendarDateSelector,
+    // CalendarDateSelector,
     Header,
     SwipeSlider,
   },

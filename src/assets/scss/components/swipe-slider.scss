@@ -1,14 +1,17 @@
 @import '../init';
 
 .swipe-slider {
-    padding: 10px $EDGE_GRID;
+    padding: 0 $EDGE_GRID;
     ul {
         display: flex;
         justify-content: space-between;
-        overflow: hidden;
+        overflow-x: scroll;
 
         li {
             margin-right: 30px;
+            @include plain-m-bold;
+            padding-top: 1px;
+            padding-bottom: 1px;
 
             &.active-item {
                 color: $FINE_PRIMARY;

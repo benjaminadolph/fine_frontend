@@ -1,0 +1,30 @@
+@import '../init';
+
+.calendar-day {
+    position: relative;
+    min-height: 90px;
+    background-color: #fff;
+    padding: 5px;
+    border: solid 1px $FINE_GREY_LIGHT;
+    border-radius: 3px;
+
+    >span {
+        position: absolute;
+        padding: 5px;
+        bottom: 0;
+        @include plain-s-book;
+    }
+
+    &--not-current {
+        background-color: transparent; 
+    }
+
+    &--today {
+        padding-top: 4px;
+        border-color: $FINE_PRIMARY;
+
+        >span {
+            color: $FINE_PRIMARY;
+        }
+    }
+}
