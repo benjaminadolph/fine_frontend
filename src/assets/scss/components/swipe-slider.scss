@@ -1,7 +1,9 @@
 @import '../init';
 
 .swipe-slider {
-    padding: 0 $EDGE_GRID;
+    margin: 0 $EDGE_GRID;
+    position: relative;
+
     ul {
         display: flex;
         justify-content: space-between;
@@ -9,13 +11,37 @@
 
         li {
             margin-right: 30px;
-            @include plain-m-bold;
+            @include plain-m-book;
             padding-top: 1px;
             padding-bottom: 1px;
 
             &.active-item {
                 color: $FINE_PRIMARY;
+                @include plain-m-bold;
             }
         }
     }
+
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 30%;
+        left: 0;
+        top: 0;
+        background: -moz-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#f8f9fb",GradientType=1); 
+    }
+
+    &::after {
+        right: 0;
+        left: auto;
+        background: -moz-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#f8f9fb",GradientType=1);
+    }
+
 }
