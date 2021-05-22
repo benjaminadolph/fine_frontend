@@ -1,9 +1,6 @@
 <template>
   <div class="view">
-    <header>
-      <h1>Dashboard</h1>
-      <div class="time plain-s-book fine-grey-medium">{{ date }}</div>
-    </header>
+    <Header title="Dashboard" />
     <SmartStack />
     <ModuleTeaser :module="'emotions'" />
     <ModuleTeaser :module="'symptoms'" />
@@ -11,17 +8,16 @@
 </template>
 
 <script>
-// IF YOU WANT TO USE A NEW VIEW YOU HAVE TO ADD IT TO
-// src/router/index.js AND THE ROUTER LINK TO src/App.vue
-
 import SmartStack from '@/components/SmartStack.vue';
 import ModuleTeaser from '@/components/ModuleTeaser.vue';
+import Header from '@/components/Header.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     SmartStack,
     ModuleTeaser,
+    Header,
   },
   props: {
     module: String,
