@@ -13,8 +13,6 @@
       />
     </div>
 
-    <CalendarWeekdays/>
-
     <ol class="days-grid">
       <CalendarMonthDayItem
         v-for="day in days"
@@ -33,7 +31,6 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import CalendarMonthDayItem from '@/components/CalendarMonthDayItem.vue';
 import CalendarDateIndicator from '@/components/CalendarDateIndicator.vue';
 import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
-import CalendarWeekdays from '@/components/CalendarWeekdays.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -45,7 +42,6 @@ export default {
     CalendarMonthDayItem,
     CalendarDateIndicator,
     CalendarDateSelector,
-    CalendarWeekdays,
   },
 
   data() {
@@ -153,6 +149,7 @@ export default {
 
 <style scoped>
 .calendar-month {
+  margin-top: 200px;
   position: relative;
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);

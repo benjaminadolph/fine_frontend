@@ -1,0 +1,14 @@
+@import '../init';
+
+.swipe-slider {
+    padding: 10px $EDGE_GRID;
+    ul {
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+
+        li {
+            margin-right: 30px;
+        }
+    }
+}
