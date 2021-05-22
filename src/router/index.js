@@ -38,20 +38,20 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
-    beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/module-entry/:module',
     name: 'Module Entry',
     component: () => import('../views/ModuleEntry.vue'),
-    beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifAuthenticated,
     props: true,
   },
   {
     path: '/module-entry/:module/:id/details',
     name: 'Module Entry Details',
     component: () => import('../views/ModuleEntryDetails.vue'),
-    beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifAuthenticated,
     props: true,
   },
   {
@@ -64,6 +64,7 @@ const routes = [
     path: '/exampleview',
     name: 'ExampleView',
     component: () => import('../views/ExampleView.vue'),
+    beforeEnter: ifAuthenticated,
   },
 ];
 

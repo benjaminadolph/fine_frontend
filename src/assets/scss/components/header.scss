@@ -1,0 +1,19 @@
+@import '../init';
+
+header {
+    margin: 30px $EDGE_GRID;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .shadow-button {
+        border-radius: 50%;
+        background-color: white;
+        @include boxshadow;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
