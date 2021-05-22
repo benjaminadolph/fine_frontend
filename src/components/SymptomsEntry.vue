@@ -77,14 +77,12 @@ export default {
     onSelect(option) {
       this.isCategorySelected = true;
       this.category = option.title;
-      this.removeCircles();
-      this.setSymptoms(option.title);
-    },
-    removeCircles() {
       const circles = document.getElementsByClassName('circle');
+      console.log(circles);
       circles.forEach((element) => {
         element.remove();
       });
+      this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
@@ -117,7 +115,7 @@ export default {
       }
     },
     setIntensity(intensity) {
-      this.lastClickedElement.setAttributeNS(null, 'class', `color-${intensity} intensity-set`);
+      this.lastClickedElement.setAttributeNS(null, 'class', `circle color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
       const lastClickedElementPosition = this.lastClickedElement.id;
