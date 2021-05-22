@@ -5,7 +5,7 @@
         @click="$emit('click')"
     >
         <!-- Icon can't be resized -->
-        <svg v-if="strictMode" xmlns="http://www.w3.org/2000/svg" :width="sizeWidth + 'px'" :height="size + 'px'">
+        <svg v-if="strictMode" xmlns="http://www.w3.org/2000/svg" :width="sizeWidth + 'px'" :height="size + 'px'" :id="id">
             <use
                 x="0"
                 y="0"
