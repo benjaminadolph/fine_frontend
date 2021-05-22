@@ -27,8 +27,8 @@ export default {
           console.log('Logged In');
           this.$router.push('/');
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

@@ -184,6 +184,7 @@ export default {
         }
       }
       this.searchValue = '';
+      this.$emit('update', this.option);
     },
     setNewOption(value) {
       const newOption = {

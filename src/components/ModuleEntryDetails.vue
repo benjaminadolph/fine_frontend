@@ -1,10 +1,10 @@
 <template>
-  <div class="module-entry-layer">
+  <div class="module-entry-layer-details">
     <div class="module-entry-header">
       <div class="close">
         <IconComponent
             v-bind:name="'close-full'"
-            v-on:click="closeEntryDetailis()"
+            v-on:click="closeEntryDetails()"
             :size="32"
             v-bind:color="module + '-primary'"
           />
@@ -86,7 +86,7 @@ export default {
       this.tabs[tabName] = true;
     },
     closeEntryDetails() {
-      router.go(-1);
+      this.$parent.entryDetails = false;
     },
   },
   computed: {
