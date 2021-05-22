@@ -9,6 +9,10 @@
 
         li {
             margin-right: 30px;
+
+            &.active-item {
+                color: $FINE_PRIMARY;
+            }
         }
     }
 }

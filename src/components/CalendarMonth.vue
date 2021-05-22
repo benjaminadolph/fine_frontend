@@ -1,26 +1,45 @@
 <template>
-  <div class="calendar-month">
-    <div class="calendar-month-header">
-      <CalendarDateIndicator
-        :selected-date="selectedDate"
-        class="calendar-month-header-selected-month"
+  <div>
+    <Header title="Calendar" />
+    <div class="calendar-navigation">
+      <SwipeSlider
+        :items="yearItems"
+        :active="year"
+        :selectedDate="selectedDate"
+        identifier="year"
+        @dateSelected="selectDate"
       />
-
-      <CalendarDateSelector
-        :current-date="today"
-        :selected-date="selectedDate"
+      <SwipeSlider
+        :items="monthItems"
+        :active="month - 1"
+        :selectedDate="selectedDate"
+        identifier="month"
         @dateSelected="selectDate"
       />
     </div>
+    <div class="calendar-month">
+      <div class="calendar-month-header">
+        <CalendarDateIndicator
+          :selected-date="selectedDate"
+          class="calendar-month-header-selected-month"
+        />
 
-    <ol class="days-grid">
-      <CalendarMonthDayItem
-        v-for="day in days"
-        :key="day.date"
-        :day="day"
-        :is-today="day.date === today"
-      />
-    </ol>
+        <CalendarDateSelector
+          :current-date="today"
+          :selected-date="selectedDate"
+          @dateSelected="selectDate"
+        />
+      </div>
+
+      <ol class="days-grid">
+        <CalendarMonthDayItem
+          v-for="day in days"
+          :key="day.date"
+          :day="day"
+          :is-today="day.date === today"
+        />
+      </ol>
+    </div>
   </div>
 </template>
 
@@ -28,6 +47,8 @@
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import Header from '@/components/Header.vue';
+import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/CalendarMonthDayItem.vue';
 import CalendarDateIndicator from '@/components/CalendarDateIndicator.vue';
 import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
@@ -42,11 +63,30 @@ export default {
     CalendarMonthDayItem,
     CalendarDateIndicator,
     CalendarDateSelector,
+    Header,
+    SwipeSlider,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
+      yearItems: {
+        2018: '2018', 2019: '2019', 2020: '2020', 2021: '2021',
+      },
+      monthItems: {
+        0: 'Januar',
+        1: 'Februar',
+        2: 'März',
+        3: 'April',
+        4: 'Mai',
+        5: 'Juni',
+        6: 'Juli',
+        7: 'August',
+        8: 'September',
+        9: 'Oktober',
+        10: 'November',
+        11: 'Dezember',
+      },
     };
   },
 
@@ -107,8 +147,9 @@ export default {
       return [...Array(visibleNumberOfDaysFromPreviousMonth)].map(
         (day, index) => ({
           date: dayjs(
-            `${previousMonth.year()}-${previousMonth.month()
-                + 1}-${previousMonthLastMondayDayOfMonth + index}`,
+            `${previousMonth.year()}-${previousMonth.month() + 1}-${
+              previousMonthLastMondayDayOfMonth + index
+            }`,
           ).format('YYYY-MM-DD'),
           isCurrentMonth: false,
         }),
@@ -147,38 +188,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.calendar-month {
-  margin-top: 200px;
-  position: relative;
-  background-color: var(--grey-200);
-  border: solid 1px var(--grey-300);
-}
-
-.day-of-week {
-  color: var(--grey-800);
-  font-size: 18px;
-  background-color: #fff;
-  padding-bottom: 5px;
-  padding-top: 10px;
-}
-
-.day-of-week,
-.days-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-.day-of-week > * {
-  text-align: right;
-  padding-right: 5px;
-}
-
-.days-grid {
-  height: 100%;
-  position: relative;
-  grid-column-gap: var(--grid-gap);
-  grid-row-gap: var(--grid-gap);
-  border-top: solid 1px var(--grey-200);
-}
+<style lang="scss" scoped>
+@import "@/assets/scss/views/calendar.scss";
 </style>

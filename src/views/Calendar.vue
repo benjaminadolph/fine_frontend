@@ -2,8 +2,18 @@
   <div>
     <Header title="Calendar" />
     <div class="calendar-navigation">
-      <SwipeSlider :items="yearItems" />
-      <SwipeSlider :items="monthItems" />
+      <SwipeSlider
+        :items="yearItems"
+        :active="year"
+        identifier="year"
+        @dateSelected="selectDate"
+      />
+      <SwipeSlider
+        :items="monthItems"
+        :active="month"
+        identifier="month"
+        @dateSelected="selectDate"
+      />
     </div>
     <CalendarMonth />
   </div>
@@ -19,8 +29,22 @@ export default {
   name: 'Calendar',
   data() {
     return {
-      yearItems: { items: ['2018', '2019', '2020', '2021'], activeItem: this.year },
-      monthItems: { items: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'], activeItem: this.month },
+      selectedDate: dayjs(),
+      yearItems: ['2018', '2019', '2020', '2021'],
+      monthItems: [
+        'Januar',
+        'Februar',
+        'März',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember',
+      ],
     };
   },
   components: {
@@ -28,20 +52,24 @@ export default {
     Header,
     SwipeSlider,
   },
-  methods: {
-  },
   computed: {
     year() {
-      console.log(dayjs().year());
       return dayjs().year();
     },
     month() {
-      return Number(dayjs().month().format('M'));
+      const _currentMonth = dayjs().format('M');
+      const currentMonth = this.monthItems[_currentMonth - 1];
+      return currentMonth;
+    },
+  },
+  methods: {
+    selectDate(newSelectedDate) {
+      this.selectedDate = newSelectedDate;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/views/calendar.scss";
+@import "@/assets/scss/views/calendar.scss";
 </style>
