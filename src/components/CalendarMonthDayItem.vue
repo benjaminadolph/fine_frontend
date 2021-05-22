@@ -1,14 +1,28 @@
 <template>
-  <div
-    class="calendar-day"
-    :class="{
-      'calendar-day--not-current': !day.isCurrentMonth,
-      'calendar-day--today': isToday
-    }" >
-    <ul class="day-entries">
-      <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
-    </ul>
-    <span>{{ label }}</span>
+  <div :class="{ 'calendar-day-with-entry': showDay }">
+    <div
+      class="calendar-day"
+      v-on:click="showDay = !showDay"
+      :class="{
+        'calendar-day--not-current': !day.isCurrentMonth,
+        'calendar-day--today': isToday
+      }" >
+      <ul class="day-entries">
+        <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
+      </ul>
+      <span>{{ label }}</span>
+    </div>
+    <div v-show="showDay" class="calendar-day-details">
+      <div
+        class="day-entry"
+        v-for="entry in dayEntries"
+        :key="entry._id"
+        >
+        {{ entry.category }}
+        {{ getEntryTime(entry) }}
+        {{ entry.intensity }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,6 +54,8 @@ export default {
     return {
       symptoms: [],
       symptomsEntries: [],
+      dayEntries: [],
+      showDay: false,
     };
   },
 
@@ -53,6 +69,7 @@ export default {
       const _this = this;
       this.symptoms.forEach((item) => {
         if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
+          this.dayEntries.push(item);
           itemEntry = item;
         }
       });
@@ -74,7 +91,10 @@ export default {
           console.log(err);
         });
     },
-
+    getEntryTime(entry) {
+      console.log(entry);
+      return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
+    },
   },
 };
 </script>

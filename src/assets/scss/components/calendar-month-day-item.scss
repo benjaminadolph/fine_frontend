@@ -1,11 +1,17 @@
 @import '../init';
 
+.calendar-day-with-entry {
+    grid-column-start: 1;
+    grid-column-end: seven;
+}
+
 .calendar-day {
     position: relative;
     min-height: 90px;
     background-color: #fff;
     border: solid 1px $FINE_GREY_LIGHT;
     border-radius: 3px;
+
 
     >span {
         position: absolute;
