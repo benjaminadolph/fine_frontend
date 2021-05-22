@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="Calendar" />
+    <Header title="Kalender" iconLeft="arrow-left" iconRight="filter"/>
     <div class="calendar-navigation">
       <SwipeSlider
         :items="yearItems"
@@ -26,14 +26,14 @@
         /> -->
       </div>
 
-      <ol class="days-grid">
+      <div class="days-grid">
         <CalendarMonthDayItem
           v-for="day in days"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
         />
-      </ol>
+      </div>
     </div>
   </div>
 </template>

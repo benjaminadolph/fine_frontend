@@ -1,14 +1,14 @@
 <template>
     <header>
         <div class="left-button shadow-button">
-            <IconComponent />
+            <IconComponent :name="iconLeft" />
         </div>
         <div class="center">
             <h1 v-bind:color="color">{{ title }}</h1>
             <Time />
         </div>
         <div class="right-button shadow-button">
-            <IconComponent />
+            <IconComponent :name="iconRight" />
         </div>
     </header>
 </template>
