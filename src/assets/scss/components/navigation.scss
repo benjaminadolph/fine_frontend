@@ -7,15 +7,17 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 100;
+    @include boxshadow-top;
 
     ul {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         list-style: none;
-        padding: 0;
         margin: 0;
         align-items: center;
         height: 100%;
+        padding: 0 $EDGE_GRID;
 
         li {
             height: 100%;
