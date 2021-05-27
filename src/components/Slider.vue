@@ -3,7 +3,8 @@
     <!-- div wie der thumb, Breite mit x_Position berechnen,
     neue Position Klasse mit width in scss setzen,
     action mit Intensität bei entsprechender Position -->
-    <input
+    <div class="thumb" @v-touch:drag="dragSlider" v-bind:class="module + '-primary-bgcolor'"></div>
+    <!-- <input
       type="range"
       class="range-slider"
       id="slider"
@@ -12,7 +13,7 @@
       value="1"
       @v-touch:drag="dragSlider"
       v-bind:class="module + '-primary-bgcolor'"
-    />
+    /> -->
     <!-- v-bind:class="module + '-primary-bgcolor'" funktioniert
     nur beim Track aber nicht beim Thumb -->
     <div class="slider-text plain-m-book">Wirkung bewerten</div>

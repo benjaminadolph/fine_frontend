@@ -18,6 +18,16 @@
     cursor: grabbing;
   }
 
+  .thumb {
+    position: absolute;
+    width: 20%;
+    padding: 1.15rem;
+    border-radius: $BASE_BORDER_RADIUS;
+    background-image: url('../assets/icons/16-smile.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   input[type=range]{
     -webkit-appearance: none;
     position: absolute;
@@ -101,6 +111,17 @@
     background: $FINE_WHITE;
     padding: 0.3rem 0.6rem;
     border-radius: $BASE_BORDER_RADIUS;
+    background-image: url('../assets/icons/16-smile.svg') #{$MODULE_COLORS} !important;;
+    background-repeat: no-repeat;
+    background-position: center;
+
+      img {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
   }
 }
   
