@@ -3,7 +3,8 @@
     <!-- div wie der thumb, Breite mit x_Position berechnen,
     neue Position Klasse mit width in scss setzen,
     action mit Intensität bei entsprechender Position -->
-    <div class="thumb" @v-touch:drag="dragSlider" v-bind:class="module + '-primary-bgcolor'"></div>
+    <div id="slider" class="thumb" @click="dragSlider"
+    v-bind:class="module + '-primary-bgcolor'"></div>
     <!-- <input
       type="range"
       class="range-slider"
@@ -37,7 +38,39 @@ export default {
   },
   methods: {
     dragSlider() {
-      const slider = document.querySelector('.range-slider');
+      const slider = document.querySelector('.thumb');
+      const rect = slider.getBoundingClientRect();
+      console.log(`'y:' ${rect.top}, ${rect.right}, ${rect.bottom}, 'x:' ${rect.left}`);
+
+      const width = rect.right - rect.left;
+      console.log(width);
+
+      const classes = ['pos1', 'pos2', 'pos3', 'pos4', 'pos5'];
+      const pos1 = classes[0];
+
+      forward(() => {
+        const e = classes.shift();
+        classes.push(e);
+        set();
+      });
+
+      width.forward();
+      console.log('moved forward');
+
+      back(() => {
+        const e = classes.pop();
+        classes.unshift(e);
+        set();
+      });
+
+      width.back();
+      console.log('moved back');
+
+      set(() => {
+        document.getElementById('slider').className = pos1;
+      });
+
+      /* const slider = document.querySelector('.range-slider');
       const sliderPos = slider.value / slider.max;
       console.log(sliderPos);
       // const style = getComputedStyle(slider);
@@ -115,10 +148,8 @@ export default {
         }
       }
 
-      /* forEach Funktion
-
       slider.prototype.forEach.call((index) => {
-      const thumb = document.querySelector('.range-slider'); */
+      const thumb = document.querySelector('.range-slider');
       slider.addEventListener('dragstart', (e) => e.preventDefault());
 
       // Touch events
@@ -131,7 +162,7 @@ export default {
       slider.addEventListener('mouseup', touchEnd);
       slider.addEventListener('mouseleave', touchEnd);
       slider.addEventListener('mousemove', touchMove);
-      // });
+      // }); */
     },
   },
   mounted() {

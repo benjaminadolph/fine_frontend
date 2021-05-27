@@ -28,6 +28,13 @@
     background-position: center;
   }
 
+  .pos1 {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+  }
+
+  /*
   input[type=range]{
     -webkit-appearance: none;
     position: absolute;
@@ -52,12 +59,12 @@
     -ms-overflow-style: none;
     /* Hides the scrollbar. */
     
-    -ms-scroll-chaining: none;
+  //  -ms-scroll-chaining: none;
     /* Prevents Metro from swiping to the next tab or app. */
-  }  
+ // }  
 
   // style Track of Slider
-  input[type=range]::-webkit-slider-runnable-track {
+ /* input[type=range]::-webkit-slider-runnable-track {
     width: inherit;
     height: inherit;
     border: none;
@@ -103,7 +110,7 @@
     padding: 0.5rem 1rem;
     border-radius: $BASE_BORDER_RADIUS;
     display: flex;
-  }
+  } */
 
   .slider-text {
     text-align: center;
