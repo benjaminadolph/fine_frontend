@@ -12,3 +12,17 @@
         margin: 0 $EDGE_GRID;
     }
 }
+
+.module-slider {
+    margin: 30px $EDGE_GRID;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+        margin: 0 10px;
+    }
+    .not-active {
+        color: $FINE_GREY_MEDIUM !important;
+    }
+}
