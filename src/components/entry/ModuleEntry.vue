@@ -4,16 +4,13 @@
     v-touch:swipe.left="swipeHandler"
     v-touch:swipe.right="swipeHandlerRight">
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="closeLayer">
-          <IconComponent name="close-full" size="32" :color="currentModule + '-primary'" />
-      </a>
       <div class="center">
           <h1 :class="currentModule + '-primary'">{{ getModuleName() }}</h1>
           <Time />
       </div>
-      <div class="right-button shadow-button">
-          <IconComponent />
-      </div>
+      <a class="right-button shadow-button" v-on:click="closeLayer">
+          <IconComponent name="close-full" size="32" :color="currentModule + '-primary'" />
+      </a>
     </header>
     <div class="module-entry-content">
       <SymptomsEntry v-if="currentModule==='symptoms'" />
