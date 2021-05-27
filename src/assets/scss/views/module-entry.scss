@@ -1,22 +1,14 @@
 @import '../init';
 
 .module-entry-layer {
-    @include grayWhiteBlur;
     min-height: 100vh;
     z-index: 10000;
     position: absolute;
     width: 100%;
-    padding: 20px;
-    top: 30px;
+    top: 0;
+    background-color: $BACKGROUND_COLOR;
 
-    .module-entry-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-
-        .text {
-            margin-left: 10px;
-        }
+    .module-entry-content {
+        margin: 0 $EDGE_GRID;
     }
 }

@@ -53,7 +53,7 @@
 import { mapGetters } from 'vuex';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import ModuleEntryDetails from '@/components/ModuleEntryDetails.vue';
+import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
 
 export default {
   name: 'SymptomsEntry',

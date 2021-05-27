@@ -46,7 +46,6 @@
         <h3>Sprachaufnahme</h3>
       </div>
     </div>
-
     <SelectEntry :module=module buttonLabel="Tag wählen" :multiselect=true />
   </div>
 </template>
