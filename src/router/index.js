@@ -32,7 +32,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Register.vue'),
-    beforeEnter: ifNotAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/dashboard',
@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/module-entry/:module/:id/details',
     name: 'Module Entry Details',
-    component: () => import('../views/ModuleEntryDetails.vue'),
+    component: () => import('../components/ModuleEntryDetails.vue'),
     beforeEnter: ifAuthenticated,
     props: true,
   },

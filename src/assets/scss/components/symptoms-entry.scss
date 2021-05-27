@@ -7,8 +7,74 @@
     height: 60vh;
     position: relative;
 
+    .symptoms-figure-container-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+        background-color: rgba(255,255,255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .vue-pan-zoom-scene {
         display: flex;
         justify-content: center;
+
+        .icon-wrapper {
+            color: $SYMPTOMS_PRIMARY;
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+    }
+
+    #figure {
+        position: relative;
+    }
+
+    .intensity-control {
+        position: absolute;
+        border-radius: 30px;
+        background-color: $SYMPTOMS_PRIMARY;
+        color: $FINE_WHITE;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        right: 10px;
+        top: 10px;
+
+        span {
+            padding: 10px;
+            border-radius: 50%;
+            border: solid 1px transparent;
+
+            &.icon-wrapper {
+                width: auto !important;
+                height: auto !important;
+            }
+
+            &.selected {
+                border-color: $SYMPTOMS_DARK;
+            }
+        }
+    }
+
+    .color-5 {
+        color: $SYMPTOMS_DARK;
+    }
+    .color-4 {
+        color: $SYMPTOMS_PRIMARY;
+    }
+    .color-3 {
+        color: $SYMPTOMS_75;
+    }
+    .color-2 {
+        color: $SYMPTOMS_50;
+    }
+    .color-1 {
+        color: $SYMPTOMS_25;
     }
 }
+

@@ -1,13 +1,14 @@
 @import '../init';
 
-.module-entry-layer {
+.module-entry-layer-details {
     @include grayWhiteBlur;
     min-height: 100vh;
     z-index: 10000;
-    position: absolute;
+    position: fixed;
     width: 100%;
     padding: 20px;
-    top: 30px;
+    top: 0;
+    left: 0;
 
     .module-entry-header {
         display: flex;
