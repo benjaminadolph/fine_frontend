@@ -39,6 +39,26 @@ export default ({
     DELETE_POST_ERROR: (state) => {
       state.status = 'error';
     },
+    UPDATE_SYMPTOM: (state) => {
+      state.status = 'loading';
+    },
+    UPDATE_SYMPTOM_SUCCESS: (state, resp) => {
+      state.status = 'success';
+      state.symptoms = resp.data;
+    },
+    UPDATE_SYMPTOM_ERROR: (state) => {
+      state.status = 'error';
+    },
+    GET_SYMPTOM: (state) => {
+      state.status = 'loading';
+    },
+    GET_SYMPTOM_SUCCESS: (state, resp) => {
+      state.status = 'success';
+      state.symptoms = resp.data;
+    },
+    GET_SYMPTOM_ERROR: (state) => {
+      state.status = 'error';
+    },
   },
   actions: {
     GET_ALL_SYMPTOMS: async ({ commit, rootState }) => {
@@ -68,12 +88,35 @@ export default ({
       const symptomid = req.symptom_id;
       const userid = rootState.user.id;
       commit('DELETE_SYMPTOM');
-      await axios.delete(`http://localhost:3000/api/symptoms/${symptomid}`, { params: { symptomid, userid } })
+      await axios.delete(`http://localhost:3000/api/symptoms/${symptomid}`, { params: { userid } })
         .then((resp) => {
           commit('DELETE_SYMPTOM_SUCCESS', resp);
         })
         .catch(() => {
           commit('DELETE_SYMPTOM_ERROR');
+        });
+    },
+    UPDATE_SYMPTOM: async ({ commit, rootState }, req) => {
+      const symptomid = req.symptom_id;
+      const userid = rootState.user.id;
+      commit('UPDATE_SYMPTOM');
+      await axios.patch(`http://localhost:3000/api/symptoms/${symptomid}`, req, { params: { userid } })
+        .then((resp) => {
+          commit('UPDATE_SYMPTOM_SUCCESS', resp);
+        })
+        .catch(() => {
+          commit('UPDATE_SYMPTOM_ERROR');
+        });
+    },
+    GET_SYMPTOM: async ({ commit }, req) => {
+      const symptomid = req.symptom_id;
+      commit('GET_SYMPTOM');
+      await axios.get(`http://localhost:3000/api/symptoms/${symptomid}`)
+        .then((resp) => {
+          commit('GET_SYMPTOM_SUCCESS', resp);
+        })
+        .catch(() => {
+          commit('GET_SYMPTOM_ERROR');
         });
     },
   },

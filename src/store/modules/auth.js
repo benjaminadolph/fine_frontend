@@ -63,6 +63,7 @@ export default ({
     AUTH_LOGOUT: ({ commit }) => {
       commit('AUTH_LOGOUT');
       localStorage.removeItem('user-token');
+      delete axios.defaults.headers.common.Authorization;
     },
   },
   modules: {

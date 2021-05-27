@@ -14,7 +14,6 @@ export default createStore({
     symptoms: Symptoms,
     emotions: Emotions,
   },
-  /* plugins: [createPersistedState()], */
   plugins: [createPersistedState({
     key: 'vuex',
     reducer(val) {

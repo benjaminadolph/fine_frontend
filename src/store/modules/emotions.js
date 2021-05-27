@@ -39,11 +39,30 @@ export default ({
     DELETE_EMOTION_ERROR: (state) => {
       state.status = 'error';
     },
+    UPDATE_EMOTION: (state) => {
+      state.status = 'loading';
+    },
+    UPDATE_EMOTION_SUCCESS: (state, resp) => {
+      state.status = 'success';
+      state.emotions = resp.data;
+    },
+    UPDATE_EMOTION_ERROR: (state) => {
+      state.status = 'error';
+    },
+    GET_EMOTION: (state) => {
+      state.status = 'loading';
+    },
+    GET_EMOTION_SUCCESS: (state, resp) => {
+      state.status = 'success';
+      state.emotions = resp.data;
+    },
+    GET_EMOTION_ERROR: (state) => {
+      state.status = 'error';
+    },
   },
   actions: {
     GET_ALL_EMOTIONS: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
-      console.log(userid);
       commit('GET_ALL_EMOTIONS');
       await axios.get('http://localhost:3000/api/emotions/', { params: { userid } })
         .then((resp) => {
@@ -75,6 +94,29 @@ export default ({
         })
         .catch(() => {
           commit('DELETE_EMOTION_ERROR');
+        });
+    },
+    UPDATE_EMOTION: async ({ commit, rootState }, req) => {
+      const emotionid = req.emotion_id;
+      const userid = rootState.user.id;
+      commit('UPDATE_SYMPTOM');
+      await axios.patch(`http://localhost:3000/api/emotions/${emotionid}`, req, { params: { userid } })
+        .then((resp) => {
+          commit('UPDATE_EMOTION_SUCCESS', resp);
+        })
+        .catch(() => {
+          commit('UPDATE_EMOTION_ERROR');
+        });
+    },
+    GET_EMOTION: async ({ commit }, req) => {
+      const emotionid = req.emotion_id;
+      commit('GET_EMOTION');
+      await axios.get(`http://localhost:3000/api/emotions/${emotionid}`)
+        .then((resp) => {
+          commit('GET_EMOTION_SUCCESS', resp);
+        })
+        .catch(() => {
+          commit('GET_EMOTION_ERROR');
         });
     },
   },
