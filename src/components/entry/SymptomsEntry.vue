@@ -78,10 +78,9 @@ export default {
       this.isCategorySelected = true;
       this.category = option.title;
       const circles = document.getElementsByClassName('circle');
-      console.log(circles);
-      circles.forEach((element) => {
-        element.remove();
-      });
+      while (circles.length > 0) {
+        circles[0].parentElement.removeChild(circles[0]);
+      }
       this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
