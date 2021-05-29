@@ -19,6 +19,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMCATEGORIES,
+  CREATE_SYMPTOMCATEGORY,
+  DELETE_SYMPTOMCATEGORY,
+  UPDATE_SYMPTOMCATEGORY,
+  GET_SYMPTOMCATEGORY,
+} from '@/store/modules/symptomCategories';
 
 export default {
   name: 'Symptoms',
@@ -36,7 +43,7 @@ export default {
   },
   methods: {
     getAllSymptomCategories() {
-      this.$store.dispatch('GET_ALL_SYMPTOMCATEGORIES')
+      this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
         .then(() => {
           this.symptomCategories = this.getUserSymptomCategories;
         })
@@ -45,7 +52,7 @@ export default {
         });
     },
     createSymptomCategory() {
-      this.$store.dispatch('CREATE_SYMPTOMCATEGORY', {
+      this.$store.dispatch(CREATE_SYMPTOMCATEGORY, {
         title: this.title,
       })
         .then(() => {
@@ -56,7 +63,7 @@ export default {
         });
     },
     deleteSymptomCategory(id) {
-      this.$store.dispatch('DELETE_SYMPTOMCATEGORY', {
+      this.$store.dispatch(DELETE_SYMPTOMCATEGORY, {
         symptomCategory_id: id,
       })
         .then(() => {
@@ -67,7 +74,7 @@ export default {
         });
     },
     updateSymptomCategory(id) {
-      this.$store.dispatch('UPDATE_SYMPTOMCATEGORY', {
+      this.$store.dispatch(UPDATE_SYMPTOMCATEGORY, {
         symptomCategory_id: id,
         title: this.title,
       })
@@ -79,7 +86,7 @@ export default {
         });
     },
     getSymptomCategory(id) {
-      this.$store.dispatch('GET_SYMPTOMCATEGORY', {
+      this.$store.dispatch(GET_SYMPTOMCATEGORY, {
         symptomCategory_id: id,
       })
         .then(() => {

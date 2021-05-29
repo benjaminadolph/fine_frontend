@@ -26,6 +26,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+  CREATE_SYMPTOM,
+  DELETE_SYMPTOM,
+  UPDATE_SYMPTOM,
+  GET_SYMPTOM,
+} from '@/store/modules/symptoms';
 
 export default {
   name: 'Symptoms',
@@ -54,7 +61,7 @@ export default {
   },
   methods: {
     getAllSymptoms() {
-      this.$store.dispatch('GET_ALL_SYMPTOMS')
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
           this.symptoms = this.getUserSymptoms;
         })
@@ -63,7 +70,7 @@ export default {
         });
     },
     createSymptom() {
-      this.$store.dispatch('CREATE_SYMPTOM', {
+      this.$store.dispatch(CREATE_SYMPTOM, {
         date: this.date,
         module: this.module,
         intensity: this.intensity,
@@ -82,7 +89,7 @@ export default {
         });
     },
     deleteSymptom(id) {
-      this.$store.dispatch('DELETE_SYMPTOM', {
+      this.$store.dispatch(DELETE_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
@@ -93,7 +100,7 @@ export default {
         });
     },
     updateSymptom(id) {
-      this.$store.dispatch('UPDATE_SYMPTOM', {
+      this.$store.dispatch(UPDATE_SYMPTOM, {
         symptom_id: id,
         date: this.date,
         module: this.module,
@@ -113,7 +120,7 @@ export default {
         });
     },
     getSymptom(id) {
-      this.$store.dispatch('GET_SYMPTOM', {
+      this.$store.dispatch(GET_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
