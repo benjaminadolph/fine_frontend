@@ -2,6 +2,7 @@
   <div>
     <SymptomsExampleComponent/>
     <EmotionsExampleComponent/>
+    <SymptomCategoriesExampleComponent/>
   </div>
 </template>
 
@@ -12,12 +13,14 @@
 
 import SymptomsExampleComponent from '@/components/SymptomsExampleComponent.vue';
 import EmotionsExampleComponent from '@/components/EmotionsExampleComponent.vue';
+import SymptomCategoriesExampleComponent from '@/components/SymptomCategoriesExampleComponent.vue';
 
 export default {
   name: 'ExampleView',
   components: {
     SymptomsExampleComponent,
     EmotionsExampleComponent,
+    SymptomCategoriesExampleComponent,
   },
   data() {
     return {};
