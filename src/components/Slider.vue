@@ -3,7 +3,7 @@
     <!-- div wie der thumb, Breite mit x_Position berechnen,
     neue Position Klasse mit width in scss setzen,
     action mit Intensität bei entsprechender Position -->
-    <div id="slider" class="thumb" @click="dragSlider"
+    <div id="slider" class="thumb" @drag="dragSlider"
     v-bind:class="module + '-primary-bgcolor'"></div>
     <!-- <input
       type="range"
@@ -29,87 +29,40 @@ export default {
   },
   data() {
     return {
-      length: 100,
-      horizontal: true,
-      thumbThickWidth: 30,
-      thumbThinWidth: 10,
-      trackWidth: 10,
+      firstIntensity: '',
+      secondIntensity: '',
+      thirdIntensity: '',
+      fourthIntensity: '',
+      fifthIntensity: '',
     };
   },
   methods: {
     dragSlider() {
-      const slider = document.querySelector('.thumb');
-      const rect = slider.getBoundingClientRect();
-      console.log(`'y:' ${rect.top}, ${rect.right}, ${rect.bottom}, 'x:' ${rect.left}`);
+      // width of thumb
+      const thumb = document.querySelector('.thumb');
+      const positionThumb = thumb.getBoundingClientRect();
+      console.log(`'right' ${positionThumb.right}, 'left' ${positionThumb.left}`);
 
-      const width = rect.right - rect.left;
-      console.log(width);
+      const widthThumb = positionThumb.right - positionThumb.left;
+      console.log(widthThumb);
 
-      const classes = ['pos1', 'pos2', 'pos3', 'pos4', 'pos5'];
-      const pos1 = classes[0];
+      // width of parent/ whole slider
+      const slider = document.querySelector('.slider');
+      const positionSlider = slider.getBoundingClientRect();
+      console.log(`'right' ${positionSlider.right}, 'left' ${positionSlider.left}`);
 
-      forward(() => {
-        const e = classes.shift();
-        classes.push(e);
-        set();
+      const widthSlider = positionSlider.right - positionSlider.left;
+      const intensityPos = widthSlider / 5;
+      console.log(widthSlider);
+      console.log(intensityPos);
+
+      set((intensity) => {
+        document.getElementById('slider').className = `intensity-${intensity}`;
+        widthThumb.forEach().push(widthThumb + intensityPos);
+        // this.$store.dispatch();
       });
 
-      width.forward();
-      console.log('moved forward');
-
-      back(() => {
-        const e = classes.pop();
-        classes.unshift(e);
-        set();
-      });
-
-      width.back();
-      console.log('moved back');
-
-      set(() => {
-        document.getElementById('slider').className = pos1;
-      });
-
-      /* const slider = document.querySelector('.range-slider');
-      const sliderPos = slider.value / slider.max;
-      console.log(sliderPos);
-      // const style = getComputedStyle(slider);
-
-      let isDragging = false;
-      let startPos = 0;
-      let currentTranslate = 0;
-      let prevTranslate = 0;
-      let animationID = 0;
-      console.log(isDragging);
-
-      // auf der x-Achse Transformation ausführen
-      function setSliderPosition() {
-        slider.style.transform = `translateX(${currentTranslate}px)`;
-      }
-
-      // Animation starten
-      function animation() {
-        setSliderPosition();
-        if (isDragging) requestAnimationFrame(animation);
-      }
-
-      // Position des Sliders bei Maus, Touch
-      function getPositionX(event) {
-        return event.type.includes('mouse')
-          ? event.pageX
-          : event.touches[0].clientX;
-      }
-
-      // event muss noch übergeben werden
-      function touchStart() {
-        return function (event) {
-          startPos = getPositionX(event);
-          console.log(startPos);
-          isDragging = true;
-          animationID = requestAnimationFrame(animation);
-          slider.classList.add('grabbing');
-        };
-      }
+      /* }
 
       // Slider soll in 5 Abschnitten einrasten
       function setPositionByValue() {

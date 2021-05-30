@@ -28,10 +28,34 @@
     background-position: center;
   }
 
-  .pos1 {
+  .intensity-1 {
     position: absolute;
     left: 50%;
-    width: 50%;
+    width: 20%;
+  }
+
+  .intensity-2 {
+    position: absolute;
+    left: 50%;
+    width: 40%;
+  }
+
+  .intensity-3 {
+    position: absolute;
+    left: 50%;
+    width: 60%;
+  }
+
+  .intensity-4 {
+    position: absolute;
+    left: 50%;
+    width: 80%;
+  }
+
+  .intensity-5 {
+    position: absolute;
+    left: 50%;
+    width: 100%;
   }
 
   /*
