@@ -1,23 +1,25 @@
 <template>
   <div class="view">
-    <Header title="Dashboard" />
+     <header class="fine-header">
+      <div class="center">
+          <h1>Dashboard</h1>
+      </div>
+    </header>
     <SmartStack />
-    <ModuleTeaser :module="'emotions'" />
-    <ModuleTeaser :module="'symptoms'" />
+    <ModuleTeaser module="emotions" />
+    <ModuleTeaser module="symptoms" />
   </div>
 </template>
 
 <script>
 import SmartStack from '@/components/SmartStack.vue';
 import ModuleTeaser from '@/components/ModuleTeaser.vue';
-import Header from '@/components/Header.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     SmartStack,
     ModuleTeaser,
-    Header,
   },
   props: {
     module: String,

@@ -1,6 +1,6 @@
 // action types
 export const GET_ALL_SYMPTOMS = 'getAllSymptoms';
-export const CREATE_SYMPTOM = 'createSymptom';
+export const CREATE_SYMPTOM = 'createSymtpom';
 export const DELETE_SYMPTOM = 'deleteSymptom';
 export const UPDATE_SYMPTOM = 'updateSymptom';
 export const GET_SYMPTOM = 'getSymptom';
@@ -26,10 +26,14 @@ export default ({
   state: {
     status: '',
     symptoms: [],
+    latestSymptom: {},
   },
   getters: {
     getUserSymptoms(state) {
       return state.symptoms;
+    },
+    getLatestSymptom(state) {
+      return state.latestSymptom;
     },
   },
   mutations: {
@@ -49,6 +53,7 @@ export default ({
     [CREATE_SYMPTOM_SUCCESS]: (state, resp) => {
       state.status = 'success';
       state.symptoms.push(resp.data);
+      state.latestSymptom = resp.data;
     },
     [CREATE_SYMPTOM_ERROR]: (state) => {
       state.status = 'error';
