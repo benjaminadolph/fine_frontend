@@ -1,6 +1,6 @@
 // action types
 export const GET_ALL_SYMPTOMS = 'getAllSymptoms';
-export const CREATE_SYMPTOM = 'createSymtpom';
+export const CREATE_SYMPTOM = 'createSymptom';
 export const DELETE_SYMPTOM = 'deleteSymptom';
 export const UPDATE_SYMPTOM = 'updateSymptom';
 export const GET_SYMPTOM = 'getSymptom';
