@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { AUTH_REGISTER } from '@/store/modules/auth';
 
 export default {
   name: 'Register',
@@ -29,7 +30,7 @@ export default {
   },
   methods: {
     register() {
-      this.$store.dispatch('AUTH_REGISTER', {
+      this.$store.dispatch(AUTH_REGISTER, {
         firstName: this.firstName,
         lastName: this.lastName,
         gender: this.gender,
