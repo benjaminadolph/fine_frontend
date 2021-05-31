@@ -36,7 +36,7 @@ export default ({
       state.status = 'success';
       state.symptoms = resp.data;
     },
-    DELETE_POST_ERROR: (state) => {
+    DELETE_SYMPTOM_ERROR: (state) => {
       state.status = 'error';
     },
     UPDATE_SYMPTOM: (state) => {
