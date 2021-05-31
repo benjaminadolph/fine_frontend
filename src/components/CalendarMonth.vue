@@ -1,6 +1,16 @@
 <template>
   <div>
-    <Header title="Kalender" iconLeft="arrow-left" iconRight="filter"/>
+    <header class="fine-header">
+      <a class="left-button shadow-button">
+          <IconComponent name="arrow-left" size="16" />
+      </a>
+      <div class="center">
+          <h1>Kalender</h1>
+      </div>
+      <a class="right-button shadow-button">
+          <IconComponent name="filter" size="16" />
+      </a>
+    </header>
     <div class="calendar-navigation">
       <SwipeSlider
         :items="yearItems"
@@ -42,9 +52,9 @@
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
-import Header from '@/components/Header.vue';
 import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/CalendarMonthDayItem.vue';
+import IconComponent from '@/components/IconComponent.vue';
 // import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
 
 dayjs.extend(weekday);
@@ -55,9 +65,8 @@ export default {
 
   components: {
     CalendarMonthDayItem,
-    // CalendarDateSelector,
-    Header,
     SwipeSlider,
+    IconComponent,
   },
 
   data() {

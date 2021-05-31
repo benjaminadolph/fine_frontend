@@ -3,8 +3,10 @@
 header {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: calc(100% - (2 * #{$EDGE_GRID}));
   z-index: 100;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
   left: 0;
   background-color: $BACKGROUND_COLOR;
 }
@@ -13,13 +15,14 @@ header {
   position: fixed;
   background-color: $BACKGROUND_COLOR;
   width: 100%;
-  top: 100px;
+  top: 88px;
   left: 0;
   z-index: 100;
+  padding-bottom: 15px;
 }
 
 .calendar-month {
-  margin-top: 200px;
+  margin-top: 165px;
   position: relative;
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);

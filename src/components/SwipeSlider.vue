@@ -1,10 +1,13 @@
 <template>
-    <div class="swipe-slider">
+    <div
+      class="swipe-slider"
+      v-touch:swipe.left="selectNext"
+      v-touch:swipe.right="selectPrevious" >
       <ul class="slider-list">
         <li
           v-for="(value, key) in items"
           :key="key"
-          v-on:click="setActive(key)"
+          v-on:click="selectCurrent(key)"
           :class="{ 'active-item' : key == active}" >
           {{ value }}
         </li>
@@ -28,8 +31,18 @@ export default {
     },
   },
   methods: {
-    setActive(key) {
+    selectPrevious() {
+      const newSelectedDate = dayjs(this.selectedDate).subtract(1, this.identifier);
+      this.$emit('dateSelected', newSelectedDate);
+    },
+
+    selectCurrent(key) {
       const newSelectedDate = dayjs(this.selectedDate).set(this.identifier, key);
+      this.$emit('dateSelected', newSelectedDate);
+    },
+
+    selectNext() {
+      const newSelectedDate = dayjs(this.selectedDate).add(1, this.identifier);
       this.$emit('dateSelected', newSelectedDate);
     },
   },
