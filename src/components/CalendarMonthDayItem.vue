@@ -28,6 +28,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+} from '@/store/modules/symptoms';
 import dayjs from 'dayjs';
 
 export default {
@@ -83,7 +86,7 @@ export default {
 
   methods: {
     getAllSymptoms() {
-      this.$store.dispatch('GET_ALL_SYMPTOMS')
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
           this.symptoms = this.getUserSymptoms;
         })
