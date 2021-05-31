@@ -43,8 +43,12 @@
           />
         </div>
       </div>
-      <div v-show="entryDetails" >
-          <ModuleEntryDetails module="symptoms" />
+      <div v-if="entryDetails" >
+          <ModuleEntryDetails
+            module="symptoms"
+            :entry="entry"
+            v-on:saveEntryDetails="updateSymptom"
+          />
       </div>
     </div>
 </template>
@@ -66,6 +70,7 @@ export default {
     return {
       symptoms: [],
       entryDetails: false,
+      entry: {},
       category: '',
       showIntensityControl: false,
       lastClickedElement: false,
@@ -105,8 +110,11 @@ export default {
       }
       if (target instanceof SVGCircleElement) {
         this.lastClickedElement = target;
+        const id = target.getAttribute('_id');
+        this.getSymptom(id);
         if (target.classList.contains('intensity-set')) {
           this.entryDetails = true;
+          this.entryId = id;
         } else {
           this.showIntensityControl = true;
           this.addCirclePulsation(this.lastClickedElement);
@@ -126,7 +134,7 @@ export default {
         date: new Date(),
         module: 'symptoms',
         intensity,
-        // category: this.category,
+        category: this.category,
         location,
         // detailsText: this.detailsText,
         // photos: this.photos,
@@ -228,7 +236,7 @@ export default {
         intensity: newSymptom.intensity,
         category: this.category,
         location: newSymptom.location,
-        detailsText: newSymptom.detailsText,
+        detailsText: '',
         // photos: this.photos,
         // audio: this.audio,
         tags: newSymptom.tags,
@@ -253,11 +261,43 @@ export default {
     },
     setSymptoms(category) {
       const _this = this;
-      this.symptoms.forEach((element) => {
-        if (element.category === category) {
-          _this.setCircle(element);
-        }
-      });
+      if (this.symptoms.length > 0) {
+        this.symptoms.forEach((element) => {
+          if (element.category === category) {
+            _this.setCircle(element);
+          }
+        });
+      }
+    },
+    updateSymptom(entry) {
+      console.log(entry);
+      this.$store.dispatch('UPDATE_SYMPTOM', {
+        symptom_id: entry._id,
+        module: entry.module,
+        intensity: entry.intensity,
+        detailsText: entry.detailsText,
+        // photos: entry.photos,
+        // audio: entry.audio,
+        tags: entry.tags,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+          this.entryDetails = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSymptom(id) {
+      this.$store.dispatch('GET_SYMPTOM', {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.entry = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   computed: {

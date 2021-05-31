@@ -1,11 +1,14 @@
 <template>
   <div class="module-entry-layer-details">
     <header class="fine-header">
+      <a class="left-button shadow-button" v-on:click="closeEntryDetails()">
+          <IconComponent name="close-full" size="32" :color="module + '-primary'" />
+      </a>
       <div class="center">
           <h1 :class="module + '-primary'">Details</h1>
           <Time />
       </div>
-      <a class="right-button shadow-button" v-on:click="closeEntryDetails()">
+      <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
           <IconComponent name="close-full" size="32" :color="module + '-primary'" />
       </a>
     </header>
@@ -28,6 +31,7 @@
           name="input-text"
           rows="8"
           placeholder="Text hinzufügen"
+          v-model="entryDetailsText"
         >
         </textarea>
       </div>
@@ -58,10 +62,12 @@ export default {
   },
   props: {
     module: String,
-    id: Number,
+    entry: Object,
   },
   data() {
     return {
+      selectedEntry: Object,
+      entryDetailsText: '',
       tabs: [
         {
           text: true,
@@ -81,9 +87,17 @@ export default {
     closeEntryDetails() {
       this.$parent.entryDetails = false;
     },
+    saveEntryDetails() {
+      this.selectedEntry = this.entry;
+      this.selectedEntry.detailsText = this.entryDetailsText;
+      console.log(this.selectedEntry);
+      this.$emit('saveEntryDetails', this.selectedEntry);
+      this.entryDetailsText = '';
+    },
   },
   mounted() {
     this.showTab('text');
+    this.entryDetailsText = this.entry.detailsText;
   },
 };
 </script>
