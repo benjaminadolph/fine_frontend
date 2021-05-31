@@ -10,6 +10,7 @@
 <script>
 // @ is an alias to /src
 import Posts from '@/components/Posts.vue';
+import { AUTH_LOGOUT } from '@/store/modules/auth';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -22,7 +23,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('AUTH_LOGOUT')
+      this.$store.dispatch(AUTH_LOGOUT)
         .then(() => {
           this.$router.push('/login');
           console.log('Logged Out');

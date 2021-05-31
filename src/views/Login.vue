@@ -9,17 +9,19 @@
 </template>
 
 <script>
+import { AUTH_LOGIN } from '@/store/modules/auth';
+
 export default {
   name: 'Login',
   data() {
     return {
       email: 'test@example.com',
-      password: '12345678',
+      password: 'test123',
     };
   },
   methods: {
     login() {
-      this.$store.dispatch('AUTH_LOGIN', {
+      this.$store.dispatch(AUTH_LOGIN, {
         email: this.email,
         password: this.password,
       })
