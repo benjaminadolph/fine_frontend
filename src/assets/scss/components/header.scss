@@ -1,7 +1,7 @@
 @import '../init';
 
-header {
-    padding: 30px $EDGE_GRID;
+.fine-header {
+    margin: 30px $EDGE_GRID;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,10 +10,14 @@ header {
         border-radius: 50%;
         background-color: white;
         @include boxshadow;
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .time {
+        text-align: center;
     }
 }

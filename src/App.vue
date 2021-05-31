@@ -7,6 +7,7 @@
 
 <script>
 import Navigation from '@/components/Navigation.vue';
+import { AUTH_LOGOUT } from '@/store/modules/auth';
 
 export default {
   name: 'App',

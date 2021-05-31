@@ -1,7 +1,7 @@
 <template>
     <header>
-        <div class="left-button shadow-button">
-            <IconComponent :name="iconLeft" />
+        <div class="left-button shadow-button" v-on:click="buttonClick(iconLeft)">
+            <IconComponent :name="iconLeft" size="32" :color="color" />
         </div>
         <div class="center">
             <h1 v-bind:color="color">{{ title }}</h1>
@@ -31,6 +31,8 @@ export default {
       type: String,
       default: 'fine-grey-dark',
     },
+  },
+  methods: {
   },
 };
 </script>
