@@ -8,7 +8,7 @@
             <Time />
         </div>
         <div class="right-button shadow-button">
-            <IconComponent />
+            <IconComponent :name="iconRight" />
         </div>
     </header>
 </template>
