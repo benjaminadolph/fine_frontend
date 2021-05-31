@@ -90,7 +90,6 @@ export default {
     saveEntryDetails() {
       this.selectedEntry = this.entry;
       this.selectedEntry.detailsText = this.entryDetailsText;
-      console.log(this.selectedEntry);
       this.$emit('saveEntryDetails', this.selectedEntry);
       this.entryDetailsText = '';
     },
@@ -98,6 +97,7 @@ export default {
   mounted() {
     this.showTab('text');
     this.entryDetailsText = this.entry.detailsText;
+    console.log(this.entry);
   },
 };
 </script>

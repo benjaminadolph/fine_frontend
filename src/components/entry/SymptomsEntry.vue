@@ -82,6 +82,8 @@ export default {
       showIntensityControl: false,
       lastClickedElement: false,
       isCategorySelected: false,
+      figureSvg: {},
+      location: {},
       // selectEntryData: null,
     };
   },
@@ -97,12 +99,10 @@ export default {
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figureSVG = document.getElementById('653-woman-front');
-      // const figure = document.getElementById('symptoms-figure-container');
-      if (figureSVG === target) {
+      const figure = this.figureSvg;
+      if (figure === target) {
         this.showIntensityControl = true;
         const figureRect = target.getBoundingClientRect();
-        // const figureContainerRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
         const relativeY = mouseEvent.clientY - figureRect.top;
@@ -110,18 +110,15 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
-        this.setCircle({ location: { x, y } });
-
-        this.lastClickedElement = document.getElementById(`circle-${x}-${y}`);
-        this.addCirclePulsation(this.lastClickedElement);
+        this.location = { x, y };
+        this.addCirclePulsation(this.location);
       }
       if (target instanceof SVGCircleElement) {
         this.lastClickedElement = target;
         const id = target.getAttribute('_id');
-        this.getSymptom(id);
+
         if (target.classList.contains('intensity-set')) {
-          this.entryDetails = true;
-          this.entryId = id;
+          this.getSymptom(id);
         } else {
           this.showIntensityControl = true;
           this.addCirclePulsation(this.lastClickedElement);
@@ -132,17 +129,12 @@ export default {
       this.lastClickedElement.setAttributeNS(null, 'class', `circle color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
-      const lastClickedElementPosition = this.lastClickedElement.id;
-      const location = {
-        x: lastClickedElementPosition.split('-')[1],
-        y: lastClickedElementPosition.split('-')[2],
-      };
       const newSymptom = {
         date: new Date(),
         module: 'symptoms',
         intensity,
         category: this.category,
-        location,
+        location: this.location,
         // detailsText: this.detailsText,
         // photos: this.photos,
         // audio: this.audio,
@@ -151,7 +143,6 @@ export default {
       this.createSymptom(newSymptom);
     },
     setCircle(element) {
-      const target = document.getElementById('653-woman-front');
       let intensityClass = 'circle';
       let _id = '';
       if (element.intensity) {
@@ -168,7 +159,7 @@ export default {
         _id,
         style: 'fill: currentColor;',
         id: `circle-${element.location.x}-${element.location.y}`,
-      }, target);
+      }, this.figureSvg);
     },
     removeCircle(element) {
       if (!element) {
@@ -178,7 +169,17 @@ export default {
       }
       this.showIntensityControl = false;
     },
-    addCirclePulsation(target) {
+    addCirclePulsation(location) {
+      const element = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      element.setAttributeNS(null, 'cx', location.x);
+      element.setAttributeNS(null, 'cy', location.y);
+      element.setAttributeNS(null, 'class', 'circle');
+      element.setAttributeNS(null, 'r', 10);
+      element.setAttributeNS(null, 'style', 'fill: currentColor;');
+      element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
+      this.figureSvg.appendChild(element);
+      this.lastClickedElement = element;
+
       this.createSVG('animate', {
         attributeType: 'SVG',
         attributeName: 'r',
@@ -188,7 +189,7 @@ export default {
         from: '2%',
         to: '6%',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -199,7 +200,7 @@ export default {
         from: '3%',
         to: '0%',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -210,7 +211,7 @@ export default {
         from: '1',
         to: '0',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
     },
     removeCirclePulsation(target) {
       const animationElements = target.children;
@@ -250,6 +251,8 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
+          this.entry = this.getLatestSymptom;
+          this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
         })
         .catch((err) => {
           console.log(err);
@@ -277,7 +280,6 @@ export default {
       }
     },
     updateSymptom(entry) {
-      console.log(entry);
       this.$store.dispatch(UPDATE_SYMPTOM, {
         symptom_id: entry._id,
         module: entry.module,
@@ -301,6 +303,8 @@ export default {
       })
         .then(() => {
           this.entry = this.getUserSymptoms;
+          this.entryDetails = true;
+          this.entryId = id;
         })
         .catch((err) => {
           console.log(err);
@@ -308,10 +312,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom']),
   },
   mounted() {
     this.getAllSymptoms();
+    this.figureSvg = document.getElementById('653-woman-front');
   },
 };
 </script>

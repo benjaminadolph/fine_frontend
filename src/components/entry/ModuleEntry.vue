@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       currentModule: this.module,
-      allModules: ['symptoms', 'emotions', 'nutrition'],
+      allModules: ['symptoms', 'emotions', 'nutrition', 'sleep'],
     };
   },
   methods: {
@@ -64,6 +64,8 @@ export default {
         moduleName = 'Gefühle';
       } else if (this.currentModule === 'nutrition') {
         moduleName = 'Ernährung';
+      } else if (this.currentModule === 'sleep') {
+        moduleName = 'Schlaf';
       }
       return moduleName;
     },
