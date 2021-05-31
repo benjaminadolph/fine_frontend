@@ -55,6 +55,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+  CREATE_SYMPTOM,
+  DELETE_SYMPTOM,
+  UPDATE_SYMPTOM,
+  GET_SYMPTOM,
+} from '@/store/modules/symptoms';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
@@ -221,7 +228,7 @@ export default {
       target.appendChild(element);
     },
     getAllSymptoms() {
-      this.$store.dispatch('GET_ALL_SYMPTOMS')
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
           this.symptoms = this.getUserSymptoms;
         })
@@ -230,7 +237,7 @@ export default {
         });
     },
     createSymptom(newSymptom) {
-      this.$store.dispatch('CREATE_SYMPTOM', {
+      this.$store.dispatch(CREATE_SYMPTOM, {
         date: newSymptom.date,
         module: newSymptom.module,
         intensity: newSymptom.intensity,
@@ -249,7 +256,7 @@ export default {
         });
     },
     deleteSymptom(id) {
-      this.$store.dispatch('DELETE_SYMPTOM', {
+      this.$store.dispatch(DELETE_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
@@ -271,7 +278,7 @@ export default {
     },
     updateSymptom(entry) {
       console.log(entry);
-      this.$store.dispatch('UPDATE_SYMPTOM', {
+      this.$store.dispatch(UPDATE_SYMPTOM, {
         symptom_id: entry._id,
         module: entry.module,
         intensity: entry.intensity,
@@ -289,7 +296,7 @@ export default {
         });
     },
     getSymptom(id) {
-      this.$store.dispatch('GET_SYMPTOM', {
+      this.$store.dispatch(GET_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
