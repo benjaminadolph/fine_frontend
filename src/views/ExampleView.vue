@@ -3,6 +3,7 @@
     <SymptomsExampleComponent/>
     <EmotionsExampleComponent/>
     <SymptomCategoriesExampleComponent/>
+    <ModulesSelectedExampleComponent/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import SymptomsExampleComponent from '@/components/SymptomsExampleComponent.vue';
 import EmotionsExampleComponent from '@/components/EmotionsExampleComponent.vue';
 import SymptomCategoriesExampleComponent from '@/components/SymptomCategoriesExampleComponent.vue';
+import ModulesSelectedExampleComponent from '@/components/ModulesSelectedExample.vue';
 
 export default {
   name: 'ExampleView',
@@ -21,6 +23,7 @@ export default {
     SymptomsExampleComponent,
     EmotionsExampleComponent,
     SymptomCategoriesExampleComponent,
+    ModulesSelectedExampleComponent,
   },
   data() {
     return {};
