@@ -9,7 +9,7 @@
           <Time />
       </div>
       <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
-          <IconComponent name="close-full" size="32" :color="module + '-primary'" />
+          <IconComponent name="check-full" size="32" :color="module + '-primary'" />
       </a>
     </header>
     <div class="media-entry">
@@ -97,7 +97,6 @@ export default {
   mounted() {
     this.showTab('text');
     this.entryDetailsText = this.entry.detailsText;
-    console.log(this.entry);
   },
 };
 </script>
