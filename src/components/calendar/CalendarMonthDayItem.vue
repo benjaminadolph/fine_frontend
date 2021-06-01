@@ -95,7 +95,6 @@ export default {
         });
     },
     getEntryTime(entry) {
-      console.log(entry);
       return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
     },
   },

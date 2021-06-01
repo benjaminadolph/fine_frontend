@@ -2,27 +2,29 @@
   <div>
     <header class="fine-header">
       <a class="left-button shadow-button">
-          <IconComponent name="arrow-left" size="16" />
+          <IconComponent name="arrow-left" :size=16 />
       </a>
       <div class="center">
           <h1>Kalender</h1>
       </div>
       <a class="right-button shadow-button">
-          <IconComponent name="filter" size="16" />
+          <IconComponent name="filter" :size=16 />
       </a>
     </header>
     <div class="calendar-navigation">
       <SwipeSlider
-        :items="yearItems"
-        :active="year"
+        :items="getYears"
+        :active=5
         :selectedDate="selectedDate"
+        :showItems=3
         identifier="year"
         @dateSelected="selectDate"
       />
       <SwipeSlider
-        :items="monthItems"
-        :active="month - 1"
+        :items="getMonths"
+        :active=month
         :selectedDate="selectedDate"
+        :showItems=5
         identifier="month"
         @dateSelected="selectDate"
       />
@@ -72,23 +74,6 @@ export default {
   data() {
     return {
       selectedDate: dayjs(),
-      yearItems: {
-        2018: '2018', 2019: '2019', 2020: '2020', 2021: '2021',
-      },
-      monthItems: {
-        0: 'Januar',
-        1: 'Februar',
-        2: 'März',
-        3: 'April',
-        4: 'Mai',
-        5: 'Juni',
-        6: 'Juli',
-        7: 'August',
-        8: 'September',
-        9: 'Oktober',
-        10: 'November',
-        11: 'Dezember',
-      },
     };
   },
 
@@ -111,6 +96,22 @@ export default {
 
     year() {
       return Number(this.selectedDate.format('YYYY'));
+    },
+
+    getYears() {
+      const years = [];
+      let startYear = dayjs().year() - 5;
+
+      for (let i = 0; i < 6; i += 1) {
+        years.push(startYear.toString());
+        startYear += 1;
+      }
+
+      return years;
+    },
+
+    getMonths() {
+      return ['', 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'];
     },
 
     numberOfDaysInMonth() {
