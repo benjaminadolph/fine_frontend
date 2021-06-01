@@ -7,13 +7,14 @@
     ul {
         display: flex;
         justify-content: space-between;
-        overflow-x: scroll;
+        overflow-x: hidden;
 
         li {
-            margin-right: 30px;
             @include plain-m-book;
             padding-top: 1px;
             padding-bottom: 1px;
+            flex: 1 1 0px;
+            text-align: center;
 
             &.active-item {
                 color: $FINE_PRIMARY;
