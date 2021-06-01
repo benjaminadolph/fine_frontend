@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/calendar',
     name: 'Kalender',
-    component: () => import('../components/CalendarMonth.vue'),
+    component: () => import('../views/Calendar.vue'),
     beforeEnter: ifAuthenticated,
   },
   {
