@@ -14,14 +14,14 @@
         </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser module="emotions" />
+    <ModuleTeaser module="emotions" /> <!-- update to modules selected -->
     <ModuleTeaser module="symptoms" />
   </div>
 </template>
 
 <script>
-import SmartStack from '@/components/SmartStack.vue';
-import ModuleTeaser from '@/components/ModuleTeaser.vue';
+import SmartStack from '@/components/dashboard/SmartStack.vue';
+import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import Time from '@/components/Time.vue';
 

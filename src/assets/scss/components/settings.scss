@@ -66,6 +66,7 @@
                 text-align: left;
                 align-items: flex-start;
                 color: $FINE_GREY_DARK;
+                border: none;
                 cursor: text;
                 width: 100%;
             }
@@ -98,18 +99,187 @@
                 color: $COUNTERMEASURES_PRIMARY;
             }
 
-            .checkbox {
-                -webkit-appearance: none;
-                border: 1px solid green;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
+            //input[type=checkbox] mit SVG
+
+            .select-modules {
+                position: relative;
+
+                .checkbox__input {
+                    position: absolute;
+                    width: 2em;
+                    height: 2em;
+                    opacity: 0;
+                    right: 10%;
+                    cursor: pointer;
+                    z-index: 1;
+                }
+            }
+    
+            .select-modules .checkbox__input:focus:not(:focus-visible) + svg {
+                outline: none;
+            }
+
+            .select-modules {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            .select-modules, svg {
                 position: absolute;
-                right: 8%;
-            // background-image: url('../assets/images/unchecked.png');
-                background-repeat: no-repeat;
-                background-size: 13px;
-                background-position: center;
+                right: 10%;
+            }
+
+            .checkbox__input + svg {
+                .checkbox__bg_1 {
+                    fill: $SYMPTOMS_PRIMARY;
+                }
+
+                .checkbox__bg_2 {
+                    fill: $SLEEP_PRIMARY;
+                }
+
+                .checkbox__bg_3 {
+                    fill: $NUTRITION_PRIMARY;
+                }
+
+                .checkbox__bg_4 {
+                    fill: $ACTIVITY_PRIMARY;
+                }
+
+                .checkbox__bg_5 {
+                    fill: $EMOTIONS_PRIMARY;
+                }
+
+                .checkbox__bg_6 {
+                    fill: $COUNTERMEASURES_PRIMARY;
+                }
+
+                .checkbox__unchecked {
+                    display: initial;
+                    stroke: $FINE_WHITE;
+                }
+
+                .checkbox__checkmark_1,
+                .checkbox__checkmark_2,
+                .checkbox__checkmark_3,
+                .checkbox__checkmark_4,
+                .checkbox__checkmark_5,
+                .checkbox__checkmark_6 {
+                    display: none;
+                }
+
+                .checkbox__checkmark_outline_1 {
+                    stroke: $SYMPTOMS_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_2 {
+                    stroke: $SLEEP_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_3 {
+                    stroke: $NUTRITION_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_4 {
+                    stroke: $ACTIVITY_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_5 {
+                    stroke: $EMOTIONS_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_6 {
+                    stroke: $COUNTERMEASURES_PRIMARY;
+                }
+            }
+
+            .checkbox__input:checked + svg {
+                .checkbox__bg_1 {
+                    fill: $SYMPTOMS_SOFT;
+                }
+
+                .checkbox__bg_2 {
+                    fill: $SLEEP_SOFT;
+                }
+
+                .checkbox__bg_3 {
+                    fill: $NUTRITION_SOFT;
+                }
+
+                .checkbox__bg_4 {
+                    fill: $ACTIVITY_SOFT;
+                }
+
+                .checkbox__bg_5 {
+                    fill: $EMOTIONS_SOFT;
+                }
+
+                .checkbox__bg_6 {
+                    fill: $COUNTERMEASURES_SOFT;
+                }
+
+                .checkbox__unchecked {
+                    display: none;
+                }
+
+                .checkbox__checkmark_1 {
+                    display: initial;
+                    stroke: $SYMPTOMS_PRIMARY; 
+                }
+
+                .checkbox__checkmark_2 {
+                    display: initial;
+                    stroke: $SLEEP_PRIMARY; 
+                }
+
+                .checkbox__checkmark_3 {
+                    display: initial;
+                    stroke: $NUTRITION_PRIMARY; 
+                }
+
+                .checkbox__checkmark_4 {
+                    display: initial;
+                    stroke: $ACTIVITY_PRIMARY; 
+                }
+
+                .checkbox__checkmark_5 {
+                    display: initial;
+                    stroke: $EMOTIONS_PRIMARY; 
+                }
+
+                .checkbox__checkmark_6 {
+                    display: initial;
+                    stroke: $COUNTERMEASURES_PRIMARY; 
+                }
+
+                .checkbox__checkmark_outline_1 {
+                    stroke: $SYMPTOMS_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_2 {
+                    stroke: $SLEEP_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_3 {
+                    stroke: $NUTRITION_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_4 {
+                    stroke: $ACTIVITY_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_5 {
+                    stroke: $EMOTIONS_PRIMARY;
+                }
+
+                .checkbox__checkmark_outline_6 {
+                    stroke: $COUNTERMEASURES_PRIMARY;
+                }
             }
         }
 
