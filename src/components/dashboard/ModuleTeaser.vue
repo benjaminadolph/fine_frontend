@@ -10,16 +10,19 @@
     </header>
     <LastEntry :module="module" />
     <SelectEntry
+    :list=symptomCategories
+    :multiselect=false
+    v-on:update="onSelect"
+    v-on:addNewOption="createSymptomCategory"
     :module="module"
-    :buttonLabel="getButtonLabel(module)"
-    :multiselect="true" />
+    :buttonLabel="getButtonLabel(module)" />
   </div>
 </template>
 
 <script>
-import LastEntry from '@/components/LastEntry.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import LastEntry from './LastEntry.vue';
 
 export default {
   name: 'ModuleTeaser',
