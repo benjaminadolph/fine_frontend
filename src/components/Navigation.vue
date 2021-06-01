@@ -4,22 +4,22 @@
       <ul>
           <li>
               <router-link to="/statistics">
-                  <IconComponent name="statistics" :size="24" />
+                  <IconComponent name="statistics" :size=24 />
               </router-link>
           </li>
           <li>
               <router-link to="/calendar">
-                  <IconComponent name="calendar" :size="24" />
+                  <IconComponent name="calendar" :size=24 />
               </router-link>
           </li>
           <li>
               <router-link to="/dashboard">
-                  <IconComponent name="home" :size="24" />
+                  <IconComponent name="home" :size=24 />
               </router-link>
           </li>
           <li v-on:click="showEntry = !showEntry">
             <a>
-              <IconComponent name="plus-full" :size="50" />
+              <IconComponent name="plus-full" :size=50 />
             </a>
           </li>
       </ul>

@@ -13,6 +13,10 @@
           {{ item }}
         </li>
       </ul>
+      <div class="slide-navigation">
+        <div class="left-arrow arrow" v-on:click="selectPrevious"></div>
+        <div class="right-arrow arrow" v-on:click="selectNext"></div>
+      </div>
     </div>
 </template>
 
@@ -23,7 +27,7 @@ export default {
   name: 'SwipeSlider',
   components: {},
   props: {
-    items: [],
+    items: Array,
     active: Number,
     identifier: String,
     showItems: Number,
@@ -35,11 +39,13 @@ export default {
   data() {
     return {
       itemsArray: [],
-      activeItem: this.active,
+      activeItemIndex: this.active,
     };
   },
   methods: {
     selectPrevious() {
+      this.setActiveCenter(this.activeItemIndex - 1);
+      console.log(this.activeItemIndex);
       const newSelectedDate = dayjs(this.selectedDate).subtract(1, this.identifier);
       this.$emit('dateSelected', newSelectedDate);
     },
@@ -53,16 +59,19 @@ export default {
         key = this.items.indexOf(item);
       }
       this.setActiveCenter(this.items.indexOf(item));
+      console.log(activeIndex);
       const newSelectedDate = dayjs(this.selectedDate).set(this.identifier, key);
       this.$emit('dateSelected', newSelectedDate);
     },
 
     selectNext() {
+      this.setActiveCenter(this.activeItemIndex + 1);
       const newSelectedDate = dayjs(this.selectedDate).add(1, this.identifier);
       this.$emit('dateSelected', newSelectedDate);
     },
 
     setActiveCenter(activeIndex) {
+      console.log(activeIndex);
       this.itemsArray = [];
       if (this.showItems === 5) {
         this.itemsArray.push(this.items[activeIndex - 2]);
@@ -73,7 +82,7 @@ export default {
       if (this.showItems === 5) {
         this.itemsArray.push(this.items[activeIndex + 2]);
       }
-      this.activeItem = this.itemsArray[activeIndex];
+      this.activeItemIndex = activeIndex;
     },
   },
   computed: {
@@ -83,6 +92,7 @@ export default {
   },
   mounted() {
     this.setActiveCenter(this.active);
+    this.activeItemIndex = this.active;
   },
 };
 </script>

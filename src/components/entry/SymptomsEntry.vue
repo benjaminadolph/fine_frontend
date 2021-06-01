@@ -45,7 +45,7 @@
           <span v-on:click="setIntensity(1)" class="one intensity">1</span>
           <IconComponent
             name="trash"
-            size="24"
+            :size=24
             color="#fff"
             v-on:click="removeCircle()"
           />

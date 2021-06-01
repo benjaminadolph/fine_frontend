@@ -2,19 +2,19 @@
   <div>
     <header class="fine-header">
       <a class="left-button shadow-button">
-          <IconComponent name="arrow-left" size="16" />
+          <IconComponent name="arrow-left" :size=16 />
       </a>
       <div class="center">
           <h1>Kalender</h1>
       </div>
       <a class="right-button shadow-button">
-          <IconComponent name="filter" size="16" />
+          <IconComponent name="filter" :size=16 />
       </a>
     </header>
     <div class="calendar-navigation">
       <SwipeSlider
         :items="getYears"
-        active=5
+        :active=5
         :selectedDate="selectedDate"
         :showItems=3
         identifier="year"
@@ -22,7 +22,7 @@
       />
       <SwipeSlider
         :items="getMonths"
-        :active="month - 1"
+        :active=month
         :selectedDate="selectedDate"
         :showItems=5
         identifier="month"
@@ -111,7 +111,7 @@ export default {
     },
 
     getMonths() {
-      return ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'];
+      return ['', 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'];
     },
 
     numberOfDaysInMonth() {
