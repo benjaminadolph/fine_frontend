@@ -125,6 +125,7 @@ export default {
     module: String,
     buttonLabel: String,
     multiselect: Boolean,
+    list: Object,
   },
   data() {
     return {
@@ -139,20 +140,7 @@ export default {
       selectEntryInput: '',
       currentValueText: '',
       searchValue: '',
-      options: [
-        {
-          title: 'Schmerzen',
-          isSelected: false,
-        },
-        {
-          title: 'Migräne',
-          isSelected: false,
-        },
-        {
-          title: 'Hautausschlag',
-          isSelected: false,
-        },
-      ],
+      options: this.list,
     };
   },
   methods: {
@@ -190,10 +178,14 @@ export default {
     setNewOption(value) {
       const newOption = {
         title: value,
-        isSelected: false,
+        isSelected: true,
       };
-      this.options.unshift(newOption);
-      this.setOption(newOption);
+      const index = this.options.map((o) => o.title).indexOf(newOption.title);
+      if (index < 0) {
+        this.$emit('addNewOption', newOption.title);
+        this.options.unshift(newOption);
+        this.setOption(newOption);
+      }
     },
     deselectOption(option) {
       this.option = option;

@@ -2,11 +2,12 @@
 <template>
     <div>
       <SelectEntry
-        ref="selectEntryData"
         module='symptoms'
+        :list=symptomCategories
         buttonLabel="Kategorie wählen"
         :multiselect=false
         v-on:update="onSelect"
+        v-on:addNewOption="createSymptomCategory"
       />
       <div
         id="symptoms-figure-container"
@@ -62,6 +63,13 @@ import {
   UPDATE_SYMPTOM,
   GET_SYMPTOM,
 } from '@/store/modules/symptoms';
+import {
+  GET_ALL_SYMPTOMCATEGORIES,
+  CREATE_SYMPTOMCATEGORY,
+  DELETE_SYMPTOMCATEGORY,
+  UPDATE_SYMPTOMCATEGORY,
+  GET_SYMPTOMCATEGORY,
+} from '@/store/modules/symptomCategories';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
@@ -84,6 +92,8 @@ export default {
       isCategorySelected: false,
       figureSvg: {},
       location: {},
+      symptomCategories: [],
+      title: '',
       // selectEntryData: null,
     };
   },
@@ -310,13 +320,83 @@ export default {
           console.log(err);
         });
     },
+    getAllSymptomCategories() {
+      this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
+        .then(() => {
+          for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            this.symptomCategories.push(
+              {
+                title: this.getUserSymptomCategories[i].title,
+                isSelected: false,
+              },
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createSymptomCategory(title) {
+      this.$store.dispatch(CREATE_SYMPTOMCATEGORY, {
+        title,
+      })
+        .then(() => {
+          this.symptomCategories = [];
+          for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            this.symptomCategories.push(
+              {
+                title: this.getUserSymptomCategories[i].title,
+                isSelected: false,
+              },
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteSymptomCategory(id) {
+      this.$store.dispatch(DELETE_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateSymptomCategory(id) {
+      this.$store.dispatch(UPDATE_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+        title: this.title,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSymptomCategory(id) {
+      this.$store.dispatch(GET_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
-    this.getAllSymptoms();
     this.figureSvg = document.getElementById('653-woman-front');
+    this.getAllSymptoms();
+    this.getAllSymptomCategories();
   },
 };
 </script>
