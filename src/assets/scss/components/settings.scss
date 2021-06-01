@@ -1,0 +1,120 @@
+@import '../init';
+
+.settings {
+
+    header {
+        margin: 30px $EDGE_GRID;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .right-button {
+            width: 40px;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .shadow-button {
+            border-radius: 50%;
+            background-color: white;
+            @include boxshadow;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .personal-data, .modules {
+        @include boxshadow();
+        padding: 15px 15px 0 15px;
+        background-color: $FINE_WHITE;
+        width: 90%;
+        margin: 0 auto 2em;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        h2 {
+            color: $FINE_GREY_MEDIUM;
+            text-align: left;
+            margin-bottom: .5em;
+        }
+
+        .line {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 1em 0 1em 0;
+
+            .label {
+                color: $FINE_GREY_MEDIUM;
+                margin-right: 1em;
+                width: 50%;
+                text-align: left;
+            }
+
+            .entry {
+                display: flex;
+                text-align: left;
+                align-items: flex-start;
+                color: $FINE_GREY_DARK;
+                cursor: text;
+                width: 100%;
+            }
+
+            .icon {
+                margin-right: 2em;
+            }
+
+            #symptoms {
+                color: $SYMPTOMS_PRIMARY;
+            }
+
+            #sleep {
+                color: $SLEEP_PRIMARY;
+            }
+
+            #nutrition {
+                color: $NUTRITION_PRIMARY;
+            }
+
+            #activity {
+                color: $ACTIVITY_PRIMARY;
+            }
+
+            #emotions {
+                color: $EMOTIONS_PRIMARY;
+            }
+
+            #countermeasures {
+                color: $COUNTERMEASURES_PRIMARY;
+            }
+
+            .checkbox {
+                -webkit-appearance: none;
+                border: 1px solid green;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                right: 8%;
+            // background-image: url('../assets/images/unchecked.png');
+                background-repeat: no-repeat;
+                background-size: 13px;
+                background-position: center;
+            }
+        }
+
+        hr {
+            border: .5px solid $FINE_GREY_MEDIUM;
+        }
+    }
+}
