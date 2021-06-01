@@ -178,14 +178,14 @@ export default {
     setNewOption(value) {
       const newOption = {
         title: value,
-        isSelected: false,
+        isSelected: true,
       };
       const index = this.options.map((o) => o.title).indexOf(newOption.title);
-      if (index === 0) {
+      if (index < 0) {
         this.$emit('addNewOption', newOption.title);
+        this.options.unshift(newOption);
+        this.setOption(newOption);
       }
-      this.options.unshift(newOption);
-      this.setOption(newOption);
     },
     deselectOption(option) {
       this.option = option;

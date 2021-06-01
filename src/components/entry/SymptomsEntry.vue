@@ -2,7 +2,6 @@
 <template>
     <div>
       <SelectEntry
-        ref="selectEntryData"
         module='symptoms'
         :list=symptomCategories
         buttonLabel="Kategorie wählen"
@@ -338,11 +337,11 @@ export default {
         });
     },
     createSymptomCategory(title) {
-      console.log(title);
       this.$store.dispatch(CREATE_SYMPTOMCATEGORY, {
         title,
       })
         .then(() => {
+          this.symptomCategories = [];
           for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
             this.symptomCategories.push(
               {
