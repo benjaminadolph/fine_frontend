@@ -30,20 +30,13 @@
       />
     </div>
     <div class="calendar-month">
-      <div class="calendar-month-header">
-        <!-- <CalendarDateSelector
-          :current-date="today"
-          :selected-date="selectedDate"
-          @dateSelected="selectDate"
-        /> -->
-      </div>
-
       <div class="days-grid">
         <CalendarMonthDayItem
-          v-for="day in days"
+          v-for="day in rows"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
+          :is-empty="isEmpty(day)"
         />
       </div>
     </div>
@@ -62,8 +55,13 @@ import IconComponent from '@/components/IconComponent.vue';
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
+const chunk = (arr, size) => arr
+  .reduce((acc, _, i) => ((i % size)
+    ? acc
+    : [...acc, arr.slice(i, i + size)]), []);
+
 export default {
-  name: 'CalendarMonth',
+  name: 'Calendar',
 
   components: {
     CalendarMonthDayItem,
@@ -84,6 +82,11 @@ export default {
         ...this.currentMonthDays,
         ...this.nextMonthDays,
       ];
+    },
+
+    rows() {
+      const weeks = chunk(this.days, 7).map((arr) => [...arr, { date: 'date', isCurrentMonth: false }]).reduce((a, b) => a.concat(b), []);
+      return weeks;
     },
 
     today() {
@@ -186,6 +189,13 @@ export default {
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate;
+    },
+
+    isEmpty(day) {
+      if (day.date === 'date') {
+        return true;
+      }
+      return false;
     },
   },
 };

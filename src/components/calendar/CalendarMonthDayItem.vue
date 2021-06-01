@@ -1,16 +1,19 @@
 <template>
-  <div :class="{ 'calendar-day-with-entry': showDay }">
+  <div :class="{
+    'calendar-day-with-entry': showDay,
+    'calendar-day--empty': isEmpty,
+  }" >
     <div
       class="calendar-day"
       v-on:click="showDay = !showDay"
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
-        'calendar-day--today': isToday
+        'calendar-day--today': isToday,
       }" >
       <ul class="day-entries">
         <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
       </ul>
-      <span>{{ label }}</span>
+      <span class="date">{{ label }}</span>
     </div>
     <div v-show="showDay" class="calendar-day-details">
       <div
@@ -48,6 +51,11 @@ export default {
     },
 
     isToday: {
+      type: Boolean,
+      default: false,
+    },
+
+    isEmpty: {
       type: Boolean,
       default: false,
     },

@@ -32,6 +32,15 @@
             color: $FINE_PRIMARY;
         }
     }
+
+    &--empty {
+        grid-column-start: 1;
+        grid-column-end: seven;
+
+        .date {
+            display: none;
+        }
+    }
 }
 
 ul.day-entries {
