@@ -27,13 +27,20 @@
         .arrow {
             position: absolute;
             height: 100%;
-            width: 30%;
+            width: 20%;
             left: 0;
             top: 0;
             background: -moz-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
             background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
             background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#f8f9fb",GradientType=1); 
+
+            &::before {
+                position: absolute;
+                top: 7px;
+                color: $FINE_GREY_MEDIUM;
+                font-size: 13px;
+            }
 
             &.right-arrow {
                 right: 0;
@@ -42,6 +49,18 @@
                 background: -webkit-linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
                 background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(248,249,251,1) 100%);
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#f8f9fb",GradientType=1);
+
+                &::before {
+                    content: '>';
+                    right: 10px;
+                }
+            }
+
+            &.left-arrow {
+                &::before {
+                    content: '<';
+                    left: 10px;
+                }
             }
         }
     }

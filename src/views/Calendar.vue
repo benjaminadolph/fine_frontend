@@ -100,7 +100,7 @@ export default {
 
     getYears() {
       const years = [];
-      let startYear = this.year - 5;
+      let startYear = dayjs().year() - 5;
 
       for (let i = 0; i < 6; i += 1) {
         years.push(startYear.toString());

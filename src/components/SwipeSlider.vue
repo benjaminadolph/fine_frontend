@@ -45,7 +45,6 @@ export default {
   methods: {
     selectPrevious() {
       this.setActiveCenter(this.activeItemIndex - 1);
-      console.log(this.activeItemIndex);
       const newSelectedDate = dayjs(this.selectedDate).subtract(1, this.identifier);
       this.$emit('dateSelected', newSelectedDate);
     },
@@ -59,7 +58,6 @@ export default {
         key = this.items.indexOf(item);
       }
       this.setActiveCenter(this.items.indexOf(item));
-      console.log(activeIndex);
       const newSelectedDate = dayjs(this.selectedDate).set(this.identifier, key);
       this.$emit('dateSelected', newSelectedDate);
     },
@@ -71,7 +69,6 @@ export default {
     },
 
     setActiveCenter(activeIndex) {
-      console.log(activeIndex);
       this.itemsArray = [];
       if (this.showItems === 5) {
         this.itemsArray.push(this.items[activeIndex - 2]);
@@ -87,7 +84,7 @@ export default {
   },
   computed: {
     getActiveTitle() {
-      return this.items[this.active];
+      return this.items[this.activeItemIndex];
     },
   },
   mounted() {
