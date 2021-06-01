@@ -19,15 +19,22 @@
       >
         <span class="text">Wähle erst eine Kategorie</span>
       </div>
+      <div class="turn-round-button" v-on:click="turnaround">
+        <IconComponent
+          name="turn"
+          :size="32"
+          color="symptoms-primary"
+        />
+      </div>
         <panZoom
           id="figure"
           :options="{maxZoom: 3, minZoom: 1}"
         >
           <IconComponent
-            v-bind:name="'woman-front'"
+            :name="`${figure.gender}-${figure.direction}`"
             :size="653"
             :width="335"
-            v-bind:color="primaryColor"
+            :color="primaryColor"
           />
         </panZoom>
         <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
@@ -94,6 +101,10 @@ export default {
       location: {},
       symptomCategories: [],
       title: '',
+      figure: {
+        gender: 'female',
+        direction: 'front',
+      },
       // selectEntryData: null,
     };
   },
@@ -110,6 +121,7 @@ export default {
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
       const figure = this.figureSvg;
+      console.log(target);
       if (figure === target) {
         this.showIntensityControl = true;
         const figureRect = target.getBoundingClientRect();
@@ -389,12 +401,19 @@ export default {
           console.log(err);
         });
     },
+    turnaround() {
+      if (this.figure.direction === 'front') {
+        this.figure.direction = 'back';
+      } else {
+        this.figure.direction = 'front';
+      }
+    },
   },
   computed: {
     ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
-    this.figureSvg = document.getElementById('653-woman-front');
+    this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
     this.getAllSymptoms();
     this.getAllSymptomCategories();
   },
