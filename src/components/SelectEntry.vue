@@ -125,6 +125,7 @@ export default {
     module: String,
     buttonLabel: String,
     multiselect: Boolean,
+    list: Object,
   },
   data() {
     return {
@@ -139,20 +140,7 @@ export default {
       selectEntryInput: '',
       currentValueText: '',
       searchValue: '',
-      options: [
-        {
-          title: 'Schmerzen',
-          isSelected: false,
-        },
-        {
-          title: 'Migräne',
-          isSelected: false,
-        },
-        {
-          title: 'Hautausschlag',
-          isSelected: false,
-        },
-      ],
+      options: this.list,
     };
   },
   methods: {
@@ -172,6 +160,7 @@ export default {
           this.option.isSelected = true;
           this.selectedOptions.push(option);
         }
+        this.$emit('update', this.selectedOptions);
       } else {
         this.option.isSelected = false;
         this.option = option;
@@ -182,17 +171,21 @@ export default {
           this.options.splice(this.options.indexOf(option), 1);
           this.options.unshift(option);
         }
+        this.$emit('update', this.option);
       }
       this.searchValue = '';
-      this.$emit('update', this.option);
     },
     setNewOption(value) {
       const newOption = {
         title: value,
-        isSelected: false,
+        isSelected: true,
       };
-      this.options.unshift(newOption);
-      this.setOption(newOption);
+      const index = this.options.map((o) => o.title).indexOf(newOption.title);
+      if (index < 0) {
+        this.$emit('addNewOption', newOption.title);
+        this.options.unshift(newOption);
+        this.setOption(newOption);
+      }
     },
     deselectOption(option) {
       this.option = option;

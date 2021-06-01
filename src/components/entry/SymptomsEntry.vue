@@ -2,11 +2,12 @@
 <template>
     <div>
       <SelectEntry
-        ref="selectEntryData"
         module='symptoms'
+        :list=symptomCategories
         buttonLabel="Kategorie wählen"
         :multiselect=false
         v-on:update="onSelect"
+        v-on:addNewOption="createSymptomCategory"
       />
       <div
         id="symptoms-figure-container"
@@ -18,15 +19,22 @@
       >
         <span class="text">Wähle erst eine Kategorie</span>
       </div>
+      <div class="turn-round-button" v-on:click="turnaround">
+        <IconComponent
+          name="turn"
+          :size="32"
+          color="symptoms-primary"
+        />
+      </div>
         <panZoom
           id="figure"
           :options="{maxZoom: 3, minZoom: 1}"
         >
           <IconComponent
-            v-bind:name="'woman-front'"
+            :name="`${figure.gender}-${figure.direction}`"
             :size="653"
             :width="335"
-            v-bind:color="primaryColor"
+            :color="primaryColor"
           />
         </panZoom>
         <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
@@ -37,23 +45,41 @@
           <span v-on:click="setIntensity(1)" class="one intensity">1</span>
           <IconComponent
             name="trash"
-            size="24"
+            :size=24
             color="#fff"
             v-on:click="removeCircle()"
           />
         </div>
       </div>
-      <div v-show="entryDetails" >
-          <ModuleEntryDetails module="symptoms" />
+      <div v-if="entryDetails" >
+          <ModuleEntryDetails
+            module="symptoms"
+            :entry="entry"
+            v-on:saveEntryDetails="updateSymptom"
+          />
       </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+  CREATE_SYMPTOM,
+  DELETE_SYMPTOM,
+  UPDATE_SYMPTOM,
+  GET_SYMPTOM,
+} from '@/store/modules/symptoms';
+import {
+  GET_ALL_SYMPTOMCATEGORIES,
+  CREATE_SYMPTOMCATEGORY,
+  DELETE_SYMPTOMCATEGORY,
+  UPDATE_SYMPTOMCATEGORY,
+  GET_SYMPTOMCATEGORY,
+} from '@/store/modules/symptomCategories';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import ModuleEntryDetails from '@/components/ModuleEntryDetails.vue';
+import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
 
 export default {
   name: 'SymptomsEntry',
@@ -66,10 +92,19 @@ export default {
     return {
       symptoms: [],
       entryDetails: false,
+      entry: {},
       category: '',
       showIntensityControl: false,
       lastClickedElement: false,
       isCategorySelected: false,
+      figureSvg: {},
+      location: {},
+      symptomCategories: [],
+      title: '',
+      figure: {
+        gender: 'female',
+        direction: 'front',
+      },
       // selectEntryData: null,
     };
   },
@@ -78,20 +113,17 @@ export default {
       this.isCategorySelected = true;
       this.category = option.title;
       const circles = document.getElementsByClassName('circle');
-      console.log(circles);
-      circles.forEach((element) => {
-        element.remove();
-      });
-      this.setSymptoms(option.title);
+      while (circles.length > 0) {
+        circles[0].parentElement.removeChild(circles[0]);
+      }
+      // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figureSVG = document.getElementById('653-woman-front');
-      // const figure = document.getElementById('symptoms-figure-container');
-      if (figureSVG === target) {
+      const figure = this.figureSvg;
+      if (figure === target) {
         this.showIntensityControl = true;
         const figureRect = target.getBoundingClientRect();
-        // const figureContainerRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
         const relativeY = mouseEvent.clientY - figureRect.top;
@@ -99,15 +131,15 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
-        this.setCircle({ location: { x, y } });
-
-        this.lastClickedElement = document.getElementById(`circle-${x}-${y}`);
-        this.addCirclePulsation(this.lastClickedElement);
+        this.location = { x, y };
+        this.addCirclePulsation(this.location);
       }
       if (target instanceof SVGCircleElement) {
         this.lastClickedElement = target;
+        const id = target.getAttribute('_id');
+
         if (target.classList.contains('intensity-set')) {
-          this.entryDetails = true;
+          this.getSymptom(id);
         } else {
           this.showIntensityControl = true;
           this.addCirclePulsation(this.lastClickedElement);
@@ -118,17 +150,12 @@ export default {
       this.lastClickedElement.setAttributeNS(null, 'class', `circle color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
-      const lastClickedElementPosition = this.lastClickedElement.id;
-      const location = {
-        x: lastClickedElementPosition.split('-')[1],
-        y: lastClickedElementPosition.split('-')[2],
-      };
       const newSymptom = {
         date: new Date(),
         module: 'symptoms',
         intensity,
-        // category: this.category,
-        location,
+        category: this.category,
+        location: this.location,
         // detailsText: this.detailsText,
         // photos: this.photos,
         // audio: this.audio,
@@ -136,8 +163,7 @@ export default {
       };
       this.createSymptom(newSymptom);
     },
-    setCircle(element) {
-      const target = document.getElementById('653-woman-front');
+    /* setCircle(element) {
       let intensityClass = 'circle';
       let _id = '';
       if (element.intensity) {
@@ -154,8 +180,8 @@ export default {
         _id,
         style: 'fill: currentColor;',
         id: `circle-${element.location.x}-${element.location.y}`,
-      }, target);
-    },
+      }, this.figureSvg);
+    }, */
     removeCircle(element) {
       if (!element) {
         this.lastClickedElement.remove();
@@ -164,7 +190,17 @@ export default {
       }
       this.showIntensityControl = false;
     },
-    addCirclePulsation(target) {
+    addCirclePulsation(location) {
+      const element = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      element.setAttributeNS(null, 'cx', location.x);
+      element.setAttributeNS(null, 'cy', location.y);
+      element.setAttributeNS(null, 'class', 'circle');
+      element.setAttributeNS(null, 'r', 10);
+      element.setAttributeNS(null, 'style', 'fill: currentColor;');
+      element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
+      this.figureSvg.appendChild(element);
+      this.lastClickedElement = element;
+
       this.createSVG('animate', {
         attributeType: 'SVG',
         attributeName: 'r',
@@ -174,7 +210,7 @@ export default {
         from: '2%',
         to: '6%',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -185,7 +221,7 @@ export default {
         from: '3%',
         to: '0%',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -196,7 +232,7 @@ export default {
         from: '1',
         to: '0',
         class: 'circle-pulsation-animation',
-      }, target);
+      }, element);
     },
     removeCirclePulsation(target) {
       const animationElements = target.children;
@@ -214,7 +250,7 @@ export default {
       target.appendChild(element);
     },
     getAllSymptoms() {
-      this.$store.dispatch('GET_ALL_SYMPTOMS')
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
           this.symptoms = this.getUserSymptoms;
         })
@@ -223,26 +259,28 @@ export default {
         });
     },
     createSymptom(newSymptom) {
-      this.$store.dispatch('CREATE_SYMPTOM', {
+      this.$store.dispatch(CREATE_SYMPTOM, {
         date: newSymptom.date,
         module: newSymptom.module,
         intensity: newSymptom.intensity,
         category: this.category,
         location: newSymptom.location,
-        detailsText: newSymptom.detailsText,
+        detailsText: '',
         // photos: this.photos,
         // audio: this.audio,
         tags: newSymptom.tags,
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
+          this.entry = this.getLatestSymptom;
+          this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     deleteSymptom(id) {
-      this.$store.dispatch('DELETE_SYMPTOM', {
+      this.$store.dispatch(DELETE_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
@@ -252,20 +290,131 @@ export default {
           console.log(err);
         });
     },
-    setSymptoms(category) {
+    /* setSymptoms(category) {
       const _this = this;
-      this.symptoms.forEach((element) => {
-        if (element.category === category) {
-          _this.setCircle(element);
-        }
-      });
+      if (this.symptoms.length > 0) {
+        this.symptoms.forEach((element) => {
+          if (element.category === category) {
+            _this.setCircle(element);
+          }
+        });
+      }
+    }, */
+    updateSymptom(entry) {
+      this.$store.dispatch(UPDATE_SYMPTOM, {
+        symptom_id: entry._id,
+        module: entry.module,
+        intensity: entry.intensity,
+        detailsText: entry.detailsText,
+        // photos: entry.photos,
+        // audio: entry.audio,
+        tags: entry.tags,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+          this.entryDetails = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSymptom(id) {
+      this.$store.dispatch(GET_SYMPTOM, {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.entry = this.getUserSymptoms;
+          this.entryDetails = true;
+          this.entryId = id;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getAllSymptomCategories() {
+      this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
+        .then(() => {
+          for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            this.symptomCategories.push(
+              {
+                title: this.getUserSymptomCategories[i].title,
+                isSelected: false,
+              },
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createSymptomCategory(title) {
+      this.$store.dispatch(CREATE_SYMPTOMCATEGORY, {
+        title,
+      })
+        .then(() => {
+          this.symptomCategories = [];
+          for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            this.symptomCategories.push(
+              {
+                title: this.getUserSymptomCategories[i].title,
+                isSelected: false,
+              },
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteSymptomCategory(id) {
+      this.$store.dispatch(DELETE_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateSymptomCategory(id) {
+      this.$store.dispatch(UPDATE_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+        title: this.title,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSymptomCategory(id) {
+      this.$store.dispatch(GET_SYMPTOMCATEGORY, {
+        symptomCategory_id: id,
+      })
+        .then(() => {
+          this.symptomCategories = this.getUserSymptomCategories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    turnaround() {
+      if (this.figure.direction === 'front') {
+        this.figure.direction = 'back';
+      } else {
+        this.figure.direction = 'front';
+      }
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
+    this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
     this.getAllSymptoms();
+    this.getAllSymptomCategories();
   },
 };
 </script>

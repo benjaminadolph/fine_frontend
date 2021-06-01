@@ -1,20 +1,17 @@
 <template>
   <div class="module-entry-layer-details">
-    <div class="module-entry-header">
-      <div class="close">
-        <IconComponent
-            v-bind:name="'close-full'"
-            v-on:click="closeEntryDetails()"
-            :size="32"
-            v-bind:color="module + '-primary'"
-          />
+    <header class="fine-header">
+      <a class="left-button shadow-button" v-on:click="closeEntryDetails()">
+          <IconComponent name="close-full" size="32" :color="module + '-primary'" />
+      </a>
+      <div class="center">
+          <h1 :class="module + '-primary'">Details</h1>
+          <Time />
       </div>
-      <div class="text">
-        <h1 v-bind:class="module + '-primary'">Details</h1>
-        <Time />
-      </div>
-      <div class="save-entry"></div>
-    </div>
+      <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
+          <IconComponent name="check-full" size="32" :color="module + '-primary'" />
+      </a>
+    </header>
     <div class="media-entry">
       <ul class="tabs">
         <li class="tablink text" v-on:click="showTab('text')">
@@ -34,6 +31,7 @@
           name="input-text"
           rows="8"
           placeholder="Text hinzufügen"
+          v-model="entryDetailsText"
         >
         </textarea>
       </div>
@@ -46,7 +44,6 @@
         <h3>Sprachaufnahme</h3>
       </div>
     </div>
-
     <SelectEntry :module=module buttonLabel="Tag wählen" :multiselect=true />
   </div>
 </template>
@@ -65,10 +62,12 @@ export default {
   },
   props: {
     module: String,
-    id: Number,
+    entry: Object,
   },
   data() {
     return {
+      selectedEntry: Object,
+      entryDetailsText: '',
       tabs: [
         {
           text: true,
@@ -88,8 +87,16 @@ export default {
     closeEntryDetails() {
       this.$parent.entryDetails = false;
     },
+    saveEntryDetails() {
+      this.selectedEntry = this.entry;
+      this.selectedEntry.detailsText = this.entryDetailsText;
+      this.$emit('saveEntryDetails', this.selectedEntry);
+      this.entryDetailsText = '';
+    },
   },
-  computed: {
+  mounted() {
+    this.showTab('text');
+    this.entryDetailsText = this.entry.detailsText;
   },
 };
 </script>

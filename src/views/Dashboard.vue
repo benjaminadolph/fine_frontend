@@ -14,8 +14,8 @@
         </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser :module="'emotions'" />
-    <ModuleTeaser :module="'symptoms'" />
+    <ModuleTeaser module="emotions" />
+    <ModuleTeaser module="symptoms" />
   </div>
 </template>
 
