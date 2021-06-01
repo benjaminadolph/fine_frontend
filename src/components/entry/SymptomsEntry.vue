@@ -116,12 +116,11 @@ export default {
       while (circles.length > 0) {
         circles[0].parentElement.removeChild(circles[0]);
       }
-      this.setSymptoms(option.title);
+      // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
       const figure = this.figureSvg;
-      console.log(target);
       if (figure === target) {
         this.showIntensityControl = true;
         const figureRect = target.getBoundingClientRect();
@@ -164,7 +163,7 @@ export default {
       };
       this.createSymptom(newSymptom);
     },
-    setCircle(element) {
+    /* setCircle(element) {
       let intensityClass = 'circle';
       let _id = '';
       if (element.intensity) {
@@ -182,7 +181,7 @@ export default {
         style: 'fill: currentColor;',
         id: `circle-${element.location.x}-${element.location.y}`,
       }, this.figureSvg);
-    },
+    }, */
     removeCircle(element) {
       if (!element) {
         this.lastClickedElement.remove();
@@ -291,7 +290,7 @@ export default {
           console.log(err);
         });
     },
-    setSymptoms(category) {
+    /* setSymptoms(category) {
       const _this = this;
       if (this.symptoms.length > 0) {
         this.symptoms.forEach((element) => {
@@ -300,7 +299,7 @@ export default {
           }
         });
       }
-    },
+    }, */
     updateSymptom(entry) {
       this.$store.dispatch(UPDATE_SYMPTOM, {
         symptom_id: entry._id,
