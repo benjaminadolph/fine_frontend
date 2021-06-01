@@ -2,26 +2,26 @@
   <div class="module-entry-layer-details">
     <header class="fine-header">
       <a class="left-button shadow-button" v-on:click="closeEntryDetails()">
-          <IconComponent name="close-full" size="32" :color="module + '-primary'" />
+          <IconComponent name="close-full" :size=32 :color="module + '-primary'" />
       </a>
       <div class="center">
           <h1 :class="module + '-primary'">Details</h1>
           <Time />
       </div>
       <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
-          <IconComponent name="check-full" size="32" :color="module + '-primary'" />
+          <IconComponent name="check-full" :size=32 :color="module + '-primary'" />
       </a>
     </header>
     <div class="media-entry">
       <ul class="tabs">
         <li class="tablink text" v-on:click="showTab('text')">
-          <IconComponent name="text" :size="24" />
+          <IconComponent name="text" :size=24 />
         </li>
         <li class="tablink photo" v-on:click="showTab('photo')">
-          <IconComponent name="camera" :size="24" />
+          <IconComponent name="camera" :size=24 />
         </li>
         <li class="tablink voice" v-on:click="showTab('voice')">
-          <IconComponent name="microphone" :size="24" />
+          <IconComponent name="microphone" :size=24 />
         </li>
       </ul>
 
@@ -44,7 +44,13 @@
         <h3>Sprachaufnahme</h3>
       </div>
     </div>
-    <SelectEntry :module=module buttonLabel="Tag wählen" :multiselect=true />
+    <SelectEntry
+      :module=module
+      buttonLabel="Tag wählen"
+      :list=tagList
+      v-on:addNewOption="addNewTag"
+      v-on:update="updateTags"
+      :multiselect=true />
   </div>
 </template>
 
@@ -68,6 +74,8 @@ export default {
     return {
       selectedEntry: Object,
       entryDetailsText: '',
+      tagList: [],
+      tags: [],
       tabs: [
         {
           text: true,
@@ -90,13 +98,35 @@ export default {
     saveEntryDetails() {
       this.selectedEntry = this.entry;
       this.selectedEntry.detailsText = this.entryDetailsText;
+      this.selectedEntry.tags = this.tags;
       this.$emit('saveEntryDetails', this.selectedEntry);
       this.entryDetailsText = '';
+    },
+    addNewTag(option) {
+      this.tags.push(option);
+      this.tagList.push({
+        title: option,
+        isSelected: true,
+      });
+    },
+    updateTags(tags) {
+      this.tags = [];
+      const _this = this;
+      tags.forEach((tag) => {
+        _this.tags.push(tag.title);
+      });
     },
   },
   mounted() {
     this.showTab('text');
     this.entryDetailsText = this.entry.detailsText;
+    this.tags = this.entry.tags;
+    for (let i = 0; i < this.entry.tags.length; i += 1) {
+      this.tagList.push({
+        title: this.entry.tags[i],
+        isSelected: true,
+      });
+    }
   },
 };
 </script>

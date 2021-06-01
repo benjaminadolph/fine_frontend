@@ -26,7 +26,7 @@
           <IconComponent
             v-bind:name="'close-full'"
             v-on:click="toggleOpen()"
-            :size="32"
+            :size=32
             v-bind:color="primaryColor"
           />
         </div>
@@ -53,7 +53,7 @@
               {{ currentValue }}
               <IconComponent
                 v-bind:name="'plus-full'"
-                :size="32"
+                :size=32
                 v-bind:color="primaryColor"
               />
             </div>
@@ -77,7 +77,7 @@
                 {{ option.title }}
                 <IconComponent
                   v-bind:name="getSelectedIcon(option)"
-                  :size="32"
+                  :size=32
                   v-bind:color="primaryColor"
                 />
               </li>
@@ -103,7 +103,7 @@
           >
           <IconComponent
             v-bind:name="'close-full'"
-            :size="32"
+            :size=32
             v-bind:color="primaryColor"
           />
           {{ option.title }}
@@ -191,6 +191,8 @@ export default {
       this.option = option;
       this.option.isSelected = false;
       this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+      this.$emit('update', this.selectedOptions);
+      // this.$emit('removeOption', option.title);
     },
     getSelectedIcon(option) {
       let iconName = '';
@@ -247,6 +249,9 @@ export default {
       }
       return currentValueText;
     },
+  },
+  mounted() {
+    this.selectedOptions = this.list;
   },
 };
 </script>
