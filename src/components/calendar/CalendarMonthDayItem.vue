@@ -5,17 +5,18 @@
   }" >
     <div
       class="calendar-day"
-      v-on:click="showDay = !showDay"
-      :class="{
+      v-on:click="showDay"
+      :class="[{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-      }" >
+      }]"
+      :id="getWeekId" >
       <ul class="day-entries">
         <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
       </ul>
       <span class="date">{{ label }}</span>
     </div>
-    <div v-show="showDay" class="calendar-day-details">
+    <!-- <div v-show="showDay" class="calendar-day-details">
       <div
         class="day-entry"
         v-for="entry in dayEntries"
@@ -25,7 +26,7 @@
         {{ getEntryTime(entry) }}
         {{ entry.intensity }}
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -66,7 +67,8 @@ export default {
       symptoms: [],
       symptomsEntries: [],
       dayEntries: [],
-      showDay: false,
+      week: Number,
+      // showDay: false,
     };
   },
 
@@ -86,6 +88,12 @@ export default {
       });
       return itemEntry;
     },
+    getWeekId() {
+      if (this.isEmpty) {
+        return `calendar-week-${this.day.week}`;
+      }
+      return '';
+    },
   },
 
   mounted() {
@@ -104,6 +112,9 @@ export default {
     },
     getEntryTime(entry) {
       return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
+    },
+    showDay() {
+      this.$emit('showDayEntries', this.dayEntries, this.day.week);
     },
   },
 };

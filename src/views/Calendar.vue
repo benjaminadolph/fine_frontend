@@ -30,13 +30,14 @@
       />
     </div>
     <div class="calendar-month">
-      <div class="days-grid">
+      <div v-for="week in weeksArray" :key="week" class="days-grid">
         <CalendarMonthDayItem
-          v-for="day in rows"
+          v-for="day in week"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
           :is-empty="isEmpty(day)"
+          v-on:showDayEntries="showDayEntries"
         />
       </div>
     </div>
@@ -72,6 +73,7 @@ export default {
   data() {
     return {
       selectedDate: dayjs(),
+      dayEntries: [],
     };
   },
 
@@ -84,8 +86,16 @@ export default {
       ];
     },
 
-    rows() {
-      const weeks = chunk(this.days, 7).map((arr) => [...arr, { date: 'date', isCurrentMonth: false }]).reduce((a, b) => a.concat(b), []);
+    weeksArray() {
+      let { week } = this.days[0];
+      // const weeks = chunk(this.days, 7).map((arr) =>
+      // [...arr, { date: 'date', isCurrentMonth: false, week }]).reduce((a, b) => a.concat(b), []);
+      const weeks = chunk(this.days, 7);
+      weeks.forEach((el) => {
+        el.push({ date: 'date', isCurrentMonth: false, week });
+        week += 1;
+      });
+      weeks.reduce((a, b) => a.concat(b), []);
       return weeks;
     },
 
@@ -127,6 +137,17 @@ export default {
           'YYYY-MM-DD',
         ),
         isCurrentMonth: true,
+        week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
+      }));
+    },
+
+    currentWeekDays() {
+      return [...Array(this.numberOfDaysInMonth)].map((day, index) => ({
+        date: dayjs(`${this.year}-${this.month}-${index + 1}`).format(
+          'YYYY-MM-DD',
+        ),
+        isCurrentMonth: true,
+        week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
       }));
     },
 
@@ -158,6 +179,11 @@ export default {
             }`,
           ).format('YYYY-MM-DD'),
           isCurrentMonth: false,
+          week: this.getWeek(
+            `${previousMonth.year()}-${previousMonth.month() + 1}-${
+              previousMonthLastMondayDayOfMonth + index
+            }`,
+          ),
         }),
       );
     },
@@ -178,6 +204,7 @@ export default {
           `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`,
         ).format('YYYY-MM-DD'),
         isCurrentMonth: false,
+        week: this.getWeek(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`),
       }));
     },
   },
@@ -185,6 +212,10 @@ export default {
   methods: {
     getWeekday(date) {
       return dayjs(date).weekday();
+    },
+
+    getWeek(date) {
+      return dayjs(date).week();
     },
 
     selectDate(newSelectedDate) {
@@ -196,6 +227,12 @@ export default {
         return true;
       }
       return false;
+    },
+
+    showDayEntries(entries, entryWeek) {
+      this.dayEntries = entries;
+      const entryContainer = document.getElementById(`calendar-week-${entryWeek}`);
+      console.log(entries, entryWeek, entryContainer);
     },
   },
 };
