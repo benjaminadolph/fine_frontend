@@ -30,16 +30,17 @@
       />
     </div>
     <div class="calendar-month">
-      <div v-for="week in weeksArray" :key="week" class="days-grid">
+      <div v-for="week in weeksArray" :key="week" class="weeks-grid">
         <CalendarMonthDayItem
           v-for="day in week"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
           :is-empty="isEmpty(day)"
-          v-on:showDayEntries="showDayEntries"
+          v-on:showDayEntries="getDayEntries"
+          v-on:hideDayEntries="removeDayEntries"
         />
-        <DayEntry :entries="dayEntries" :week="dayEntryWeek" />
+        <DayEntry v-if="showDayEntries" :entries="dayEntries" :week="dayEntryWeek" />
       </div>
     </div>
   </div>
@@ -78,6 +79,7 @@ export default {
       selectedDate: dayjs(),
       dayEntries: [],
       dayEntryWeek: Number,
+      showDayEntries: false,
     };
   },
 
@@ -225,11 +227,17 @@ export default {
       return false;
     },
 
-    showDayEntries(entries, entryweek) {
+    getDayEntries(entries, entryweek) {
+      this.showDayEntries = true;
       this.dayEntries = entries;
       this.dayEntryWeek = entryweek;
       // const entryContainer = document.getElementById(`calendar-week-${entryWeek}`);
       console.log(entries, entryweek);
+    },
+
+    removeDayEntries() {
+      this.dayEntries = {};
+      this.showDayEntries = false;
     },
   },
 };

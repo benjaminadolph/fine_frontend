@@ -41,7 +41,7 @@ header {
 }
 
 .day-of-week,
-.days-grid {
+.weeks-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -51,10 +51,11 @@ header {
   padding-right: 5px;
 }
 
-.days-grid {
+.weeks-grid {
   height: 100%;
   position: relative;
   grid-column-gap: 4px;
   grid-row-gap: 4px;
   padding: 0 $EDGE_GRID;
+  margin-bottom: 4px;
 }

@@ -94,13 +94,13 @@ ul, ol {
 }
 
 .fine-header {
-  margin: 30px $EDGE_GRID;
+  margin: 0 $EDGE_GRID;
   text-align: center;
   position: relative;
-
+  padding: 30px 0;
   .shadow-button {
     position: absolute;
-    top: 4px;
+    top: 34px;
     border-radius: 50%;
     background-color: white;
     @include boxshadow;

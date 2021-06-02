@@ -1,7 +1,6 @@
 <template>
   <div :class="{
     'calendar-day-with-entry': showDay,
-    'calendar-day--empty': isEmpty,
   }" >
     <div
       class="calendar-day"
@@ -9,27 +8,15 @@
       :class="[{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-      }]"
-      :id="getWeekId" >
+      }]" >
       <ul class="day-entries">
         <li
           class="day-entry"
-          :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"
+          :class="`${entry().module}-bgcolor-intensity-${averageIntensity}`"
         ></li>
       </ul>
       <span class="date">{{ label }}</span>
     </div>
-    <!-- <div v-show="showDay" class="calendar-day-details">
-      <div
-        class="day-entry"
-        v-for="entry in dayEntries"
-        :key="entry._id"
-        >
-        {{ entry.category }}
-        {{ getEntryTime(entry) }}
-        {{ entry.intensity }}
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -72,6 +59,7 @@ export default {
       dayEntries: [],
       week: Number,
       showDayEntry: false,
+      averageIntensity: 0,
       // showDay: false,
     };
   },
@@ -80,23 +68,6 @@ export default {
     ...mapGetters(['getUserProfile', 'getUserSymptoms']),
     label() {
       return dayjs(this.day.date).format('D');
-    },
-    entry() {
-      let itemEntry = {};
-      const _this = this;
-      this.symptoms.forEach((item) => {
-        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
-          this.dayEntries.push(item);
-          itemEntry = item;
-        }
-      });
-      return itemEntry;
-    },
-    getWeekId() {
-      if (this.isEmpty) {
-        return `calendar-week-${this.day.week}`;
-      }
-      return '';
     },
   },
 
@@ -114,12 +85,29 @@ export default {
           console.log(err);
         });
     },
-    getEntryTime(entry) {
-      return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
-    },
     showDay() {
       this.showDayEntry = !this.showDayEntry;
-      this.$emit('showDayEntries', this.dayEntries, this.day.week);
+      if (this.showDayEntry === true) {
+        this.$emit('showDayEntries', this.dayEntries, this.day.week);
+      } else {
+        this.$emit('hideDayEntries');
+      }
+    },
+    entry() {
+      let itemEntry = {};
+      const _this = this;
+      let allIntensities = 0;
+      this.symptoms.forEach((item) => {
+        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
+          this.dayEntries.push(item);
+          console.log(item.intensity);
+          allIntensities += item.intensity;
+          itemEntry = item;
+        }
+      });
+      this.averageIntensity = Math.ceil(allIntensities / (this.symptoms.length - 1));
+      console.log(allIntensities, this.symptoms.length);
+      return itemEntry;
     },
   },
 };
