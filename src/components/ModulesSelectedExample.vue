@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { UPDATE_MODULESSELECTED } from '@/store/modules/user';
+import { UPDATE_USER_MODULESSELECTED } from '@/store/modules/user';
 
 export default {
   name: 'Symptoms',
@@ -53,7 +53,7 @@ export default {
       for (let i = 0; i < checkboxes.length; i++) {
         this.modulesSelected.push(checkboxes[i].name);
       }
-      this.$store.dispatch(UPDATE_MODULESSELECTED, {
+      this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
         modulesSelected: this.modulesSelected,
       })
         .then(() => {
