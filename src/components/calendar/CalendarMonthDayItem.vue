@@ -58,7 +58,6 @@ export default {
       symptomsEntries: [],
       dayEntries: [],
       week: Number,
-      showDayEntry: false,
       averageIntensity: 0,
       // showDay: false,
     };
@@ -86,12 +85,7 @@ export default {
         });
     },
     showDay() {
-      this.showDayEntry = !this.showDayEntry;
-      if (this.showDayEntry === true) {
-        this.$emit('showDayEntries', this.dayEntries, this.day.week);
-      } else {
-        this.$emit('hideDayEntries');
-      }
+      this.$emit('showDayEntries', this.dayEntries, this.day.week);
     },
     entry() {
       let itemEntry = {};
@@ -100,13 +94,11 @@ export default {
       this.symptoms.forEach((item) => {
         if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
           this.dayEntries.push(item);
-          console.log(item.intensity);
           allIntensities += item.intensity;
           itemEntry = item;
         }
       });
       this.averageIntensity = Math.ceil(allIntensities / (this.symptoms.length - 1));
-      console.log(allIntensities, this.symptoms.length);
       return itemEntry;
     },
   },

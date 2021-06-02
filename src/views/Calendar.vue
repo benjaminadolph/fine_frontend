@@ -244,11 +244,15 @@ export default {
     },
 
     getDayEntries(entries, entryweek) {
-      this.showDayEntries = true;
-      this.dayEntries = entries;
-      this.dayEntryWeek = entryweek;
-      // const entryContainer = document.getElementById(`calendar-week-${entryWeek}`);
-      console.log(entries, entryweek);
+      console.log(entries, this.dayEntries);
+      if (entries.length && entries !== this.dayEntries) {
+        this.showDayEntries = true;
+        this.dayEntries = entries;
+        this.dayEntryWeek = entryweek;
+      } else {
+        this.showDayEntries = false;
+        this.dayEntries = {};
+      }
     },
 
     removeDayEntries() {
