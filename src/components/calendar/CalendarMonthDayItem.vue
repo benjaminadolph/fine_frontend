@@ -12,7 +12,10 @@
       }]"
       :id="getWeekId" >
       <ul class="day-entries">
-        <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
+        <li
+          class="day-entry"
+          :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"
+        ></li>
       </ul>
       <span class="date">{{ label }}</span>
     </div>
@@ -79,7 +82,7 @@ export default {
       return dayjs(this.day.date).format('D');
     },
     entry() {
-      let itemEntry = '';
+      let itemEntry = {};
       const _this = this;
       this.symptoms.forEach((item) => {
         if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {

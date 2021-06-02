@@ -39,7 +39,7 @@
           :is-empty="isEmpty(day)"
           v-on:showDayEntries="showDayEntries"
         />
-        <DayEntry :entry="dayEntries" :week="dayEntryWeek" />
+        <DayEntry :entries="dayEntries" :week="dayEntryWeek" />
       </div>
     </div>
   </div>
