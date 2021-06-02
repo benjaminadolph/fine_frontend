@@ -14,7 +14,10 @@
     "lint": "vue-cli-service lint",
     "icons:build-sprite": "svg-sprite --s --symbol-dest=$npm_package_config_icons_path/icon-sprite/ --symbol-prefix=.%s --symbol-sprite=sprite.css.svg $npm_package_config_icons_path/*.svg",
     "icons:replace-color": "replace-in-file /$npm_package_config_icons_replaceColor/g 'currentColor' $npm_package_config_icons_path/icon-sprite/sprite.css.svg --isRegex",
-    "icons": "npm run icons:build-sprite && npm run icons:replace-color"
+    "icons": "npm run icons:build-sprite && npm run icons:replace-color",
+    "icons:build-sprite-win": "svg-sprite --s --symbol-dest=src/assets/icons/icon-sprite/ --symbol-prefix=.%s --symbol-sprite=sprite.css.svg src/assets/icons/*.svg",
+    "icons:replace-color-win": "replace-in-file /#434343/g currentColor src/assets/icons/icon-sprite/sprite.css.svg --isRegex",
+    "icons-win": "npm run icons:build-sprite-win && npm run icons:replace-color-win"
   },
   "dependencies": {
     "axios": "^0.21.1",
