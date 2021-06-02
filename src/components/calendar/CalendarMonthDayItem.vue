@@ -1,27 +1,21 @@
 <template>
-  <div :class="{ 'calendar-day-with-entry': showDay }">
+  <div :class="{
+    'calendar-day-with-entry': showDay,
+  }" >
     <div
       class="calendar-day"
-      v-on:click="showDay = !showDay"
-      :class="{
+      v-on:click="showDay"
+      :class="[{
         'calendar-day--not-current': !day.isCurrentMonth,
-        'calendar-day--today': isToday
-      }" >
+        'calendar-day--today': isToday,
+      }]" >
       <ul class="day-entries">
-        <li class="day-entry" :class="`${entry.module}-bgcolor-intensity-${entry.intensity}`"></li>
+        <li
+          class="day-entry"
+          :class="`${entry().module}-bgcolor-intensity-${averageIntensity}`"
+        ></li>
       </ul>
-      <span>{{ label }}</span>
-    </div>
-    <div v-show="showDay" class="calendar-day-details">
-      <div
-        class="day-entry"
-        v-for="entry in dayEntries"
-        :key="entry._id"
-        >
-        {{ entry.category }}
-        {{ getEntryTime(entry) }}
-        {{ entry.intensity }}
-      </div>
+      <span class="date">{{ label }}</span>
     </div>
   </div>
 </template>
@@ -51,6 +45,11 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    isEmpty: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -58,7 +57,9 @@ export default {
       symptoms: [],
       symptomsEntries: [],
       dayEntries: [],
-      showDay: false,
+      week: Number,
+      averageIntensity: 0,
+      // showDay: false,
     };
   },
 
@@ -66,17 +67,6 @@ export default {
     ...mapGetters(['getUserProfile', 'getUserSymptoms']),
     label() {
       return dayjs(this.day.date).format('D');
-    },
-    entry() {
-      let itemEntry = '';
-      const _this = this;
-      this.symptoms.forEach((item) => {
-        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
-          this.dayEntries.push(item);
-          itemEntry = item;
-        }
-      });
-      return itemEntry;
     },
   },
 
@@ -94,8 +84,23 @@ export default {
           console.log(err);
         });
     },
-    getEntryTime(entry) {
-      return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
+    showDay() {
+      this.$emit('showDayEntries', this.dayEntries, this.day.week);
+    },
+    entry() {
+      let itemEntry = {};
+      const _this = this;
+      const intensities = [];
+      this.symptoms.forEach((item) => {
+        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
+          this.dayEntries.push(item);
+          intensities.push(item.intensity);
+          itemEntry = item;
+        }
+      });
+      const _averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
+      this.averageIntensity = Math.ceil(_averageIntensity);
+      return itemEntry;
     },
   },
 };

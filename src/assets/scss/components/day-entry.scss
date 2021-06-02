@@ -1,0 +1,32 @@
+@import '../init';
+
+.day-entry {
+    width: 100%;
+    grid-column-start: 1;
+    grid-column-end: seven;
+    margin-bottom: 20px;
+
+    .entry {
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin: 16px 0;
+
+        .intensity-bar {
+            width: 10px;
+            margin-right: 16px;
+        }
+
+        .date {
+            color: $FINE_GREY_MEDIUM;
+            display: block;
+            @include plain-s-book;
+            text-transform: none;
+        }
+
+        .title {
+            @include plain-m-bold;
+            line-height: 19px;
+        }
+    }
+}
