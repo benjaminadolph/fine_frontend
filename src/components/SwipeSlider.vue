@@ -55,7 +55,7 @@ export default {
       if (this.identifier === 'year') {
         key = Number(item);
       } else {
-        key = this.items.indexOf(item);
+        key = this.items.indexOf(item) - 1;
       }
       this.setActiveCenter(this.items.indexOf(item));
       const newSelectedDate = dayjs(this.selectedDate).set(this.identifier, key);
