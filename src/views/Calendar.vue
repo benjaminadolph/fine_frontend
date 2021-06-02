@@ -39,6 +39,7 @@
           :is-empty="isEmpty(day)"
           v-on:showDayEntries="showDayEntries"
         />
+        <DayEntry :entry="dayEntries" :week="dayEntryWeek" />
       </div>
     </div>
   </div>
@@ -50,6 +51,7 @@ import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/calendar/CalendarMonthDayItem.vue';
+import DayEntry from '@/components/calendar/DayEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 // import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
 
@@ -68,12 +70,14 @@ export default {
     CalendarMonthDayItem,
     SwipeSlider,
     IconComponent,
+    DayEntry,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
       dayEntries: [],
+      dayEntryWeek: Number,
     };
   },
 
@@ -87,15 +91,7 @@ export default {
     },
 
     weeksArray() {
-      let { week } = this.days[0];
-      // const weeks = chunk(this.days, 7).map((arr) =>
-      // [...arr, { date: 'date', isCurrentMonth: false, week }]).reduce((a, b) => a.concat(b), []);
       const weeks = chunk(this.days, 7);
-      weeks.forEach((el) => {
-        el.push({ date: 'date', isCurrentMonth: false, week });
-        week += 1;
-      });
-      weeks.reduce((a, b) => a.concat(b), []);
       return weeks;
     },
 
@@ -229,10 +225,11 @@ export default {
       return false;
     },
 
-    showDayEntries(entries, entryWeek) {
+    showDayEntries(entries, entryweek) {
       this.dayEntries = entries;
-      const entryContainer = document.getElementById(`calendar-week-${entryWeek}`);
-      console.log(entries, entryWeek, entryContainer);
+      this.dayEntryWeek = entryweek;
+      // const entryContainer = document.getElementById(`calendar-week-${entryWeek}`);
+      console.log(entries, entryweek);
     },
   },
 };

@@ -68,6 +68,7 @@ export default {
       symptomsEntries: [],
       dayEntries: [],
       week: Number,
+      showDayEntry: false,
       // showDay: false,
     };
   },
@@ -114,6 +115,7 @@ export default {
       return `${dayjs(entry.date).hour()}:${dayjs(entry.date).minute()}`;
     },
     showDay() {
+      this.showDayEntry = !this.showDayEntry;
       this.$emit('showDayEntries', this.dayEntries, this.day.week);
     },
   },
