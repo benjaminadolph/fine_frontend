@@ -273,7 +273,7 @@
 import { mapGetters } from 'vuex';
 import {
   // UPDATE_USER,
-  UPDATE_MODULESSELECTED,
+  UPDATE_USER_MODULESSELECTED,
 } from '@/store/modules/user';
 import IconComponent from './IconComponent.vue';
 import Time from './Time.vue';
@@ -319,7 +319,7 @@ export default {
       for (let i = 0; i < checkboxes.length; i++) {
         this.modulesSelected.push(checkboxes[i].name);
       }
-      this.$store.dispatch(UPDATE_MODULESSELECTED, {
+      this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
         modulesSelected: this.modulesSelected,
       })
         .then(() => {
