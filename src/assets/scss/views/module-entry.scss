@@ -3,7 +3,7 @@
 .module-entry-layer {
     min-height: 100vh;
     z-index: 10000;
-    position: absolute;
+    position: fixed;
     width: 100%;
     top: 0;
     background-color: $BACKGROUND_COLOR;
