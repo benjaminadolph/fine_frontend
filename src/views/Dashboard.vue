@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import SmartStack from '@/components/SmartStack.vue';
-import ModuleTeaser from '@/components/ModuleTeaser.vue';
+import SmartStack from '@/components/dashboard/SmartStack.vue';
+import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
 
 export default {
   name: 'Dashboard',

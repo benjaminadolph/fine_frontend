@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import LastEntry from '@/components/LastEntry.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import LastEntry from './LastEntry.vue';
 
 export default {
   name: 'ModuleTeaser',
