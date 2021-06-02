@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
 <svg width="244px" height="647px" viewBox="0 0 244 647" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g v-if="gender === 'female' && front" id="653-female-front" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -234,3 +235,4 @@ export default {
 <style lang="scss" scoped>
 // @import "@/assets/scss/components/day-entry.scss";
 </style>
+<!-- eslint-enable -->

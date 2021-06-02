@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable */
 <template>
     <div>
       <SelectEntry
@@ -118,7 +118,8 @@ export default {
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figure = this.figureSvg;
+      const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+      console.log(figure);
 
       if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
         this.showIntensityControl = true;
@@ -198,7 +199,7 @@ export default {
       element.setAttributeNS(null, 'r', 10);
       element.setAttributeNS(null, 'style', 'fill: currentColor;');
       element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      this.figureSvg.appendChild(element);
+      document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`).appendChild(element);
       this.lastClickedElement = element;
 
       this.createSVG('animate', {
@@ -403,9 +404,11 @@ export default {
     turnaround() {
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
+        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
         this.front = false;
       } else {
         this.figure.direction = 'front';
+        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
         this.front = true;
       }
     },
