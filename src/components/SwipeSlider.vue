@@ -14,8 +14,8 @@
         </li>
       </ul>
       <div class="slide-navigation">
-        <div class="left-arrow arrow" v-on:click="selectPrevious"></div>
-        <div class="right-arrow arrow" v-on:click="selectNext"></div>
+        <div class="left-arrow arrow" v-on:click="selectPrevious" v-if="!firstItem"></div>
+        <div class="right-arrow arrow" v-on:click="selectNext" v-if="!lastItem"></div>
       </div>
     </div>
 </template>
@@ -40,6 +40,8 @@ export default {
     return {
       itemsArray: [],
       activeItemIndex: this.active,
+      lastItem: false,
+      firstItem: false,
     };
   },
   methods: {
@@ -70,15 +72,25 @@ export default {
 
     setActiveCenter(activeIndex) {
       this.itemsArray = [];
-      if (this.showItems === 5) {
-        this.itemsArray.push(this.items[activeIndex - 2]);
+      const startCount = Math.floor(this.showItems / 2);
+
+      for (let i = -startCount; i < this.showItems - startCount; i += 1) {
+        this.itemsArray.push(this.items[activeIndex + i]);
       }
-      this.itemsArray.push(this.items[activeIndex - 1]);
-      this.itemsArray.push(this.items[activeIndex]);
-      this.itemsArray.push(this.items[activeIndex + 1]);
-      if (this.showItems === 5) {
-        this.itemsArray.push(this.items[activeIndex + 2]);
+
+      const _index = this.items.indexOf(this.items[activeIndex]);
+      if (_index === this.items.length - 1) {
+        this.lastItem = true;
+      } else {
+        this.lastItem = false;
       }
+
+      if (_index === startCount - 1) {
+        this.firstItem = true;
+      } else {
+        this.firstItem = false;
+      }
+
       this.activeItemIndex = activeIndex;
     },
   },
