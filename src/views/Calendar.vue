@@ -244,7 +244,6 @@ export default {
     },
 
     getDayEntries(entries, entryweek) {
-      console.log(entries, this.dayEntries);
       if (entries.length && entries !== this.dayEntries) {
         this.showDayEntries = true;
         this.dayEntries = entries;

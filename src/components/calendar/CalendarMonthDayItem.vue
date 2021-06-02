@@ -90,15 +90,16 @@ export default {
     entry() {
       let itemEntry = {};
       const _this = this;
-      let allIntensities = 0;
+      const intensities = [];
       this.symptoms.forEach((item) => {
         if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
           this.dayEntries.push(item);
-          allIntensities += item.intensity;
+          intensities.push(item.intensity);
           itemEntry = item;
         }
       });
-      this.averageIntensity = Math.ceil(allIntensities / (this.symptoms.length - 1));
+      const _averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
+      this.averageIntensity = Math.ceil(_averageIntensity);
       return itemEntry;
     },
   },
