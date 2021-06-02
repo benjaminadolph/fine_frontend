@@ -32,7 +32,7 @@
     <div class="calendar-month">
       <div v-for="week in weeksArray" :key="week" class="weeks-grid">
         <CalendarMonthDayItem
-          v-for="day in week"
+          v-for="day in week.dayElements"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
@@ -40,7 +40,11 @@
           v-on:showDayEntries="getDayEntries"
           v-on:hideDayEntries="removeDayEntries"
         />
-        <DayEntry v-if="showDayEntries" :entries="dayEntries" :week="dayEntryWeek" />
+        <DayEntry
+          v-if="showDayEntries && week.week === dayEntryWeek"
+          :entries="dayEntries"
+          :week="dayEntryWeek"
+        />
       </div>
     </div>
   </div>
@@ -93,7 +97,19 @@ export default {
     },
 
     weeksArray() {
-      const weeks = chunk(this.days, 7);
+      const _weeks = chunk(this.days, 7);
+      const weeks = [];
+      _weeks.forEach((el) => {
+        const week = dayjs(el[0].date).week();
+        weeks.push(
+          {
+            week,
+            dayElements: el,
+          },
+        );
+      });
+      // _weeks.reduce((a, b) => a.concat(b), []);
+
       return weeks;
     },
 
