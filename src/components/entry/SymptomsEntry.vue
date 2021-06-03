@@ -119,7 +119,6 @@ export default {
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
       const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
-      console.log(figure);
 
       if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
         this.showIntensityControl = true;
