@@ -10,7 +10,7 @@
       <div class="entry-headline">
         <span class="date">{{ getDate(entry.date) }} Uhr</span>
         <span class="title">
-          {{ entry.category }} | {{ entry.location.x }}
+          {{ entry.category }} | {{ entry.location.title }}
         </span>
       </div>
     </div>
