@@ -24,6 +24,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_EMOTIONS,
+  CREATE_EMOTION,
+  DELETE_EMOTION,
+  UPDATE_EMOTION,
+  GET_EMOTION,
+} from '@/store/modules/emotions';
 
 export default {
   name: 'Emotions',
@@ -48,17 +55,16 @@ export default {
   },
   methods: {
     getAllEmotions() {
-      this.$store.dispatch('GET_ALL_EMOTIONS')
+      this.$store.dispatch(GET_ALL_EMOTIONS)
         .then(() => {
           this.emotions = this.getUserEmotions;
-          console.log(this.getUserEmotions);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     createEmotion() {
-      this.$store.dispatch('CREATE_EMOTION', {
+      this.$store.dispatch(CREATE_EMOTION, {
         date: this.date,
         module: this.module,
         intensity: this.intensity,
@@ -77,12 +83,42 @@ export default {
         });
     },
     deleteEmotion(id) {
-      console.log(id);
-      this.$store.dispatch('DELETE_EMOTION', {
+      this.$store.dispatch(DELETE_EMOTION, {
         emotion_id: id,
       })
         .then(() => {
-          this.getAllEmotions();
+          this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateEmotion(id) {
+      this.$store.dispatch(UPDATE_EMOTION, {
+        emotion_id: id,
+        date: this.date,
+        module: this.module,
+        intensity: this.intensity,
+        title: this.title,
+        location: this.location,
+        detailsText: this.detailsText,
+        tags: this.tags,
+        // photos: this.photos,
+        // audio: this.audio,
+      })
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getEmotion(id) {
+      this.$store.dispatch(GET_EMOTION, {
+        emotion_id: id,
+      })
+        .then(() => {
+          this.emotions = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);

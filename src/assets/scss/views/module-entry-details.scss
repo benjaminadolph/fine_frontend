@@ -4,7 +4,8 @@
     @include grayWhiteBlur;
     min-height: 100vh;
     z-index: 10000;
-    position: fixed;
+    position: absolute;
+    overflow-y: scroll;
     width: 100%;
     padding: 20px;
     top: 0;
@@ -19,6 +20,11 @@
         .text {
             margin-left: 10px;
         }
+    }
+
+    .fine-header {
+        margin-right: 0;
+        margin-left: 0;
     }
 }
 

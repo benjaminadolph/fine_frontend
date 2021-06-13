@@ -69,7 +69,7 @@ $ACTIVITY_37-5: #B5C1EF;
 $ACTIVITY_25: #CCD4F3;
 $ACTIVITY_SOFT: #E3E7F7;
 
-$BACKGROUND_COLOR: #E5E5E5;
+$BACKGROUND_COLOR: #F8F9FB;
 $TEXT_BASE_COLOR: $FINE_GREY_DARK;
 
 .fine-grey-dark {
@@ -156,5 +156,25 @@ $MODULE_COLORS:
   .#{$CLASSNAME}-border {
     border-color: #{$COLOR} !important;
   }
+}
+
+.symptoms-bgcolor-intensity-5 {
+  background-color: $SYMPTOMS_DARK;
+}
+
+.symptoms-bgcolor-intensity-4 {
+  background-color: $SYMPTOMS_PRIMARY;
+}
+
+.symptoms-bgcolor-intensity-3 {
+  background-color: $SYMPTOMS_75;
+}
+
+.symptoms-bgcolor-intensity-2 {
+  background-color: $SYMPTOMS_50;
+}
+
+.symptoms-bgcolor-intensity-1 {
+  background-color: $SYMPTOMS_25;
 }
 

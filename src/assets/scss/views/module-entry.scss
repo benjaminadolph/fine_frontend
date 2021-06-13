@@ -1,22 +1,28 @@
 @import '../init';
 
 .module-entry-layer {
-    @include grayWhiteBlur;
     min-height: 100vh;
     z-index: 10000;
-    position: absolute;
+    position: fixed;
     width: 100%;
-    padding: 20px;
-    top: 30px;
+    top: 0;
+    background-color: $BACKGROUND_COLOR;
 
-    .module-entry-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
+    .module-entry-content {
+        margin: 0 $EDGE_GRID;
+    }
+}
 
-        .text {
-            margin-left: 10px;
-        }
+.module-slider {
+    margin: 30px $EDGE_GRID;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+        margin: 0 20px;
+    }
+    .not-active {
+        color: $FINE_GREY_MEDIUM !important;
     }
 }

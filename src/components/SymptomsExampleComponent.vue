@@ -9,6 +9,8 @@
       <input type="text" v-model="category" placeholder="Category">
       <input type="text" v-model="location.x" placeholder="X Location">
       <input type="text" v-model="location.y" placeholder="Y Location">
+      Location Front?
+      <input type="checkbox" v-model="location.front">
       <input type="text" v-model="detailsText" placeholder="Details">
       <input type="text" v-model="tags" placeholder="Tags">
       <button @click="createSymptom">Post Symptom</button>
@@ -26,6 +28,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+  CREATE_SYMPTOM,
+  DELETE_SYMPTOM,
+  UPDATE_SYMPTOM,
+  GET_SYMPTOM,
+} from '@/store/modules/symptoms';
 
 export default {
   name: 'Symptoms',
@@ -37,6 +46,7 @@ export default {
       intensity: '',
       category: '',
       location: {
+        front: true,
         x: '',
         y: '',
       },
@@ -54,17 +64,16 @@ export default {
   },
   methods: {
     getAllSymptoms() {
-      this.$store.dispatch('GET_ALL_SYMPTOMS')
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
           this.symptoms = this.getUserSymptoms;
-          console.log(this.getUserSymptoms);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     createSymptom() {
-      this.$store.dispatch('CREATE_SYMPTOM', {
+      this.$store.dispatch(CREATE_SYMPTOM, {
         date: this.date,
         module: this.module,
         intensity: this.intensity,
@@ -83,12 +92,42 @@ export default {
         });
     },
     deleteSymptom(id) {
-      console.log(id);
-      this.$store.dispatch('DELETE_SYMPTOM', {
+      this.$store.dispatch(DELETE_SYMPTOM, {
         symptom_id: id,
       })
         .then(() => {
-          this.getAllSymptoms();
+          this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateSymptom(id) {
+      this.$store.dispatch(UPDATE_SYMPTOM, {
+        symptom_id: id,
+        date: this.date,
+        module: this.module,
+        intensity: this.intensity,
+        category: this.category,
+        location: this.location,
+        detailsText: this.detailsText,
+        // photos: this.photos,
+        // audio: this.audio,
+        tags: this.tags,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSymptom(id) {
+      this.$store.dispatch(GET_SYMPTOM, {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
         })
         .catch((err) => {
           console.log(err);

@@ -1,14 +1,14 @@
 @import '../init';
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-  
+
 body {
-    color: $TEXT_BASE_COLOR;
-    background-color: $BACKGROUND_COLOR;
+  color: $TEXT_BASE_COLOR;
+  background-color: $BACKGROUND_COLOR;
 }
 
 a {
@@ -29,25 +29,25 @@ button[disabled],
 input[disabled],
 button::-moz-focus-inner,
 input::-moz-focus-inner,
-input:focus, 
+input:focus,
 select:focus,
 input:focus-visible {
   @include resetButton;
-  border:none;
-  background-image:none;
-  background-color:transparent;
+  border: none;
+  background-image: none;
+  background-color: transparent;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
   outline: 0;
-  margin:0;
-	border:0;
-	padding:0;
-	display:inline-block;
-	vertical-align:middle;
-	white-space:normal;
-	background:none;
-	line-height:1;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  background: none;
+  line-height: 1;
 }
 
 input[type="color"],
@@ -69,7 +69,7 @@ textarea {
   font-size: 16px;
 }
 
-ul {
+ul, ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -91,4 +91,31 @@ ul {
 
 #nav a.router-link-exact-active {
   color: $FINE_PRIMARY;
+}
+
+.fine-header {
+  margin: 0 $EDGE_GRID;
+  text-align: center;
+  position: relative;
+  padding: 30px 0;
+  .shadow-button {
+    position: absolute;
+    top: 34px;
+    border-radius: 50%;
+    background-color: white;
+    @include boxshadow;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.left-button {
+      left: 0;
+    }
+
+    &.right-button {
+      right: 0;
+    }
+  }
 }

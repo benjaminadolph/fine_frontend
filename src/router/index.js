@@ -41,16 +41,22 @@ const routes = [
     // beforeEnter: ifAuthenticated,
   },
   {
+    path: '/calendar',
+    name: 'Kalender',
+    component: () => import('../views/Calendar.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: '/module-entry/:module',
     name: 'Module Entry',
-    component: () => import('../views/ModuleEntry.vue'),
+    component: () => import('../components/entry/ModuleEntry.vue'),
     beforeEnter: ifAuthenticated,
     props: true,
   },
   {
-    path: '/module-entry/:module/:id/details',
+    path: '/module-entry/:entryModule/:id/details',
     name: 'Module Entry Details',
-    component: () => import('../components/ModuleEntryDetails.vue'),
+    component: () => import('../components/entry/ModuleEntryDetails.vue'),
     beforeEnter: ifAuthenticated,
     props: true,
   },
@@ -64,6 +70,12 @@ const routes = [
     path: '/exampleview',
     name: 'ExampleView',
     component: () => import('../views/ExampleView.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../components/Settings.vue'),
     beforeEnter: ifAuthenticated,
   },
 ];
