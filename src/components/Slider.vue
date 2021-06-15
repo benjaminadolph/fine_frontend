@@ -3,27 +3,29 @@
     <!-- div wie der thumb, Breite mit x_Position berechnen,
     neue Position Klasse mit width in scss setzen,
     action mit Intensität bei entsprechender Position -->
-    <div id="slider" class="thumb" @drag="dragSlider"
-    v-bind:class="module + '-primary-bgcolor'"></div>
-    <!-- <input
-      type="range"
-      class="range-slider"
-      id="slider"
-      min="0"
-      max="5"
-      value="1"
-      @v-touch:drag="dragSlider"
-      v-bind:class="module + '-primary-bgcolor'"
-    /> -->
-    <!-- v-bind:class="module + '-primary-bgcolor'" funktioniert
-    nur beim Track aber nicht beim Thumb -->
-    <div class="slider-text plain-m-book">Wirkung bewerten</div>
+    <div class="thumb_all">
+      <div id="slider" class="thumb" @click="dragSlider"
+      v-bind:class="module + '-primary-bgcolor'">
+      <IconComponent id="smile_up" v-bind:name="'smile'" :size="16" />
+      </div>
+    </div>
+    <div class="slider_bg">
+      <div class="slider-text plain-m-book">Wirkung bewerten</div>
+      <IconComponent id="smile"
+      v-bind:name="'smile'" :size="16" v-bind:color="module + '-primary'" />
+      <!-- warum zeigt er das smile icon nicht an? -->
+     </div>
   </div>
 </template>
 
 <script>
+import IconComponent from '@/components/IconComponent.vue';
+
 export default {
   name: 'Slider',
+  components: {
+    IconComponent,
+  },
   props: {
     module: String,
   },
@@ -39,37 +41,46 @@ export default {
   methods: {
     dragSlider() {
       // width of thumb
-      const thumb = document.querySelector('.thumb');
-      const positionThumb = thumb.getBoundingClientRect();
-      console.log(`'right' ${positionThumb.right}, 'left' ${positionThumb.left}`);
+      const thumb = document.querySelectorAll('.thumb');
+      // const positionThumb = thumbs.getBoundingClientRect();
+      // console.log(`'right' ${positionThumb.right}, 'left' ${positionThumb.left}`);
 
-      const widthThumb = positionThumb.right - positionThumb.left;
-      console.log(widthThumb);
+      // const widthThumb = positionThumb.right - positionThumb.left;
 
       // width of parent/ whole slider
       const slider = document.querySelector('.slider');
       const positionSlider = slider.getBoundingClientRect();
-      console.log(`'right' ${positionSlider.right}, 'left' ${positionSlider.left}`);
+      // console.log(`'right' ${positionSlider.right}, 'left' ${positionSlider.left}`);
 
-      const widthSlider = positionSlider.right - positionSlider.left;
-      const intensityPos = widthSlider / 5;
-      console.log(widthSlider);
-      console.log(intensityPos);
+      function move(e) {
+        const widthSlider = positionSlider.right - positionSlider.left;
+        const intensityPos = widthSlider / 5;
 
-      set((intensity) => {
-        document.getElementById('slider').className = `intensity-${intensity}`;
-        widthThumb.forEach().push(widthThumb + intensityPos);
+        if (e.target.style.width === (`${(10)}%`)) {
+          e.target.style.width = (`${(intensityPos)}px`);
+        } else if (e.target.style.width === (`${(intensityPos)}px`)) {
+          e.target.style.width = (`${(intensityPos * 2)}px`);
+        } else if (e.target.style.width === (`${(intensityPos * 2)}px`)) {
+          e.target.style.width = (`${(intensityPos * 3)}px`);
+        } else if (e.target.style.width === (`${(intensityPos * 3)}px`)) {
+          e.target.style.width = (`${(intensityPos * 4)}px`);
+        } else if (e.target.style.width === (`${(intensityPos * 4)}px`)) {
+          e.target.style.width = (`${(intensityPos * 5)}px`);
+        } else e.target.style.width = (`${(10)}%`);
+        e.target.classList.add('grabbing');
+        console.log(`'Breite des Sliders' ${e.target.style.width}`);
         // this.$store.dispatch();
-      });
-
-      /* }
-
-      // Slider soll in 5 Abschnitten einrasten
-      function setPositionByValue() {
-        // currentTranslate = value * slider.width;
-        prevTranslate = currentTranslate;
-        setSliderPosition();
       }
+
+      thumb.forEach((element) => {
+        element.addEventListener('touchmove', move);
+      });
+      thumb.forEach((element) => {
+        element.addEventListener('mousedown', move);
+      });
+      // funktioniert momentan nur mit click bei Firefox
+
+      /*
 
       // Animation beenden
       function touchEnd(event) {
