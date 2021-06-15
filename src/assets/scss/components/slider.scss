@@ -12,147 +12,59 @@
   overflow: hidden;
   transform: translateX(0);
   transition: transform 0.3s ease-out;
-  cursor: grab;
 
   .grabbing {
     cursor: grabbing;
   }
 
-  .thumb {
-    position: absolute;
-    width: 20%;
-    padding: 1.15rem;
-    border-radius: $BASE_BORDER_RADIUS;
-    background-image: url('../assets/icons/16-smile.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  .intensity-1 {
-    position: absolute;
-    left: 50%;
-    width: 20%;
-  }
-
-  .intensity-2 {
-    position: absolute;
-    left: 50%;
-    width: 40%;
-  }
-
-  .intensity-3 {
-    position: absolute;
-    left: 50%;
-    width: 60%;
-  }
-
-  .intensity-4 {
-    position: absolute;
-    left: 50%;
-    width: 80%;
-  }
-
-  .intensity-5 {
-    position: absolute;
-    left: 50%;
-    width: 100%;
-  }
-
-  /*
-  input[type=range]{
-    -webkit-appearance: none;
-    position: absolute;
-    width: 85%; // not okay on mobile
-    margin: 0;
-    padding: 0.5rem 0rem; // für Chrome: padding: 0rem 0rem;
-    background: transparent;
-    border: none;
-    border-radius: $BASE_BORDER_RADIUS;
+  .thumb_all {
     display: flex;
-  }
+    flex-direction: row;
 
-  input[type=range]:focus {
-    outline: none;
-  }
+    .thumb {
+      position: absolute;
+      width: 10%;
+      padding: .68rem;
+      border-radius: $BASE_BORDER_RADIUS;
+      cursor: grab;
 
-  // Internet Explorer 10+
-  .ms-touch.slider {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    
-    -ms-overflow-style: none;
-    /* Hides the scrollbar. */
-    
-  //  -ms-scroll-chaining: none;
-    /* Prevents Metro from swiping to the next tab or app. */
- // }  
-
-  // style Track of Slider
- /* input[type=range]::-webkit-slider-runnable-track {
-    width: inherit;
-    height: inherit;
-    border: none;
-    border-radius: $BASE_BORDER_RADIUS;
-  }
-
-  // Track for Firefox
-  input[type=range]::-webkit-slider-runnable-track {
-    width: inherit;
-    height: inherit;
-    border: none;
-    border-radius: $BASE_BORDER_RADIUS;
-  }
-
-  // style Thumb of Slider
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    width: 10%;
-    padding: 1.2rem 2rem;
-    margin: 0;
-    background: cadetblue;
-    border-radius:$BASE_BORDER_RADIUS;
-    display: flex;
-  }
-
-  // Firefox
-  input[type=range]::-moz-range-thumb {
-    border: none;
-    height: 100%;
-    width: 10%;
-    margin: 0;
-    padding: 0.6rem 1.5rem;
-    border-radius: $BASE_BORDER_RADIUS;
-    display: flex;
-  }
-
-  // Internet Explorer 10+
-  input[type=range]::-ms-thumb {
-    border: none;
-    height: 100%;
-    width: 10%;
-    padding: 0.5rem 1rem;
-    border-radius: $BASE_BORDER_RADIUS;
-    display: flex;
-  } */
-
-  .slider-text {
-    text-align: center;
-    width: 100%;
-    background: $FINE_WHITE;
-    padding: 0.3rem 0.6rem;
-    border-radius: $BASE_BORDER_RADIUS;
-    background-image: url('../assets/icons/16-smile.svg') #{$MODULE_COLORS} !important;;
-    background-repeat: no-repeat;
-    background-position: center;
-
-      img {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        transform: rotate(180deg);
+      #smile_up {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: inherit;
+        padding: 0;
+        margin: 0;
+        color: $FINE_WHITE;
+        pointer-events: none;
       }
+    }
+  }
+
+  .slider_bg {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .slider-text {
+      text-align: center;
+      width: 100%;
+      background: $FINE_WHITE;
+      padding: 0.3rem 0.6rem;
+      border-radius: $BASE_BORDER_RADIUS;
+    }
+    
+    #smile {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      -webkit-transform: rotate(180deg) translateY(50%);
+      -moz-transform: rotate(180deg) translateY(50%);
+      -ms-transform: rotate(180deg) translateY(50%);
+      -o-transform: rotate(180deg) translateY(50%);
+      transform: rotate(180deg) translateY(50%);
+    }
   }
 }
   
