@@ -1,15 +1,23 @@
 // action types
-export const USER_REQUEST = 'userRequest';
-export const UPDATE_MODULESSELECTED = 'updateModulesSelected';
+export const GET_USER = 'getUser';
+export const UPDATE_USER_MODULESSELECTED = 'updateUserModulesSelected';
+export const UPDATE_USER = 'updateUser';
+export const DELETE_USER = 'deleteUser';
 
 // mutation types
-export const USER_REQUEST_START = 'userRequestStart';
-export const USER_REQUEST_SUCCESS = 'userRequestSuccess';
-export const USER_REQUEST_ERROR = 'userRequestError';
+export const GET_USER_START = 'getUserStart';
+export const GET_USER_SUCCESS = 'getUserSuccess';
+export const GET_USER_ERROR = 'getUserError';
 export const AUTH_LOGOUT = 'authLogout';
-export const UPDATE_MODULESSELECTED_START = 'updateModulesSelectedStart';
-export const UPDATE_MODULESSELECTED_SUCCESS = 'updateModulesSelectedSuccess';
-export const UPDATE_MODULESSELECTED_ERROR = 'updateModulesSelectedError';
+export const UPDATE_USER_MODULESSELECTED_START = 'updateUserModulesSelectedStart';
+export const UPDATE_USER_MODULESSELECTED_SUCCESS = 'updateUserModulesSelectedSuccess';
+export const UPDATE_USER_MODULESSELECTED_ERROR = 'updateUserModulesSelectedError';
+export const UPDATE_USER_START = 'updateUserStart';
+export const UPDATE_USER_SUCCESS = 'updateUserSuccess';
+export const UPDATE_USER_ERROR = 'updateUserError';
+export const DELETE_USER_START = 'deleteUserStart';
+export const DELETE_USER_SUCCESS = 'deleteUserSuccess';
+export const DELETE_USER_ERROR = 'deleteUserError';
 
 export default ({
   state: {
@@ -26,54 +34,97 @@ export default ({
     },
   },
   mutations: {
-    [USER_REQUEST_START]: (state) => {
+    [GET_USER_START]: (state) => {
       state.status = 'loading';
     },
-    [USER_REQUEST_SUCCESS]: (state, resp) => {
+    [GET_USER_SUCCESS]: (state, resp) => {
       state.status = 'success';
       state.profile = resp.data;
       state.id = resp.data._id;
     },
-    [USER_REQUEST_ERROR]: (state) => {
+    [GET_USER_ERROR]: (state) => {
       state.status = 'error';
     },
     [AUTH_LOGOUT]: (state) => {
       state.profile = {};
     },
-    [UPDATE_MODULESSELECTED_START]: (state) => {
+    [UPDATE_USER_MODULESSELECTED_START]: (state) => {
       state.status = 'loading';
     },
-    [UPDATE_MODULESSELECTED_SUCCESS]: (state, resp) => {
+    [UPDATE_USER_MODULESSELECTED_SUCCESS]: (state, resp) => {
       state.status = 'success';
       state.profile.modulesSelected = resp.data;
     },
-    [UPDATE_MODULESSELECTED_ERROR]: (state) => {
+    [UPDATE_USER_MODULESSELECTED_ERROR]: (state) => {
+      state.status = 'error';
+    },
+    [UPDATE_USER_START]: (state) => {
+      state.status = 'loading';
+    },
+    [UPDATE_USER_SUCCESS]: (state, resp) => {
+      state.status = 'success';
+      state.profile = resp.data;
+    },
+    [UPDATE_USER_ERROR]: (state) => {
+      state.status = 'error';
+    },
+    [DELETE_USER_START]: (state) => {
+      state.status = 'loading';
+    },
+    [DELETE_USER_SUCCESS]: (state) => {
+      state.status = 'success';
+      state.profile = {};
+    },
+    [DELETE_USER_ERROR]: (state) => {
       state.status = 'error';
     },
   },
   actions: {
-    [USER_REQUEST]: async ({ commit, dispatch }, id) => {
-      commit(USER_REQUEST_START);
+    [GET_USER]: async ({ commit, dispatch }, id) => {
+      commit(GET_USER_START);
       await axios.get(`http://localhost:3000/api/user/${id}`)
         .then((resp) => {
-          commit(USER_REQUEST_SUCCESS, resp);
+          commit(GET_USER_SUCCESS, resp);
         })
         .catch(() => {
-          commit(USER_REQUEST_ERROR);
-          // if resp is unauthorized, logout, to
+          commit(GET_USER_ERROR);
+          // if resp is unauthorized, logout
           dispatch(AUTH_LOGOUT);
         });
     },
-    [UPDATE_MODULESSELECTED]: async ({ commit, rootState }, req) => {
-      const userid = rootState.user.id;
-      commit(UPDATE_MODULESSELECTED_START);
-      await axios.patch('http://localhost:3000/api/user/modulesSelected/', req, { params: { userid } })
+    [UPDATE_USER_MODULESSELECTED]: async ({ commit, rootState }, req) => {
+      const { id } = rootState.user;
+      commit(UPDATE_USER_MODULESSELECTED_START);
+      await axios.patch(`http://localhost:3000/api/user/modulesSelected/${id}`, req)
         .then((resp) => {
-          commit(UPDATE_MODULESSELECTED_SUCCESS, resp);
+          commit(UPDATE_USER_MODULESSELECTED_SUCCESS, resp);
           console.log(resp);
         })
         .catch(() => {
-          commit(UPDATE_MODULESSELECTED_ERROR);
+          commit(UPDATE_USER_MODULESSELECTED_ERROR);
+        });
+    },
+    [UPDATE_USER]: async ({ commit, rootState }, req) => {
+      const { id } = rootState.user;
+      commit(UPDATE_USER_START);
+      await axios.patch(`http://localhost:3000/api/user/${id}`, req)
+        .then((resp) => {
+          commit(UPDATE_USER_SUCCESS, resp);
+          console.log(resp);
+        })
+        .catch(() => {
+          commit(UPDATE_USER_ERROR);
+        });
+    },
+    [DELETE_USER]: async ({ commit, rootState }) => {
+      const { id } = rootState.user;
+      commit(DELETE_USER_START);
+      await axios.delete(`http://localhost:3000/api/user/${id}`)
+        .then((resp) => {
+          commit(DELETE_USER_SUCCESS, resp);
+        })
+        .catch(() => {
+          commit(DELETE_USER_ERROR);
         });
     },
   },

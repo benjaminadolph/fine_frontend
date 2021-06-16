@@ -9,6 +9,8 @@
       <input type="text" v-model="category" placeholder="Category">
       <input type="text" v-model="location.x" placeholder="X Location">
       <input type="text" v-model="location.y" placeholder="Y Location">
+      Location Front?
+      <input type="checkbox" v-model="location.front">
       <input type="text" v-model="detailsText" placeholder="Details">
       <input type="text" v-model="tags" placeholder="Tags">
       <button @click="createSymptom">Post Symptom</button>
@@ -44,6 +46,7 @@ export default {
       intensity: '',
       category: '',
       location: {
+        front: true,
         x: '',
         y: '',
       },

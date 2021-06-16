@@ -1,4 +1,4 @@
-import { USER_REQUEST } from '@/store/modules/user';
+import { GET_USER } from '@/store/modules/user';
 
 // action types
 export const AUTH_LOGIN = 'authLogin';
@@ -64,7 +64,7 @@ export default ({
           commit(AUTH_LOGIN_ERROR, err);
           localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
         });
-      await dispatch(USER_REQUEST, id);
+      await dispatch(GET_USER, id);
     },
     [AUTH_REGISTER]: async ({ commit }, user) => {
       commit(AUTH_REGISTER_START);
@@ -77,9 +77,9 @@ export default ({
         });
     },
     [AUTH_LOGOUT]: ({ commit }) => {
-      commit(AUTH_LOGOUT_SUCCESS);
       localStorage.removeItem('user-token');
       delete axios.defaults.headers.common.Authorization;
+      commit(AUTH_LOGOUT_SUCCESS);
     },
   },
   modules: {

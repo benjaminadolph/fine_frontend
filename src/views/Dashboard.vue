@@ -1,12 +1,20 @@
 <template>
   <div class="view">
-     <header class="fine-header">
-      <div class="center">
-          <h1>Dashboard</h1>
+    <header>
+      <div class="left-button">
       </div>
+      <div class="center">
+            <h1 v-bind:color="color">Dashboard</h1>
+            <Time />
+        </div>
+        <router-link to="/settings">
+          <div class="shadow-button">
+              <IconComponent v-bind:name="'settings'" :size="16" />
+          </div>
+        </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser module="emotions" />
+    <ModuleTeaser module="emotions" /> <!-- update to modules selected -->
     <ModuleTeaser module="symptoms" />
   </div>
 </template>
@@ -14,12 +22,16 @@
 <script>
 import SmartStack from '@/components/dashboard/SmartStack.vue';
 import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
+import IconComponent from '@/components/IconComponent.vue';
+import Time from '@/components/Time.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     SmartStack,
     ModuleTeaser,
+    IconComponent,
+    Time,
   },
   props: {
     module: String,
@@ -34,7 +46,8 @@ export default {
       date: `${dd}.${mm}.${yyyy}`,
     };
   },
-  methods: {},
+  methods: {
+  },
 };
 </script>
 

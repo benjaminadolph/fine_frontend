@@ -30,12 +30,7 @@
           id="figure"
           :options="{maxZoom: 3, minZoom: 1}"
         >
-          <IconComponent
-            :name="`${figure.gender}-${figure.direction}`"
-            :size="653"
-            :width="335"
-            :color="primaryColor"
-          />
+        <Figure gender="female" :front=front />
         </panZoom>
         <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
           <span v-on:click="setIntensity(5)" class="five intensity">5</span>
@@ -80,6 +75,7 @@ import {
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
+import Figure from '@/components/entry/Figure.vue';
 
 export default {
   name: 'SymptomsEntry',
@@ -87,6 +83,7 @@ export default {
     SelectEntry,
     IconComponent,
     ModuleEntryDetails,
+    Figure,
   },
   data() {
     return {
@@ -105,6 +102,7 @@ export default {
         gender: 'female',
         direction: 'front',
       },
+      front: true,
       // selectEntryData: null,
     };
   },
@@ -120,10 +118,11 @@ export default {
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figure = this.figureSvg;
-      if (figure === target) {
+      const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+
+      if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
         this.showIntensityControl = true;
-        const figureRect = target.getBoundingClientRect();
+        const figureRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
         const relativeY = mouseEvent.clientY - figureRect.top;
@@ -131,10 +130,11 @@ export default {
         const x = Math.ceil((663 / figureRect.height) * relativeX);
         const y = Math.ceil((663 / figureRect.height) * relativeY);
 
-        this.location = { x, y };
+        this.location = {
+          front: this.front, x, y, title: target.id,
+        };
         this.addCirclePulsation(this.location);
-      }
-      if (target instanceof SVGCircleElement) {
+      } else if (target instanceof SVGCircleElement) {
         this.lastClickedElement = target;
         const id = target.getAttribute('_id');
 
@@ -198,7 +198,7 @@ export default {
       element.setAttributeNS(null, 'r', 10);
       element.setAttributeNS(null, 'style', 'fill: currentColor;');
       element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      this.figureSvg.appendChild(element);
+      document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`).appendChild(element);
       this.lastClickedElement = element;
 
       this.createSVG('animate', {
@@ -403,8 +403,12 @@ export default {
     turnaround() {
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
+        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+        this.front = false;
       } else {
         this.figure.direction = 'front';
+        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+        this.front = true;
       }
     },
   },

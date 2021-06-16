@@ -125,7 +125,10 @@ export default {
     module: String,
     buttonLabel: String,
     multiselect: Boolean,
-    list: Object,
+    list: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {

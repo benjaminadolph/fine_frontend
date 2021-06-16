@@ -72,6 +72,12 @@ const routes = [
     component: () => import('../views/ExampleView.vue'),
     beforeEnter: ifAuthenticated,
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../components/Settings.vue'),
+    beforeEnter: ifAuthenticated,
+  },
 ];
 
 const router = createRouter({

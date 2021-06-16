@@ -10,9 +10,12 @@
     </header>
     <LastEntry :module="module" />
     <SelectEntry
+    :list=symptomCategories
+    :multiselect=false
+    v-on:update="onSelect"
+    v-on:addNewOption="createSymptomCategory"
     :module="module"
-    :buttonLabel="getButtonLabel(module)"
-    :multiselect="true" />
+    :buttonLabel="getButtonLabel(module)" />
   </div>
 </template>
 

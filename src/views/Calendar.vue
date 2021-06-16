@@ -30,20 +30,20 @@
       />
     </div>
     <div class="calendar-month">
-      <div class="calendar-month-header">
-        <!-- <CalendarDateSelector
-          :current-date="today"
-          :selected-date="selectedDate"
-          @dateSelected="selectDate"
-        /> -->
-      </div>
-
-      <div class="days-grid">
+      <div v-for="week in weeksArray" :key="week" class="weeks-grid">
         <CalendarMonthDayItem
-          v-for="day in days"
+          v-for="day in week.dayElements"
           :key="day.date"
           :day="day"
           :is-today="day.date === today"
+          :is-empty="isEmpty(day)"
+          v-on:showDayEntries="getDayEntries"
+          v-on:hideDayEntries="removeDayEntries"
+        />
+        <DayEntry
+          v-if="showDayEntries && week.week === dayEntryWeek"
+          :entries="dayEntries"
+          :week="dayEntryWeek"
         />
       </div>
     </div>
@@ -56,24 +56,34 @@ import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/calendar/CalendarMonthDayItem.vue';
+import DayEntry from '@/components/calendar/DayEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 // import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
+const chunk = (arr, size) => arr
+  .reduce((acc, _, i) => ((i % size)
+    ? acc
+    : [...acc, arr.slice(i, i + size)]), []);
+
 export default {
-  name: 'CalendarMonth',
+  name: 'Calendar',
 
   components: {
     CalendarMonthDayItem,
     SwipeSlider,
     IconComponent,
+    DayEntry,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
+      dayEntries: [],
+      dayEntryWeek: Number,
+      showDayEntries: false,
     };
   },
 
@@ -84,6 +94,23 @@ export default {
         ...this.currentMonthDays,
         ...this.nextMonthDays,
       ];
+    },
+
+    weeksArray() {
+      const _weeks = chunk(this.days, 7);
+      const weeks = [];
+      _weeks.forEach((el) => {
+        const week = dayjs(el[0].date).week();
+        weeks.push(
+          {
+            week,
+            dayElements: el,
+          },
+        );
+      });
+      // _weeks.reduce((a, b) => a.concat(b), []);
+
+      return weeks;
     },
 
     today() {
@@ -124,6 +151,17 @@ export default {
           'YYYY-MM-DD',
         ),
         isCurrentMonth: true,
+        week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
+      }));
+    },
+
+    currentWeekDays() {
+      return [...Array(this.numberOfDaysInMonth)].map((day, index) => ({
+        date: dayjs(`${this.year}-${this.month}-${index + 1}`).format(
+          'YYYY-MM-DD',
+        ),
+        isCurrentMonth: true,
+        week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
       }));
     },
 
@@ -155,6 +193,11 @@ export default {
             }`,
           ).format('YYYY-MM-DD'),
           isCurrentMonth: false,
+          week: this.getWeek(
+            `${previousMonth.year()}-${previousMonth.month() + 1}-${
+              previousMonthLastMondayDayOfMonth + index
+            }`,
+          ),
         }),
       );
     },
@@ -175,6 +218,7 @@ export default {
           `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`,
         ).format('YYYY-MM-DD'),
         isCurrentMonth: false,
+        week: this.getWeek(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`),
       }));
     },
   },
@@ -184,8 +228,35 @@ export default {
       return dayjs(date).weekday();
     },
 
+    getWeek(date) {
+      return dayjs(date).week();
+    },
+
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate;
+    },
+
+    isEmpty(day) {
+      if (day.date === 'date') {
+        return true;
+      }
+      return false;
+    },
+
+    getDayEntries(entries, entryweek) {
+      if (entries.length && entries !== this.dayEntries) {
+        this.showDayEntries = true;
+        this.dayEntries = entries;
+        this.dayEntryWeek = entryweek;
+      } else {
+        this.showDayEntries = false;
+        this.dayEntries = {};
+      }
+    },
+
+    removeDayEntries() {
+      this.dayEntries = {};
+      this.showDayEntries = false;
     },
   },
 };
