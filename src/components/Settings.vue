@@ -295,11 +295,11 @@ export default {
       email: '',
       password: '',
       modulesSelected: [],
-      symptoms: Boolean,
-      nutrition: Boolean,
-      sleep: Boolean,
-      activity: Boolean,
-      emotions: Boolean,
+      symptoms: {},
+      nutrition: {},
+      sleep: {},
+      activity: {},
+      emotions: {},
     };
   },
   computed: {
