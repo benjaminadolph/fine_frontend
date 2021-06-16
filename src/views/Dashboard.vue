@@ -14,12 +14,13 @@
         </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser module="emotions" /> <!-- update to modules selected -->
+    <ModuleTeaser v-for="item, index in modulesSelected" v-model="item[index]" :key="index" />
     <ModuleTeaser module="symptoms" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import SmartStack from '@/components/dashboard/SmartStack.vue';
 import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
 import IconComponent from '@/components/IconComponent.vue';
@@ -44,9 +45,29 @@ export default {
 
     return {
       date: `${dd}.${mm}.${yyyy}`,
+      profile: {},
+      modulesSelected: [],
+      symptoms: false,
+      nutrition: false,
+      sleep: false,
+      activity: false,
+      emotions: false,
     };
   },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getModulesSelected']),
+  },
+  mounted() {
+    this.getAllModulesSelected();
+  },
   methods: {
+    getAllModulesSelected() {
+      this.modulesSelected = this.getModulesSelected;
+      console.log(this.modulesSelected);
+    },
+    /* splitModules() {
+
+    }, */
   },
 };
 </script>

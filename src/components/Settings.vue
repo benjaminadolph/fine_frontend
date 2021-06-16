@@ -295,11 +295,11 @@ export default {
       email: '',
       password: '',
       modulesSelected: [],
-      symptoms: false,
-      nutrition: false,
-      sleep: false,
-      activity: false,
-      emotions: false,
+      symptoms: Boolean,
+      nutrition: Boolean,
+      sleep: Boolean,
+      activity: Boolean,
+      emotions: Boolean,
     };
   },
   computed: {
@@ -307,6 +307,8 @@ export default {
   },
   mounted() {
     this.getAllModulesSelected();
+    // einzelne Module sind beim Neuladen nicht mehr ausgewählt,
+    // obwohl sie im Datensatz vorhanden sind (Local Storage?)
   },
   methods: {
     getAllModulesSelected() {
