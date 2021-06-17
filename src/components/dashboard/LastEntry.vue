@@ -44,6 +44,7 @@ export default {
   },
   mounted() {
     this.getSymptom();
+    this.getEmotion();
   },
   methods: {
     getSymptom(id) {
