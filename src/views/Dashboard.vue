@@ -14,7 +14,7 @@
         </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser v-bind:module="modules" />
+    <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
       date: `${dd}.${mm}.${yyyy}`,
       profile: {},
       modulesSelected: [],
-      modules: '',
+      modules: [],
     };
   },
   computed: {
@@ -58,21 +58,6 @@ export default {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
       // console.log(this.modulesSelected);
-      this.modulesSelected.forEach((element) => {
-        if (element === 'symptoms') {
-          this.modules = 'symptoms';
-        } if (element === 'emotions') {
-          this.modules = 'emotions';
-        } if (element === 'nutrition') {
-          this.modules = 'nutrition';
-        } if (element === 'sleep') {
-          this.modules = 'sleep';
-        } if (element === 'activity') {
-          this.modules = 'activity';
-        } if (element === 'countermeasures') {
-          this.modules = 'countermeasures';
-        } console.log(this.modules);
-      });
     },
   },
 };
