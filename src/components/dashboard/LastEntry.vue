@@ -4,10 +4,15 @@
       <p class="plain-m-book">Letzter Eintrag:</p>
       <img src="@/assets/icons/16-pencil.svg" />
     </header>
-    <p class="plain-m-bold" id="label">
-      {{ this.symptom.category || this.emotion.title + ' |' }} <!--  -->
-      {{ this.symptom.location }}
-      {{ this.symptom.date || this.emotion.date + ' |' }}
+    <p class="plain-m-bold" id="label" v-if="(module === 'symptoms')">
+      {{ symptoms.category + ' |' }}
+      {{ symptoms.location.title + ' |' }}
+      {{ getDate + ' |' }}
+      {{ getLastEntryTime(module) + ' Uhr' }}
+    </p>
+    <p class="plain-m-bold" id="label" v-if="(module === 'emotions')">
+      {{ emotions.title + ' |' }}
+      {{ emotions.date + ' |' }}
       {{ getLastEntryTime(module) + ' Uhr' }}
     </p>
     <input type="range" min="0" max="6" name="intensity" />
@@ -19,6 +24,9 @@ import { mapGetters } from 'vuex';
 import {
   GET_SYMPTOM,
 } from '@/store/modules/symptoms';
+import {
+  GET_EMOTION,
+} from '@/store/modules/emotions';
 
 export default {
   name: 'LastEntry',
@@ -27,12 +35,12 @@ export default {
   },
   data() {
     return {
-      symptom: {},
-      emotion: {},
+      symptoms: [],
+      emotions: [],
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getLatestSymptom']), // soll natürlich nur passieren, wenn auch das Modul Symptome aktiv ist
+    ...mapGetters(['getUserProfile', 'getLatestSymptom', 'getUserEmotions']),
   },
   mounted() {
     this.getSymptom();
@@ -43,31 +51,32 @@ export default {
         symptom_id: id,
       })
         .then(() => {
-          this.symptom = this.getLatestSymptom;
+          this.symptoms = this.getLatestSymptom;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    /* getLastEntryLabel(module) {
-      let lastEntryLabel = '';
-      if (module === 'symptoms') {
-        lastEntryLabel = 'Migräne';
-      } else if (module === 'emotions') {
-        lastEntryLabel = 'Wut';
-      }
-      return lastEntryLabel;
+    getEmotion(id) {
+      this.$store.dispatch(GET_EMOTION, {
+        emotion_id: id,
+      })
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    getLastEntryLocation(module) {
-      let lastEntryLocation = '';
-      if (module === 'symptoms') {
-        lastEntryLocation = 'Nacken |';
-      } else {
-        lastEntryLocation = '';
-      }
-      return lastEntryLocation;
+    getDate() {
+      const dd = String(this.symptoms.date.getDate()).padStart(2, '0');
+      const mm = String(this.symptoms.date.getMonth() + 1).padStart(2, '0');
+      const yyyy = this.symptoms.date.getFullYear();
+      date = `${dd}.${mm}.${yyyy}`;
+
+      return date;
     },
-    getLastEntryDate(module) {
+    /* getLastEntryDate(module) {
       let lastEntryDate = '';
       if (module === 'symptoms') {
         lastEntryDate = '19.05.2020';
