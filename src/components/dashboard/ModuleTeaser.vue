@@ -44,6 +44,14 @@ export default {
         moduleName = 'Symptome';
       } else if (module === 'emotions') {
         moduleName = 'Gefühle';
+      } else if (module === 'nutrition') {
+        moduleName = 'Ernährung';
+      } else if (module === 'sleep') {
+        moduleName = 'Schlaf';
+      } else if (module === 'activity') {
+        moduleName = 'Bewegung';
+      } else if (module === 'countermeasures') {
+        moduleName = 'Maßnahmen';
       }
       return moduleName;
     },
@@ -53,6 +61,14 @@ export default {
         buttonLabel = 'Symptome hinzufügen';
       } else if (module === 'emotions') {
         buttonLabel = 'Gefühl hinzufügen';
+      } else if (module === 'nutrition') {
+        buttonLabel = 'Ernährung hinzufügen';
+      } else if (module === 'sleep') {
+        buttonLabel = 'Jetzt schlafen';
+      } else if (module === 'activity') {
+        buttonLabel = 'Bewegung hinzufügen';
+      } else if (module === 'countermeasures') {
+        buttonLabel = 'Maßnahmen hinzufügen';
       }
       return buttonLabel;
     },
