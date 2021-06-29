@@ -42,7 +42,6 @@ $BASE_FONT_SIZE: 11px;
     font-weight: 400;
     font-size: $BASE_FONT_SIZE;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
     line-height: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);
 }
 
