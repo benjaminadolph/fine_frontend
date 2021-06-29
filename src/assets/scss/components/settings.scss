@@ -136,32 +136,57 @@
 
             .checkbox__input + svg {
                 .checkbox__bg_1 {
-                    fill: $SYMPTOMS_PRIMARY;
+                    fill: $SYMPTOMS_SOFT;
                 }
 
                 .checkbox__bg_2 {
-                    fill: $SLEEP_PRIMARY;
+                    fill: $SLEEP_SOFT;
                 }
 
                 .checkbox__bg_3 {
-                    fill: $NUTRITION_PRIMARY;
+                    fill: $NUTRITION_SOFT;
                 }
 
                 .checkbox__bg_4 {
-                    fill: $ACTIVITY_PRIMARY;
+                    fill: $ACTIVITY_SOFT;
                 }
 
                 .checkbox__bg_5 {
-                    fill: $EMOTIONS_PRIMARY;
+                    fill: $EMOTIONS_SOFT;
                 }
 
                 .checkbox__bg_6 {
-                    fill: $COUNTERMEASURES_PRIMARY;
+                    fill: $COUNTERMEASURES_SOFT;
                 }
 
-                .checkbox__unchecked {
+                .checkbox__unchecked1 {
                     display: initial;
-                    stroke: $FINE_WHITE;
+                    stroke: $SYMPTOMS_PRIMARY;
+                }
+
+                .checkbox__unchecked2 {
+                    display: initial;
+                    stroke: $SLEEP_PRIMARY;
+                }
+
+                .checkbox__unchecked3 {
+                    display: initial;
+                    stroke: $NUTRITION_PRIMARY;
+                }
+
+                .checkbox__unchecked4 {
+                    display: initial;
+                    stroke: $ACTIVITY_PRIMARY;
+                }
+
+                .checkbox__unchecked5 {
+                    display: initial;
+                    stroke: $EMOTIONS_PRIMARY;
+                }
+
+                .checkbox__unchecked6 {
+                    display: initial;
+                    stroke: $COUNTERMEASURES_PRIMARY;
                 }
 
                 .checkbox__checkmark_1,
@@ -200,61 +225,66 @@
 
             .checkbox__input:checked + svg {
                 .checkbox__bg_1 {
-                    fill: $SYMPTOMS_SOFT;
+                    fill: $SYMPTOMS_PRIMARY;
                 }
 
                 .checkbox__bg_2 {
-                    fill: $SLEEP_SOFT;
+                    fill: $SLEEP_PRIMARY;
                 }
 
                 .checkbox__bg_3 {
-                    fill: $NUTRITION_SOFT;
+                    fill: $NUTRITION_PRIMARY;
                 }
 
                 .checkbox__bg_4 {
-                    fill: $ACTIVITY_SOFT;
+                    fill: $ACTIVITY_PRIMARY;
                 }
 
                 .checkbox__bg_5 {
-                    fill: $EMOTIONS_SOFT;
+                    fill: $EMOTIONS_PRIMARY;
                 }
 
                 .checkbox__bg_6 {
-                    fill: $COUNTERMEASURES_SOFT;
+                    fill: $COUNTERMEASURES_PRIMARY;
                 }
 
-                .checkbox__unchecked {
+                .checkbox__unchecked1,
+                .checkbox__unchecked2,
+                .checkbox__unchecked3,
+                .checkbox__unchecked4,
+                .checkbox__unchecked5,
+                .checkbox__unchecked6 {
                     display: none;
                 }
 
                 .checkbox__checkmark_1 {
                     display: initial;
-                    stroke: $SYMPTOMS_PRIMARY; 
+                    stroke: $SYMPTOMS_SOFT; 
                 }
 
                 .checkbox__checkmark_2 {
                     display: initial;
-                    stroke: $SLEEP_PRIMARY; 
+                    stroke: $SLEEP_SOFT; 
                 }
 
                 .checkbox__checkmark_3 {
                     display: initial;
-                    stroke: $NUTRITION_PRIMARY; 
+                    stroke: $NUTRITION_SOFT; 
                 }
 
                 .checkbox__checkmark_4 {
                     display: initial;
-                    stroke: $ACTIVITY_PRIMARY; 
+                    stroke: $ACTIVITY_SOFT; 
                 }
 
                 .checkbox__checkmark_5 {
                     display: initial;
-                    stroke: $EMOTIONS_PRIMARY; 
+                    stroke: $EMOTIONS_SOFT; 
                 }
 
                 .checkbox__checkmark_6 {
                     display: initial;
-                    stroke: $COUNTERMEASURES_PRIMARY; 
+                    stroke: $COUNTERMEASURES_SOFT; 
                 }
 
                 .checkbox__checkmark_outline_1 {
@@ -286,5 +316,10 @@
         hr {
             border: .5px solid $FINE_GREY_MEDIUM;
         }
+    }
+
+    button[type=submit] {
+        margin: .5rem auto;
+        width: 40%;
     }
 }
