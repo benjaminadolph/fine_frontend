@@ -10,12 +10,13 @@
     </header>
     <LastEntry :module="module" />
     <SelectEntry
-    :list=symptomCategories
     :multiselect=false
-    v-on:update="onSelect"
-    v-on:addNewOption="createSymptomCategory"
     :module="module"
     :buttonLabel="getButtonLabel(module)" />
+    <!-- in Select Entry müssen Kategorien hinzugefügt werden können
+    soll das genauso wie bei Symptom-Kategorien sein?
+      :list=symptomCategories
+      v-on:addNewOption="createSymptomCategory" -->
   </div>
 </template>
 
