@@ -4,7 +4,7 @@
       <div class="left-button">
       </div>
       <div class="center">
-            <h1 v-bind:color="color">Dashboard</h1>
+            <h1>Dashboard</h1>
             <Time />
         </div>
         <router-link to="/settings">
