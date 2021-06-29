@@ -60,6 +60,25 @@
       <section class="modules">
           <h2 class="plain-s-bold">Module auswählen</h2>
           <hr>
+          <!-- @Jen hier würde ich mit v-for über ein array laufen, weil das ja eigtl immer das gleiche ist, aber mit anderen Modulnamen -->
+          <!-- das array allModules musst du halt noch erstellen in mounted() -->
+          <!-- allModules =  [{name: 'symptoms', title: 'Symptome'}, {name: 'sleep', title: 'Schlaf'}, ...}] -->
+         <!-- <div class="line" v-for="module in allModules">
+            <IconComponent 
+              class="icon" 
+              v-bind:name="module.name"
+              :size="24" 
+              v-bind:color="module.name + '-primary'" 
+            />
+              // brauchst du auf das p ein id oder reicht eine class?? habs jetzt mal als class geschrieben, damit es nicht kollidiert
+              <p :id="module" class="plain-m-bold">{{module.title}}</p>
+              <label :for="module.name" class="select-modules">
+                <input type="checkbox" v-model="module.name" :name="module.name"
+                :id="module.name" class="checkbox__input" @click="updateModulesSelected" />
+                // Das icon muss zu den svg icons und ins iconsprite! das geht auch über die zwei farben, indem man das svg richtig abspeichert
+                
+              </label>
+          </div> -->
           <div class="line">
               <IconComponent class="icon" v-bind:name="module = 'symptoms'"
                :size="24" v-bind:color="module + '-primary'" />
@@ -242,6 +261,8 @@
               <label for="check6" class="select-modules">
                 <input type="checkbox" name="countermeasures"
                 id="check6" class="checkbox__input" />
+                <!-- @Jen, warum hier inline svg? Warum nicht die IconComponent?? -->
+                <!-- wenn du in ein svg zb fill="currentColor" schreibst, kannst du das über css mit color: #fff ansprechen -->
 
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_6" clip-path="url(#clip0)">

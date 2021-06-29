@@ -41,6 +41,8 @@ $BASE_FONT_SIZE: 11px;
 @mixin plain-s-book {
     font-weight: 400;
     font-size: $BASE_FONT_SIZE;
+    // @Jen Niemals aus einem mixin was entfernen, außer du hast es bei den anderen Sachen geprüft, falls ich das nämlich verwendet habe, ist es bei mir auf einmal anders, ohne dass ich es wusste... 
+    text-transform: uppercase;
     letter-spacing: 0.02em;
     line-height: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);
 }

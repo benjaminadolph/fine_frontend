@@ -57,6 +57,14 @@ export default {
       return moduleName;
     },
     getButtonLabel(module) {
+      /* @Jen Das hier kann vereinfacht werden: */
+      /*
+
+        let buttonLabel = `${moduleName} hinzufügen';
+        return buttonLabel;
+
+      */
+
       let buttonLabel = 'Button Label';
       if (module === 'symptoms') {
         buttonLabel = 'Symptome hinzufügen';
