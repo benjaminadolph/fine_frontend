@@ -38,10 +38,10 @@ export default {
   },
   data() {
     return {
+      emotionEntries: [],
       emotions: [],
       date: '',
       intensity: '',
-      emotion: [],
       tags: [],
       detailsText: '',
       // photos: [],
@@ -60,7 +60,7 @@ export default {
     getAllEmotions() {
       this.$store.dispatch(GET_ALL_EMOTIONS)
         .then(() => {
-          this.emotions = this.getUserEmotions;
+          this.emotionEntries = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);
@@ -71,14 +71,14 @@ export default {
         date: new Date(),
         module: 'emotions',
         intensity: 5,
-        emotion: this.emotionList,
+        emotion: this.emotions,
         detailsText: this.detailsText,
         tags: this.tags,
         // photos: this.photos,
         // audio: this.audio,
       })
         .then(() => {
-          this.emotions = this.getUserEmotions;
+          this.emotionEntries = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);
@@ -89,7 +89,7 @@ export default {
         emotion_id: id,
       })
         .then(() => {
-          this.emotions = this.getUserEmotions;
+          this.emotionEntries = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);
@@ -101,14 +101,14 @@ export default {
         date: this.date,
         module: 'emotions',
         intensity: this.intensity,
-        emotion: this.emotionList,
+        emotion: this.emotions,
         detailsText: this.detailsText,
         tags: this.tags,
         // photos: this.photos,
         // audio: this.audio,
       })
         .then(() => {
-          this.emotions = this.getUserEmotions;
+          this.emotionEntries = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);
@@ -119,7 +119,7 @@ export default {
         emotion_id: id,
       })
         .then(() => {
-          this.emotions = this.getUserEmotions;
+          this.emotionEntries = this.getUserEmotions;
         })
         .catch((err) => {
           console.log(err);
@@ -140,17 +140,17 @@ export default {
       });
     },
     addNewEmotion(option) {
-      this.emotion.push(option);
+      this.emotions.push(option);
       this.emotionList.push({
         title: option,
         isSelected: true,
       });
     },
-    updateEmotionList(tags) {
-      this.emotion = [];
+    updateEmotionList(emotions) {
+      this.emotions = [];
       const _this = this;
-      tags.forEach((tag) => {
-        _this.emotion.push(tag.title);
+      emotions.forEach((tag) => {
+        _this.emotions.push(tag.title);
       });
     },
   },

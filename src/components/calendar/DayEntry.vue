@@ -12,7 +12,7 @@
       <div class="entry-headline">
         <span class="date">{{ getDate(entry.date) }} Uhr</span>
         <span class="title">
-          {{ entry.category }} | {{ entry.location.title }}
+          {{ getTitle(entry) }}
         </span>
       </div>
       <div
@@ -96,11 +96,21 @@ export default {
       this.$emit('removeEntry', entry._id, entry.date);
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
+    getTitle(entry) {
+      let titleString = '';
+      if (entry.module === 'symptoms') {
+        titleString = `${entry.category} | ${entry.location.title}`;
+      } else if (entry.module === 'emotions') {
+        titleString = entry.emotion.join(' | ');
+      }
+      return titleString;
+    },
   },
   mounted() {
     this.$el.addEventListener('touchstart', (event) => this.touchstart(event));
     this.$el.addEventListener('touchmove', (event) => this.touchmove(event));
     this.$el.addEventListener('touchend', (event) => this.touchend(event));
+    console.log(this.entries);
   },
 };
 </script>
