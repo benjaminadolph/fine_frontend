@@ -89,6 +89,9 @@ export default {
       this.currentModule = module;
     },
     closeLayer() {
+      if (this.currentModule === 'emotions') {
+        this.$refs.emotionsEntry.createEmotion();
+      }
       this.$emit('closeLayer');
     },
     cancelEntry() {
