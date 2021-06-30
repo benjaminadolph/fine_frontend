@@ -94,13 +94,19 @@ ul, ol {
 }
 
 .fine-header {
-  margin: 0 $EDGE_GRID;
-  text-align: center;
+  margin: 20px $EDGE_GRID;
   position: relative;
-  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .headline-text {
+    width: 100%;
+    padding: 0 20px;
+  }
+
   .shadow-button {
-    position: absolute;
-    top: 34px;
+    flex-shrink: 0;
     border-radius: 50%;
     background-color: white;
     @include boxshadow;
@@ -109,13 +115,5 @@ ul, ol {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &.left-button {
-      left: 0;
-    }
-
-    &.right-button {
-      right: 0;
-    }
   }
 }

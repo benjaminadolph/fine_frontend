@@ -12,20 +12,15 @@
       <ul class="day-entries">
         <li
           class="day-entry"
-          :class="`${entry().module}-bgcolor-intensity-${averageIntensity}`"
+          :class="`symptoms-bgcolor-intensity-${averageIntensity}`"
         ></li>
       </ul>
-      <span class="date">{{ label }}</span>
+      <span class="date">{{ day.label }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {
-  GET_ALL_SYMPTOMS,
-} from '@/store/modules/symptoms';
-import dayjs from 'dayjs';
 
 export default {
   name: 'CalendarMonthDayItem',
@@ -54,53 +49,29 @@ export default {
 
   data() {
     return {
-      symptoms: [],
-      symptomsEntries: [],
-      dayEntries: [],
-      week: Number,
       averageIntensity: 0,
-      // showDay: false,
     };
   },
 
-  computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
-    label() {
-      return dayjs(this.day.date).format('D');
-    },
-  },
-
   mounted() {
-    this.getAllSymptoms();
+    this.averageIntensity = this.setEntryAverage();
   },
 
   methods: {
-    getAllSymptoms() {
-      this.$store.dispatch(GET_ALL_SYMPTOMS)
-        .then(() => {
-          this.symptoms = this.getUserSymptoms;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     showDay() {
-      this.$emit('showDayEntries', this.dayEntries, this.day.week);
+      this.$emit('showDayEntries', this.day.date, this.day.week, false);
     },
-    entry() {
-      let itemEntry = {};
-      const _this = this;
+    setEntryAverage() {
       const intensities = [];
-      this.symptoms.forEach((item) => {
-        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
-          this.dayEntries.push(item);
-          intensities.push(item.intensity);
-          itemEntry = item;
-        }
-      });
-      const _averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
-      this.averageIntensity = Math.ceil(_averageIntensity);
-      return itemEntry;
+      let averageIntensity = 0;
+      if (this.day.dayEntries) {
+        Object.values(this.day.dayEntries).forEach((value) => {
+          intensities.push(value.intensity);
+        });
+        /* eslint-disable-next-line max-len */
+        averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
+      }
+      return Math.round(averageIntensity);
     },
   },
 };
