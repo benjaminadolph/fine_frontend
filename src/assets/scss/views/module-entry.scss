@@ -14,13 +14,34 @@
 }
 
 .module-slider {
-    margin: 30px $EDGE_GRID;
+    margin: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     li {
-        margin: 0 20px;
+        padding: 18px;
+        box-shadow: inset 0px -11px 8px -10px #CCC; 
+        width: 100%;
+        height: 100%;
+
+        &:first-child {
+            padding-left: $EDGE_GRID;
+        }
+
+        &:last-child {
+            padding-right: $EDGE_GRID;
+        }
+
+        .icon-wrapper {
+            margin: 0 auto;
+        }
+
+        &.active {
+            box-shadow: 
+                9px 0px 6px -7px #CCC, 
+                -9px 0px 6px -7px #CCC;
+        }
     }
     .not-active {
         color: $FINE_GREY_MEDIUM !important;

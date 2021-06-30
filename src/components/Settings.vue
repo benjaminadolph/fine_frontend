@@ -336,6 +336,7 @@ export default {
       sleep: false,
       activity: false,
       emotions: false,
+      countermeasures: false,
     };
   },
   computed: {
@@ -387,6 +388,7 @@ export default {
       })
         .then(() => {
           this.modulesSelected = this.getModulesSelected;
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);

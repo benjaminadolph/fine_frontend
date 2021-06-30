@@ -89,6 +89,7 @@ export default {
     return {
       symptoms: [],
       entryDetails: false,
+      currentEntries: [],
       entry: {},
       category: '',
       showIntensityControl: false,
@@ -162,26 +163,28 @@ export default {
         // tags: this.tags,
       };
       this.createSymptom(newSymptom);
+      this.currentEntries.push(newSymptom);
     },
-    /* setCircle(element) {
+    setCircle(element, figure) {
       let intensityClass = 'circle';
-      let _id = '';
       if (element.intensity) {
         intensityClass = `circle color-${element.intensity} intensity-set`;
       }
       if (element._id) {
         _id = element._id;
       }
-      this.createSVG('circle', {
-        cx: element.location.x,
-        cy: element.location.y,
-        class: intensityClass,
-        r: 10,
-        _id,
-        style: 'fill: currentColor;',
-        id: `circle-${element.location.x}-${element.location.y}`,
-      }, this.figureSvg);
-    }, */
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttributeNS(null, 'cx', element.location.x);
+      circle.setAttributeNS(null, 'cy', element.location.y);
+      circle.setAttributeNS(null, 'class', `circle ${intensityClass}`);
+      circle.setAttributeNS(null, 'r', 10);
+      circle.setAttributeNS(null, '_id', element._id);
+      circle.setAttributeNS(null, 'style', 'fill: currentColor;');
+      circle.setAttributeNS(null, 'id', `circle-${element.location.x}-${element.location.y}`);
+      setTimeout(() => {
+        document.getElementById(`653-${figure.gender}-${figure.direction}`).appendChild(circle);
+      }, 400);
+    },
     removeCircle(element) {
       if (!element) {
         this.lastClickedElement.remove();
@@ -290,16 +293,6 @@ export default {
           console.log(err);
         });
     },
-    /* setSymptoms(category) {
-      const _this = this;
-      if (this.symptoms.length > 0) {
-        this.symptoms.forEach((element) => {
-          if (element.category === category) {
-            _this.setCircle(element);
-          }
-        });
-      }
-    }, */
     updateSymptom(entry) {
       this.$store.dispatch(UPDATE_SYMPTOM, {
         symptom_id: entry._id,
@@ -403,12 +396,22 @@ export default {
     turnaround() {
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
-        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
         this.front = false;
+
+        Object.values(this.currentEntries).forEach((value) => {
+          if (!value.location.front) {
+            this.setCircle(value, this.figure);
+          }
+        });
       } else {
         this.figure.direction = 'front';
-        this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
         this.front = true;
+
+        Object.values(this.currentEntries).forEach((value) => {
+          if (value.location.front) {
+            this.setCircle(value, this.figure);
+          }
+        });
       }
     },
   },
