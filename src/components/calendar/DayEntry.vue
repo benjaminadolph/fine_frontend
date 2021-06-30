@@ -5,6 +5,7 @@
       v-for="entry in entries"
       :key="entry"
       :class="getClasses(entry)"
+      :id="entry._id"
     >
       <div class="intensity-bar" :class="getIntensity(entry)"></div>
       <div class="entry-headline">
@@ -31,7 +32,8 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+    };
   },
 
   methods: {
