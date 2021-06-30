@@ -19,7 +19,7 @@
       </li>
     </ul>
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="closeLayer">
+      <a class="left-button shadow-button" v-on:click="cancelEntry">
           <IconComponent name="close-full" :size=32 :color="currentModule + '-primary'" />
       </a>
       <div class="headline-text">
@@ -31,8 +31,8 @@
       </a>
     </header>
     <div class="module-entry-content">
-      <SymptomsEntry v-if="currentModule==='symptoms'" />
-      <Emotions v-if="currentModule==='emotions'" />
+      <SymptomsEntry v-if="currentModule==='symptoms'" ref="symptomsEntry"/>
+      <Emotions v-if="currentModule==='emotions'" ref="emotionsEntry"/>
     </div>
   </div>
 </template>
@@ -89,6 +89,12 @@ export default {
       this.currentModule = module;
     },
     closeLayer() {
+      this.$emit('closeLayer');
+    },
+    cancelEntry() {
+      if (this.currentModule === 'symptoms') {
+        this.$refs.symptomsEntry.deleteCurrentEntries();
+      }
       this.$emit('closeLayer');
     },
     nextModule() {

@@ -408,6 +408,11 @@ export default {
         });
       }
     },
+    deleteCurrentEntries() {
+      Object.values(this.currentEntries).forEach((value) => {
+        this.deleteSymptom(value._id);
+      });
+    },
   },
   computed: {
     ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
@@ -416,6 +421,7 @@ export default {
     this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
     this.getAllSymptoms();
     this.getAllSymptomCategories();
+    this.currentEntries = [];
   },
 };
 </script>
