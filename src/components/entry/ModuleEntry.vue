@@ -32,14 +32,14 @@
     </header>
     <div class="module-entry-content">
       <SymptomsEntry v-if="currentModule==='symptoms'" ref="symptomsEntry"/>
-      <Emotions v-if="currentModule==='emotions'" ref="emotionsEntry"/>
+      <EmotionsEntry v-if="currentModule==='emotions'" ref="emotionsEntry"/>
     </div>
   </div>
 </template>
 
 <script>
 import SymptomsEntry from '@/components/entry/SymptomsEntry.vue';
-import Emotions from '@/components/entry/Emotions.vue';
+import EmotionsEntry from '@/components/entry/EmotionsEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import Time from '@/components/Time.vue';
 import { mapGetters } from 'vuex';
@@ -52,7 +52,7 @@ export default {
   name: 'ModuleEntry',
   components: {
     SymptomsEntry,
-    Emotions,
+    EmotionsEntry,
     IconComponent,
     Time,
   },
