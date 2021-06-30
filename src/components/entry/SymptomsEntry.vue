@@ -163,20 +163,12 @@ export default {
         // tags: this.tags,
       };
       this.createSymptom(newSymptom);
-      this.currentEntries.push(newSymptom);
     },
     setCircle(element, figure) {
-      let intensityClass = 'circle';
-      if (element.intensity) {
-        intensityClass = `circle color-${element.intensity} intensity-set`;
-      }
-      if (element._id) {
-        _id = element._id;
-      }
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttributeNS(null, 'cx', element.location.x);
       circle.setAttributeNS(null, 'cy', element.location.y);
-      circle.setAttributeNS(null, 'class', `circle ${intensityClass}`);
+      circle.setAttributeNS(null, 'class', `circle color-${element.intensity} intensity-set`);
       circle.setAttributeNS(null, 'r', 10);
       circle.setAttributeNS(null, '_id', element._id);
       circle.setAttributeNS(null, 'style', 'fill: currentColor;');
@@ -277,6 +269,8 @@ export default {
           this.symptoms = this.getUserSymptoms;
           this.entry = this.getLatestSymptom;
           this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
+          console.log(this.entry);
+          this.currentEntries.push(this.entry);
         })
         .catch((err) => {
           console.log(err);
