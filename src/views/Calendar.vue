@@ -44,7 +44,7 @@
           v-if="showDayEntries && week.week === dayEntryWeek"
           :entries="dayEntries"
           :week="dayEntryWeek"
-          v-on:removeEntry="deleteSymptom"
+          v-on:removeEntry="deleteEntry"
         />
       </div>
     </div>
@@ -337,16 +337,26 @@ export default {
         });
     },
 
-    deleteEmotion(id) {
+    deleteEmotion(id, date) {
       this.$store.dispatch(DELETE_EMOTION, {
         emotion_id: id,
       })
         .then(() => {
           this.emotions = this.getUserEmotions;
+          this.getDayEntries(date, dayjs(date).week(), true);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    deleteEntry(entry) {
+      console.log(entry);
+      if (entry.module === 'symptoms') {
+        this.deleteSymptom(entry._id, entry.date);
+      } else if (entry.module === 'emotions') {
+        this.deleteEmotion(entry._id, entry.date);
+      }
     },
   },
 

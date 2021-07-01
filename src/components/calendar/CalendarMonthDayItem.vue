@@ -49,7 +49,11 @@ export default {
 
   data() {
     return {
-      averageIntensity: 0,
+      entries: [{
+        intensities: Array,
+        averageIntensity: Number,
+        module: String,
+      }],
     };
   },
 
@@ -63,15 +67,30 @@ export default {
     },
     setEntryAverage() {
       const intensities = [];
-      let averageIntensity = 0;
       if (this.day.dayEntries) {
-        Object.values(this.day.dayEntries).forEach((value) => {
-          intensities.push(value.intensity);
-        });
-        /* eslint-disable-next-line max-len */
-        averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
+        const symptomEntries = this.day.dayEntries.find((element) => element.module === 'symptoms');
+        if (symptomEntries) {
+          Object.values(symptomEntries).forEach((value) => {
+            intensities.push(value.intensity);
+            this.entries.push({
+              module: 'symptoms',
+              intensities,
+              averageIntensity: intensities.reduce((a, b) => a + b, 0) / intensities.length,
+            });
+          });
+        }
+        const emotionEntries = this.day.dayEntries.find((element) => element.module === 'emotions');
+        if (emotionEntries) {
+          Object.values(emotionEntries).forEach((value) => {
+            intensities.push(value.intensity);
+            this.entries.push({
+              module: 'emotions',
+              intensities,
+              averageIntensity: intensities.reduce((a, b) => a + b, 0) / intensities.length,
+            });
+          });
+        }
       }
-      return Math.round(averageIntensity);
     },
   },
 };

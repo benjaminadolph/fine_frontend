@@ -93,7 +93,7 @@ export default {
       }
     },
     removeEntry(entry, $event) {
-      this.$emit('removeEntry', entry._id, entry.date);
+      this.$emit('removeEntry', entry);
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
     getTitle(entry) {
