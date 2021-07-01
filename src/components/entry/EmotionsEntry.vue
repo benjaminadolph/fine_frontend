@@ -1,5 +1,20 @@
 <template>
     <div>
+      <div class="set-intensity">
+        <div class="plain-s-book">
+          Aktuelle Stimmung bewerten:
+        </div>
+        <div class="plain-s-bold">
+          Wie geht es dir gerade?
+        </div>
+        <div class="intensities">
+          <span v-on:click="setIntensity(1, $event)" class="one intensity">1</span>
+          <span v-on:click="setIntensity(2, $event)" class="two intensity">2</span>
+          <span v-on:click="setIntensity(3, $event)" class="three intensity">3</span>
+          <span v-on:click="setIntensity(4, $event)" class="four intensity">4</span>
+          <span v-on:click="setIntensity(5, $event)" class="five intensity">5</span>
+        </div>
+      </div>
       <SelectEntry
         module='emotions'
         buttonLabel="Gefühle hinzufügen"
@@ -70,7 +85,7 @@ export default {
       this.$store.dispatch(CREATE_EMOTION, {
         date: new Date(),
         module: 'emotions',
-        intensity: 5,
+        intensity: this.intensity,
         emotion: this.emotions,
         detailsText: this.detailsText,
         tags: this.tags,
@@ -125,6 +140,14 @@ export default {
           console.log(err);
         });
     },
+    setIntensity(intensity, $event) {
+      this.intensity = intensity;
+      const elems = document.querySelectorAll('.intensity');
+      [].forEach.call(elems, (el) => {
+        el.classList.remove('selected');
+      });
+      $event.target.classList.add('selected');
+    },
     addNewTag(option) {
       this.tags.push(option);
       this.tagList.push({
@@ -158,5 +181,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- // @import "@/assets/scss/components/emotions.scss";
+  @import "@/assets/scss/components/emotions-entry.scss";
 </style>

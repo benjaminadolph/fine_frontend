@@ -74,7 +74,6 @@ export default {
     setEntryAverage() {
       const emotionsIntensities = [];
       const symptomsIntensities = [];
-      console.log(this.entries);
       if (this.day.dayEntries) {
         this.day.dayEntries.forEach((element) => {
           if (element.module === 'symptoms') {
