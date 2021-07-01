@@ -44,7 +44,7 @@
           v-if="showDayEntries && week.week === dayEntryWeek"
           :entries="dayEntries"
           :week="dayEntryWeek"
-          v-on:removeEntry="deleteSymptom"
+          v-on:removeEntry="deleteEntry"
         />
       </div>
     </div>
@@ -64,7 +64,10 @@ import {
   GET_ALL_SYMPTOMS,
   DELETE_SYMPTOM,
 } from '@/store/modules/symptoms';
-// import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
+import {
+  GET_ALL_EMOTIONS,
+  DELETE_EMOTION,
+} from '@/store/modules/emotions';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -91,11 +94,12 @@ export default {
       dayEntryWeek: Number,
       showDayEntries: false,
       symptoms: {},
+      emotions: {},
     };
   },
 
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserEmotions']),
     days() {
       return [
         ...this.previousMonthDays,
@@ -224,11 +228,6 @@ export default {
       );
     },
 
-    getAverageIntensity(date) {
-      console.log(date);
-      return date;
-    },
-
     nextMonthDays() {
       const lastDayOfTheMonthWeekday = this.getWeekday(
         `${this.year}-${this.month}-${this.currentMonthDays.length}`,
@@ -292,6 +291,11 @@ export default {
           dayEntries.push(value);
         }
       });
+      Object.values(this.emotions).forEach((value) => {
+        if (dayjs(value.date).format('YYYY-MM-DD') === date) {
+          dayEntries.push(value);
+        }
+      });
       return dayEntries;
     },
 
@@ -322,10 +326,43 @@ export default {
           console.log(err);
         });
     },
+
+    getAllEmotions() {
+      this.$store.dispatch(GET_ALL_EMOTIONS)
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    deleteEmotion(id, date) {
+      this.$store.dispatch(DELETE_EMOTION, {
+        emotion_id: id,
+      })
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+          this.getDayEntries(date, dayjs(date).week(), true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    deleteEntry(entry) {
+      console.log(entry);
+      if (entry.module === 'symptoms') {
+        this.deleteSymptom(entry._id, entry.date);
+      } else if (entry.module === 'emotions') {
+        this.deleteEmotion(entry._id, entry.date);
+      }
+    },
   },
 
   mounted() {
     this.getAllSymptoms();
+    this.getAllEmotions();
   },
 
 };

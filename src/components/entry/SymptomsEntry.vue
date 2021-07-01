@@ -36,7 +36,7 @@
           <span v-on:click="setIntensity(5)" class="five intensity">5</span>
           <span v-on:click="setIntensity(4)" class="four intensity">4</span>
           <span v-on:click="setIntensity(3)" class="three intensity">3</span>
-          <span v-on:click="setIntensity(2)" class="two intensity selected">2</span>
+          <span v-on:click="setIntensity(2)" class="two intensity">2</span>
           <span v-on:click="setIntensity(1)" class="one intensity">1</span>
           <IconComponent
             name="trash"
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div v-if="entryDetails" >
-          <ModuleEntryDetails
+          <SymptomsEntryDetails
             module="symptoms"
             :entry="entry"
             v-on:saveEntryDetails="updateSymptom"
@@ -74,7 +74,7 @@ import {
 } from '@/store/modules/symptomCategories';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import ModuleEntryDetails from '@/components/entry/ModuleEntryDetails.vue';
+import SymptomsEntryDetails from '@/components/entry/SymptomsEntryDetails.vue';
 import Figure from '@/components/entry/Figure.vue';
 
 export default {
@@ -82,7 +82,7 @@ export default {
   components: {
     SelectEntry,
     IconComponent,
-    ModuleEntryDetails,
+    SymptomsEntryDetails,
     Figure,
   },
   data() {

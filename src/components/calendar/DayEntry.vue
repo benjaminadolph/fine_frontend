@@ -12,7 +12,7 @@
       <div class="entry-headline">
         <span class="date">{{ getDate(entry.date) }} Uhr</span>
         <span class="title">
-          {{ entry.category }} | {{ entry.location.title }}
+          {{ getTitle(entry) }}
         </span>
       </div>
       <div
@@ -93,8 +93,17 @@ export default {
       }
     },
     removeEntry(entry, $event) {
-      this.$emit('removeEntry', entry._id, entry.date);
+      this.$emit('removeEntry', entry);
       $event.target.closest('.entry').classList.remove('show-delete-entry');
+    },
+    getTitle(entry) {
+      let titleString = '';
+      if (entry.module === 'symptoms') {
+        titleString = `${entry.category} | ${entry.location.title}`;
+      } else if (entry.module === 'emotions') {
+        titleString = entry.emotion.join(' | ');
+      }
+      return titleString;
     },
   },
   mounted() {

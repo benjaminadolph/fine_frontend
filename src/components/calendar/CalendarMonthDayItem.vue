@@ -12,7 +12,9 @@
       <ul class="day-entries">
         <li
           class="day-entry"
-          :class="`symptoms-bgcolor-intensity-${averageIntensity}`"
+          v-for="entry in entries"
+          :key="entry"
+          :class="`${entry.module}-bgcolor-intensity-${entry.averageIntensity}`"
         ></li>
       </ul>
       <span class="date">{{ day.label }}</span>
@@ -49,29 +51,46 @@ export default {
 
   data() {
     return {
-      averageIntensity: 0,
+      entries: [],
     };
   },
 
   mounted() {
-    this.averageIntensity = this.setEntryAverage();
+    this.setEntryAverage();
   },
 
   methods: {
     showDay() {
       this.$emit('showDayEntries', this.day.date, this.day.week, false);
     },
-    setEntryAverage() {
-      const intensities = [];
-      let averageIntensity = 0;
-      if (this.day.dayEntries) {
-        Object.values(this.day.dayEntries).forEach((value) => {
-          intensities.push(value.intensity);
-        });
-        /* eslint-disable-next-line max-len */
-        averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
+    getAverageIntensity(intensites) {
+      /* eslint-disable-next-line max-len */
+      let averageIntensity = Math.round(intensites.reduce((a, b) => a + b, 0) / intensites.length);
+      if (!averageIntensity) {
+        averageIntensity = 0;
       }
-      return Math.round(averageIntensity);
+      return averageIntensity;
+    },
+    setEntryAverage() {
+      const emotionsIntensities = [];
+      const symptomsIntensities = [];
+      if (this.day.dayEntries) {
+        this.day.dayEntries.forEach((element) => {
+          if (element.module === 'symptoms') {
+            symptomsIntensities.push(element.intensity);
+          } else if (element.module === 'emotions') {
+            emotionsIntensities.push(element.intensity);
+          }
+        });
+        this.entries.push({
+          module: 'symptoms',
+          averageIntensity: this.getAverageIntensity(symptomsIntensities),
+        });
+        this.entries.push({
+          module: 'emotions',
+          averageIntensity: this.getAverageIntensity(emotionsIntensities),
+        });
+      }
     },
   },
 };
