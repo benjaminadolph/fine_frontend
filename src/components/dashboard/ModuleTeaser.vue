@@ -10,12 +10,13 @@
     </header>
     <LastEntry :module="module" />
     <SelectEntry
-    :list=symptomCategories
     :multiselect=false
-    v-on:update="onSelect"
-    v-on:addNewOption="createSymptomCategory"
     :module="module"
     :buttonLabel="getButtonLabel(module)" />
+    <!-- in Select Entry müssen Kategorien hinzugefügt werden können
+    soll das genauso wie bei Symptom-Kategorien sein?
+      :list=symptomCategories
+      v-on:addNewOption="createSymptomCategory" -->
   </div>
 </template>
 
@@ -44,15 +45,39 @@ export default {
         moduleName = 'Symptome';
       } else if (module === 'emotions') {
         moduleName = 'Gefühle';
+      } else if (module === 'nutrition') {
+        moduleName = 'Ernährung';
+      } else if (module === 'sleep') {
+        moduleName = 'Schlaf';
+      } else if (module === 'activity') {
+        moduleName = 'Bewegung';
+      } else if (module === 'countermeasures') {
+        moduleName = 'Maßnahmen';
       }
       return moduleName;
     },
     getButtonLabel(module) {
+      /* @Jen Das hier kann vereinfacht werden: */
+      /*
+
+        let buttonLabel = `${moduleName} hinzufügen';
+        return buttonLabel;
+
+      */
+
       let buttonLabel = 'Button Label';
       if (module === 'symptoms') {
         buttonLabel = 'Symptome hinzufügen';
       } else if (module === 'emotions') {
         buttonLabel = 'Gefühl hinzufügen';
+      } else if (module === 'nutrition') {
+        buttonLabel = 'Ernährung hinzufügen';
+      } else if (module === 'sleep') {
+        buttonLabel = 'Jetzt schlafen';
+      } else if (module === 'activity') {
+        buttonLabel = 'Bewegung hinzufügen';
+      } else if (module === 'countermeasures') {
+        buttonLabel = 'Maßnahmen hinzufügen';
       }
       return buttonLabel;
     },

@@ -7,13 +7,14 @@
         </div>
         </router-link>
         <div class="center">
-            <h1 v-bind:color="color">Einstellungen</h1>
+            <h1>Einstellungen</h1>
             <Time />
         </div>
          <div class="right-button">
       </div>
     </header>
-      <section class="personal-data">
+    <section class="personal-data">
+      <form @submit.prevent="updateUser">
           <h2 class="plain-s-bold">Persönliche Daten</h2>
           <hr>
           <div class="line">
@@ -42,7 +43,7 @@
           <hr>
           <div class="line">
               <p class="plain-s-book label">E-Mail</p>
-              <input type="text" v-model="email" placeholder="E-Mail"
+              <input type="email" v-model="email" placeholder="E-Mail"
               class="plain-m-bold entry">
           </div>
           <hr>
@@ -52,10 +53,41 @@
               name="pw" id="password"
                class="plain-m-bold entry">
           </div>
+        <button id="update" type="submit">Änderungen speichern</button>
+        </form>
+        <button id="delete" type="submit" v-on:click="deleteUser">Nutzer löschen</button>
       </section>
       <section class="modules">
           <h2 class="plain-s-bold">Module auswählen</h2>
           <hr>
+          <!-- @Jen hier würde ich mit v-for über ein array laufen, weil das ja eigtl immer
+           das gleiche ist, aber mit anderen Modulnamen -->
+          <!-- das array allModules musst du halt noch erstellen in mounted() -->
+          <!--
+            allModules = [
+              {name: 'symptoms', title: 'Symptome'},
+              {name: 'sleep', title: 'Schlaf'}, ...}
+            ]
+          -->
+         <!-- <div class="line" v-for="module in allModules">
+            <IconComponent
+              class="icon"
+              v-bind:name="module.name"
+              :size="24"
+              v-bind:color="module.name + '-primary'"
+            />
+              // brauchst du auf das p ein id oder reicht eine class??
+              habs jetzt mal als class geschrieben,
+              damit es nicht kollidiert
+              <p :id="module" class="plain-m-bold">{{module.title}}</p>
+              <label :for="module.name" class="select-modules">
+                <input type="checkbox" v-model="module.name" :name="module.name"
+                :id="module.name" class="checkbox__input" @click="updateModulesSelected" />
+                // Das icon muss zu den svg icons und ins iconsprite! das geht auch
+                über die zwei farben, indem man das svg richtig abspeichert
+
+              </label>
+          </div> -->
           <div class="line">
               <IconComponent class="icon" v-bind:name="module = 'symptoms'"
                :size="24" v-bind:color="module + '-primary'" />
@@ -64,27 +96,27 @@
                 <input type="checkbox" v-model="symptoms" name="symptoms"
                 id="check1" class="checkbox__input" @click="updateModulesSelected" />
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_1" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_1" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_1" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_1" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_1" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked1" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked1" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
                   <defs>
                   <clipPath id="clip0">
-                  <rect width="16"
-                   height="16" fill="white"/>
+                  <rect width="32"
+                   height="32" fill="white"/>
                   </clipPath>
                   </defs>
                 </svg>
@@ -99,20 +131,20 @@
                 <input type="checkbox" v-model="sleep" name="sleep"
                 id="check2" class="checkbox__input" @click="updateModulesSelected" />
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_2" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_2" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_2" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_2" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_2" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked2" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked2" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
@@ -134,20 +166,20 @@
                 <input type="checkbox" v-model="nutrition" name="nutrition"
                 id="check3" class="checkbox__input" @click="updateModulesSelected" />
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_3" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_3" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_3" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_3" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_3" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked3" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked3" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
@@ -169,20 +201,20 @@
                 <input type="checkbox" v-model="activity" name="activity"
                 id="check4" class="checkbox__input" @click="updateModulesSelected" />
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_4" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_4" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_4" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_4" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_4" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked4" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked4" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
@@ -204,20 +236,20 @@
                 <input type="checkbox" v-model="emotions" name="emotions"
                 id="check5" class="checkbox__input" @click="updateModulesSelected" />
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_5" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_5" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_5" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_5" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_5" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked5" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked5" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
@@ -238,21 +270,24 @@
               <label for="check6" class="select-modules">
                 <input type="checkbox" name="countermeasures"
                 id="check6" class="checkbox__input" />
+                <!-- @Jen, warum hier inline svg? Warum nicht die IconComponent?? -->
+                <!-- wenn du in ein svg zb fill="currentColor" schreibst,
+                kannst du das über css mit color: #fff ansprechen -->
 
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g class="checkbox__bg_6" clip-path="url(#clip0)">
-                  <path class="checkbox__checkmark_outline_6" d="M8.00062 15.5012C12.1431
-                  15.5012 15.5012 12.1431 15.5012 8.00062C15.5012 3.85814 12.1431 0.5 8.00062
-                  0.5C3.85814 0.5 0.5 3.85814 0.5
-                  8.00062C0.5 12.1431 3.85814 15.5012 8.00062 15.5012Z"
+                  <path class="checkbox__checkmark_outline_6" d="M15.9987 31.3311C24.4665 31.3311
+                   31.3309 24.4666 31.3309 15.9989C31.3309 7.53114 24.4665 0.666672 15.9987
+                    0.666672C7.53097 0.666672 0.666504 7.53114 0.666504 15.9989C0.666504
+                     24.4666 7.53097 31.3311 15.9987 31.3311Z"
                   stroke="#434343" stroke-miterlimit="10" stroke-linecap="square"/>
-                  <path class="checkbox__checkmark_6" d="M4.23468 8.01999L6.73156
-                  10.5269L11.7453 5.51312" stroke="#434343" stroke-miterlimit="10"
+                  <path class="checkbox__checkmark_6" d="M8.29688 16.0333L13.4057 21.1421L23.6366
+                   10.9112" stroke="#434343" stroke-miterlimit="10"
                   stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M8.005 11.7427V4.23737"
+                  <path class="checkbox__unchecked6" d="M16.0132 23.6661V8.32051"
                   stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
-                  <path class="checkbox__unchecked" d="M11.7527 7.995H4.24738"
+                  <path class="checkbox__unchecked6" d="M23.6791 15.9866H8.3335"
                    stroke="#434343" stroke-miterlimit="10"
                    stroke-linecap="square"/>
                   </g>
@@ -272,9 +307,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import {
-  // UPDATE_USER,
+  UPDATE_USER,
+  DELETE_USER,
   UPDATE_USER_MODULESSELECTED,
 } from '@/store/modules/user';
+import { AUTH_LOGOUT } from '@/store/modules/auth';
 import IconComponent from './IconComponent.vue';
 import Time from './Time.vue';
 
@@ -287,7 +324,6 @@ export default {
   data() {
     return {
       profile: {},
-      id: '',
       firstName: '',
       lastName: '',
       birthDate: '',
@@ -300,6 +336,7 @@ export default {
       sleep: false,
       activity: false,
       emotions: false,
+      countermeasures: false,
     };
   },
   computed: {
@@ -307,10 +344,37 @@ export default {
   },
   mounted() {
     this.getAllModulesSelected();
+    this.getProfile();
   },
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
+      for (let i = 0; i < this.modulesSelected.length; i += 1) {
+        if (this.modulesSelected[i] === 'symptoms') {
+          this.symptoms = true;
+        }
+        if (this.modulesSelected[i] === 'nutrition') {
+          this.nutrition = true;
+        }
+        if (this.modulesSelected[i] === 'sleep') {
+          this.sleep = true;
+        }
+        if (this.modulesSelected[i] === 'activity') {
+          this.activity = true;
+        }
+        if (this.modulesSelected[i] === 'emotions') {
+          this.emotions = true;
+        }
+      }
+    },
+    getProfile() {
+      this.profile = this.getUserProfile;
+      this.firstName = this.profile.firstName;
+      this.lastName = this.profile.lastName;
+      this.birthDate = this.profile.birthDate;
+      this.gender = this.profile.gender;
+      this.email = this.profile.email;
+      this.password = this.profile.password;
     },
     updateModulesSelected() {
       this.modulesSelected = [];
@@ -324,6 +388,7 @@ export default {
       })
         .then(() => {
           this.modulesSelected = this.getModulesSelected;
+          this.$router.go();
         })
         .catch((err) => {
           console.log(err);
@@ -333,13 +398,23 @@ export default {
       this.$store.dispatch(UPDATE_USER, {
         firstName: this.firstName,
         lastName: this.lastName,
-        birthDate: this.birthDate,
         gender: this.gender,
+        birthDate: this.birthDate,
         email: this.email,
         password: this.password,
       })
         .then(() => {
           this.profile = this.getUserProfile;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteUser() {
+      this.$store.dispatch(DELETE_USER)
+        .then(() => {
+          this.$store.dispatch(AUTH_LOGOUT);
+          this.$router.push('/register');
         })
         .catch((err) => {
           console.log(err);

@@ -44,6 +44,7 @@
           v-if="showDayEntries && week.week === dayEntryWeek"
           :entries="dayEntries"
           :week="dayEntryWeek"
+          v-on:removeEntry="deleteEntry"
         />
       </div>
     </div>
@@ -58,7 +59,15 @@ import SwipeSlider from '@/components/SwipeSlider.vue';
 import CalendarMonthDayItem from '@/components/calendar/CalendarMonthDayItem.vue';
 import DayEntry from '@/components/calendar/DayEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
-// import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
+import { mapGetters } from 'vuex';
+import {
+  GET_ALL_SYMPTOMS,
+  DELETE_SYMPTOM,
+} from '@/store/modules/symptoms';
+import {
+  GET_ALL_EMOTIONS,
+  DELETE_EMOTION,
+} from '@/store/modules/emotions';
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -84,10 +93,13 @@ export default {
       dayEntries: [],
       dayEntryWeek: Number,
       showDayEntries: false,
+      symptoms: {},
+      emotions: {},
     };
   },
 
   computed: {
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserEmotions']),
     days() {
       return [
         ...this.previousMonthDays,
@@ -151,6 +163,10 @@ export default {
           'YYYY-MM-DD',
         ),
         isCurrentMonth: true,
+        dayEntries: this.setDayEntries(dayjs(`${this.year}-${this.month}-${index + 1}`).format(
+          'YYYY-MM-DD',
+        )),
+        label: index + 1,
         week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
       }));
     },
@@ -161,6 +177,10 @@ export default {
           'YYYY-MM-DD',
         ),
         isCurrentMonth: true,
+        dayEntries: this.setDayEntries(dayjs(`${this.year}-${this.month}-${index + 1}`).format(
+          'YYYY-MM-DD',
+        )),
+        label: index + 1,
         week: this.getWeek(`${this.year}-${this.month}-${index + 1}`),
       }));
     },
@@ -193,6 +213,12 @@ export default {
             }`,
           ).format('YYYY-MM-DD'),
           isCurrentMonth: false,
+          dayEntries: this.setDayEntries(dayjs(
+            `${previousMonth.year()}-${previousMonth.month() + 1}-${
+              previousMonthLastMondayDayOfMonth + index
+            }`,
+          ).format('YYYY-MM-DD')),
+          label: previousMonthLastMondayDayOfMonth + index,
           week: this.getWeek(
             `${previousMonth.year()}-${previousMonth.month() + 1}-${
               previousMonthLastMondayDayOfMonth + index
@@ -218,6 +244,7 @@ export default {
           `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`,
         ).format('YYYY-MM-DD'),
         isCurrentMonth: false,
+        label: index + 1,
         week: this.getWeek(`${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`),
       }));
     },
@@ -243,8 +270,11 @@ export default {
       return false;
     },
 
-    getDayEntries(entries, entryweek) {
-      if (entries.length && entries !== this.dayEntries) {
+    getDayEntries(date, entryweek, update) {
+      const _date = dayjs(date).format('YYYY-MM-DD');
+      const entries = this.setDayEntries(_date);
+
+      if (update || (entries.length && entries !== this.dayEntries)) {
         this.showDayEntries = true;
         this.dayEntries = entries;
         this.dayEntryWeek = entryweek;
@@ -254,11 +284,87 @@ export default {
       }
     },
 
+    setDayEntries(date) {
+      const dayEntries = [];
+      Object.values(this.symptoms).forEach((value) => {
+        if (dayjs(value.date).format('YYYY-MM-DD') === date) {
+          dayEntries.push(value);
+        }
+      });
+      Object.values(this.emotions).forEach((value) => {
+        if (dayjs(value.date).format('YYYY-MM-DD') === date) {
+          dayEntries.push(value);
+        }
+      });
+      return dayEntries;
+    },
+
     removeDayEntries() {
       this.dayEntries = {};
       this.showDayEntries = false;
     },
+
+    getAllSymptoms() {
+      this.$store.dispatch(GET_ALL_SYMPTOMS)
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    deleteSymptom(id, date) {
+      this.$store.dispatch(DELETE_SYMPTOM, {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.symptoms = this.getUserSymptoms;
+          this.getDayEntries(date, dayjs(date).week(), true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    getAllEmotions() {
+      this.$store.dispatch(GET_ALL_EMOTIONS)
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    deleteEmotion(id, date) {
+      this.$store.dispatch(DELETE_EMOTION, {
+        emotion_id: id,
+      })
+        .then(() => {
+          this.emotions = this.getUserEmotions;
+          this.getDayEntries(date, dayjs(date).week(), true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    deleteEntry(entry) {
+      console.log(entry);
+      if (entry.module === 'symptoms') {
+        this.deleteSymptom(entry._id, entry.date);
+      } else if (entry.module === 'emotions') {
+        this.deleteEmotion(entry._id, entry.date);
+      }
+    },
   },
+
+  mounted() {
+    this.getAllSymptoms();
+    this.getAllEmotions();
+  },
+
 };
 </script>
 

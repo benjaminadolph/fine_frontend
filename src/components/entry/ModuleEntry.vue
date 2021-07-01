@@ -1,12 +1,14 @@
 <template>
-  <div
-    class="module-entry-layer"
-    v-touch:swipe.left="nextModule"
-    v-touch:swipe.right="prevModule">
-    <ul class="module-slider">
+  <div class="module-entry-layer">
+    <ul
+      class="module-slider"
+      v-touch:swipe.left="nextModule"
+      v-touch:swipe.right="prevModule"
+    >
       <li
-        v-for="_module in allModules"
+        v-for="_module in modulesSelected"
         :key="_module"
+        :class="{ 'active': !isNotActive(_module)}"
         v-on:click="goToLayer(_module)">
         <IconComponent
           :name="_module"
@@ -17,7 +19,10 @@
       </li>
     </ul>
     <header class="fine-header">
-      <div class="center">
+      <a class="left-button shadow-button" v-on:click="cancelEntry">
+          <IconComponent name="close-full" :size=32 :color="currentModule + '-primary'" />
+      </a>
+      <div class="headline-text">
           <h1 :class="currentModule + '-primary'">{{ getModuleName() }}</h1>
           <Time />
       </div>
@@ -26,23 +31,28 @@
       </a>
     </header>
     <div class="module-entry-content">
-      <SymptomsEntry v-if="currentModule==='symptoms'" />
-      <Emotions v-if="currentModule==='emotions'" />
+      <SymptomsEntry v-if="currentModule==='symptoms'" ref="symptomsEntry"/>
+      <EmotionsEntry v-if="currentModule==='emotions'" ref="emotionsEntry"/>
     </div>
   </div>
 </template>
 
 <script>
 import SymptomsEntry from '@/components/entry/SymptomsEntry.vue';
-import Emotions from '@/components/entry/Emotions.vue';
+import EmotionsEntry from '@/components/entry/EmotionsEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import Time from '@/components/Time.vue';
+import { mapGetters } from 'vuex';
+
+import {
+  UPDATE_USER_MODULESSELECTED,
+} from '@/store/modules/user';
 
 export default {
   name: 'ModuleEntry',
   components: {
     SymptomsEntry,
-    Emotions,
+    EmotionsEntry,
     IconComponent,
     Time,
   },
@@ -52,8 +62,14 @@ export default {
   data() {
     return {
       currentModule: this.module,
-      allModules: ['symptoms', 'emotions', 'nutrition', 'sleep'],
+      modulesSelected: [],
     };
+  },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getModulesSelected']),
+  },
+  mounted() {
+    this.getAllModulesSelected();
   },
   methods: {
     getModuleName() {
@@ -73,24 +89,33 @@ export default {
       this.currentModule = module;
     },
     closeLayer() {
+      if (this.currentModule === 'emotions') {
+        this.$refs.emotionsEntry.createEmotion();
+      }
+      this.$emit('closeLayer');
+    },
+    cancelEntry() {
+      if (this.currentModule === 'symptoms') {
+        this.$refs.symptomsEntry.deleteCurrentEntries();
+      }
       this.$emit('closeLayer');
     },
     nextModule() {
       let index = this.getModuleIndex(this.currentModule) + 1;
-      if (index >= this.allModules.length) {
+      if (index >= this.modulesSelected.length) {
         index = 0;
       }
-      this.currentModule = this.allModules[index];
+      this.currentModule = this.modulesSelected[index];
     },
     prevModule() {
       let index = this.getModuleIndex(this.currentModule) - 1;
       if (index < 0) {
-        index = this.allModules.length - 1;
+        index = this.modulesSelected.length - 1;
       }
-      this.currentModule = this.allModules[index];
+      this.currentModule = this.modulesSelected[index];
     },
     getModuleIndex(module) {
-      return this.allModules.indexOf(module);
+      return this.modulesSelected.indexOf(module);
     },
     isNotActive(module) {
       if (module !== this.currentModule) {
@@ -103,6 +128,25 @@ export default {
         return 24;
       }
       return 32;
+    },
+    getAllModulesSelected() {
+      this.modulesSelected = this.getModulesSelected;
+    },
+    updateModulesSelected() {
+      this.modulesSelected = [];
+      const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+      for (let i = 0; i < checkboxes.length; i += 1) {
+        this.modulesSelected.push(checkboxes[i].name);
+      }
+      this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
+        modulesSelected: this.modulesSelected,
+      })
+        .then(() => {
+          this.modulesSelected = this.getModulesSelected;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

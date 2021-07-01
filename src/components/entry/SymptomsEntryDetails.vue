@@ -6,47 +6,17 @@
       </a>
       <div class="center">
           <h1 :class="module + '-primary'">Details</h1>
-          <Time />
       </div>
       <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
           <IconComponent name="check-full" :size=32 :color="module + '-primary'" />
       </a>
     </header>
-    <div class="media-entry">
-      <ul class="tabs">
-        <li class="tablink text" v-on:click="showTab('text')">
-          <IconComponent name="text" :size=24 />
-        </li>
-        <li class="tablink photo" v-on:click="showTab('photo')">
-          <IconComponent name="camera" :size=24 />
-        </li>
-        <li class="tablink voice" v-on:click="showTab('voice')">
-          <IconComponent name="microphone" :size=24 />
-        </li>
-      </ul>
-
-      <div id="text" class="tabcontent" v-show="tabs.text">
-        <textarea
-          id="input-text"
-          name="input-text"
-          rows="8"
-          placeholder="Text hinzufügen"
-          v-model="entryDetailsText"
-        >
-        </textarea>
-      </div>
-
-      <div id="photo" class="tabcontent" v-show="tabs.photo">
-        <h3>Fotos</h3>
-      </div>
-
-      <div id="voice" class="tabcontent" v-show="tabs.voice">
-        <h3>Sprachaufnahme</h3>
-      </div>
-    </div>
+    <ModuleEntryNotes
+      v-model="entryDetailsText"
+    />
     <SelectEntry
       :module=module
-      buttonLabel="Tag wählen"
+      buttonLabel="Schlagwörter wählen"
       :list=tagList
       v-on:addNewOption="addNewTag"
       v-on:update="updateTags"
@@ -57,14 +27,14 @@
 <script>
 import IconComponent from '@/components/IconComponent.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
-import Time from '@/components/Time.vue';
+import ModuleEntryNotes from '@/components/entry/ModuleEntryNotes.vue';
 
 export default {
-  name: 'ModuleEntryDetails',
+  name: 'SymptomsEntryDetails',
   components: {
     IconComponent,
-    Time,
     SelectEntry,
+    ModuleEntryNotes,
   },
   props: {
     module: String,
@@ -118,8 +88,6 @@ export default {
     },
   },
   mounted() {
-    this.showTab('text');
-    this.entryDetailsText = this.entry.detailsText;
     this.tags = this.entry.tags;
     for (let i = 0; i < this.entry.tags.length; i += 1) {
       this.tagList.push({
@@ -127,6 +95,7 @@ export default {
         isSelected: true,
       });
     }
+    this.entryDetailsText = this.entry.detailsText;
   },
 };
 </script>

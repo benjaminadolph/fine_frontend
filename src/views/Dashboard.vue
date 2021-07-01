@@ -4,7 +4,7 @@
       <div class="left-button">
       </div>
       <div class="center">
-            <h1 v-bind:color="color">Dashboard</h1>
+            <h1>Dashboard</h1>
             <Time />
         </div>
         <router-link to="/settings">
@@ -14,12 +14,12 @@
         </router-link>
     </header>
     <SmartStack />
-    <ModuleTeaser module="emotions" /> <!-- update to modules selected -->
-    <ModuleTeaser module="symptoms" />
+    <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import SmartStack from '@/components/dashboard/SmartStack.vue';
 import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
 import IconComponent from '@/components/IconComponent.vue';
@@ -34,7 +34,6 @@ export default {
     Time,
   },
   props: {
-    module: String,
   },
   data() {
     const today = new Date();
@@ -44,9 +43,22 @@ export default {
 
     return {
       date: `${dd}.${mm}.${yyyy}`,
+      profile: {},
+      modulesSelected: [],
+      modules: [],
     };
   },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getModulesSelected']),
+  },
+  mounted() {
+    this.getAllModulesSelected();
+  },
   methods: {
+    getAllModulesSelected() {
+      this.modulesSelected = this.getModulesSelected;
+      // console.log(this.modulesSelected);
+    },
   },
 };
 </script>

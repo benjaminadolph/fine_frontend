@@ -12,20 +12,17 @@
       <ul class="day-entries">
         <li
           class="day-entry"
-          :class="`${entry().module}-bgcolor-intensity-${averageIntensity}`"
+          v-for="entry in entries"
+          :key="entry"
+          :class="`${entry.module}-bgcolor-intensity-${entry.averageIntensity}`"
         ></li>
       </ul>
-      <span class="date">{{ label }}</span>
+      <span class="date">{{ day.label }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {
-  GET_ALL_SYMPTOMS,
-} from '@/store/modules/symptoms';
-import dayjs from 'dayjs';
 
 export default {
   name: 'CalendarMonthDayItem',
@@ -54,53 +51,46 @@ export default {
 
   data() {
     return {
-      symptoms: [],
-      symptomsEntries: [],
-      dayEntries: [],
-      week: Number,
-      averageIntensity: 0,
-      // showDay: false,
+      entries: [],
     };
   },
 
-  computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
-    label() {
-      return dayjs(this.day.date).format('D');
-    },
-  },
-
   mounted() {
-    this.getAllSymptoms();
+    this.setEntryAverage();
   },
 
   methods: {
-    getAllSymptoms() {
-      this.$store.dispatch(GET_ALL_SYMPTOMS)
-        .then(() => {
-          this.symptoms = this.getUserSymptoms;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     showDay() {
-      this.$emit('showDayEntries', this.dayEntries, this.day.week);
+      this.$emit('showDayEntries', this.day.date, this.day.week, false);
     },
-    entry() {
-      let itemEntry = {};
-      const _this = this;
-      const intensities = [];
-      this.symptoms.forEach((item) => {
-        if (dayjs(item.date).format('YYYY-MM-DD') === _this.day.date) {
-          this.dayEntries.push(item);
-          intensities.push(item.intensity);
-          itemEntry = item;
-        }
-      });
-      const _averageIntensity = intensities.reduce((a, b) => a + b, 0) / intensities.length;
-      this.averageIntensity = Math.ceil(_averageIntensity);
-      return itemEntry;
+    getAverageIntensity(intensites) {
+      /* eslint-disable-next-line max-len */
+      let averageIntensity = Math.round(intensites.reduce((a, b) => a + b, 0) / intensites.length);
+      if (!averageIntensity) {
+        averageIntensity = 0;
+      }
+      return averageIntensity;
+    },
+    setEntryAverage() {
+      const emotionsIntensities = [];
+      const symptomsIntensities = [];
+      if (this.day.dayEntries) {
+        this.day.dayEntries.forEach((element) => {
+          if (element.module === 'symptoms') {
+            symptomsIntensities.push(element.intensity);
+          } else if (element.module === 'emotions') {
+            emotionsIntensities.push(element.intensity);
+          }
+        });
+        this.entries.push({
+          module: 'symptoms',
+          averageIntensity: this.getAverageIntensity(symptomsIntensities),
+        });
+        this.entries.push({
+          module: 'emotions',
+          averageIntensity: this.getAverageIntensity(emotionsIntensities),
+        });
+      }
     },
   },
 };
