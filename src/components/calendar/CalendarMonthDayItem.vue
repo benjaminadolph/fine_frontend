@@ -12,7 +12,9 @@
       <ul class="day-entries">
         <li
           class="day-entry"
-          :class="`symptoms-bgcolor-intensity-${averageIntensity}`"
+          v-for="entry in entries"
+          :key="entry"
+          :class="`${entry.module}-bgcolor-intensity-${entry.averageIntensity}`"
         ></li>
       </ul>
       <span class="date">{{ day.label }}</span>
@@ -49,47 +51,46 @@ export default {
 
   data() {
     return {
-      entries: [{
-        intensities: Array,
-        averageIntensity: Number,
-        module: String,
-      }],
+      entries: [],
     };
   },
 
   mounted() {
-    this.averageIntensity = this.setEntryAverage();
+    this.setEntryAverage();
   },
 
   methods: {
     showDay() {
       this.$emit('showDayEntries', this.day.date, this.day.week, false);
     },
+    getAverageIntensity(intensites) {
+      /* eslint-disable-next-line max-len */
+      let averageIntensity = Math.round(intensites.reduce((a, b) => a + b, 0) / intensites.length);
+      if (!averageIntensity) {
+        averageIntensity = 0;
+      }
+      return averageIntensity;
+    },
     setEntryAverage() {
-      const intensities = [];
+      const emotionsIntensities = [];
+      const symptomsIntensities = [];
+      console.log(this.entries);
       if (this.day.dayEntries) {
-        const symptomEntries = this.day.dayEntries.find((element) => element.module === 'symptoms');
-        if (symptomEntries) {
-          Object.values(symptomEntries).forEach((value) => {
-            intensities.push(value.intensity);
-            this.entries.push({
-              module: 'symptoms',
-              intensities,
-              averageIntensity: intensities.reduce((a, b) => a + b, 0) / intensities.length,
-            });
-          });
-        }
-        const emotionEntries = this.day.dayEntries.find((element) => element.module === 'emotions');
-        if (emotionEntries) {
-          Object.values(emotionEntries).forEach((value) => {
-            intensities.push(value.intensity);
-            this.entries.push({
-              module: 'emotions',
-              intensities,
-              averageIntensity: intensities.reduce((a, b) => a + b, 0) / intensities.length,
-            });
-          });
-        }
+        this.day.dayEntries.forEach((element) => {
+          if (element.module === 'symptoms') {
+            symptomsIntensities.push(element.intensity);
+          } else if (element.module === 'emotions') {
+            emotionsIntensities.push(element.intensity);
+          }
+        });
+        this.entries.push({
+          module: 'symptoms',
+          averageIntensity: this.getAverageIntensity(symptomsIntensities),
+        });
+        this.entries.push({
+          module: 'emotions',
+          averageIntensity: this.getAverageIntensity(emotionsIntensities),
+        });
       }
     },
   },

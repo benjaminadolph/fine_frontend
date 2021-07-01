@@ -110,7 +110,6 @@ export default {
     this.$el.addEventListener('touchstart', (event) => this.touchstart(event));
     this.$el.addEventListener('touchmove', (event) => this.touchmove(event));
     this.$el.addEventListener('touchend', (event) => this.touchend(event));
-    console.log(this.entries);
   },
 };
 </script>
