@@ -15,16 +15,30 @@
           {{ getTitle(entry) }}
         </span>
       </div>
-      <div
-        class="delete-entry"
-        v-on:click="removeEntry(entry, $event)"
-      >
-        <IconComponent
-          name="trash"
-          :size=24
-          color="white"
-        />
+      <div class="edit-icons">
+        <div
+          class="delete-entry"
+          v-on:click="removeEntry(entry, $event)"
+        >
+          <IconComponent
+            name="trash"
+            :size=24
+            color="white"
+          />
+        </div>
+        <div
+          class="edit-entry"
+          :class="`${entry.module}-75-bgcolor`"
+          v-on:click="editEntry(entry, $event)"
+          >
+          <IconComponent
+            name="pencil"
+            :size=24
+            color="white"
+          />
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -94,6 +108,10 @@ export default {
     },
     removeEntry(entry, $event) {
       this.$emit('removeEntry', entry);
+      $event.target.closest('.entry').classList.remove('show-delete-entry');
+    },
+    editEntry(entry, $event) {
+      this.$router.push(`/module-entry/${entry.module}/${entry._id}`);
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
     getTitle(entry) {

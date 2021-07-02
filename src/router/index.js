@@ -54,6 +54,13 @@ const routes = [
     props: true,
   },
   {
+    path: '/module-entry/:module/:id',
+    name: 'Module Entry Id',
+    component: () => import('../components/entry/ModuleEntry.vue'),
+    beforeEnter: ifAuthenticated,
+    props: true,
+  },
+  {
     path: '/module-entry/:entryModule/:id/details',
     name: 'Symptoms Entry Details',
     component: () => import('../components/entry/SymptomsEntryDetails.vue'),
