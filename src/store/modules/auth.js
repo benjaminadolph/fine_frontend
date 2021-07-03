@@ -52,7 +52,7 @@ export default ({
     [AUTH_LOGIN]: async ({ commit, dispatch }, user) => {
       let id = '';
       commit(AUTH_LOGIN_START);
-      await axios.post('http://localhost:3000/api/auth/login', user)
+      await axios.post('/api/auth/login', user)
         .then((resp) => {
           const { authtoken } = resp.data;
           id = resp.data.id;
@@ -68,7 +68,7 @@ export default ({
     },
     [AUTH_REGISTER]: async ({ commit }, user) => {
       commit(AUTH_REGISTER_START);
-      await axios.post('http://localhost:3000/api/auth/register', user)
+      await axios.post('/api/auth/register', user)
         .then((resp) => {
           commit(AUTH_REGISTER_SUCCESS, resp);
         })

@@ -93,7 +93,7 @@ export default ({
     [GET_ALL_SYMPTOMS]: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
       commit(GET_ALL_SYMPTOMS_START);
-      await axios.get('http://localhost:3000/api/symptoms/', { params: { userid } })
+      await axios.get('/api/symptoms/', { params: { userid } })
         .then((resp) => {
           commit(GET_ALL_SYMPTOMS_SUCCESS, resp);
         })
@@ -105,7 +105,7 @@ export default ({
       const symptom = req;
       symptom.userid = await rootState.user.id;
       commit(CREATE_SYMPTOM_START);
-      await axios.post('http://localhost:3000/api/symptoms/', symptom)
+      await axios.post('/api/symptoms/', symptom)
         .then((resp) => {
           commit(CREATE_SYMPTOM_SUCCESS, resp);
         })
@@ -117,7 +117,7 @@ export default ({
       const symptomid = req.symptom_id;
       const userid = rootState.user.id;
       commit(DELETE_SYMPTOM_START);
-      await axios.delete(`http://localhost:3000/api/symptoms/${symptomid}`, { params: { userid } })
+      await axios.delete(`/api/symptoms/${symptomid}`, { params: { userid } })
         .then((resp) => {
           commit(DELETE_SYMPTOM_SUCCESS, resp);
         })
@@ -129,7 +129,7 @@ export default ({
       const symptomid = req.symptom_id;
       const userid = rootState.user.id;
       commit(UPDATE_SYMPTOM_START);
-      await axios.patch(`http://localhost:3000/api/symptoms/${symptomid}`, req, { params: { userid } })
+      await axios.patch(`/api/symptoms/${symptomid}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_SYMPTOM_SUCCESS, resp);
         })
@@ -140,7 +140,7 @@ export default ({
     [GET_SYMPTOM]: async ({ commit }, req) => {
       const symptomid = req.symptom_id;
       commit(GET_SYMPTOM_START);
-      await axios.get(`http://localhost:3000/api/symptoms/${symptomid}`)
+      await axios.get(`/api/symptoms/${symptomid}`)
         .then((resp) => {
           commit(GET_SYMPTOM_SUCCESS, resp);
         })
