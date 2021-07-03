@@ -88,7 +88,7 @@ export default ({
     [GET_ALL_SYMPTOMCATEGORIES]: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
       commit(GET_ALL_SYMPTOMCATEGORIES_START);
-      await axios.get('http://localhost:3000/api/symptomCategories/', { params: { userid } })
+      await axios.get('/api/symptomCategories/', { params: { userid } })
         .then((resp) => {
           commit(GET_ALL_SYMPTOMCATEGORIES_SUCCESS, resp);
         })
@@ -100,7 +100,7 @@ export default ({
       const symptomCategory = req;
       symptomCategory.userid = await rootState.user.id;
       commit(CREATE_SYMPTOMCATEGORY_START);
-      await axios.post('http://localhost:3000/api/symptomCategories/', symptomCategory)
+      await axios.post('/api/symptomCategories/', symptomCategory)
         .then((resp) => {
           commit(CREATE_SYMPTOMCATEGORY_SUCCESS, resp);
         })
@@ -112,7 +112,7 @@ export default ({
       const symptomCategoryId = req.symptomCategory_id;
       const userid = rootState.user.id;
       commit(DELETE_SYMPTOMCATEGORY_START);
-      await axios.delete(`http://localhost:3000/api/symptomCategories/${symptomCategoryId}`, { params: { userid } })
+      await axios.delete(`/api/symptomCategories/${symptomCategoryId}`, { params: { userid } })
         .then((resp) => {
           commit(DELETE_SYMPTOMCATEGORY_SUCCESS, resp);
         })
@@ -124,7 +124,7 @@ export default ({
       const symptomCategoryId = req.symptomCategory_id;
       const userid = rootState.user.id;
       commit('UPDATE_SYMPTOMCATEGORY_START');
-      await axios.patch(`http://localhost:3000/api/symptomCategories/${symptomCategoryId}`, req, { params: { userid } })
+      await axios.patch(`/api/symptomCategories/${symptomCategoryId}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_SYMPTOMCATEGORY_SUCCESS, resp);
         })
@@ -135,7 +135,7 @@ export default ({
     [GET_SYMPTOMCATEGORY]: async ({ commit }, req) => {
       const symptomCategoryId = req.symptomCategory_id;
       commit(GET_SYMPTOMCATEGORY_START);
-      await axios.get(`http://localhost:3000/api/symptomCategories/${symptomCategoryId}`)
+      await axios.get(`/api/symptomCategories/${symptomCategoryId}`)
         .then((resp) => {
           commit(GET_SYMPTOMCATEGORY_SUCCESS, resp);
         })

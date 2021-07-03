@@ -88,7 +88,7 @@ export default ({
     [GET_ALL_EMOTIONS]: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
       commit(GET_ALL_EMOTIONS_START);
-      await axios.get('http://localhost:3000/api/emotions/', { params: { userid } })
+      await axios.get('/api/emotions/', { params: { userid } })
         .then((resp) => {
           commit(GET_ALL_EMOTIONS_SUCCESS, resp);
         })
@@ -100,7 +100,7 @@ export default ({
       const emotion = req;
       emotion.userid = await rootState.user.id;
       commit(CREATE_EMOTION_START);
-      await axios.post('http://localhost:3000/api/emotions/', emotion)
+      await axios.post('/api/emotions/', emotion)
         .then((resp) => {
           commit(CREATE_EMOTION_SUCCESS, resp);
         })
@@ -112,7 +112,7 @@ export default ({
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
       commit(DELETE_EMOTION_START);
-      await axios.delete(`http://localhost:3000/api/emotions/${emotionid}`, { params: { emotionid, userid } })
+      await axios.delete(`/api/emotions/${emotionid}`, { params: { emotionid, userid } })
         .then((resp) => {
           commit(DELETE_EMOTION_SUCCESS, resp);
         })
@@ -124,7 +124,7 @@ export default ({
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
       commit(UPDATE_SYMPTOM_START);
-      await axios.patch(`http://localhost:3000/api/emotions/${emotionid}`, req, { params: { userid } })
+      await axios.patch(`/api/emotions/${emotionid}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_EMOTION_SUCCESS, resp);
         })
@@ -135,7 +135,7 @@ export default ({
     [GET_EMOTION]: async ({ commit }, req) => {
       const emotionid = req.emotion_id;
       commit(GET_EMOTION_START);
-      await axios.get(`http://localhost:3000/api/emotions/${emotionid}`)
+      await axios.get(`/api/emotions/${emotionid}`)
         .then((resp) => {
           commit(GET_EMOTION_SUCCESS, resp);
         })
