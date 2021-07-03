@@ -10,8 +10,9 @@ import router from './router';
 window.axios = require('axios');
 
 // Use for local development
-// axios.defaults.baseURL = 'http://localhost:3000/';
-axios.defaults.baseURL = 'https://fine-app.multimedia.hs-augsburg.de/';
+axios.defaults.baseURL = 'http://localhost:3000/';
+// Use for Server
+// axios.defaults.baseURL = 'https://fine-app.multimedia.hs-augsburg.de/';
 
 // Set Authorization header when page is reloaded and user logged in
 const token = localStorage.getItem('user-token');
