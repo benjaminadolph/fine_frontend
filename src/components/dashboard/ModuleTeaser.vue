@@ -6,14 +6,14 @@
         :size="32"
         v-bind:color="module + '-primary'"
       />
-      <h2 v-bind:class="module + '-primary'">{{ getModuleName(module) }}</h2>
+      <h2 v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
-    <LastEntry :module="module" />
+    <LastEntry :lastEntry="lastEntry" :default="defaultText" :module="module" />
     <SelectEntry
     :multiselect=false
     :module="module"
-    :buttonLabel="getButtonLabel(module)" />
-    <!-- in Select Entry müssen Kategorien hinzugefügt werden können
+    :buttonLabel="getButtonLabel()" />
+    <!-- in Select Entry müssen Kategorien für alle Module hinzugefügt werden können
     soll das genauso wie bei Symptom-Kategorien sein?
       :list=symptomCategories
       v-on:addNewOption="createSymptomCategory" -->
@@ -21,6 +21,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import {
+  GET_SYMPTOM,
+} from '@/store/modules/symptoms';
+import {
+  GET_EMOTION,
+} from '@/store/modules/emotions';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import LastEntry from './LastEntry.vue';
@@ -36,50 +43,77 @@ export default {
     module: String,
   },
   data() {
-    return {};
+    return {
+      lastEntry: {},
+      symptom: {},
+      emotion: {},
+      moduleName: '',
+      default: null,
+    };
+  },
+  computed: {
+    ...mapGetters(['getUserProfile', 'getLatestSymptom', 'getLatestEmotion']),
+  },
+  mounted() {
+    this.setModuleName();
+
+    if (this.lastEntry === null) {
+      this.default = 'Bitte füge einen Eintrag hinzu';
+    } else this.default = null;
+
+    console.log(this.module);
+    if (this.module === 'symptoms') {
+      this.getSymptom();
+    } else if (this.module === 'emotions') {
+      this.getEmotion();
+    }
   },
   methods: {
-    getModuleName(module) {
-      let moduleName = 'Modul Name';
-      if (module === 'symptoms') {
-        moduleName = 'Symptome';
-      } else if (module === 'emotions') {
-        moduleName = 'Gefühle';
-      } else if (module === 'nutrition') {
-        moduleName = 'Ernährung';
-      } else if (module === 'sleep') {
-        moduleName = 'Schlaf';
-      } else if (module === 'activity') {
-        moduleName = 'Bewegung';
-      } else if (module === 'countermeasures') {
-        moduleName = 'Maßnahmen';
+    setModuleName() {
+      if (this.module === 'symptoms') {
+        this.moduleName = 'Symptome';
+      } else if (this.module === 'emotions') {
+        this.moduleName = 'Gefühle';
+      } else if (this.module === 'nutrition') {
+        this.moduleName = 'Ernährung';
+      } else if (this.module === 'sleep') {
+        this.moduleName = 'Schlaf';
+      } else if (this.module === 'activity') {
+        this.moduleName = 'Bewegung';
+      } else if (this.module === 'countermeasures') {
+        this.moduleName = 'Maßnahmen';
       }
-      return moduleName;
     },
-    getButtonLabel(module) {
-      /* @Jen Das hier kann vereinfacht werden: */
-      /*
-
-        let buttonLabel = `${moduleName} hinzufügen';
-        return buttonLabel;
-
-      */
-
-      let buttonLabel = 'Button Label';
-      if (module === 'symptoms') {
-        buttonLabel = 'Symptome hinzufügen';
-      } else if (module === 'emotions') {
-        buttonLabel = 'Gefühl hinzufügen';
-      } else if (module === 'nutrition') {
-        buttonLabel = 'Ernährung hinzufügen';
-      } else if (module === 'sleep') {
+    getButtonLabel() {
+      let buttonLabel = `${this.moduleName} hinzufügen`;
+      if (this.module === 'sleep') {
         buttonLabel = 'Jetzt schlafen';
-      } else if (module === 'activity') {
-        buttonLabel = 'Bewegung hinzufügen';
-      } else if (module === 'countermeasures') {
-        buttonLabel = 'Maßnahmen hinzufügen';
       }
       return buttonLabel;
+    },
+    getSymptom(id) {
+      this.$store.dispatch(GET_SYMPTOM, {
+        symptom_id: id,
+      })
+        .then(() => {
+          this.lastEntry = this.getLatestSymptom;
+          console.log(this.lastEntry);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getEmotion(id) {
+      this.$store.dispatch(GET_EMOTION, {
+        emotion_id: id,
+      })
+        .then(() => {
+          this.lastEntry = this.getLatestEmotion;
+          console.log(this.lastEntry);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
