@@ -7,11 +7,9 @@
             <h1>Dashboard</h1>
             <Time />
         </div>
-        <router-link to="/settings">
-          <div class="shadow-button">
-              <IconComponent v-bind:name="'settings'" :size="16" />
-          </div>
-        </router-link>
+        <div class="shadow-button" @click="goToSettings">
+            <IconComponent v-bind:name="'settings'" :size="16" />
+        </div>
     </header>
     <SmartStack />
     <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
@@ -57,7 +55,10 @@ export default {
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
-      // console.log(this.modulesSelected);
+      console.log(this.modulesSelected);
+    },
+    goToSettings() {
+      this.$router.push({ name: 'Settings', params: '/settings' });
     },
   },
 };
