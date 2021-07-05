@@ -10,7 +10,15 @@
       {{ getLastEntryDate(module) }} |
       {{ getLastEntryTime(module) + 'Uhr' }}
     </p>
-    <input type="range" min="0" max="6" name="intensity" />
+    <div v-bind:class="module + '-range-bgcolor'">
+      <input
+        type="range"
+        v-model="number"
+        min="0"
+        max="5"
+        @input="handleInputChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -20,6 +28,11 @@ export default {
   name: 'LastEntry',
   props: {
     module: String,
+  },
+  data() {
+    return {
+      number: 3,
+    };
   },
   methods: {
     getLastEntryLabel(module) {
@@ -58,8 +71,17 @@ export default {
       }
       return lastEntryTime;
     },
+    handleInputChange(e) {
+      const { target } = e;
+      const val = target.value;
+      const min = target.min ? target.min : 0;
+      const max = target.max ? target.max : 5;
+      const newVal = Number(((val - min) * 100) / (max - min));
+      target.style.backgroundSize = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+    },
   },
 };
+
 </script>
 
 <style lang="scss" scoped>
