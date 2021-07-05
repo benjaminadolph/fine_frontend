@@ -26,10 +26,14 @@ export default ({
   state: {
     status: '',
     emotions: [],
+    latestEmotion: {},
   },
   getters: {
     getUserEmotions(state) {
       return state.emotions;
+    },
+    getLatestEmotion(state) {
+      return state.latestEmotion;
     },
   },
   mutations: {
@@ -48,7 +52,8 @@ export default ({
     },
     [CREATE_EMOTION_SUCCESS]: (state, resp) => {
       state.status = 'success';
-      state.emotions.push(resp.data);
+      state.symptoms.push(resp.data);
+      state.latestEmotion = resp.data;
     },
     [CREATE_EMOTION_ERROR]: (state) => {
       state.status = 'error';
