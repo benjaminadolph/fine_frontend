@@ -23,9 +23,13 @@
 </template>
 
 <script>
+import Slider from '@/components/Slider.vue';
 
 export default {
   name: 'LastEntry',
+  components: {
+    Slider,
+  },
   props: {
     module: String,
   },

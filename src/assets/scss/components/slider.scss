@@ -1,0 +1,70 @@
+@import '../init';
+
+.slider
+{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 auto;
+  position: sticky;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+
+  .grabbing {
+    cursor: grabbing;
+  }
+
+  .thumb_all {
+    display: flex;
+    flex-direction: row;
+
+    .thumb {
+      position: absolute;
+      width: 10%;
+      padding: .68rem;
+      border-radius: $BASE_BORDER_RADIUS;
+      cursor: grab;
+
+      #smile_up {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: inherit;
+        padding: 0;
+        margin: 0;
+        color: $FINE_WHITE;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .slider_bg {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .slider-text {
+      text-align: center;
+      width: 100%;
+      background: $FINE_WHITE;
+      padding: 0.3rem 0.6rem;
+      border-radius: $BASE_BORDER_RADIUS;
+    }
+    
+    #smile {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      -webkit-transform: rotate(180deg) translateY(50%);
+      -moz-transform: rotate(180deg) translateY(50%);
+      -ms-transform: rotate(180deg) translateY(50%);
+      -o-transform: rotate(180deg) translateY(50%);
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+}
+  
