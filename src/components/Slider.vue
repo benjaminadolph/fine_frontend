@@ -1,8 +1,5 @@
 <template>
-  <div class="slider" v-bind:class="module + '-primary'">
-    <!-- div wie der thumb, Breite mit x_Position berechnen,
-    neue Position Klasse mit width in scss setzen,
-    action mit Intensität bei entsprechender Position -->
+  <!-- <div class="slider" v-bind:class="module + '-primary'">
     <div class="thumb_all">
       <div id="slider" class="thumb" @click="dragSlider"
       v-bind:class="module + '-primary-bgcolor'">
@@ -13,33 +10,42 @@
       <div class="slider-text plain-m-book">Wirkung bewerten</div>
       <IconComponent id="smile"
       v-bind:name="'smile'" :size="16" v-bind:color="module + '-primary'" />
-      <!-- warum zeigt er das smile icon nicht an? -->
      </div>
+  </div> -->
+  <div v-bind:class="module + '-range-bgcolor'">
+    <input
+      type="range"
+      v-model="intensity"
+      min="0"
+      max="5"
+      @input="handleInputChange"
+    />
   </div>
 </template>
 
 <script>
-import IconComponent from '@/components/IconComponent.vue';
+/* import IconComponent from '@/components/IconComponent.vue'; */
 
 export default {
   name: 'Slider',
   components: {
-    IconComponent,
+    /* IconComponent, */
   },
   props: {
     module: String,
   },
   data() {
     return {
-      firstIntensity: '',
+      /* firstIntensity: '',
       secondIntensity: '',
       thirdIntensity: '',
       fourthIntensity: '',
-      fifthIntensity: '',
+      fifthIntensity: '', */
+      intensity: 3,
     };
   },
   methods: {
-    dragSlider() {
+    /* dragSlider() {
       // width of thumb
       const thumb = document.querySelectorAll('.thumb');
       // const positionThumb = thumbs.getBoundingClientRect();
@@ -79,8 +85,6 @@ export default {
         element.addEventListener('mousedown', move);
       });
       // funktioniert momentan nur mit click bei Firefox
-
-      /*
 
       // Animation beenden
       function touchEnd(event) {
@@ -126,14 +130,22 @@ export default {
       slider.addEventListener('mouseup', touchEnd);
       slider.addEventListener('mouseleave', touchEnd);
       slider.addEventListener('mousemove', touchMove);
-      // }); */
+      // });
+    }, */
+    handleInputChange(e) {
+      const { target } = e;
+      const val = target.value;
+      const min = target.min ? target.min : 0;
+      const max = target.max ? target.max : 5;
+      const newVal = Number(((val - min) * 100) / (max - min));
+      target.style.backgroundSize = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
     },
   },
-  mounted() {
+  /* mounted() {
     this.dragSlider();
   },
   computed: {
-  },
+  }, */
 };
 </script>
 

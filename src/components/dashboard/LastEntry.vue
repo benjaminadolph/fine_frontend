@@ -10,15 +10,7 @@
       {{ getLastEntryDate(module) }} |
       {{ getLastEntryTime(module) + 'Uhr' }}
     </p>
-    <div v-bind:class="module + '-range-bgcolor'">
-      <input
-        type="range"
-        v-model="number"
-        min="0"
-        max="5"
-        @input="handleInputChange"
-      />
-    </div>
+    <Slider :module="module"/>
   </div>
 </template>
 
@@ -32,11 +24,6 @@ export default {
   },
   props: {
     module: String,
-  },
-  data() {
-    return {
-      number: 3,
-    };
   },
   methods: {
     getLastEntryLabel(module) {
@@ -74,14 +61,6 @@ export default {
         lastEntryTime = '15:45';
       }
       return lastEntryTime;
-    },
-    handleInputChange(e) {
-      const { target } = e;
-      const val = target.value;
-      const min = target.min ? target.min : 0;
-      const max = target.max ? target.max : 5;
-      const newVal = Number(((val - min) * 100) / (max - min));
-      target.style.backgroundSize = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
     },
   },
 };
