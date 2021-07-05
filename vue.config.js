@@ -5,11 +5,11 @@ module.exports = {
   // creates new folder in the server folder named public
   outputDir: path.resolve(__dirname, '../fine_backend/public'),
   // sets proxy for dev server
-  devServer: {
+  /* devServer: {
     proxy: {
       '/posts': {
         target: 'http://localhost:3000',
       },
     },
-  },
+  }, */
 };
