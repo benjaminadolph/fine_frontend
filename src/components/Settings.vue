@@ -1,11 +1,9 @@
 <template>
   <div class="settings">
      <header>
-        <router-link to="/dashboard">
-        <div class="shadow-button">
+        <div class="shadow-button" @click="goToDashboard">
             <IconComponent v-bind:name="'arrow-left'" :size="16" />
         </div>
-        </router-link>
         <div class="center">
             <h1>Einstellungen</h1>
             <Time />
@@ -419,6 +417,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    goToDashboard() {
+      this.$router.push({ name: 'Dashboard', params: '/dashboard' });
     },
   },
 };
