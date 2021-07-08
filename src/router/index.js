@@ -38,7 +38,7 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
-    beforeEnter: ifAuthenticated,
+    // beforeEnter: ifAuthenticated,
   },
   {
     path: '/calendar',
