@@ -34,7 +34,7 @@ export default ({
     },
     getLatestSymptom(state) {
       let symptom;
-      if (latestSymptom === {}) {
+      if (state.latestSymptom === {}) {
         symptom = this.symptoms[this.symptoms.length - 1];
       } else {
         symptom = state.latestSymptom;

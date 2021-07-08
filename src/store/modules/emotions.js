@@ -33,8 +33,10 @@ export default ({
       return state.emotions;
     },
     getLatestEmotion(state) {
+      console.log(state.emotions);
+      console.log(state.latestEmotion);
       let emotion;
-      if (latestEmotion === {}) {
+      if (state.latestEmotion === {}) {
         emotion = this.emotions[this.emotions.length - 1];
       } else {
         emotion = state.latestEmotion;
@@ -58,8 +60,9 @@ export default ({
     },
     [CREATE_EMOTION_SUCCESS]: (state, resp) => {
       state.status = 'success';
-      state.symptoms.push(resp.data);
+      state.emotions.push(resp.data);
       state.latestEmotion = resp.data;
+      console.log(resp.data);
     },
     [CREATE_EMOTION_ERROR]: (state) => {
       state.status = 'error';
