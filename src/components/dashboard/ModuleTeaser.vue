@@ -8,7 +8,7 @@
       />
       <h2 v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
-    <LastEntry :lastEntry="lastEntry" :default="defaultText" :module="module" />
+    <LastEntry :lastEntry="lastEntry" :module="module" />
     <SelectEntry
     :multiselect=false
     :module="module"
@@ -48,7 +48,6 @@ export default {
       symptom: {},
       emotion: {},
       moduleName: '',
-      default: null,
     };
   },
   computed: {
@@ -56,10 +55,6 @@ export default {
   },
   mounted() {
     this.setModuleName();
-
-    if (this.lastEntry === null) {
-      this.default = 'Bitte füge einen Eintrag hinzu';
-    } else this.default = null;
 
     console.log(this.module);
     if (this.module === 'symptoms') {

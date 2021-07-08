@@ -5,7 +5,7 @@
       <img src="@/assets/icons/16-pencil.svg" />
       <!-- was passiert beim Hovern über den Button? -->
     </header>
-    <div class="label" v-if="defaultText != null">
+    <div class="label" v-if="defaultText === false">
       <p class="plain-m-bold">
       {{ getTitle() + ' | ' }}
       </p>
@@ -16,9 +16,9 @@
        {{ getTime() + ' Uhr' }}
       </p>
     </div>
-    <div class="label" v-if="defaultText == null">
+    <div class="label" v-if="defaultText === true">
       <p class="plain-m-bold">
-        {{ defaultText }}
+        Bitte füge einen Eintrag hinzu
       </p>
     </div>
     <input type="range" min="0" max="6" name="intensity" />
@@ -33,7 +33,26 @@ export default {
   props: {
     module: String,
     lastEntry: Object,
-    defaultText: String,
+  },
+  data() {
+    return {
+      defaultText: false,
+    };
+  },
+  mounted() {
+    Object.values(this.lastEntry).forEach((value) => {
+      if (value === undefined) {
+        this.defaultText = true;
+      } else this.defaultText = false;
+    });
+
+    // if (this.lastEntry.symptom === undefined) {
+    //   this.defaultTextSymptom = true;
+    // } else this.defaultTextSymptom = false;
+
+    // if (this.lastEntry.emotion === undefined) {
+    //   this.defaultTextEmotion = true;
+    // } else this.defaultTextEmotion = false;
   },
   methods: {
     getDate() {
@@ -43,8 +62,8 @@ export default {
       return dayjs(this.lastEntry.date).format('HH:mm');
     },
     getTitle() {
+      console.log(this.lastEntry.symptom);
       let title = '';
-      console.log(this.lastEntry);
       if (this.module === 'symptoms') {
         title = `${this.lastEntry.category}`;
       } else if (this.module === 'emotions') {
