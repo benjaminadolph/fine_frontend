@@ -1,6 +1,6 @@
 @import '../init';
 
-.component {
+/* .component {
     @include boxshadow();
     padding: 1em;
     background-color: white;
@@ -17,5 +17,75 @@
             text-align: left;
             margin: 0;
         }
+    }
+} */
+
+body {
+	background: linear-gradient(45deg, #d2f2e2, #c8e9d8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	font-family: Helvetica;
+}
+
+.cards-box {
+	position: relative;
+    width: calc(100% - (2 * #{$EDGE_GRID}));
+    margin: auto;
+}
+
+.cards-box .card {
+	width: 100%;
+	/* max-width: 80vw; */
+	background: #f7fffd;
+	cursor: pointer;
+}
+
+.cards-box .card.hide {
+	visibility: hidden;
+}
+
+.cards-box .card:not(.hide) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: all 0.8s cubic-bezier(0.18, 0.98, 0.45, 1);
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.07);
+}
+
+.cards-box .card:not(.hide)[data-slide='0'] {
+	transform: translate(0px, 0px) scale(1);
+	z-index: 6;
+	opacity: 1;
+}
+
+.cards-box .card:not(.hide)[data-slide='1'] {
+	transform: translate(0, 5px) scale(0.975);
+	z-index: 5;
+	opacity: 0.9;
+}
+
+.cards-box .card:not(.hide)[data-slide='2'] {
+	transform: translate(0, 10px) scale(0.95);
+	z-index: 4;
+	opacity: 0.8;
+}
+
+.cards-box .card:not(.hide)[data-slide='3'] {
+	transform: translate(0, 15px) scale(0.925);
+	z-index: 3;
+	opacity: 0.7;
+}
+
+.content-placeholder {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+
+    img {
+        padding: 0 20px 0 0px;
     }
 }

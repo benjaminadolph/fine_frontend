@@ -33,7 +33,13 @@ export default ({
       return state.emotions;
     },
     getLatestEmotion(state) {
-      return state.latestEmotion;
+      let emotion;
+      if (latestEmotion === {}) {
+        emotion = this.emotions[this.emotions.length - 1];
+      } else {
+        emotion = state.latestEmotion;
+      }
+      return emotion;
     },
   },
   mutations: {

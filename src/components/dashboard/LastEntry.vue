@@ -21,15 +21,19 @@
         Bitte füge einen Eintrag hinzu
       </p>
     </div>
-    <input type="range" min="0" max="6" name="intensity" />
+    <Slider :module="module"/>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
+import Slider from '@/components/Slider.vue';
 
 export default {
   name: 'LastEntry',
+  components: {
+    Slider,
+  },
   props: {
     module: String,
     lastEntry: Object,
@@ -74,6 +78,7 @@ export default {
     //  | ${this.lastEntry.location.title}
   },
 };
+
 </script>
 
 <style lang="scss" scoped>

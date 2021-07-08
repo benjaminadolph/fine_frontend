@@ -33,7 +33,13 @@ export default ({
       return state.symptoms;
     },
     getLatestSymptom(state) {
-      return state.latestSymptom;
+      let symptom;
+      if (latestSymptom === {}) {
+        symptom = this.symptoms[this.symptoms.length - 1];
+      } else {
+        symptom = state.latestSymptom;
+      }
+      return symptom;
     },
   },
   mutations: {

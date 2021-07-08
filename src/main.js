@@ -11,6 +11,7 @@ window.axios = require('axios');
 
 // Use for local development
 axios.defaults.baseURL = 'http://localhost:3000/';
+// axios.defaults.baseURL = 'http://192.168.188.44:8081/';
 // Use for Server
 // axios.defaults.baseURL = 'https://fine-app.multimedia.hs-augsburg.de/';
 
