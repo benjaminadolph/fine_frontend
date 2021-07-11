@@ -34,6 +34,7 @@ import {
   DELETE_SYMPTOM,
   UPDATE_SYMPTOM,
   GET_SYMPTOM,
+  GET_LAST_SYMPTOM,
 } from '@/store/modules/symptoms';
 
 export default {
@@ -54,13 +55,15 @@ export default {
       // photos: [],
       // audio: [],
       tags: [],
+      lastSymptom: {},
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLastUserSymptom']),
   },
   mounted() {
     this.getAllSymptoms();
+    this.getLastSymptom();
   },
   methods: {
     getAllSymptoms() {
@@ -128,6 +131,16 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLastSymptom() {
+      this.$store.dispatch(GET_LAST_SYMPTOM)
+        .then(() => {
+          this.lastSymptom = this.getLastUserSymptom;
+          console.log(this.lastSymptom);
         })
         .catch((err) => {
           console.log(err);

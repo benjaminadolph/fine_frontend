@@ -30,6 +30,7 @@ import {
   DELETE_EMOTION,
   UPDATE_EMOTION,
   GET_EMOTION,
+  GET_LAST_EMOTION,
 } from '@/store/modules/emotions';
 
 export default {
@@ -48,10 +49,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserEmotions']),
+    ...mapGetters(['getUserProfile', 'getUserEmotions', 'getLastUserEmotion']),
   },
   mounted() {
     this.getAllEmotions();
+    this.getLastEmotion();
   },
   methods: {
     getAllEmotions() {
@@ -119,6 +121,16 @@ export default {
       })
         .then(() => {
           this.emotions = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLastEmotion() {
+      this.$store.dispatch(GET_LAST_EMOTION)
+        .then(() => {
+          this.lastEmotion = this.getLastUserEmotion;
+          console.log(this.lastEmotion);
         })
         .catch((err) => {
           console.log(err);
