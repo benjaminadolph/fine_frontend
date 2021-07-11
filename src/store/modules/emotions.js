@@ -4,6 +4,7 @@ export const CREATE_EMOTION = 'createEmotion';
 export const DELETE_EMOTION = 'deleteEmotion';
 export const UPDATE_EMOTION = 'updateEmotion';
 export const GET_EMOTION = 'getEmotion';
+export const GET_LAST_EMOTION = 'getLastEmotion';
 
 // mutation types
 export const GET_ALL_EMOTIONS_START = 'getAllEmotionsStart';
@@ -21,27 +22,22 @@ export const UPDATE_EMOTION_ERROR = 'updateEmotionError';
 export const GET_EMOTION_START = 'getEmotionStart';
 export const GET_EMOTION_SUCCESS = 'getEmotionSuccess';
 export const GET_EMOTION_ERROR = 'getEmotionError';
+export const GET_LAST_EMOTION_START = 'getLastEmotionStart';
+export const GET_LAST_EMOTION_SUCCESS = 'getLastEmotionSuccess';
+export const GET_LAST_EMOTION_ERROR = 'getLastEmotionError';
 
 export default ({
   state: {
     status: '',
     emotions: [],
-    latestEmotion: {},
+    lastEmotion: {},
   },
   getters: {
     getUserEmotions(state) {
       return state.emotions;
     },
-    getLatestEmotion(state) {
-      console.log(state.emotions);
-      console.log(state.latestEmotion);
-      let emotion;
-      if (state.latestEmotion === {}) {
-        emotion = this.emotions[this.emotions.length - 1];
-      } else {
-        emotion = state.latestEmotion;
-      }
-      return emotion;
+    getLastUserEmotion(state) {
+      return state.lastEmotion;
     },
   },
   mutations: {
@@ -95,6 +91,16 @@ export default ({
       state.emotions = resp.data;
     },
     [GET_EMOTION_ERROR]: (state) => {
+      state.status = 'error';
+    },
+    [GET_LAST_EMOTION_START]: (state) => {
+      state.status = 'loading';
+    },
+    [GET_LAST_EMOTION_SUCCESS]: (state, resp) => {
+      state.status = 'success';
+      state.lastEmotion = resp.data;
+    },
+    [GET_LAST_EMOTION_ERROR]: (state) => {
       state.status = 'error';
     },
   },
@@ -155,6 +161,17 @@ export default ({
         })
         .catch(() => {
           commit(GET_EMOTION_ERROR);
+        });
+    },
+    [GET_LAST_EMOTION]: async ({ commit, rootState }) => {
+      const userid = rootState.user.id;
+      commit(GET_LAST_EMOTION_START);
+      await axios.get('/api/emotions/lastEmotionEntry', { params: { userid } })
+        .then((resp) => {
+          commit(GET_LAST_EMOTION_SUCCESS, resp);
+        })
+        .catch(() => {
+          commit(GET_LAST_EMOTION_ERROR);
         });
     },
   },

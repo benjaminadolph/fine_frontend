@@ -4,6 +4,7 @@ export const CREATE_SYMPTOM = 'createSymtpom';
 export const DELETE_SYMPTOM = 'deleteSymptom';
 export const UPDATE_SYMPTOM = 'updateSymptom';
 export const GET_SYMPTOM = 'getSymptom';
+export const GET_LAST_SYMPTOM = 'getLastSymptom';
 
 // mutation types
 export const GET_ALL_SYMPTOMS_START = 'getAllSymptomsStart';
@@ -21,25 +22,22 @@ export const UPDATE_SYMPTOM_ERROR = 'updateSymptomError';
 export const GET_SYMPTOM_START = 'getSymptomStart';
 export const GET_SYMPTOM_SUCCESS = 'getSymptomSuccess';
 export const GET_SYMPTOM_ERROR = 'getSymptomError';
+export const GET_LAST_SYMPTOM_START = 'getLastSymptomStart';
+export const GET_LAST_SYMPTOM_SUCCESS = 'getLastSymptomSuccess';
+export const GET_LAST_SYMPTOM_ERROR = 'getLastSymptomError';
 
 export default ({
   state: {
     status: '',
     symptoms: [],
-    latestSymptom: {},
+    lastSymptom: {},
   },
   getters: {
     getUserSymptoms(state) {
       return state.symptoms;
     },
-    getLatestSymptom(state) {
-      let symptom;
-      if (state.latestSymptom === {}) {
-        symptom = this.symptoms[this.symptoms.length - 1];
-      } else {
-        symptom = state.latestSymptom;
-      }
-      return symptom;
+    getLastUserSymptom(state) {
+      return state.lastSymptom;
     },
   },
   mutations: {
@@ -92,6 +90,16 @@ export default ({
       state.symptoms = resp.data;
     },
     [GET_SYMPTOM_ERROR]: (state) => {
+      state.status = 'error';
+    },
+    [GET_LAST_SYMPTOM_START]: (state) => {
+      state.status = 'loading';
+    },
+    [GET_LAST_SYMPTOM_SUCCESS]: (state, resp) => {
+      state.status = 'success';
+      state.lastSymptom = resp.data;
+    },
+    [GET_LAST_SYMPTOM_ERROR]: (state) => {
       state.status = 'error';
     },
   },
@@ -152,6 +160,17 @@ export default ({
         })
         .catch(() => {
           commit(GET_SYMPTOM_ERROR);
+        });
+    },
+    [GET_LAST_SYMPTOM]: async ({ commit, rootState }) => {
+      const userid = rootState.user.id;
+      commit(GET_LAST_SYMPTOM_START);
+      await axios.get('/api/symptoms/lastSymptomEntry', { params: { userid } })
+        .then((resp) => {
+          commit(GET_LAST_SYMPTOM_SUCCESS, resp);
+        })
+        .catch(() => {
+          commit(GET_LAST_SYMPTOM_ERROR);
         });
     },
   },
