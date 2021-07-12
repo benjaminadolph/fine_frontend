@@ -23,10 +23,10 @@
 <script>
 import { mapGetters } from 'vuex';
 import {
-  GET_SYMPTOM,
+  GET_LAST_SYMPTOM,
 } from '@/store/modules/symptoms';
 import {
-  GET_EMOTION,
+  GET_LAST_EMOTION,
 } from '@/store/modules/emotions';
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
@@ -44,24 +44,21 @@ export default {
   },
   data() {
     return {
-      lastEntry: {},
-      symptom: {},
-      emotion: {},
+      lastEntry: [],
       moduleName: '',
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getLatestSymptom', 'getLatestEmotion']),
+    ...mapGetters(['getUserProfile', 'getLastUserSymptom', 'getLastUserEmotion']),
   },
   mounted() {
-    this.setModuleName();
-
     console.log(this.module);
     if (this.module === 'symptoms') {
-      this.getSymptom();
+      this.getLastSymptom();
     } else if (this.module === 'emotions') {
-      this.getEmotion();
+      this.getLastEmotion();
     }
+    this.setModuleName();
   },
   methods: {
     setModuleName() {
@@ -86,24 +83,21 @@ export default {
       }
       return buttonLabel;
     },
-    getSymptom(id) {
-      this.$store.dispatch(GET_SYMPTOM, {
-        symptom_id: id,
-      })
+    getLastSymptom() {
+      this.$store.dispatch(GET_LAST_SYMPTOM)
         .then(() => {
-          this.lastEntry = this.getLatestSymptom;
-          console.log(this.lastEntry);
+          const data = this.getLastUserSymptom;
+          this.lastEntry.push(data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    getEmotion(id) {
-      this.$store.dispatch(GET_EMOTION, {
-        emotion_id: id,
-      })
+    getLastEmotion() {
+      this.$store.dispatch(GET_LAST_EMOTION)
         .then(() => {
-          this.lastEntry = this.getLatestEmotion;
+          const data = this.getLastUserEmotion;
+          this.lastEntry.push(data);
           console.log(this.lastEntry);
         })
         .catch((err) => {

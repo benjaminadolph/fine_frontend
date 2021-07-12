@@ -5,20 +5,10 @@
       <img src="@/assets/icons/16-pencil.svg" />
       <!-- was passiert beim Hovern über den Button? -->
     </header>
-    <div class="label" v-if="defaultText === false">
-      <p class="plain-m-bold">
-      {{ getTitle() + ' | ' }}
-      </p>
-      <p class="plain-m-bold">
-       {{ getDate() + ' | ' }}
-      </p>
-      <p class="plain-m-bold">
-       {{ getTime() + ' Uhr' }}
-      </p>
-    </div>
-    <div class="label" v-if="defaultText === true">
-      <p class="plain-m-bold">
-        Bitte füge einen Eintrag hinzu
+    <div class="label">
+      <p class="plain-m-bold" v-bind="emptyLastEntry()">
+      {{ defaultText === true ? 'Bitte füge einen Eintrag hinzu'
+       : getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
       </p>
     </div>
     <Slider :module="module"/>
@@ -36,7 +26,7 @@ export default {
   },
   props: {
     module: String,
-    lastEntry: Object,
+    lastEntry: Array,
   },
   data() {
     return {
@@ -44,19 +34,7 @@ export default {
     };
   },
   mounted() {
-    Object.values(this.lastEntry).forEach((value) => {
-      if (value === undefined) {
-        this.defaultText = true;
-      } else this.defaultText = false;
-    });
-
-    // if (this.lastEntry.symptom === undefined) {
-    //   this.defaultTextSymptom = true;
-    // } else this.defaultTextSymptom = false;
-
-    // if (this.lastEntry.emotion === undefined) {
-    //   this.defaultTextEmotion = true;
-    // } else this.defaultTextEmotion = false;
+    this.emptyLastEntry();
   },
   methods: {
     getDate() {
@@ -66,16 +44,34 @@ export default {
       return dayjs(this.lastEntry.date).format('HH:mm');
     },
     getTitle() {
-      console.log(this.lastEntry.symptom);
-      let title = '';
-      if (this.module === 'symptoms') {
-        title = `${this.lastEntry.category}`;
-      } else if (this.module === 'emotions') {
-        // title = this.lastEntry.emotion.join(' | ');
-      }
-      return title;
+      console.log(this.lastEntry);
+      // const { location: { title } } = this.lastEntry;
+      // let label = '';
+      // if (this.module === 'symptoms') {
+      //   label = `${this.lastEntry.category}
+      //   |  ${this.lastEntry.location.title}`;
+      // } else if (this.module === 'emotions') {
+      //   label = `${this.lastEntry.emotion}`;
+      // }
+      // return label;
     },
-    //  | ${this.lastEntry.location.title}
+    emptyLastEntry() {
+      // const iterator = this.lastEntry[Symbol.iterator]();
+      // console.log(iterator.next().item);
+
+      // lastEntry.forEach((value) => {
+      //   if (value === undefined || value.length === 0) {
+      //     this.defaultText = true;
+      //   } this.defaultText = false;
+      // });
+
+      Object.entries(this.lastEntry).forEach((value) => {
+        console.log(value);
+        if (value === undefined || value.length === 0) {
+          this.defaultText = true;
+        } this.defaultText = false;
+      });
+    },
   },
 };
 
