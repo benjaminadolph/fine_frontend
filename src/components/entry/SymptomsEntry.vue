@@ -85,6 +85,9 @@ export default {
     SymptomsEntryDetails,
     Figure,
   },
+  props: {
+    entryid: String,
+  },
   data() {
     return {
       symptoms: [],
@@ -421,6 +424,9 @@ export default {
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];
+    if (this.entryid) {
+      this.entry = this.getSymptom(this.entryid);
+    }
   },
 };
 </script>
