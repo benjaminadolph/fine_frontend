@@ -19,14 +19,14 @@
       </li>
     </ul>
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="cancelEntry">
+      <a class="left-button" v-on:click="cancelEntry">
           <IconComponent name="close-full" :size=32 :color="currentModule + '-primary'" />
       </a>
       <div class="headline-text">
           <h1 :class="currentModule + '-primary'">{{ getModuleName() }}</h1>
           <Time />
       </div>
-      <a class="right-button shadow-button" v-on:click="closeLayer">
+      <a class="right-button" v-on:click="closeLayer">
           <IconComponent name="check-full" :size=32 :color="currentModule + '-primary'" />
       </a>
     </header>

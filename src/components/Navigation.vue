@@ -13,7 +13,7 @@
               </router-link>
           </li>
           <li>
-              <router-link to="/dashboard">
+              <router-link to="/">
                   <IconComponent name="home" :size=24 />
               </router-link>
           </li>

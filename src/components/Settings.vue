@@ -4,7 +4,7 @@
       <div class="center">
           <h1>Einstellungen</h1>
       </div>
-      <router-link to="/dashboard">
+      <router-link to="/">
         <a class="right-button shadow-button">
             <IconComponent name="arrow-left" :size=16 />
         </a>
