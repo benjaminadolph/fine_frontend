@@ -1,17 +1,14 @@
 <template>
   <div class="settings">
-     <header>
-        <router-link to="/dashboard">
-        <div class="shadow-button">
-            <IconComponent v-bind:name="'arrow-left'" :size="16" />
-        </div>
-        </router-link>
-        <div class="center">
-            <h1>Einstellungen</h1>
-            <Time />
-        </div>
-         <div class="right-button">
+    <header class="fine-header">
+      <div class="center">
+          <h1>Einstellungen</h1>
       </div>
+      <router-link to="/dashboard">
+        <a class="right-button shadow-button">
+            <IconComponent name="arrow-left" :size=16 />
+        </a>
+      </router-link>
     </header>
     <section class="personal-data">
       <form @submit.prevent="updateUser">
@@ -313,13 +310,11 @@ import {
 } from '@/store/modules/user';
 import { AUTH_LOGOUT } from '@/store/modules/auth';
 import IconComponent from './IconComponent.vue';
-import Time from './Time.vue';
 
 export default {
   name: 'Settings',
   components: {
     IconComponent,
-    Time,
   },
   data() {
     return {

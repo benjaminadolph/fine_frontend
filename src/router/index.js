@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 import store from '../store'; // your vuex store
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -21,8 +20,8 @@ const ifAuthenticated = (to, from, next) => {
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: () => import('../views/Dashboard.vue'),
     beforeEnter: ifAuthenticated,
   },
   {
@@ -33,12 +32,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Register.vue'),
     beforeEnter: ifNotAuthenticated,
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue'),
-    // beforeEnter: ifAuthenticated,
   },
   {
     path: '/calendar',

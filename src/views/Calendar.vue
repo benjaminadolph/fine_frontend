@@ -1,10 +1,7 @@
 <template>
   <div>
     <header class="fine-header">
-      <a class="left-button shadow-button">
-          <IconComponent name="arrow-left" :size=16 />
-      </a>
-      <div class="center">
+      <div>
           <h1>Kalender</h1>
       </div>
       <a class="right-button shadow-button">
