@@ -255,6 +255,12 @@ export default {
   },
   mounted() {
     this.selectedOptions = this.list;
+    console.log(this.selectedOptions, this.list.length);
+    // this.setOption(this.list[0].title);
+    if (this.selectedOptions.length > 0) {
+      console.log(this.list);
+      this.setOption(this.list[0].title);
+    }
   },
 };
 </script>

@@ -96,7 +96,7 @@ export default {
       return moduleName;
     },
     goToLayer(module) {
-      this.$router.push(`/module-entry/${module}`);
+      this.$emit('changeModuleEntryLayer', module);
       this.currentModule = module;
     },
     closeLayer() {

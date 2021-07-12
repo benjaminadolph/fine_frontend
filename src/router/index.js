@@ -19,12 +19,6 @@ const ifAuthenticated = (to, from, next) => {
 
 const routes = [
   {
-    path: '/',
-    name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue'),
-    beforeEnter: ifAuthenticated,
-  },
-  {
     path: '/register',
     name: 'Register',
     // route level code-splitting
@@ -34,17 +28,28 @@ const routes = [
     beforeEnter: ifNotAuthenticated,
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue'),
+    beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: () => import('../views/Dashboard.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: '/calendar',
     name: 'Kalender',
     component: () => import('../views/Calendar.vue'),
     beforeEnter: ifAuthenticated,
   },
   {
-    path: '/module-entry/:module',
-    name: 'Module Entry',
-    component: () => import('../components/entry/ModuleEntry.vue'),
+    path: '/statistics',
+    name: 'Statistik',
+    component: () => import('../views/Statistics.vue'),
     beforeEnter: ifAuthenticated,
-    props: true,
   },
   {
     path: '/module-entry/:module/:id',
@@ -59,12 +64,6 @@ const routes = [
     component: () => import('../components/entry/SymptomsEntryDetails.vue'),
     beforeEnter: ifAuthenticated,
     props: true,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue'),
-    beforeEnter: ifNotAuthenticated,
   },
   {
     path: '/exampleview',

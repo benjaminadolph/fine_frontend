@@ -24,7 +24,12 @@
           </li>
       </ul>
     </div>
-    <ModuleEntry v-show="showEntry" module="symptoms" v-on:closeLayer="showEntry=false"/>
+    <ModuleEntry
+      v-if="showEntry"
+      :module=module
+      v-on:closeLayer="showEntry=false"
+      v-on:changeModuleEntryLayer="changeModule"
+    />
   </div>
 </template>
 
@@ -41,7 +46,13 @@ export default {
   data() {
     return {
       showEntry: false,
+      module: 'symptoms',
     };
+  },
+  methods: {
+    changeModule(module) {
+      this.module = module;
+    },
   },
 };
 </script>

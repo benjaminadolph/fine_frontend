@@ -30,7 +30,7 @@
           id="figure"
           :options="{maxZoom: 3, minZoom: 1}"
         >
-        <Figure gender="female" :front=front />
+          <Figure :gender="figure.gender" :front=front />
         </panZoom>
         <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
           <span v-on:click="setIntensity(5)" class="five intensity">5</span>
@@ -103,7 +103,7 @@ export default {
       symptomCategories: [],
       title: '',
       figure: {
-        gender: 'female',
+        gender: String,
         direction: 'front',
       },
       front: true,
@@ -420,6 +420,7 @@ export default {
     ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
+    this.figure.gender = this.getUserProfile.gender;
     this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
     this.getAllSymptoms();
     this.getAllSymptomCategories();
