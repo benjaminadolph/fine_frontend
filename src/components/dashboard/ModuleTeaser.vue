@@ -10,13 +10,20 @@
     </header>
     <LastEntry :lastEntry="lastEntry" :module="module" />
     <SelectEntry
-    :multiselect=false
     :module="module"
     :buttonLabel="getButtonLabel()" />
-    <!-- in Select Entry müssen Kategorien für alle Module hinzugefügt werden können
-    soll das genauso wie bei Symptom-Kategorien sein?
+    <!--
+    Symptome:
       :list=symptomCategories
-      v-on:addNewOption="createSymptomCategory" -->
+      v-on:addNewOption="createSymptomCategory"
+      :multiselect=false
+      v-on:update="onSelect"
+      v-on:addNewOption="createSymptomCategory"
+    Emotions:
+      :list=emotionList
+      v-on:addNewOption="addNewEmotion"
+      v-on:update="updateEmotionList"
+      :multiselect=true -->
   </div>
 </template>
 
@@ -44,7 +51,7 @@ export default {
   },
   data() {
     return {
-      lastEntry: [],
+      lastEntry: {},
       moduleName: '',
     };
   },
@@ -52,28 +59,38 @@ export default {
     ...mapGetters(['getUserProfile', 'getLastUserSymptom', 'getLastUserEmotion']),
   },
   mounted() {
-    console.log(this.module);
+    // console.log(this.module);
     if (this.module === 'symptoms') {
       this.getLastSymptom();
-    } else if (this.module === 'emotions') {
+    }
+    if (this.module === 'emotions') {
       this.getLastEmotion();
     }
     this.setModuleName();
   },
   methods: {
     setModuleName() {
-      if (this.module === 'symptoms') {
-        this.moduleName = 'Symptome';
-      } else if (this.module === 'emotions') {
-        this.moduleName = 'Gefühle';
-      } else if (this.module === 'nutrition') {
-        this.moduleName = 'Ernährung';
-      } else if (this.module === 'sleep') {
-        this.moduleName = 'Schlaf';
-      } else if (this.module === 'activity') {
-        this.moduleName = 'Bewegung';
-      } else if (this.module === 'countermeasures') {
-        this.moduleName = 'Maßnahmen';
+      switch (this.module) {
+        case 'symptoms':
+          this.moduleName = 'Symptome';
+          break;
+        case 'emotions':
+          this.moduleName = 'Gefühle';
+          break;
+        case 'nutrition':
+          this.moduleName = 'Ernährung';
+          break;
+        case 'sleep':
+          this.moduleName = 'Schlaf';
+          break;
+        case 'activity':
+          this.moduleName = 'Bewegung';
+          break;
+        case 'countermeasures':
+          this.moduleName = 'Maßnahmen';
+          break;
+        default:
+          break;
       }
     },
     getButtonLabel() {
@@ -86,8 +103,7 @@ export default {
     getLastSymptom() {
       this.$store.dispatch(GET_LAST_SYMPTOM)
         .then(() => {
-          const data = this.getLastUserSymptom;
-          this.lastEntry.push(data);
+          this.lastEntry = this.getLastUserSymptom;
         })
         .catch((err) => {
           console.log(err);
@@ -96,9 +112,7 @@ export default {
     getLastEmotion() {
       this.$store.dispatch(GET_LAST_EMOTION)
         .then(() => {
-          const data = this.getLastUserEmotion;
-          this.lastEntry.push(data);
-          console.log(this.lastEntry);
+          this.lastEntry = this.getLastUserEmotion;
         })
         .catch((err) => {
           console.log(err);
