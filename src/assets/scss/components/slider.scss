@@ -1,0 +1,186 @@
+@import '../init';
+
+input {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin-right: 15px;
+  width: 100%;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  background-size: 60% 100%;
+  background-repeat: no-repeat;
+  background-image: linear-gradient($SYMPTOMS_PRIMARY, $SYMPTOMS_PRIMARY);
+}
+
+/* Input Thumb */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 0;
+  cursor: ew-resize;
+  background: $FINE_GREY_DARK;
+  transition: background .3s ease-in-out;
+}
+
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 0;
+  cursor: ew-resize;
+  background: $FINE_GREY_DARK;
+  transition: background .3s ease-in-out;
+}
+
+input[type=range]::-ms-thumb {
+  -webkit-appearance: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  cursor: ew-resize;
+  background: $FINE_GREY_DARK;
+  transition: background .3s ease-in-out;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  background: $FINE_GREY_DARK;
+}
+input[type=range]::-moz-range-thumb:hover {
+  background: $FINE_GREY_DARK;
+}
+input[type=range]::-ms-thumb:hover {
+  background: $FINE_GREY_DARK;
+}
+/* Input Track */
+input[type=range]::-webkit-slider-runnable-track  {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+input[type=range]::-moz-range-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+input[type=range]::-ms-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+$SLIDER_COLORS:
+"symptoms" $SYMPTOMS_PRIMARY,
+"emotions" $EMOTIONS_PRIMARY,
+"sleep" $SLEEP_PRIMARY,
+"nutrition" $NUTRITION_PRIMARY,
+"countermeasures" $COUNTERMEASURES_PRIMARY,
+"activity" $ACTIVITY_PRIMARY;
+
+@each $CLASSNAME, $COLOR in $SLIDER_COLORS {
+  .#{$CLASSNAME}-range-bgcolor {
+      input[type=range] {
+          background-image: linear-gradient(#{$COLOR}, #{$COLOR});
+      }
+      input[type=range]::-webkit-slider-thumb {
+          background: #{$COLOR};
+      }
+      input[type=range]::-moz-range-thumb {
+          background: #{$COLOR};
+      }
+      input[type=range]::-ms-thumb {
+          background: #{$COLOR};
+      }
+      input[type=range]::-webkit-slider-thumb:hover {
+          background: #{$COLOR};
+      }
+      input[type=range]::-moz-range-thumb:hover {
+          background: #{$COLOR};
+      }
+      input[type=range]::-ms-thumb:hover {
+          background: #{$COLOR};
+      }
+  }
+}
+
+/* .slider
+{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 auto;
+  position: sticky;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+
+  .grabbing {
+    cursor: grabbing;
+  }
+
+  .thumb_all {
+    display: flex;
+    flex-direction: row;
+
+    .thumb {
+      position: absolute;
+      width: 10%;
+      padding: .68rem;
+      border-radius: $BASE_BORDER_RADIUS;
+      cursor: grab;
+
+      #smile_up {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: inherit;
+        padding: 0;
+        margin: 0;
+        color: $FINE_WHITE;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .slider_bg {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .slider-text {
+      text-align: center;
+      width: 100%;
+      background: $FINE_WHITE;
+      padding: 0.3rem 0.6rem;
+      border-radius: $BASE_BORDER_RADIUS;
+    }
+    
+    #smile {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      -webkit-transform: rotate(180deg) translateY(50%);
+      -moz-transform: rotate(180deg) translateY(50%);
+      -ms-transform: rotate(180deg) translateY(50%);
+      -o-transform: rotate(180deg) translateY(50%);
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+} */
+  

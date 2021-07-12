@@ -4,6 +4,7 @@ export const CREATE_EMOTION = 'createEmotion';
 export const DELETE_EMOTION = 'deleteEmotion';
 export const UPDATE_EMOTION = 'updateEmotion';
 export const GET_EMOTION = 'getEmotion';
+export const GET_LAST_EMOTION = 'getLastEmotion';
 
 // mutation types
 export const GET_ALL_EMOTIONS_START = 'getAllEmotionsStart';
@@ -21,15 +22,22 @@ export const UPDATE_EMOTION_ERROR = 'updateEmotionError';
 export const GET_EMOTION_START = 'getEmotionStart';
 export const GET_EMOTION_SUCCESS = 'getEmotionSuccess';
 export const GET_EMOTION_ERROR = 'getEmotionError';
+export const GET_LAST_EMOTION_START = 'getLastEmotionStart';
+export const GET_LAST_EMOTION_SUCCESS = 'getLastEmotionSuccess';
+export const GET_LAST_EMOTION_ERROR = 'getLastEmotionError';
 
 export default ({
   state: {
     status: '',
     emotions: [],
+    lastEmotion: {},
   },
   getters: {
     getUserEmotions(state) {
       return state.emotions;
+    },
+    getLastUserEmotion(state) {
+      return state.lastEmotion;
     },
   },
   mutations: {
@@ -48,7 +56,8 @@ export default ({
     },
     [CREATE_EMOTION_SUCCESS]: (state, resp) => {
       state.status = 'success';
-      state.emotions.push(resp.data);
+      state.symptoms.push(resp.data);
+      state.latestEmotion = resp.data;
     },
     [CREATE_EMOTION_ERROR]: (state) => {
       state.status = 'error';
@@ -83,12 +92,22 @@ export default ({
     [GET_EMOTION_ERROR]: (state) => {
       state.status = 'error';
     },
+    [GET_LAST_EMOTION_START]: (state) => {
+      state.status = 'loading';
+    },
+    [GET_LAST_EMOTION_SUCCESS]: (state, resp) => {
+      state.status = 'success';
+      state.lastEmotion = resp.data;
+    },
+    [GET_LAST_EMOTION_ERROR]: (state) => {
+      state.status = 'error';
+    },
   },
   actions: {
     [GET_ALL_EMOTIONS]: async ({ commit, rootState }) => {
       const userid = rootState.user.id;
       commit(GET_ALL_EMOTIONS_START);
-      await axios.get('http://localhost:3000/api/emotions/', { params: { userid } })
+      await axios.get('/api/emotions/', { params: { userid } })
         .then((resp) => {
           commit(GET_ALL_EMOTIONS_SUCCESS, resp);
         })
@@ -100,7 +119,7 @@ export default ({
       const emotion = req;
       emotion.userid = await rootState.user.id;
       commit(CREATE_EMOTION_START);
-      await axios.post('http://localhost:3000/api/emotions/', emotion)
+      await axios.post('/api/emotions/', emotion)
         .then((resp) => {
           commit(CREATE_EMOTION_SUCCESS, resp);
         })
@@ -112,7 +131,7 @@ export default ({
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
       commit(DELETE_EMOTION_START);
-      await axios.delete(`http://localhost:3000/api/emotions/${emotionid}`, { params: { emotionid, userid } })
+      await axios.delete(`/api/emotions/${emotionid}`, { params: { emotionid, userid } })
         .then((resp) => {
           commit(DELETE_EMOTION_SUCCESS, resp);
         })
@@ -124,7 +143,7 @@ export default ({
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
       commit(UPDATE_SYMPTOM_START);
-      await axios.patch(`http://localhost:3000/api/emotions/${emotionid}`, req, { params: { userid } })
+      await axios.patch(`/api/emotions/${emotionid}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_EMOTION_SUCCESS, resp);
         })
@@ -135,12 +154,23 @@ export default ({
     [GET_EMOTION]: async ({ commit }, req) => {
       const emotionid = req.emotion_id;
       commit(GET_EMOTION_START);
-      await axios.get(`http://localhost:3000/api/emotions/${emotionid}`)
+      await axios.get(`/api/emotions/${emotionid}`)
         .then((resp) => {
           commit(GET_EMOTION_SUCCESS, resp);
         })
         .catch(() => {
           commit(GET_EMOTION_ERROR);
+        });
+    },
+    [GET_LAST_EMOTION]: async ({ commit, rootState }) => {
+      const userid = rootState.user.id;
+      commit(GET_LAST_EMOTION_START);
+      await axios.get('/api/emotions/lastEmotionEntry', { params: { userid } })
+        .then((resp) => {
+          commit(GET_LAST_EMOTION_SUCCESS, resp);
+        })
+        .catch(() => {
+          commit(GET_LAST_EMOTION_ERROR);
         });
     },
   },

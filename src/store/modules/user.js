@@ -82,7 +82,7 @@ export default ({
   actions: {
     [GET_USER]: async ({ commit, dispatch }, id) => {
       commit(GET_USER_START);
-      await axios.get(`http://localhost:3000/api/user/${id}`)
+      await axios.get(`/api/user/${id}`)
         .then((resp) => {
           commit(GET_USER_SUCCESS, resp);
         })
@@ -95,7 +95,7 @@ export default ({
     [UPDATE_USER_MODULESSELECTED]: async ({ commit, rootState }, req) => {
       const { id } = rootState.user;
       commit(UPDATE_USER_MODULESSELECTED_START);
-      await axios.patch(`http://localhost:3000/api/user/modulesSelected/${id}`, req)
+      await axios.patch(`/api/user/modulesSelected/${id}`, req)
         .then((resp) => {
           commit(UPDATE_USER_MODULESSELECTED_SUCCESS, resp);
           console.log(resp);
@@ -107,7 +107,7 @@ export default ({
     [UPDATE_USER]: async ({ commit, rootState }, req) => {
       const { id } = rootState.user;
       commit(UPDATE_USER_START);
-      await axios.patch(`http://localhost:3000/api/user/${id}`, req)
+      await axios.patch(`/api/user/${id}`, req)
         .then((resp) => {
           commit(UPDATE_USER_SUCCESS, resp);
           console.log(resp);
@@ -119,7 +119,7 @@ export default ({
     [DELETE_USER]: async ({ commit, rootState }) => {
       const { id } = rootState.user;
       commit(DELETE_USER_START);
-      await axios.delete(`http://localhost:3000/api/user/${id}`)
+      await axios.delete(`/api/user/${id}`)
         .then((resp) => {
           commit(DELETE_USER_SUCCESS, resp);
         })
