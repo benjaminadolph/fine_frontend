@@ -40,6 +40,11 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: '/home',
+    name: 'Home',
+    component: () => import('../views/Home.vue'),
+  },
+  {
     path: '/calendar',
     name: 'Kalender',
     component: () => import('../views/Calendar.vue'),

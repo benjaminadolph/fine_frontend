@@ -360,6 +360,12 @@ export default {
   mounted() {
     this.getAllSymptoms();
     this.getAllEmotions();
+
+    this.emitter.on('updateCalendar', () => {
+      console.log('dddd');
+      this.getAllSymptoms();
+      this.getAllEmotions();
+    });
   },
 
 };

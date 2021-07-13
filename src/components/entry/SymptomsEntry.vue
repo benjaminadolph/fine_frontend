@@ -64,6 +64,7 @@ import {
   CREATE_SYMPTOM,
   DELETE_SYMPTOM,
   UPDATE_SYMPTOM,
+  GET_LAST_SYMPTOM,
   GET_SYMPTOM,
 } from '@/store/modules/symptoms';
 import {
@@ -125,7 +126,6 @@ export default {
       // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
-      console.log(mouseEvent);
       const { target } = mouseEvent;
       const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
 
@@ -165,10 +165,10 @@ export default {
         intensity,
         category: this.category,
         location: this.location,
-        // detailsText: this.detailsText,
+        detailsText: '',
         // photos: this.photos,
         // audio: this.audio,
-        // tags: this.tags,
+        tags: [],
       };
       this.createSymptom(newSymptom);
     },
@@ -275,9 +275,16 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
-          this.entry = this.getLatestSymptom;
-          this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
-          this.currentEntries.push(this.entry);
+          this.$store.dispatch(GET_LAST_SYMPTOM)
+            .then(() => {
+              this.entry = this.getLastUserSymptom;
+              this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
+              this.currentEntries.push(this.entry);
+              console.log(this.entry);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -320,6 +327,15 @@ export default {
           this.entry = this.getUserSymptoms;
           this.entryDetails = true;
           this.entryId = id;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLastSymptom() {
+      this.$store.dispatch(GET_LAST_SYMPTOM)
+        .then(() => {
+          this.entry = this.getLastUserSymptom;
         })
         .catch((err) => {
           console.log(err);
@@ -422,7 +438,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLastUserSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
     this.figure.gender = this.getUserProfile.gender;

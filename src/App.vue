@@ -1,18 +1,30 @@
 <template>
   <div>
-    <Navigation />
+    <Navigation v-on:showEntryLayer="showEntry=true"/>
     <router-view />
+    <ModuleEntry
+      v-if="showEntry"
+      module='symptoms'
+      v-on:closeLayer="updateView"
+    />
   </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue';
+import ModuleEntry from '@/components/entry/ModuleEntry.vue';
 import { AUTH_LOGOUT } from '@/store/modules/auth';
 
 export default {
   name: 'App',
   components: {
     Navigation,
+    ModuleEntry,
+  },
+  data() {
+    return {
+      showEntry: false,
+    };
   },
   created() {
     axios.interceptors.response.use(undefined, (err) => new Promise(function (resolve, reject) {
@@ -24,6 +36,12 @@ export default {
       }
       throw err;
     }));
+  },
+  methods: {
+    updateView() {
+      this.showEntry = false;
+      this.emitter.emit('updateCalendar');
+    },
   },
 };
 </script>
