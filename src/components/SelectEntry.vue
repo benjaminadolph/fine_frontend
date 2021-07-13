@@ -154,7 +154,6 @@ export default {
       });
     },
     setOption(option) {
-      console.log(option);
       if (this.multiselect === true) {
         this.option = option;
         if (this.selectedOptions.includes(option)) {

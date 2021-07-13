@@ -1,40 +1,59 @@
 <template>
     <div>
-      <div class="set-intensity">
-        <div class="plain-s-book">
-          Aktuelle Stimmung bewerten:
+      <header class="fine-header" :class="{ update : entryid }">
+        <a class="left-button" v-on:click="close">
+            <IconComponent name="close-full" :size=32 color="emotions-primary" />
+        </a>
+        <div class="headline-text">
+            <h1 class="emotions-primary">Emotionen</h1>
+            <Time />
         </div>
-        <div class="plain-s-bold">
-          Wie geht es dir gerade?
+        <a class="microphone-button">
+            <IconComponent name="microphone" :size=24 color="emotions-primary" />
+        </a>
+        <a class="right-button" v-on:click="saveAndClose">
+            <IconComponent name="check-full" :size=32 color="emotions-primary" />
+        </a>
+      </header>
+      <div class="module-entry-content">
+        <div class="set-intensity">
+          <div class="plain-s-book">
+            Aktuelle Stimmung bewerten:
+          </div>
+          <div class="plain-s-bold">
+            Wie geht es dir gerade?
+          </div>
+          <Slider
+            module="emotions"
+            ref="intensitySlider"
+            v-on:updateIntensity="setIntensity"
+          />
         </div>
-        <Slider
-          module="emotions"
-          :intensity="intensity"
-          v-on:updateIntensity="setIntensity"
-        />
+        <SelectEntry
+          module='emotions'
+          buttonLabel="Gefühle hinzufügen"
+          :list=emotionList
+          v-on:addNewOption="addNewEmotion"
+          v-on:update="updateEmotionList"
+          :multiselect=true />
+        <SelectEntry
+          module='emotions'
+          buttonLabel="Was ist noch passiert?"
+          :list=tagList
+          v-on:addNewOption="addNewTag"
+          v-on:update="updateTags"
+          :multiselect=true />
+        <ModuleEntryNotes v-model="detailsText" />
       </div>
-      <SelectEntry
-        module='emotions'
-        buttonLabel="Gefühle hinzufügen"
-        :list=emotionList
-        v-on:addNewOption="addNewEmotion"
-        v-on:update="updateEmotionList"
-        :multiselect=true />
-      <SelectEntry
-        module='emotions'
-        buttonLabel="Was ist noch passiert?"
-        :list=tagList
-        v-on:addNewOption="addNewTag"
-        v-on:update="updateTags"
-        :multiselect=true />
-      <ModuleEntryNotes v-model="detailsText" />
     </div>
 </template>
 
 <script>
 import ModuleEntryNotes from '@/components/entry/ModuleEntryNotes.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
+import Time from '@/components/Time.vue';
 import Slider from '@/components/Slider.vue';
+import IconComponent from '@/components/IconComponent.vue';
 import { mapGetters } from 'vuex';
 import {
   GET_ALL_EMOTIONS,
@@ -50,6 +69,8 @@ export default {
     SelectEntry,
     ModuleEntryNotes,
     Slider,
+    Time,
+    IconComponent,
   },
   props: {
     entryid: String,
@@ -59,7 +80,7 @@ export default {
       emotionEntries: [],
       emotions: [],
       date: '',
-      intensity: '',
+      intensity: 0,
       tags: [],
       detailsText: '',
       // photos: [],
@@ -141,12 +162,12 @@ export default {
       })
         .then(() => {
           this.entry = this.getUserEmotions;
-          console.log(this.entry);
           this.detailsText = this.entry.detailsText;
           this.intensity = this.entry.intensity;
           this.date = this.entry.date;
-          this.emotion = this.entry.emotion;
-          this.tags = this.entry.tags;
+          this.$refs.intensitySlider.setInput(this.intensity);
+          this.initEmotionList(this.entry.emotion);
+          this.initTagList(this.entry.tags);
         })
         .catch((err) => {
           console.log(err);
@@ -169,6 +190,13 @@ export default {
         _this.tags.push(tag.title);
       });
     },
+    initTagList(tags) {
+      this.tags = [];
+      const _this = this;
+      tags.forEach((tag) => {
+        _this.addNewTag(tag);
+      });
+    },
     addNewEmotion(option) {
       this.emotions.push(option);
       this.emotionList.push({
@@ -182,6 +210,30 @@ export default {
       emotions.forEach((tag) => {
         _this.emotions.push(tag.title);
       });
+    },
+    initEmotionList(emotions) {
+      this.emotions = [];
+      this.emotionsList = [];
+      const _this = this;
+      emotions.forEach((tag) => {
+        _this.addNewEmotion(tag);
+      });
+    },
+    saveAndClose() {
+      if (this.entryid) {
+        this.updateEmotion(this.entryid);
+        this.$router.go(-1);
+      } else {
+        this.createEmotion();
+        this.$emit('close');
+      }
+    },
+    close() {
+      if (this.entryid) {
+        this.$router.go(-1);
+      } else {
+        this.$emit('close');
+      }
     },
   },
 };

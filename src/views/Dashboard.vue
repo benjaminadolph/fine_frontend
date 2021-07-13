@@ -52,7 +52,6 @@ export default {
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
-      console.log(this.modulesSelected);
     },
     goToSettings() {
       this.$router.push({ name: 'Settings', params: '/settings' });

@@ -1,58 +1,75 @@
 /* eslint-disable */
 <template>
     <div>
-      <SelectEntry
-        module='symptoms'
-        :list=symptomCategories
-        buttonLabel="Kategorie wählen"
-        :multiselect=false
-        v-on:updateOption="onSelect"
-        v-on:addNewOption="createSymptomCategory"
-      />
-      <div
-        id="symptoms-figure-container"
-        v-on:click="openIntensity"
-      >
-      <div
-        v-show="!isCategorySelected"
-        class="symptoms-figure-container-overlay"
-      >
-        <span class="text">Wähle erst eine Kategorie</span>
-      </div>
-      <div class="turn-round-button" v-on:click="turnaround">
-        <IconComponent
-          name="turn"
-          :size="32"
-          color="symptoms-primary"
+      <header class="fine-header">
+        <a class="left-button" v-on:click="cancelAndClose">
+            <IconComponent name="close-full" :size=32 color="symptoms-primary" />
+        </a>
+        <div class="headline-text">
+            <h1 class="symptoms-primary">Symptome</h1>
+            <Time />
+        </div>
+        <a class="microphone-button">
+            <IconComponent name="microphone" :size=24 color="symptoms-primary" />
+        </a>
+        <a class="right-button" v-on:click="close">
+            <IconComponent name="check-full" :size=32 color="symptoms-primary" />
+        </a>
+      </header>
+      <div class="module-entry-content">
+        <SelectEntry
+          module='symptoms'
+          :list=symptomCategories
+          buttonLabel="Kategorie wählen"
+          :multiselect=false
+          v-on:updateOption="onSelect"
+          v-on:addNewOption="createSymptomCategory"
         />
-      </div>
-        <panZoom
-          @init="onInit"
-          id="figure"
-          :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
+        <div
+          id="symptoms-figure-container"
+          v-on:click="openIntensity"
         >
-          <Figure :gender="figure.gender" :front=front />
-        </panZoom>
-        <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
-          <span v-on:click="setIntensity(5)" class="five intensity">5</span>
-          <span v-on:click="setIntensity(4)" class="four intensity">4</span>
-          <span v-on:click="setIntensity(3)" class="three intensity">3</span>
-          <span v-on:click="setIntensity(2)" class="two intensity">2</span>
-          <span v-on:click="setIntensity(1)" class="one intensity">1</span>
+        <div
+          v-show="!isCategorySelected"
+          class="symptoms-figure-container-overlay"
+        >
+          <span class="text">Wähle erst eine Kategorie</span>
+        </div>
+        <div class="turn-round-button" v-on:click="turnaround">
           <IconComponent
-            name="trash"
-            :size=24
-            color="#fff"
-            v-on:click="removeCircle()"
+            name="turn"
+            :size="32"
+            color="symptoms-primary"
           />
         </div>
-      </div>
-      <div v-if="entryDetails" >
-          <SymptomsEntryDetails
-            module="symptoms"
-            :entry="entry"
-            v-on:saveEntryDetails="updateSymptom"
-          />
+          <panZoom
+            @init="onInit"
+            id="figure"
+            :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
+          >
+            <Figure :gender="figure.gender" :front=front />
+          </panZoom>
+          <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
+            <span v-on:click="setIntensity(5)" class="five intensity">5</span>
+            <span v-on:click="setIntensity(4)" class="four intensity">4</span>
+            <span v-on:click="setIntensity(3)" class="three intensity">3</span>
+            <span v-on:click="setIntensity(2)" class="two intensity">2</span>
+            <span v-on:click="setIntensity(1)" class="one intensity">1</span>
+            <IconComponent
+              name="trash"
+              :size=24
+              color="#fff"
+              v-on:click="removeCircle()"
+            />
+          </div>
+        </div>
+        <div v-if="entryDetails" >
+            <SymptomsEntryDetails
+              module="symptoms"
+              :entry="entry"
+              v-on:saveEntryDetails="updateSymptom"
+            />
+        </div>
       </div>
     </div>
 </template>
@@ -438,6 +455,21 @@ export default {
     },
     setSymptom(symptom) {
       console.log(symptom);
+    },
+    cancelAndClose() {
+      if (this.entryid) {
+        this.$router.go(-1);
+      } else {
+        this.deleteCurrentEntries();
+        this.$emit('close');
+      }
+    },
+    close() {
+      if (this.entryid) {
+        this.$router.go(-1);
+      } else {
+        this.$emit('close');
+      }
     },
   },
   computed: {

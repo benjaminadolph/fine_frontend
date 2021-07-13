@@ -1,5 +1,5 @@
 <template>
-  <div class="lastentry" v-bind:class="lastEntry.module + '-soft-bgcolor'">
+  <div class="lastentry" v-bind:class="`${lastEntry.module}-soft-bgcolor`">
     <div v-show="isEmpty">
       <p class="plain-m-bold">
         Du hast noch keinen Eintrag gemacht.
@@ -12,10 +12,11 @@
       </p>
       <p class="plain-m-bold">
         {{ getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
+        {{ lastEntry.intensity }}
       </p>
       <Slider
         :module="lastEntry.module"
-        :intensity="lastEntry.intensity"
+        ref="intensitySlider"
         v-on:updateIntensity="updateEntryIntensity"
       />
     </div>
@@ -42,10 +43,11 @@ export default {
       isEmpty: true,
     };
   },
-  beforeUpdate() {
+  updated() {
     // this.emptyLastEntry();
     if (Object.keys(this.lastEntry).length > 0) {
       this.isEmpty = false;
+      this.$refs.intensitySlider.setInput(this.lastEntry.intensity);
     } else {
       this.isEmpty = true;
     }
@@ -70,7 +72,8 @@ export default {
       this.$router.push(`/module-entry/${this.lastEntry.module}/${this.lastEntry._id}`);
     },
     updateEntryIntensity(intensity) {
-      console.log(intensity);
+      this.$emit('updateIntensity', intensity);
+      // console.log(intensity);
     },
   },
 };

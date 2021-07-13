@@ -55,6 +55,15 @@ export default {
       this.getLastEmotion();
     }
     this.setModuleName();
+
+    this.emitter.on('updateEntry', () => {
+      if (this.module === 'symptoms') {
+        this.getLastSymptom();
+      }
+      if (this.module === 'emotions') {
+        this.getLastEmotion();
+      }
+    });
   },
   methods: {
     setModuleName() {
