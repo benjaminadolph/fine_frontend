@@ -1,13 +1,13 @@
 @mixin boxshadow {
-    -webkit-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
-    -moz-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
-    box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
+    -webkit-box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
+    box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
 }
 
 @mixin boxshadow-top {
-    -webkit-box-shadow: 0px -20px 25px rgba(2,45,38,0.1);
-    -moz-box-shadow: 0px -20px 25px rgba(2,45,38,0.1);
-    box-shadow: 0px -20px 25px rgba(2, 45, 38, 0.06);
+    -webkit-box-shadow: 0px -7px 10px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px -7px 10px rgba(2,45,38,0.1);
+    box-shadow: 0px -7px 10px rgba(2, 45, 38, 0.06);
 }
 
 @mixin grayWhiteBlur {

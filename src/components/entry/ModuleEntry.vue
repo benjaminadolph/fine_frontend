@@ -19,14 +19,17 @@
       </li>
     </ul>
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="cancelEntry">
+      <a class="left-button" v-on:click="cancelEntry">
           <IconComponent name="close-full" :size=32 :color="currentModule + '-primary'" />
       </a>
       <div class="headline-text">
           <h1 :class="currentModule + '-primary'">{{ getModuleName() }}</h1>
           <Time />
       </div>
-      <a class="right-button shadow-button" v-on:click="closeLayer">
+      <a class="microphone-button">
+          <IconComponent name="microphone" :size=24 :color="currentModule + '-primary'" />
+      </a>
+      <a class="right-button" v-on:click="closeLayer">
           <IconComponent name="check-full" :size=32 :color="currentModule + '-primary'" />
       </a>
     </header>
@@ -80,6 +83,9 @@ export default {
   mounted() {
     this.getAllModulesSelected();
     this.currentModule = this.module;
+    this.emitter.on('modulesUpdated', () => {
+      this.getAllModulesSelected();
+    });
   },
   methods: {
     getModuleName() {
@@ -96,7 +102,7 @@ export default {
       return moduleName;
     },
     goToLayer(module) {
-      this.$router.push(`/module-entry/${module}`);
+      // this.$emit('changeModuleEntryLayer', module);
       this.currentModule = module;
     },
     closeLayer() {

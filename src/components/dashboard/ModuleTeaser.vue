@@ -6,7 +6,7 @@
         :size="32"
         v-bind:color="module + '-primary'"
       />
-      <h2 v-bind:class="module + '-primary'">{{ moduleName }}</h2>
+      <h2 class="" v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
     <LastEntry :lastEntry="lastEntry" :module="module" />
     <SelectEntry

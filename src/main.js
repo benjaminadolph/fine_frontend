@@ -2,9 +2,12 @@ import { createApp } from 'vue';
 import panZoom from 'vue-panzoom';
 import Vue3TouchEvents from 'vue3-touch-events';
 import axios from 'axios';
+import mitt from 'mitt';
 import App from './App.vue';
 import store from './store';
 import router from './router';
+
+const emitter = mitt();
 
 // Makes Axios available for the whole vue app
 window.axios = require('axios');
@@ -23,9 +26,11 @@ if (token) {
 
 console.log(axios.defaults.baseURL);
 
-createApp(App)
+const app = createApp(App);
+app
   .use(router)
   .use(store)
   .use(panZoom)
-  .use(Vue3TouchEvents)
-  .mount('#app');
+  .use(Vue3TouchEvents);
+app.config.globalProperties.emitter = emitter;
+app.mount('#app');

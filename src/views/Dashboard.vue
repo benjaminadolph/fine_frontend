@@ -1,15 +1,14 @@
 <template>
   <div class="view">
-    <header>
-      <div class="left-button">
+    <header class="fine-header">
+      <div>
+          <h1>Dashboard</h1>
       </div>
-      <div class="center">
-            <h1>Dashboard</h1>
-            <Time />
-        </div>
-        <div class="shadow-button" @click="goToSettings">
-            <IconComponent v-bind:name="'settings'" :size="16" />
-        </div>
+      <router-link to="/settings">
+        <a class="right-button shadow-button">
+            <IconComponent v-bind:name="'settings'" :size=16 />
+        </a>
+      </router-link>
     </header>
     <SmartStack />
     <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
@@ -21,7 +20,6 @@ import { mapGetters } from 'vuex';
 import SmartStack from '@/components/dashboard/SmartStack.vue';
 import ModuleTeaser from '@/components/dashboard/ModuleTeaser.vue';
 import IconComponent from '@/components/IconComponent.vue';
-import Time from '@/components/Time.vue';
 
 export default {
   name: 'Dashboard',
@@ -29,7 +27,6 @@ export default {
     SmartStack,
     ModuleTeaser,
     IconComponent,
-    Time,
   },
   props: {
   },

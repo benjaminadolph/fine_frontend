@@ -27,10 +27,11 @@
         />
       </div>
         <panZoom
+          @init="onInit"
           id="figure"
-          :options="{maxZoom: 3, minZoom: 1}"
+          :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
         >
-        <Figure gender="female" :front=front />
+          <Figure :gender="figure.gender" :front=front />
         </panZoom>
         <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
           <span v-on:click="setIntensity(5)" class="five intensity">5</span>
@@ -63,6 +64,7 @@ import {
   CREATE_SYMPTOM,
   DELETE_SYMPTOM,
   UPDATE_SYMPTOM,
+  GET_LAST_SYMPTOM,
   GET_SYMPTOM,
 } from '@/store/modules/symptoms';
 import {
@@ -103,7 +105,7 @@ export default {
       symptomCategories: [],
       title: '',
       figure: {
-        gender: 'female',
+        gender: String,
         direction: 'front',
       },
       front: true,
@@ -111,6 +113,9 @@ export default {
     };
   },
   methods: {
+    onInit(panzoomInstance) {
+      panzoomInstance.on('touch', () => false);
+    },
     onSelect(option) {
       this.isCategorySelected = true;
       this.category = option.title;
@@ -160,10 +165,10 @@ export default {
         intensity,
         category: this.category,
         location: this.location,
-        // detailsText: this.detailsText,
+        detailsText: '',
         // photos: this.photos,
         // audio: this.audio,
-        // tags: this.tags,
+        tags: [],
       };
       this.createSymptom(newSymptom);
     },
@@ -270,9 +275,16 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
-          this.entry = this.getLatestSymptom;
-          this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
-          this.currentEntries.push(this.entry);
+          this.$store.dispatch(GET_LAST_SYMPTOM)
+            .then(() => {
+              this.entry = this.getLastUserSymptom;
+              this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
+              this.currentEntries.push(this.entry);
+              console.log(this.entry);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -315,6 +327,15 @@ export default {
           this.entry = this.getUserSymptoms;
           this.entryDetails = true;
           this.entryId = id;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLastSymptom() {
+      this.$store.dispatch(GET_LAST_SYMPTOM)
+        .then(() => {
+          this.entry = this.getLastUserSymptom;
         })
         .catch((err) => {
           console.log(err);
@@ -417,9 +438,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLastUserSymptom', 'getUserSymptomCategories']),
   },
   mounted() {
+    this.figure.gender = this.getUserProfile.gender;
     this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
     this.getAllSymptoms();
     this.getAllSymptomCategories();

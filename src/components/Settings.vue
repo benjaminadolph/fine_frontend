@@ -1,15 +1,14 @@
 <template>
   <div class="settings">
-     <header>
-        <div class="shadow-button" @click="goToDashboard">
-            <IconComponent v-bind:name="'arrow-left'" :size="16" />
-        </div>
-        <div class="center">
-            <h1>Einstellungen</h1>
-            <Time />
-        </div>
-         <div class="right-button">
+    <header class="fine-header">
+      <div class="center">
+          <h1>Einstellungen</h1>
       </div>
+      <router-link to="/">
+        <a class="right-button shadow-button">
+            <IconComponent name="arrow-left" :size=16 />
+        </a>
+      </router-link>
     </header>
     <section class="personal-data">
       <form @submit.prevent="updateUser">
@@ -311,13 +310,11 @@ import {
 } from '@/store/modules/user';
 import { AUTH_LOGOUT } from '@/store/modules/auth';
 import IconComponent from './IconComponent.vue';
-import Time from './Time.vue';
 
 export default {
   name: 'Settings',
   components: {
     IconComponent,
-    Time,
   },
   data() {
     return {
@@ -386,7 +383,7 @@ export default {
       })
         .then(() => {
           this.modulesSelected = this.getModulesSelected;
-          this.$router.go();
+          this.emitter.emit('modulesUpdated');
         })
         .catch((err) => {
           console.log(err);

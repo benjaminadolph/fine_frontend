@@ -1,13 +1,13 @@
 <template>
   <div class="module-entry-layer-details">
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="closeEntryDetails()">
+      <a class="left-button" v-on:click="closeEntryDetails()">
           <IconComponent name="close-full" :size=32 :color="module + '-primary'" />
       </a>
       <div class="center">
           <h1 :class="module + '-primary'">Details</h1>
       </div>
-      <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
+      <a class="right-button" v-on:click="saveEntryDetails()">
           <IconComponent name="check-full" :size=32 :color="module + '-primary'" />
       </a>
     </header>
@@ -88,6 +88,7 @@ export default {
     },
   },
   mounted() {
+    // console.log(this.entry);
     this.tags = this.entry.tags;
     for (let i = 0; i < this.entry.tags.length; i += 1) {
       this.tagList.push({
