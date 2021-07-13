@@ -27,8 +27,9 @@
         />
       </div>
         <panZoom
+          @init="onInit"
           id="figure"
-          :options="{maxZoom: 3, minZoom: 1}"
+          :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
         >
           <Figure :gender="figure.gender" :front=front />
         </panZoom>
@@ -111,6 +112,9 @@ export default {
     };
   },
   methods: {
+    onInit(panzoomInstance) {
+      panzoomInstance.on('touch', () => false);
+    },
     onSelect(option) {
       this.isCategorySelected = true;
       this.category = option.title;
@@ -121,6 +125,7 @@ export default {
       // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
+      console.log(mouseEvent);
       const { target } = mouseEvent;
       const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
 
