@@ -24,6 +24,13 @@
             width: 100%;
         }
 
+        .entry-headline, 
+        .intensity-bar {
+            left: 0;
+            transition: left 1s;
+            position: relative;
+        }
+
         .date {
             color: $FINE_GREY_MEDIUM;
             display: block;
@@ -36,16 +43,28 @@
             line-height: 19px;
         }
 
-        .delete-entry {
+        .edit-icons {
             display: flex;
             right: 0;
             position: absolute;
-            background-color: firebrick;
             width: 0;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             height: 100%;
             transition: width 0.5s;
+
+            .delete-entry, 
+            .edit-entry {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .delete-entry {
+                background-color: firebrick;
+            }
 
             .icon-wrapper {
                 opacity: 0;
@@ -53,9 +72,13 @@
         }
 
         &.show-delete-entry {
-            .delete-entry {
+            .entry-headline, 
+            .intensity-bar {
+                left: -50%;
+            }
+            .edit-icons {
                 display: flex;
-                width: 25%;
+                width: 50%;
 
                 .icon-wrapper {
                     opacity: 1;

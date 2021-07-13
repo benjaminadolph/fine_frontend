@@ -31,8 +31,16 @@
       </a>
     </header>
     <div class="module-entry-content">
-      <SymptomsEntry v-if="currentModule==='symptoms'" ref="symptomsEntry"/>
-      <EmotionsEntry v-if="currentModule==='emotions'" ref="emotionsEntry"/>
+      <SymptomsEntry
+        v-if="currentModule === 'symptoms'"
+        ref="symptomsEntry"
+        :entryid='id'
+      />
+      <EmotionsEntry
+        v-if="currentModule === 'emotions'"
+        ref="emotionsEntry"
+        :entryid='id'
+      />
     </div>
   </div>
 </template>
@@ -58,6 +66,7 @@ export default {
   },
   props: {
     module: String,
+    id: String,
   },
   data() {
     return {
@@ -70,6 +79,7 @@ export default {
   },
   mounted() {
     this.getAllModulesSelected();
+    this.currentModule = this.module;
   },
   methods: {
     getModuleName() {
@@ -86,6 +96,7 @@ export default {
       return moduleName;
     },
     goToLayer(module) {
+      this.$router.push(`/module-entry/${module}`);
       this.currentModule = module;
     },
     closeLayer() {
