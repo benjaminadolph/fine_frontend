@@ -1,39 +1,47 @@
 <template>
-  <div class="lastentry" v-bind:class="module + '-soft-bgcolor'">
-    <header>
-      <p class="plain-m-book">Letzter Eintrag:</p>
-      <img src="@/assets/icons/16-pencil.svg" />
-    </header>
-    <div class="label">
+  <div class="lastentry" v-bind:class="lastEntry.module + '-soft-bgcolor'">
+    <div v-show="isEmpty">
       <p class="plain-m-bold">
-      {{ defaultText === true ? 'Bitte füge einen Eintrag hinzu'
-       : getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
+        Du hast noch keinen Eintrag gemacht.
       </p>
     </div>
-    <Slider :module="module"/>
+    <div v-show="!isEmpty">
+      <IconComponent name="pencil" :size=16 v-on:click="editEntry" class="pencil-icon"/>
+      <p class="plain-m-bold">
+        {{ getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
+      </p>
+      <Slider :module="lastEntry.module"/>
+    </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
 import Slider from '@/components/Slider.vue';
+import IconComponent from '@/components/IconComponent.vue';
 
 export default {
   name: 'LastEntry',
   components: {
     Slider,
+    IconComponent,
   },
   props: {
-    module: String,
     lastEntry: Object,
   },
   data() {
     return {
       defaultText: false,
+      isEmpty: true,
     };
   },
-  mounted() {
-    this.emptyLastEntry();
+  beforeUpdate() {
+    // this.emptyLastEntry();
+    if (Object.keys(this.lastEntry).length > 0) {
+      this.isEmpty = false;
+    } else {
+      this.isEmpty = true;
+    }
   },
   methods: {
     getDate() {
@@ -43,27 +51,16 @@ export default {
       return dayjs(this.lastEntry.date).format('HH:mm');
     },
     getTitle() {
-      // console.log(this.lastEntry);
-      // const { location: { title } } = this.lastEntry;
       let label = '';
-      if (this.module === 'symptoms') {
-        label = `${this.lastEntry.category}
-        |  `;
-      } else if (this.module === 'emotions') {
+      if (this.lastEntry.module === 'symptoms') {
+        label = `${this.lastEntry.category} | ${this.lastEntry.location.title}`;
+      } else if (this.lastEntry.module === 'emotions') {
         label = `${this.lastEntry.emotion}`;
-      }// ${this.lastEntry.location.title}
+      } // ${this.lastEntry.location.title}
       return label;
     },
-    emptyLastEntry() {
-      console.log(this.module);
-      if ((this.module !== 'symptoms' && this.module !== 'emotions')
-      && (this.lastEntry.category === undefined
-      || this.lastEntry.emotion === undefined
-      || this.lastEntry.date === undefined
-      || this.lastEntry.location === undefined)) {
-        this.defaultText = true;
-      } else this.defaultText = false;
-      console.log(`default text is ${this.defaultText}`);
+    editEntry() {
+      this.$router.go(`/${this.lastEntry.module}/${this.lastEntry._id}`);
     },
   },
 };

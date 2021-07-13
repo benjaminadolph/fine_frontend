@@ -12,7 +12,7 @@
       v-bind:name="'smile'" :size="16" v-bind:color="module + '-primary'" />
      </div>
   </div> -->
-  <div v-bind:class="module + '-range-bgcolor'">
+  <div v-bind:class="module + '-range-bgcolor'" class="intensity-slider">
     <input
       type="range"
       v-model="intensity"

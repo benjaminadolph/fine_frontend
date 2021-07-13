@@ -20,14 +20,14 @@ $BASE_FONT_SIZE: 11px;
     font-weight: 700;
     font-size: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);
     letter-spacing: 0.015em;
-    line-height: ceil(2 * $BASE_FONT_SIZE * $SCALE_FACTOR);
+    line-height: 150%;
 }
 
 @mixin plain-m-book {
     font-weight: 400;
     font-size: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);
     letter-spacing: 0.005em;
-    line-height: ceil(2 * $BASE_FONT_SIZE * $SCALE_FACTOR);
+    line-height: 150%;
 }
 
 @mixin plain-s-bold {
@@ -35,7 +35,6 @@ $BASE_FONT_SIZE: 11px;
     font-size: $BASE_FONT_SIZE;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-
 }
 
 @mixin plain-s-book {
@@ -44,7 +43,7 @@ $BASE_FONT_SIZE: 11px;
     // @Jen Niemals aus einem mixin was entfernen, außer du hast es bei den anderen Sachen geprüft, falls ich das nämlich verwendet habe, ist es bei mir auf einmal anders, ohne dass ich es wusste... 
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    line-height: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);
+    line-height: 150%;
 }
 
 h1, .plain-l-medium {

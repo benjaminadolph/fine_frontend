@@ -5,23 +5,16 @@
     padding: 20px;
     width: 100%;
     margin-bottom: 1em;
+    position: relative;
 
-    header {
-        font-size: 13pt;
-        flex-direction: row;
-        display: flex;
-        justify-content: space-between;
+    .intensity-slider {
+        margin-top: 10px;
     }
-    
-    .label {
-        margin: 0;
-        text-align: left;
-        display: flex;
-        flex-direction: row;
 
-        .space {
-           white-space: pre;
-        }
+    .pencil-icon {
+        position: absolute;
+        right: 20px;
+        top: 22px;
     }
     
 }

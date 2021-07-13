@@ -115,6 +115,7 @@ export default {
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
     getTitle(entry) {
+      console.log(entry);
       let titleString = '';
       if (entry.module === 'symptoms') {
         titleString = `${entry.category} | ${entry.location.title}`;
