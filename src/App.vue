@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Navigation v-on:showEntryLayer="showEntry=true"/>
+    <Navigation v-on:showEntryLayer="showEntryLayer"/>
     <router-view />
     <ModuleEntry
       v-if="showEntry"
       module='symptoms'
-      v-on:closeLayer="updateView"
+      v-on:closeLayer="closeEntryLayer"
     />
   </div>
 </template>
@@ -38,9 +38,16 @@ export default {
     }));
   },
   methods: {
-    updateView() {
+    closeEntryLayer() {
       this.showEntry = false;
       this.emitter.emit('updateEntry');
+      const { body } = document;
+      body.classList.remove('noScroll');
+    },
+    showEntryLayer() {
+      this.showEntry = true;
+      const { body } = document;
+      body.classList.add('noScroll');
     },
   },
 };

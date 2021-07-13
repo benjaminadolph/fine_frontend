@@ -383,7 +383,7 @@ export default {
       })
         .then(() => {
           this.modulesSelected = this.getModulesSelected;
-          this.$router.go();
+          this.emitter.emit('modulesUpdated');
         })
         .catch((err) => {
           console.log(err);

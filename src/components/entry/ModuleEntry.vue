@@ -80,6 +80,9 @@ export default {
   mounted() {
     this.getAllModulesSelected();
     this.currentModule = this.module;
+    this.emitter.on('modulesUpdated', () => {
+      this.getAllModulesSelected();
+    });
   },
   methods: {
     getModuleName() {

@@ -9,6 +9,11 @@
 body {
   color: $TEXT_BASE_COLOR;
   background-color: $BACKGROUND_COLOR;
+
+  &.noScroll {
+    position: fixed;
+    overflow: hidden;
+  }
 }
 
 a {

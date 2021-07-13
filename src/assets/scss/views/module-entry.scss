@@ -1,7 +1,7 @@
 @import '../init';
 
 .module-entry-layer {
-    min-height: 100vh;
+    height: 100vh;
     z-index: 10000;
     position: fixed;
     width: 100%;
@@ -9,7 +9,9 @@
     background-color: $BACKGROUND_COLOR;
 
     .module-entry-content {
-        margin: 0 $EDGE_GRID;
+        height: calc(100vh - 161px);
+        overflow-y: scroll;
+        padding: 0 $EDGE_GRID 30px;
     }
 }
 
