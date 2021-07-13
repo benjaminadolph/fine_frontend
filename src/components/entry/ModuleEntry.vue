@@ -26,6 +26,9 @@
           <h1 :class="currentModule + '-primary'">{{ getModuleName() }}</h1>
           <Time />
       </div>
+      <a class="microphone-button">
+          <IconComponent name="microphone" :size=24 :color="currentModule + '-primary'" />
+      </a>
       <a class="right-button" v-on:click="closeLayer">
           <IconComponent name="check-full" :size=32 :color="currentModule + '-primary'" />
       </a>
