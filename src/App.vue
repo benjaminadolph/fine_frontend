@@ -40,7 +40,7 @@ export default {
   methods: {
     updateView() {
       this.showEntry = false;
-      this.emitter.emit('updateCalendar');
+      this.emitter.emit('updateEntry');
     },
   },
 };

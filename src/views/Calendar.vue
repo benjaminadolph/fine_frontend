@@ -361,8 +361,7 @@ export default {
     this.getAllSymptoms();
     this.getAllEmotions();
 
-    this.emitter.on('updateCalendar', () => {
-      console.log('dddd');
+    this.emitter.on('updateEntry', () => {
       this.getAllSymptoms();
       this.getAllEmotions();
     });
