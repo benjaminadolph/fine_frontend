@@ -415,6 +415,9 @@ export default {
           console.log(err);
         });
     },
+    goToDashboard() {
+      this.$router.push({ name: 'Dashboard', params: '/dashboard' });
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="view">
     <header class="fine-header">
-      <div class="center">
+      <div>
           <h1>Dashboard</h1>
       </div>
       <router-link to="/settings">
@@ -52,7 +52,10 @@ export default {
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
-      // console.log(this.modulesSelected);
+      console.log(this.modulesSelected);
+    },
+    goToSettings() {
+      this.$router.push({ name: 'Settings', params: '/settings' });
     },
   },
 };
