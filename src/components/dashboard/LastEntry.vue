@@ -7,10 +7,17 @@
     </div>
     <div v-show="!isEmpty">
       <IconComponent name="pencil" :size=16 v-on:click="editEntry" class="pencil-icon"/>
+      <p class="plain-m-book">
+        Letzter Eintrag:
+      </p>
       <p class="plain-m-bold">
         {{ getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
       </p>
-      <Slider :module="lastEntry.module"/>
+      <Slider
+        :module="lastEntry.module"
+        :intensity="lastEntry.intensity"
+        v-on:updateIntensity="updateEntryIntensity"
+      />
     </div>
   </div>
 </template>
@@ -61,6 +68,9 @@ export default {
     },
     editEntry() {
       this.$router.go(`/${this.lastEntry.module}/${this.lastEntry._id}`);
+    },
+    updateEntryIntensity(intensity) {
+      console.log(intensity);
     },
   },
 };

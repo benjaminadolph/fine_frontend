@@ -4,8 +4,13 @@
     box-shadow: none;
     padding: 20px;
     width: 100%;
+    margin-top: 15px;
     margin-bottom: 1em;
     position: relative;
+
+    .select-entry-wrapper {
+        margin-bottom: 6px;
+    }
 
     .intensity-slider {
         margin-top: 10px;
@@ -15,6 +20,10 @@
         position: absolute;
         right: 20px;
         top: 22px;
+    }
+
+    .plain-m-book {
+        margin-bottom: 5px;
     }
     
 }
