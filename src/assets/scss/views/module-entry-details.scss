@@ -35,14 +35,18 @@
 
     ul.tabs {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         text-align: center;
         padding: 10px;
         position: relative;
 
         li {
-            padding: 10px 40px;
+            width: calc(100% / 3);
+            flex-shrink: 0;
+            padding: 10px;
             border-right: solid 1px $FINE_GREY_MEDIUM;
+            display: flex;
+            justify-content: center;
 
             &:last-child {
                 border-right: 0 none;

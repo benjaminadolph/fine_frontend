@@ -154,6 +154,7 @@ export default {
       });
     },
     setOption(option) {
+      console.log(option);
       if (this.multiselect === true) {
         this.option = option;
         if (this.selectedOptions.includes(option)) {
@@ -163,7 +164,7 @@ export default {
           this.option.isSelected = true;
           this.selectedOptions.push(option);
         }
-        this.$emit('update', this.selectedOptions);
+        this.$emit('updateOption', this.selectedOptions);
       } else {
         this.option.isSelected = false;
         this.option = option;
@@ -174,7 +175,7 @@ export default {
           this.options.splice(this.options.indexOf(option), 1);
           this.options.unshift(option);
         }
-        this.$emit('update', this.option);
+        this.$emit('updateOption', this.option);
       }
       this.searchValue = '';
     },
@@ -255,11 +256,15 @@ export default {
   },
   mounted() {
     this.selectedOptions = this.list;
-    console.log(this.list, this.list.length);
+
+    if (this.list.length > 0) {
+      this.setOption(this.list[0]);
+    }
+  },
+  updated() {
     // this.setOption(this.list[0].title);
     if (this.list.length > 0) {
-      console.log(this.list);
-      this.setOption(this.list[0].title);
+      this.$emit('updateOption', this.list[0]);
     }
   },
 };

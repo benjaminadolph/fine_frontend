@@ -67,7 +67,7 @@ export default {
       return label;
     },
     editEntry() {
-      this.$router.go(`/${this.lastEntry.module}/${this.lastEntry._id}`);
+      this.$router.push(`/module-entry/${this.lastEntry.module}/${this.lastEntry._id}`);
     },
     updateEntryIntensity(intensity) {
       console.log(intensity);

@@ -7,13 +7,11 @@
         <div class="plain-s-bold">
           Wie geht es dir gerade?
         </div>
-        <div class="intensities">
-          <span v-on:click="setIntensity(1, $event)" class="one intensity">1</span>
-          <span v-on:click="setIntensity(2, $event)" class="two intensity">2</span>
-          <span v-on:click="setIntensity(3, $event)" class="three intensity">3</span>
-          <span v-on:click="setIntensity(4, $event)" class="four intensity">4</span>
-          <span v-on:click="setIntensity(5, $event)" class="five intensity">5</span>
-        </div>
+        <Slider
+          module="emotions"
+          :intensity="intensity"
+          v-on:updateIntensity="setIntensity"
+        />
       </div>
       <SelectEntry
         module='emotions'
@@ -36,6 +34,7 @@
 <script>
 import ModuleEntryNotes from '@/components/entry/ModuleEntryNotes.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
+import Slider from '@/components/Slider.vue';
 import { mapGetters } from 'vuex';
 import {
   GET_ALL_EMOTIONS,
@@ -50,6 +49,10 @@ export default {
   components: {
     SelectEntry,
     ModuleEntryNotes,
+    Slider,
+  },
+  props: {
+    entryid: String,
   },
   data() {
     return {
@@ -70,6 +73,9 @@ export default {
   },
   mounted() {
     this.getAllEmotions();
+    if (this.entryid) {
+      this.getEmotion(this.entryid);
+    }
   },
   methods: {
     getAllEmotions() {
@@ -134,19 +140,20 @@ export default {
         emotion_id: id,
       })
         .then(() => {
-          this.emotionEntries = this.getUserEmotions;
+          this.entry = this.getUserEmotions;
+          console.log(this.entry);
+          this.detailsText = this.entry.detailsText;
+          this.intensity = this.entry.intensity;
+          this.date = this.entry.date;
+          this.emotion = this.entry.emotion;
+          this.tags = this.entry.tags;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    setIntensity(intensity, $event) {
+    setIntensity(intensity) {
       this.intensity = intensity;
-      const elems = document.querySelectorAll('.intensity');
-      [].forEach.call(elems, (el) => {
-        el.classList.remove('selected');
-      });
-      $event.target.classList.add('selected');
     },
     addNewTag(option) {
       this.tags.push(option);

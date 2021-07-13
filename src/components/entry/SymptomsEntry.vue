@@ -6,7 +6,7 @@
         :list=symptomCategories
         buttonLabel="Kategorie wählen"
         :multiselect=false
-        v-on:update="onSelect"
+        v-on:updateOption="onSelect"
         v-on:addNewOption="createSymptomCategory"
       />
       <div
@@ -326,7 +326,7 @@ export default {
         .then(() => {
           this.entry = this.getUserSymptoms;
           this.entryDetails = true;
-          this.entryId = id;
+          this.setSymptom(this.entry);
         })
         .catch((err) => {
           console.log(err);
@@ -436,6 +436,9 @@ export default {
         this.deleteSymptom(value._id);
       });
     },
+    setSymptom(symptom) {
+      console.log(symptom);
+    },
   },
   computed: {
     ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLastUserSymptom', 'getUserSymptomCategories']),
@@ -446,6 +449,7 @@ export default {
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];
+    console.log(this.entryid);
     if (this.entryid) {
       this.entry = this.getSymptom(this.entryid);
     }

@@ -4,6 +4,7 @@
       class="module-slider"
       v-touch:swipe.left="nextModule"
       v-touch:swipe.right="prevModule"
+      v-if="!id"
     >
       <li
         v-for="_module in modulesSelected"
@@ -102,20 +103,27 @@ export default {
       return moduleName;
     },
     goToLayer(module) {
-      // this.$emit('changeModuleEntryLayer', module);
       this.currentModule = module;
     },
     closeLayer() {
-      if (this.currentModule === 'emotions') {
-        this.$refs.emotionsEntry.createEmotion();
+      if (this.id) {
+        this.$router.go(-1);
+      } else {
+        if (this.currentModule === 'emotions') {
+          this.$refs.emotionsEntry.createEmotion();
+        }
+        this.$emit('closeLayer');
       }
-      this.$emit('closeLayer');
     },
     cancelEntry() {
-      if (this.currentModule === 'symptoms') {
-        this.$refs.symptomsEntry.deleteCurrentEntries();
+      if (this.id) {
+        this.$router.go(-1);
+      } else {
+        if (this.currentModule === 'symptoms') {
+          this.$refs.symptomsEntry.deleteCurrentEntries();
+        }
+        this.$emit('closeLayer');
       }
-      this.$emit('closeLayer');
     },
     nextModule() {
       let index = this.getModuleIndex(this.currentModule) + 1;
@@ -151,10 +159,6 @@ export default {
     },
     updateModulesSelected() {
       this.modulesSelected = [];
-      const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-      for (let i = 0; i < checkboxes.length; i += 1) {
-        this.modulesSelected.push(checkboxes[i].name);
-      }
       this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
         modulesSelected: this.modulesSelected,
       })
