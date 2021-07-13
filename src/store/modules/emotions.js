@@ -56,8 +56,9 @@ export default ({
     },
     [CREATE_EMOTION_SUCCESS]: (state, resp) => {
       state.status = 'success';
-      state.symptoms.push(resp.data);
+      state.emotions.push(resp.data);
       state.latestEmotion = resp.data;
+      console.log(resp.data);
     },
     [CREATE_EMOTION_ERROR]: (state) => {
       state.status = 'error';
