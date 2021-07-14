@@ -80,7 +80,6 @@ import {
   CREATE_SYMPTOM,
   DELETE_SYMPTOM,
   UPDATE_SYMPTOM,
-  GET_LAST_SYMPTOM,
   GET_SYMPTOM,
 } from '@/store/modules/symptoms';
 import {
@@ -294,15 +293,9 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
-          this.$store.dispatch(GET_LAST_SYMPTOM)
-            .then(() => {
-              this.entry = this.getLastUserSymptom;
-              this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
-              this.currentEntries.push(this.entry);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          this.entry = this.symptoms[this.symptoms.length - 1];
+          this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
+          this.currentEntries.push(this.entry);
         })
         .catch((err) => {
           console.log(err);
@@ -345,15 +338,6 @@ export default {
         .then(() => {
           this.entry = this.getUserSymptoms;
           this.setSymptom(this.entry);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getLastSymptom() {
-      this.$store.dispatch(GET_LAST_SYMPTOM)
-        .then(() => {
-          this.entry = this.getLastUserSymptom;
         })
         .catch((err) => {
           console.log(err);
@@ -431,6 +415,7 @@ export default {
     },
 
     turnaround() {
+      console.log(this.currentEntries);
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
         this.front = false;
@@ -480,7 +465,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLastUserSymptom', 'getUserSymptomCategories']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserSymptomCategories']),
   },
   mounted() {
     this.figure.gender = this.getUserProfile.gender;
