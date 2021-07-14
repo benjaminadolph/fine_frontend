@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
     <div>
-      <header class="fine-header">
+      <header class="fine-header" :class="{ update : entryid }">
         <a class="left-button" v-on:click="cancelAndClose">
             <IconComponent name="close-full" :size=32 color="symptoms-primary" />
         </a>
@@ -44,7 +44,6 @@
         </div>
           <panZoom
             @init="onInit"
-            id="figure"
             :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
           >
             <Figure :gender="figure.gender" :front=front />
@@ -144,7 +143,7 @@ export default {
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+      const figure = document.getElementById('figure');
 
       if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
         this.showIntensityControl = true;
@@ -166,6 +165,7 @@ export default {
 
         if (target.classList.contains('intensity-set')) {
           this.getSymptom(id);
+          this.entryDetails = true;
         } else {
           this.showIntensityControl = true;
           this.addCirclePulsation(this.lastClickedElement);
@@ -189,7 +189,8 @@ export default {
       };
       this.createSymptom(newSymptom);
     },
-    setCircle(element, figure) {
+
+    setCircle(element) {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttributeNS(null, 'cx', element.location.x);
       circle.setAttributeNS(null, 'cy', element.location.y);
@@ -199,7 +200,7 @@ export default {
       circle.setAttributeNS(null, 'style', 'fill: currentColor;');
       circle.setAttributeNS(null, 'id', `circle-${element.location.x}-${element.location.y}`);
       setTimeout(() => {
-        document.getElementById(`653-${figure.gender}-${figure.direction}`).appendChild(circle);
+        document.getElementById('figure').appendChild(circle);
       }, 400);
     },
     removeCircle(element) {
@@ -218,7 +219,8 @@ export default {
       element.setAttributeNS(null, 'r', 10);
       element.setAttributeNS(null, 'style', 'fill: currentColor;');
       element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`).appendChild(element);
+      console.log(document.getElementById('figure'));
+      document.getElementById('figure').appendChild(element);
       this.lastClickedElement = element;
 
       this.createSVG('animate', {
@@ -269,6 +271,7 @@ export default {
       });
       target.appendChild(element);
     },
+
     getAllSymptoms() {
       this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
@@ -341,7 +344,6 @@ export default {
       })
         .then(() => {
           this.entry = this.getUserSymptoms;
-          this.entryDetails = true;
           this.setSymptom(this.entry);
         })
         .catch((err) => {
@@ -357,6 +359,7 @@ export default {
           console.log(err);
         });
     },
+
     getAllSymptomCategories() {
       this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
         .then(() => {
@@ -426,6 +429,7 @@ export default {
           console.log(err);
         });
     },
+
     turnaround() {
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
@@ -447,24 +451,25 @@ export default {
         });
       }
     },
-    deleteCurrentEntries() {
-      Object.values(this.currentEntries).forEach((value) => {
-        this.deleteSymptom(value._id);
-      });
-    },
+
     setSymptom(symptom) {
-      console.log(symptom);
+      this.setCircle(symptom);
     },
+
     cancelAndClose() {
       if (this.entryid) {
         this.$router.go(-1);
       } else {
-        this.deleteCurrentEntries();
+        // delete current set Entries
+        Object.values(this.currentEntries).forEach((value) => {
+          this.deleteSymptom(value._id);
+        });
         this.$emit('close');
       }
     },
     close() {
       if (this.entryid) {
+        this.updateSymptom(this.entry);
         this.$router.go(-1);
       } else {
         this.$emit('close');
@@ -476,13 +481,13 @@ export default {
   },
   mounted() {
     this.figure.gender = this.getUserProfile.gender;
-    this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+    this.figureSvg = document.getElementById('figure');
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];
-    console.log(this.entryid);
+
     if (this.entryid) {
-      this.entry = this.getSymptom(this.entryid);
+      this.getSymptom(this.entryid);
     }
   },
 };
