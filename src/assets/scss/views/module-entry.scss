@@ -27,6 +27,7 @@
 
         &.active {
             background: $FINE_BACKGROUND;
+            z-index: 10;
             box-shadow: 
                 9px 0px 6px -7px #CCC, 
                 -9px 0px 6px -7px #CCC;

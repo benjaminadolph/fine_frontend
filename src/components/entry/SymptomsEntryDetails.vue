@@ -11,6 +11,19 @@
           <IconComponent name="check-full" :size=32 :color="module + '-primary'" />
       </a>
     </header>
+    <div class="set-intensity">
+      <div class="plain-s-book">
+        Auswahl:
+      </div>
+      <div class="plain-s-bold">
+        {{ entry.category }} | {{ entry.location.title }}
+      </div>
+      <Slider
+        module="symptoms"
+        ref="intensitySlider"
+        v-on:updateIntensity="setIntensity"
+      />
+    </div>
     <ModuleEntryNotes
       v-model="entryDetailsText"
     />
@@ -27,6 +40,7 @@
 <script>
 import IconComponent from '@/components/IconComponent.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
+import Slider from '@/components/Slider.vue';
 import ModuleEntryNotes from '@/components/entry/ModuleEntryNotes.vue';
 
 export default {
@@ -35,6 +49,7 @@ export default {
     IconComponent,
     SelectEntry,
     ModuleEntryNotes,
+    Slider,
   },
   props: {
     module: String,
