@@ -132,12 +132,16 @@ export default {
       panzoomInstance.on('touch', () => false);
     },
     onSelect(option) {
-      this.isCategorySelected = true;
-      this.category = option.title;
-      const circles = document.getElementsByClassName('circle');
-      while (circles.length > 0) {
-        circles[0].parentElement.removeChild(circles[0]);
-      }
+      option.forEach((element) => {
+        if (element.isSelected) {
+          this.isCategorySelected = true;
+          this.category = element.title;
+          const circles = document.getElementsByClassName('circle');
+          while (circles.length > 0) {
+            circles[0].parentElement.removeChild(circles[0]);
+          }
+        }
+      });
       // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
@@ -338,7 +342,6 @@ export default {
         .then(() => {
           this.entry = this.getUserSymptoms;
           this.setSymptom(this.entry);
-          console.log(this.entry.date);
         })
         .catch((err) => {
           console.log(err);
@@ -349,10 +352,14 @@ export default {
       this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
         .then(() => {
           for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            let isSelected = false;
+            if (this.entry.category === this.getUserSymptomCategories[i].title) {
+              isSelected = true;
+            }
             this.symptomCategories.push(
               {
                 title: this.getUserSymptomCategories[i].title,
-                isSelected: false,
+                isSelected,
               },
             );
           }
@@ -416,7 +423,6 @@ export default {
     },
 
     turnaround() {
-      console.log(this.currentEntries);
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
         this.front = false;

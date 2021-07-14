@@ -65,3 +65,22 @@
         opacity: 1;
     }
 }
+
+
+@mixin fade-up-down-transition {
+    .fade-up-down-enter-active {
+        transition: all 1s ease;
+    }
+    
+    .fade-up-down-enter-from,
+    .fade-up-down-leave-to {
+        height: 24px;
+        opacity: 0;
+    }
+    
+    .fade-up-down-enter-to,
+    .fade-up-down-leave-from {
+        opacity: 1;
+        height: 100%;
+    }
+}

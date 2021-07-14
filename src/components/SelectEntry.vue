@@ -1,37 +1,39 @@
 <template>
   <div>
     <form v-bind:class="[primaryBorderColor]" class="select-entry-wrapper">
-      <div
-        v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
-        class="select-entry-input plain-m-bold"
-        >
+      <transition name="fade-up-down">
         <div
-          class="add-button"
-          v-show="!isOpen"
-          v-on:click="toggleOpen()"
-          v-bind:class="[primaryBorderColor, primaryBgColor]"
+          v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen ? 'open' : '', primaryColor]"
+          class="select-entry-input plain-m-bold"
           >
-          {{ getButtonLabel() }}
-        </div>
-        <input
-          v-model="searchValue"
-          ref="selectEntryInput"
-          v-show="isOpen"
-          type="text"
-          id="select-entry-title"
-          class="plain-m-bold"
-          v-bind:class="[primaryColor, softBgColor, primaryBorderColor]"
-        />
-        <div v-show="isOpen" class="close-button">
-          <IconComponent
-            v-bind:name="'close-full'"
+          <div
+            class="add-button"
+            v-show="!isOpen"
             v-on:click="toggleOpen()"
-            :size=32
-            v-bind:color="primaryColor"
+            v-bind:class="[primaryBorderColor, primaryBgColor]"
+            >
+            {{ buttonText }}
+          </div>
+          <input
+            v-model="searchValue"
+            ref="selectEntryInput"
+            v-show="isOpen"
+            type="text"
+            id="select-entry-title"
+            class="plain-m-bold"
+            v-bind:class="[primaryColor, softBgColor, primaryBorderColor]"
           />
+          <div v-show="isOpen" class="close-button">
+            <IconComponent
+              v-bind:name="'close-full'"
+              v-on:click="toggleOpen()"
+              :size=32
+              v-bind:color="primaryColor"
+            />
+          </div>
         </div>
-      </div>
-      <transition name="bounce">
+      </transition>
+      <transition name="fade-up-down">
         <div
           v-show="isOpen"
           v-bind:class="[isOpen ? 'open' : '', primaryBorderColor]"
@@ -144,6 +146,7 @@ export default {
       currentValueText: '',
       searchValue: '',
       options: this.list,
+      buttonText: this.buttonLabel,
     };
   },
   methods: {
@@ -154,28 +157,25 @@ export default {
       });
     },
     setOption(option) {
-      if (this.multiselect === true) {
-        this.option = option;
-        if (this.selectedOptions.includes(option)) {
-          this.option.isSelected = false;
+      this.option = option;
+      if (this.selectedOptions.includes(option)) {
+        this.option.isSelected = false;
+        if (this.isMultiselect) {
           this.deselectOption(option);
         } else {
+          this.selectedOptions.forEach((element) => {
+            this.deselectOption(element);
+          });
+          this.option = option;
           this.option.isSelected = true;
-          this.selectedOptions.push(option);
+          this.isOpen = false;
+          this.buttonText = option.title;
         }
-        this.$emit('updateOption', this.selectedOptions);
       } else {
-        this.option.isSelected = false;
-        this.option = option;
         this.option.isSelected = true;
-        this.isOpen = !this.isOpen;
-        // unshift option to top if selected
-        if (this.options.indexOf(option) > 0) {
-          this.options.splice(this.options.indexOf(option), 1);
-          this.options.unshift(option);
-        }
-        this.$emit('updateOption', this.option);
+        this.selectedOptions.push(option);
       }
+      this.$emit('updateOption', this.selectedOptions);
       this.searchValue = '';
     },
     setNewOption(value) {
@@ -188,12 +188,17 @@ export default {
         this.$emit('addNewOption', newOption.title);
         this.options.unshift(newOption);
         this.setOption(newOption);
+        if (!this.isMultiselect) {
+          this.setButtonLabel();
+        }
       }
     },
     deselectOption(option) {
       this.option = option;
       this.option.isSelected = false;
-      this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+      if (this.isMultiselect) {
+        this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+      }
       this.$emit('update', this.selectedOptions);
       // this.$emit('removeOption', option.title);
     },
@@ -206,14 +211,11 @@ export default {
       }
       return iconName;
     },
-    getButtonLabel() {
-      let buttonLabelText = '';
-      if (this.option.title && !this.multiselect) {
-        buttonLabelText = this.option.title;
-      } else {
-        buttonLabelText = this.buttonLabel;
+    setButtonLabel() {
+      this.buttonText = this.buttonLabel;
+      if (this.option[0].title && !this.multiselect && this.option[0].isSelected) {
+        this.buttonText = this.option[0].title;
       }
-      return buttonLabelText;
     },
   },
   computed: {
@@ -255,15 +257,16 @@ export default {
   },
   mounted() {
     this.selectedOptions = this.list;
-
-    if (this.list.length > 0) {
-      this.setOption(this.list[0]);
-    }
   },
   updated() {
-    // this.setOption(this.list[0].title);
-    if (this.list.length > 0) {
-      this.$emit('updateOption', this.list[0]);
+    this.selectedOptions = this.list;
+
+    if (this.selectedOptions.length > 0 && !this.isMultiselect) {
+      this.selectedOptions.forEach((element) => {
+        if (element.isSelected) {
+          this.setOption(element);
+        }
+      });
     }
   },
 };
