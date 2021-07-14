@@ -7,7 +7,7 @@
         </a>
         <div class="headline-text">
             <h1 class="symptoms-primary">Symptome</h1>
-            <Time />
+            <Time v-on:dateUpdated="setTime" :currentDate="entry.date"/>
         </div>
         <a class="microphone-button">
             <IconComponent name="microphone" :size=24 color="symptoms-primary" />
@@ -94,6 +94,7 @@ import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import SymptomsEntryDetails from '@/components/entry/SymptomsEntryDetails.vue';
 import Figure from '@/components/entry/Figure.vue';
+import Time from '@/components/Time.vue';
 
 export default {
   name: 'SymptomsEntry',
@@ -102,6 +103,7 @@ export default {
     IconComponent,
     SymptomsEntryDetails,
     Figure,
+    Time,
   },
   props: {
     entryid: String,
@@ -177,7 +179,7 @@ export default {
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
       const newSymptom = {
-        date: new Date(),
+        date: this.entry.date,
         module: 'symptoms',
         intensity,
         category: this.category,
@@ -219,7 +221,6 @@ export default {
       element.setAttributeNS(null, 'r', 10);
       element.setAttributeNS(null, 'style', 'fill: currentColor;');
       element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      console.log(document.getElementById('figure'));
       document.getElementById('figure').appendChild(element);
       this.lastClickedElement = element;
 
@@ -322,6 +323,7 @@ export default {
     },
     updateSymptom(entry) {
       this.$store.dispatch(UPDATE_SYMPTOM, {
+        date: entry.date,
         symptom_id: entry._id,
         module: entry.module,
         intensity: entry.intensity,
@@ -452,6 +454,9 @@ export default {
       }
     },
 
+    setTime(date) {
+      this.entry.date = date;
+    },
     setSymptom(symptom) {
       this.setCircle(symptom);
     },
@@ -485,6 +490,7 @@ export default {
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];
+    this.entry.date = new Date();
 
     if (this.entryid) {
       this.getSymptom(this.entryid);

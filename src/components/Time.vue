@@ -1,35 +1,53 @@
 <template>
+  <div>
     <div
-    class="time plain-s-book fine-grey-medium"
-    @click="editDateTime">
-      {{dateGerman}} | {{time}}
+      class="time plain-s-book fine-grey-medium"
+      @click="editDateTime">
+        {{dateGerman}} | {{time}}
     </div>
     <div v-if="edit" class="datetimepicker">
-      <input type="date" id="date" v-model="date">
+      <input type="date" id="date" v-model="date" @change="updateDate">
       <span></span>
-      <input type="time" id="time" v-model="time">
+      <input type="time" id="time" v-model="time" @change="updateDate">
     </div>
+  </div>
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 export default {
   name: 'Time',
+  props: {
+    currentDate: {
+      type: Object,
+      default: dayjs(),
+    },
+  },
   data() {
     return {
       date: '',
+      fullDate: '',
       time: '',
       edit: false,
     };
   },
   created() {
+    console.log(this.currentDate);
+    this.fullDate = dayjs(this.currentDate);
+    this.date = dayjs(this.currentDate).format('YYYY-MM-DD');
+    this.time = dayjs(this.currentDate).format('HH:mm');
     this.getDateTime();
   },
   computed: {
     dateGerman() {
-      const dateString = this.date.toString();
-      const dateParts = dateString.split('-');
-      const dateObject = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
-      return dateObject;
+      let dateString = '';
+      if (this.date === dayjs()) {
+        dateString = 'Heute';
+      } else {
+        dateString = dayjs(this.date).format('DD.MM.YYYY');
+      }
+      return dateString;
     },
   },
   methods: {
@@ -37,26 +55,12 @@ export default {
       this.edit = !this.edit;
     },
     getDateTime() {
-      const now = new Date();
-      const year = now.getFullYear();
-      let month = now.getMonth() + 1;
-      let day = now.getDate();
-      let hour = now.getHours();
-      let minute = now.getMinutes();
-      if (month.toString().length === 1) {
-        month = `0${month}`;
-      }
-      if (day.toString().length === 1) {
-        day = `0${day}`;
-      }
-      if (hour.toString().length === 1) {
-        hour = `0${hour}`;
-      }
-      if (minute.toString().length === 1) {
-        minute = `0${minute}`;
-      }
-      this.date = `${year}-${month}-${day}`;
-      this.time = `${hour}:${minute}`;
+      this.date = dayjs(this.fullDate).format('YYYY-MM-DD');
+      this.time = dayjs(this.fullDate).format('HH:mm');
+    },
+    updateDate() {
+      this.fullDate = dayjs(`${this.date}T${this.time}:00`);
+      this.$emit('dateUpdated', this.fullDate);
     },
   },
 };
