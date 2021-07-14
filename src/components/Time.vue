@@ -39,6 +39,11 @@ export default {
     this.time = dayjs(this.currentDate).format('HH:mm');
     this.getDateTime();
   },
+  updated() {
+    this.fullDate = dayjs(this.currentDate);
+    this.date = dayjs(this.currentDate).format('YYYY-MM-DD');
+    this.time = dayjs(this.currentDate).format('HH:mm');
+  },
   computed: {
     dateGerman() {
       let dateString = '';

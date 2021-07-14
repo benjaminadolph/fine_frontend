@@ -338,6 +338,7 @@ export default {
         .then(() => {
           this.entry = this.getUserSymptoms;
           this.setSymptom(this.entry);
+          console.log(this.entry.date);
         })
         .catch((err) => {
           console.log(err);
