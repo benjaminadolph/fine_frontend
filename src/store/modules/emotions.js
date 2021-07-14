@@ -143,7 +143,7 @@ export default ({
     [UPDATE_EMOTION]: async ({ commit, rootState }, req) => {
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
-      commit(UPDATE_SYMPTOM_START);
+      commit(UPDATE_EMOTION_START);
       await axios.patch(`/api/emotions/${emotionid}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_EMOTION_SUCCESS, resp);

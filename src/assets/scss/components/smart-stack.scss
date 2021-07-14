@@ -20,15 +20,6 @@
     }
 } */
 
-body {
-	background: linear-gradient(45deg, #d2f2e2, #c8e9d8);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	font-family: Helvetica;
-}
-
 .cards-box {
 	position: relative;
     width: calc(100% - (2 * #{$EDGE_GRID}));
@@ -38,7 +29,7 @@ body {
 .cards-box .card {
 	width: 100%;
 	/* max-width: 80vw; */
-	background: #f7fffd;
+	background: $FINE_WHITE;
 	cursor: pointer;
 }
 

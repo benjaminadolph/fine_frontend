@@ -348,7 +348,6 @@ export default {
     },
 
     deleteEntry(entry) {
-      console.log(entry);
       if (entry.module === 'symptoms') {
         this.deleteSymptom(entry._id, entry.date);
       } else if (entry.module === 'emotions') {

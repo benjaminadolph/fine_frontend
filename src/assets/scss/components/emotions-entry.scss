@@ -11,17 +11,7 @@
         text-transform: unset;
     }
 
-    .intensities {
-        display: flex;
-        margin: 15px 0;
-        justify-content: space-between;
-
-        .intensity {
-            &.selected {
-                font-weight: bold;
-                color: $EMOTIONS_PRIMARY;
-            }
-        }
+    .intensity-slider {
+        margin-top: 10px;
     }
-
 }

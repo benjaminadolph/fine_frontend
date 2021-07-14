@@ -36,3 +36,5 @@ ul.day-entries {
         width: 100%;
     }
 }
+
+@include fade-transition;

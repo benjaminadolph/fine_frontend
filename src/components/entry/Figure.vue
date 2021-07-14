@@ -1,7 +1,7 @@
 <!-- eslint-disable -->
 <template>
 <svg width="244px" height="647px" viewBox="0 0 244 647" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g v-if="gender === 'female' && front" id="653-female-front" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g v-if="gender === 'female' && front" ref="figure" id="figure" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Kopf" fill-opacity="0.02" fill="#FFFFFF" x="74" y="0" width="97" height="120"></rect>
         <rect id="rechte-Schulter" fill-opacity="0.02" fill="#FFFFFF" x="41" y="120" width="82" height="26"></rect>
         <rect id="rechter-Oberschenkel" fill-opacity="0.02" fill="#FFFFFF" x="67" y="338" width="56" height="136"></rect>
@@ -59,7 +59,7 @@
             <path d="M124.764,261 C124.764,261.341 124.564,261.704 124.131,262.002 C123.699,262.3 123.076,262.5 122.364,262.5 C121.651,262.5 121.028,262.3 120.597,262.002 C120.164,261.704 119.964,261.341 119.964,261 C119.964,260.659 120.164,260.296 120.597,259.997 C121.028,259.7 121.651,259.5 122.364,259.5 C123.076,259.5 123.699,259.7 124.131,259.997 C124.564,260.296 124.764,260.659 124.764,261 Z" id="Path" stroke="#979797" fill="#979797" fill-rule="nonzero"></path>
         </g>
     </g>
-    <g v-if="gender === 'female' && !front" id="653-female-back" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g v-if="gender === 'female' && !front" ref="figure" id="figure" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Kopf-Rückseite" fill-opacity="0.02" fill="#FFFFFF" x="74" y="0" width="97" height="120"></rect>
         <rect id="linke-Schulter-hinten" fill-opacity="0.02" fill="#FFFFFF" x="41" y="120" width="82" height="53"></rect>
         <rect id="linker-Oberschenkel-hinten" fill-opacity="0.02" fill="#FFFFFF" x="67" y="338" width="56" height="136"></rect>
@@ -104,7 +104,7 @@
             </g>
         </g>
     </g>
-    <g v-if="gender === 'male' && !front" id="653-male-back" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g v-if="gender === 'male' && !front" ref="figure" id="figure" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Kopf-Rückseite" fill-opacity="0.02" fill="#FFFFFF" x="105" y="0" width="97" height="120"></rect>
         <rect id="linke-Schulter-hinten" fill-opacity="0.02" fill="#FFFFFF" x="47" y="120" width="107" height="53"></rect>
         <rect id="linker-Oberschenkel-hinten" fill-opacity="0.02" fill="#FFFFFF" x="86" y="376" width="68" height="98"></rect>
@@ -147,7 +147,7 @@
             <path d="M214.964,206.3 C214.964,206.3 215.964,197.6 216.664,193.3 L217.264,189.5 C218.064,183.5 220.764,180.5 220.764,180.5" id="Path" stroke="#979797"></path>
         </g>
     </g>
-    <g v-if="gender === 'male' && front" id="653-male-front" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g v-if="gender === 'male' && front" ref="figure" id="figure" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Kopf" fill-opacity="0.02" fill="#FFFFFF" x="105" y="0" width="97" height="120"></rect>
         <rect id="rechte-Schulter" fill-opacity="0.02" fill="#FFFFFF" x="57" y="120" width="97" height="38"></rect>
         <rect id="rechter-Oberschenkel" fill-opacity="0.02" fill="#FFFFFF" x="91" y="368" width="63" height="106"></rect>

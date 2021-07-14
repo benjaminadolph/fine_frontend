@@ -8,22 +8,10 @@
       />
       <h2 class="" v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
-    <LastEntry :lastEntry="lastEntry" :module="module" />
+    <LastEntry :lastEntry="lastEntry" />
     <SelectEntry
     :module="module"
     :buttonLabel="getButtonLabel()" />
-    <!--
-    Symptome:
-      :list=symptomCategories
-      v-on:addNewOption="createSymptomCategory"
-      :multiselect=false
-      v-on:update="onSelect"
-      v-on:addNewOption="createSymptomCategory"
-    Emotions:
-      :list=emotionList
-      v-on:addNewOption="addNewEmotion"
-      v-on:update="updateEmotionList"
-      :multiselect=true -->
   </div>
 </template>
 
@@ -67,6 +55,15 @@ export default {
       this.getLastEmotion();
     }
     this.setModuleName();
+
+    this.emitter.on('updateEntry', () => {
+      if (this.module === 'symptoms') {
+        this.getLastSymptom();
+      }
+      if (this.module === 'emotions') {
+        this.getLastEmotion();
+      }
+    });
   },
   methods: {
     setModuleName() {

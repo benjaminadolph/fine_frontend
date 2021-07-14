@@ -12,6 +12,7 @@
         align-items: stretch;
         margin: 16px 0;
         position: relative;
+        transition: background-color 1s;
 
         .intensity-bar {
             width: 10px;
@@ -62,28 +63,57 @@
                 align-items: center;
             }
 
-            .delete-entry {
-                background-color: firebrick;
-            }
-
             .icon-wrapper {
                 opacity: 0;
             }
         }
 
         &.show-delete-entry {
+            background-color: $FINE_WHITE;
             .entry-headline, 
             .intensity-bar {
-                left: -50%;
+                left: -$EDGE_GRID;
             }
             .edit-icons {
                 display: flex;
-                width: 50%;
+                width: 120px;
 
                 .icon-wrapper {
                     opacity: 1;
+                }
+
+                .delete-entry {
+                    border-right: solid 1px $FINE_GREY_LIGHT;
                 }
             }
         }
     }
 }
+
+.dayentries-enter-active {
+    transition: all 1s ease;
+}
+ 
+.dayentries-leave-active {
+    transition: all 0.4s ease;
+}
+
+.dayentries-enter-from,
+.dayentries-leave-to {
+    opacity: 0;
+    transform: translateY(-21px);
+}
+
+.dayentries-enter-to,
+.dayentries-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dayentries-move {
+    transition: all 1s ease;
+}
+
+
+
+
