@@ -297,7 +297,6 @@ export default {
               this.entry = this.getLastUserSymptom;
               this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
               this.currentEntries.push(this.entry);
-              console.log(this.entry);
             })
             .catch((err) => {
               console.log(err);

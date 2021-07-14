@@ -81,7 +81,6 @@ export default {
       return intensityClass;
     },
     showDelete(entry) {
-      console.log(entry);
       entry.showDeleteEntry = true; // eslint-disable-line no-param-reassign
     },
     hideDelete(entry) {
@@ -115,7 +114,6 @@ export default {
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
     getTitle(entry) {
-      console.log(entry);
       let titleString = '';
       if (entry.module === 'symptoms') {
         titleString = `${entry.category} | ${entry.location.title}`;
