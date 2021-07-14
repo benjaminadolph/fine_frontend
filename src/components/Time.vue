@@ -1,9 +1,10 @@
 <template>
-  <div class="time-component" @click="editDateTime">
+  <div class="time-component">
     <div
       class="time plain-s-book fine-grey-medium"
-      @click="editDateTime">
-        {{dateGerman}} | {{time}}
+      @click="editDateTime"
+    >
+      {{dateGerman}} | {{time}}
     </div>
     <div v-if="edit" class="datetimepicker">
       <input type="date" id="date" v-model="date" @change="updateDate">
@@ -33,7 +34,6 @@ export default {
     };
   },
   created() {
-    console.log(this.currentDate);
     this.fullDate = dayjs(this.currentDate);
     this.date = dayjs(this.currentDate).format('YYYY-MM-DD');
     this.time = dayjs(this.currentDate).format('HH:mm');
@@ -61,6 +61,9 @@ export default {
     updateDate() {
       this.fullDate = dayjs(`${this.date}T${this.time}:00`);
       this.$emit('dateUpdated', this.fullDate);
+    },
+    closeEdit() {
+      this.edit = false;
     },
   },
 };
