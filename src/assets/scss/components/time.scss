@@ -1,11 +1,18 @@
 @import '../init';
 
+.time-component {
+	position: relative;
+}
+
 .datetimepicker {
 	display: inline-flex;
 	align-items: center;
 	background-color: #fff;
-	border: 4px solid darkturquoise;
+	border: 2px solid $FINE_PRIMARY; 
 	border-radius: 8px;
+	position: absolute;
+    top: 0;
+    font-size: 12px;
 	
 	&:focus-within {
 		border-color: teal;

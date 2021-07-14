@@ -7,7 +7,7 @@
         </a>
         <div class="headline-text">
             <h1 class="symptoms-primary">Symptome</h1>
-            <Time v-on:dateUpdated="setTime" :currentDate="entry.date"/>
+            <Time v-on:dateUpdated="setTime" :currentDate="entry.date" ref="time" />
         </div>
         <a class="microphone-button">
             <IconComponent name="microphone" :size=24 color="symptoms-primary" />
@@ -118,7 +118,6 @@ export default {
       showIntensityControl: false,
       lastClickedElement: false,
       isCategorySelected: false,
-      figureSvg: {},
       location: {},
       symptomCategories: [],
       title: '',
@@ -127,7 +126,6 @@ export default {
         direction: 'front',
       },
       front: true,
-      // selectEntryData: null,
     };
   },
   methods: {
@@ -486,7 +484,6 @@ export default {
   },
   mounted() {
     this.figure.gender = this.getUserProfile.gender;
-    this.figureSvg = document.getElementById('figure');
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];

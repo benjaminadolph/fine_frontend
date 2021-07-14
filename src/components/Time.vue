@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="time-component" @click="editDateTime">
     <div
       class="time plain-s-book fine-grey-medium"
       @click="editDateTime">
