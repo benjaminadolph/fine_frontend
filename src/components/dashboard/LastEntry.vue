@@ -1,66 +1,79 @@
 <template>
-  <div class="lastentry" v-bind:class="module + '-soft-bgcolor'">
-    <header>
-      <p class="plain-m-book">Letzter Eintrag:</p>
-      <img src="@/assets/icons/16-pencil.svg" />
-    </header>
-    <p class="plain-m-bold" id="label">
-      {{ getLastEntryLabel(module) }} |
-      {{ getLastEntryLocation(module) }} |
-      {{ getLastEntryDate(module) }} |
-      {{ getLastEntryTime(module) + 'Uhr' }}
-    </p>
-    <Slider :module="module"/>
+  <div class="lastentry" v-bind:class="`${lastEntry.module}-soft-bgcolor`">
+    <div v-show="isEmpty">
+      <p class="plain-m-bold">
+        Du hast noch keinen Eintrag gemacht.
+      </p>
+    </div>
+    <div v-show="!isEmpty">
+      <IconComponent name="pencil" :size=16 v-on:click="editEntry" class="pencil-icon"/>
+      <p class="plain-m-book">
+        Letzter Eintrag:
+      </p>
+      <p class="plain-m-bold">
+        {{ getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
+        {{ lastEntry.intensity }}
+      </p>
+      <Slider
+        :module="lastEntry.module"
+        ref="intensitySlider"
+        v-on:updateIntensity="updateEntryIntensity"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import Slider from '@/components/Slider.vue';
+import IconComponent from '@/components/IconComponent.vue';
 
 export default {
   name: 'LastEntry',
   components: {
     Slider,
+    IconComponent,
   },
   props: {
-    module: String,
+    lastEntry: Object,
+  },
+  data() {
+    return {
+      defaultText: false,
+      isEmpty: true,
+    };
+  },
+  updated() {
+    // this.emptyLastEntry();
+    if (Object.keys(this.lastEntry).length > 0) {
+      this.isEmpty = false;
+      this.$refs.intensitySlider.setInput(this.lastEntry.intensity);
+    } else {
+      this.isEmpty = true;
+    }
   },
   methods: {
-    getLastEntryLabel(module) {
-      let lastEntryLabel = '';
-      if (module === 'symptoms') {
-        lastEntryLabel = 'Migräne';
-      } else if (module === 'emotions') {
-        lastEntryLabel = 'Wut';
-      }
-      return lastEntryLabel;
+    getDate() {
+      return dayjs(this.lastEntry.date).format('DD.MM.YYYY');
     },
-    getLastEntryLocation(module) {
-      let lastEntryLocation = '';
-      if (module === 'symptoms') {
-        lastEntryLocation = 'Nacken';
-      } else {
-        lastEntryLocation = '';
-      }
-      return lastEntryLocation;
+    getTime() {
+      return dayjs(this.lastEntry.date).format('HH:mm');
     },
-    getLastEntryDate(module) {
-      let lastEntryDate = '';
-      if (module === 'symptoms') {
-        lastEntryDate = '19.05.2020';
-      } else if (module === 'emotions') {
-        lastEntryDate = '28.04.2021';
-      }
-      return lastEntryDate;
+    getTitle() {
+      let label = '';
+      if (this.lastEntry.module === 'symptoms') {
+        label = `${this.lastEntry.category} | ${this.lastEntry.location.title}`;
+      } else if (this.lastEntry.module === 'emotions') {
+        label = `${this.lastEntry.emotion}`;
+      } // ${this.lastEntry.location.title}
+      return label;
     },
-    getLastEntryTime(module) {
-      let lastEntryTime = '';
-      if (module === 'symptoms') {
-        lastEntryTime = '19:15';
-      } else if (module === 'emotions') {
-        lastEntryTime = '15:45';
-      }
-      return lastEntryTime;
+    editEntry() {
+      this.$router.push(`/module-entry/${this.lastEntry.module}/${this.lastEntry._id}`);
+    },
+    updateEntryIntensity(intensity) {
+      this.$emit('updateIntensity', intensity);
+      // console.log(intensity);
     },
   },
 };

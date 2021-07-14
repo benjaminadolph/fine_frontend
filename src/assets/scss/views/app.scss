@@ -9,6 +9,11 @@
 body {
   color: $TEXT_BASE_COLOR;
   background-color: $BACKGROUND_COLOR;
+
+  &.noScroll {
+    position: fixed;
+    overflow: hidden;
+  }
 }
 
 a {
@@ -91,6 +96,10 @@ ul, ol {
   justify-content: space-between;
   align-items: center;
 
+  &.update {
+    padding-top: 30px;
+  }
+
   .headline-text {
     width: 100%;
     padding: 0 20px;
@@ -100,11 +109,32 @@ ul, ol {
     flex-shrink: 0;
     border-radius: 50%;
     background-color: white;
-    @include boxshadow;
+    -webkit-box-shadow: 0px 7px 15px 0px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px 7px 15px 0px rgba(2,45,38,0.1);
+    box-shadow: 0px 7px 15px 0px rgba(2,45,38,0.1);
     width: 32px;
     height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+.module-entry-layer {
+  height: 100vh;
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: $BACKGROUND_COLOR;
+
+  .module-entry-content {
+      height: calc(100vh - 161px);
+      overflow-y: scroll;
+      padding: 0 $EDGE_GRID 30px;
+  }
+
+  .microphone-button {
+      margin-right: 20px;
   }
 }

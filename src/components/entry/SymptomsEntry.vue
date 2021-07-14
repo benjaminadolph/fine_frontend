@@ -1,57 +1,74 @@
 /* eslint-disable */
 <template>
     <div>
-      <SelectEntry
-        module='symptoms'
-        :list=symptomCategories
-        buttonLabel="Kategorie wählen"
-        :multiselect=false
-        v-on:update="onSelect"
-        v-on:addNewOption="createSymptomCategory"
-      />
-      <div
-        id="symptoms-figure-container"
-        v-on:click="openIntensity"
-      >
-      <div
-        v-show="!isCategorySelected"
-        class="symptoms-figure-container-overlay"
-      >
-        <span class="text">Wähle erst eine Kategorie</span>
-      </div>
-      <div class="turn-round-button" v-on:click="turnaround">
-        <IconComponent
-          name="turn"
-          :size="32"
-          color="symptoms-primary"
+      <header class="fine-header" :class="{ update : entryid }">
+        <a class="left-button" v-on:click="cancelAndClose">
+            <IconComponent name="close-full" :size=32 color="symptoms-primary" />
+        </a>
+        <div class="headline-text">
+            <h1 class="symptoms-primary">Symptome</h1>
+            <Time v-on:dateUpdated="setTime" :currentDate="entry.date" ref="time" />
+        </div>
+        <a class="microphone-button">
+            <IconComponent name="microphone" :size=24 color="symptoms-primary" />
+        </a>
+        <a class="right-button" v-on:click="close">
+            <IconComponent name="check-full" :size=32 color="symptoms-primary" />
+        </a>
+      </header>
+      <div class="module-entry-content">
+        <SelectEntry
+          module='symptoms'
+          :list=symptomCategories
+          buttonLabel="Kategorie wählen"
+          :multiselect=false
+          v-on:updateOption="onSelect"
+          v-on:addNewOption="createSymptomCategory"
         />
-      </div>
-        <panZoom
-          id="figure"
-          :options="{maxZoom: 3, minZoom: 1}"
+        <div
+          id="symptoms-figure-container"
+          v-on:click="openIntensity"
         >
-        <Figure gender="female" :front=front />
-        </panZoom>
-        <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
-          <span v-on:click="setIntensity(5)" class="five intensity">5</span>
-          <span v-on:click="setIntensity(4)" class="four intensity">4</span>
-          <span v-on:click="setIntensity(3)" class="three intensity">3</span>
-          <span v-on:click="setIntensity(2)" class="two intensity">2</span>
-          <span v-on:click="setIntensity(1)" class="one intensity">1</span>
+        <div
+          v-show="!isCategorySelected"
+          class="symptoms-figure-container-overlay"
+        >
+          <span class="text">Wähle erst eine Kategorie</span>
+        </div>
+        <div class="turn-round-button" v-on:click="turnaround">
           <IconComponent
-            name="trash"
-            :size=24
-            color="#fff"
-            v-on:click="removeCircle()"
+            name="turn"
+            :size="32"
+            color="symptoms-primary"
           />
         </div>
-      </div>
-      <div v-if="entryDetails" >
-          <SymptomsEntryDetails
-            module="symptoms"
-            :entry="entry"
-            v-on:saveEntryDetails="updateSymptom"
-          />
+          <panZoom
+            @init="onInit"
+            :options="{maxZoom: 3, minZoom: 1, zoomDoubleClickSpeed: 1}"
+          >
+            <Figure :gender="figure.gender" :front=front />
+          </panZoom>
+          <div ref="intensityControl" v-show="showIntensityControl" class="intensity-control">
+            <span v-on:click="setIntensity(5)" class="five intensity">5</span>
+            <span v-on:click="setIntensity(4)" class="four intensity">4</span>
+            <span v-on:click="setIntensity(3)" class="three intensity">3</span>
+            <span v-on:click="setIntensity(2)" class="two intensity">2</span>
+            <span v-on:click="setIntensity(1)" class="one intensity">1</span>
+            <IconComponent
+              name="trash"
+              :size=24
+              color="#fff"
+              v-on:click="removeCircle()"
+            />
+          </div>
+        </div>
+        <div v-if="entryDetails" >
+            <SymptomsEntryDetails
+              module="symptoms"
+              :entry="entry"
+              v-on:saveEntryDetails="updateSymptom"
+            />
+        </div>
       </div>
     </div>
 </template>
@@ -76,6 +93,7 @@ import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import SymptomsEntryDetails from '@/components/entry/SymptomsEntryDetails.vue';
 import Figure from '@/components/entry/Figure.vue';
+import Time from '@/components/Time.vue';
 
 export default {
   name: 'SymptomsEntry',
@@ -84,6 +102,10 @@ export default {
     IconComponent,
     SymptomsEntryDetails,
     Figure,
+    Time,
+  },
+  props: {
+    entryid: String,
   },
   data() {
     return {
@@ -95,31 +117,36 @@ export default {
       showIntensityControl: false,
       lastClickedElement: false,
       isCategorySelected: false,
-      figureSvg: {},
       location: {},
       symptomCategories: [],
       title: '',
       figure: {
-        gender: 'female',
+        gender: String,
         direction: 'front',
       },
       front: true,
-      // selectEntryData: null,
     };
   },
   methods: {
+    onInit(panzoomInstance) {
+      panzoomInstance.on('touch', () => false);
+    },
     onSelect(option) {
-      this.isCategorySelected = true;
-      this.category = option.title;
-      const circles = document.getElementsByClassName('circle');
-      while (circles.length > 0) {
-        circles[0].parentElement.removeChild(circles[0]);
-      }
+      option.forEach((element) => {
+        if (element.isSelected) {
+          this.isCategorySelected = true;
+          this.category = element.title;
+          const circles = document.getElementsByClassName('circle');
+          while (circles.length > 0) {
+            circles[0].parentElement.removeChild(circles[0]);
+          }
+        }
+      });
       // this.setSymptoms(option.title);
     },
     openIntensity(mouseEvent) {
       const { target } = mouseEvent;
-      const figure = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+      const figure = document.getElementById('figure');
 
       if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
         this.showIntensityControl = true;
@@ -141,6 +168,7 @@ export default {
 
         if (target.classList.contains('intensity-set')) {
           this.getSymptom(id);
+          this.entryDetails = true;
         } else {
           this.showIntensityControl = true;
           this.addCirclePulsation(this.lastClickedElement);
@@ -152,19 +180,20 @@ export default {
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
       const newSymptom = {
-        date: new Date(),
+        date: this.entry.date,
         module: 'symptoms',
         intensity,
         category: this.category,
         location: this.location,
-        // detailsText: this.detailsText,
+        detailsText: '',
         // photos: this.photos,
         // audio: this.audio,
-        // tags: this.tags,
+        tags: [],
       };
       this.createSymptom(newSymptom);
     },
-    setCircle(element, figure) {
+
+    setCircle(element) {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttributeNS(null, 'cx', element.location.x);
       circle.setAttributeNS(null, 'cy', element.location.y);
@@ -174,7 +203,7 @@ export default {
       circle.setAttributeNS(null, 'style', 'fill: currentColor;');
       circle.setAttributeNS(null, 'id', `circle-${element.location.x}-${element.location.y}`);
       setTimeout(() => {
-        document.getElementById(`653-${figure.gender}-${figure.direction}`).appendChild(circle);
+        document.getElementById('figure').appendChild(circle);
       }, 400);
     },
     removeCircle(element) {
@@ -193,7 +222,7 @@ export default {
       element.setAttributeNS(null, 'r', 10);
       element.setAttributeNS(null, 'style', 'fill: currentColor;');
       element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`).appendChild(element);
+      document.getElementById('figure').appendChild(element);
       this.lastClickedElement = element;
 
       this.createSVG('animate', {
@@ -244,6 +273,7 @@ export default {
       });
       target.appendChild(element);
     },
+
     getAllSymptoms() {
       this.$store.dispatch(GET_ALL_SYMPTOMS)
         .then(() => {
@@ -267,7 +297,7 @@ export default {
       })
         .then(() => {
           this.symptoms = this.getUserSymptoms;
-          this.entry = this.getLatestSymptom;
+          this.entry = this.symptoms[this.symptoms.length - 1];
           this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
           this.currentEntries.push(this.entry);
         })
@@ -288,6 +318,7 @@ export default {
     },
     updateSymptom(entry) {
       this.$store.dispatch(UPDATE_SYMPTOM, {
+        date: entry.date,
         symptom_id: entry._id,
         module: entry.module,
         intensity: entry.intensity,
@@ -310,21 +341,25 @@ export default {
       })
         .then(() => {
           this.entry = this.getUserSymptoms;
-          this.entryDetails = true;
-          this.entryId = id;
+          this.setSymptom(this.entry);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+
     getAllSymptomCategories() {
       this.$store.dispatch(GET_ALL_SYMPTOMCATEGORIES)
         .then(() => {
           for (let i = 0; i < this.getUserSymptomCategories.length; i += 1) {
+            let isSelected = false;
+            if (this.entry.category === this.getUserSymptomCategories[i].title) {
+              isSelected = true;
+            }
             this.symptomCategories.push(
               {
                 title: this.getUserSymptomCategories[i].title,
-                isSelected: false,
+                isSelected,
               },
             );
           }
@@ -386,6 +421,7 @@ export default {
           console.log(err);
         });
     },
+
     turnaround() {
       if (this.figure.direction === 'front') {
         this.figure.direction = 'back';
@@ -407,20 +443,47 @@ export default {
         });
       }
     },
-    deleteCurrentEntries() {
-      Object.values(this.currentEntries).forEach((value) => {
-        this.deleteSymptom(value._id);
-      });
+
+    setTime(date) {
+      this.entry.date = date;
+    },
+    setSymptom(symptom) {
+      this.setCircle(symptom);
+    },
+
+    cancelAndClose() {
+      if (this.entryid) {
+        this.$router.go(-1);
+      } else {
+        // delete current set Entries
+        Object.values(this.currentEntries).forEach((value) => {
+          this.deleteSymptom(value._id);
+        });
+        this.$emit('close');
+      }
+    },
+    close() {
+      if (this.entryid) {
+        this.updateSymptom(this.entry);
+        this.$router.go(-1);
+      } else {
+        this.$emit('close');
+      }
     },
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getLatestSymptom', 'getUserSymptomCategories']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserSymptomCategories']),
   },
   mounted() {
-    this.figureSvg = document.getElementById(`653-${this.figure.gender}-${this.figure.direction}`);
+    this.figure.gender = this.getUserProfile.gender;
     this.getAllSymptoms();
     this.getAllSymptomCategories();
     this.currentEntries = [];
+    this.entry.date = new Date();
+
+    if (this.entryid) {
+      this.getSymptom(this.entryid);
+    }
   },
 };
 </script>

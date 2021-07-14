@@ -1,31 +1,47 @@
 <template>
   <div class="day-entry">
-    <div
-      class="entry"
-      v-for="entry in entries"
-      :key="entry"
-      :class="getClasses(entry)"
-      :id="entry._id"
-      @touchstart="touchstart"
-    >
-      <div class="intensity-bar" :class="getIntensity(entry)"></div>
-      <div class="entry-headline">
-        <span class="date">{{ getDate(entry.date) }} Uhr</span>
-        <span class="title">
-          {{ getTitle(entry) }}
-        </span>
-      </div>
+    <transition-group name="dayentries" appear>
       <div
-        class="delete-entry"
-        v-on:click="removeEntry(entry, $event)"
+        v-for="entry in entries"
+        :key="entry._id"
+        :id="entry._id"
+        @touchstart="touchstart"
       >
-        <IconComponent
-          name="trash"
-          :size=24
-          color="white"
-        />
+        <div
+          class="entry"
+          :class="getClasses(entry)"
+        >
+          <div class="intensity-bar" :class="getIntensity(entry)"></div>
+          <div class="entry-headline">
+            <span class="date">{{ getDate(entry.date) }} Uhr</span>
+            <span class="title">
+              {{ getTitle(entry) }}
+            </span>
+          </div>
+          <div class="edit-icons">
+            <div
+              class="delete-entry"
+              v-on:click="removeEntry(entry, $event)"
+            >
+              <IconComponent
+                name="trash"
+                :size=24
+                color="fine-signal"
+              />
+            </div>
+            <div
+              class="edit-entry"
+              v-on:click="editEntry(entry, $event)"
+              >
+              <IconComponent
+                name="pencil"
+                :size=24
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -67,7 +83,6 @@ export default {
       return intensityClass;
     },
     showDelete(entry) {
-      console.log(entry);
       entry.showDeleteEntry = true; // eslint-disable-line no-param-reassign
     },
     hideDelete(entry) {
@@ -94,6 +109,10 @@ export default {
     },
     removeEntry(entry, $event) {
       this.$emit('removeEntry', entry);
+      $event.target.closest('.entry').classList.remove('show-delete-entry');
+    },
+    editEntry(entry, $event) {
+      this.$router.push(`/module-entry/${entry.module}/${entry._id}`);
       $event.target.closest('.entry').classList.remove('show-delete-entry');
     },
     getTitle(entry) {

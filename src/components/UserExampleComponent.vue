@@ -1,21 +1,21 @@
 <template>
+  <div>
     <div>
-        <div>
-            <h1>Userddata</h1>
-            {{profile}}
-        </div>
-    <form @submit.prevent="updateUser">
-            <h1>Update User</h1>
-            <input v-model="firstName" type="text" placeholder="first name" >
-            <input v-model="lastName" type="text" placeholder="last name" >
-            <input v-model="gender" type="text" placeholder="gender" >
-            <input v-model="birthDate" type="text" placeholder="birthDate" >
-            <input v-model="email" type="email" placeholder="email" >
-            <input v-model="password" type="password" placeholder="password" >
-            <button type="submit">Update</button>
-        </form>
+        <h1>Userddata</h1>
+        {{profile}}
     </div>
+    <form @submit.prevent="updateUser">
+        <h1>Update User</h1>
+        <input v-model="firstName" type="text" placeholder="first name" >
+        <input v-model="lastName" type="text" placeholder="last name" >
+        <input v-model="gender" type="text" placeholder="gender" >
+        <input v-model="birthDate" type="text" placeholder="birthDate" >
+        <input v-model="email" type="email" placeholder="email" >
+        <input v-model="password" type="password" placeholder="password" >
+        <button type="submit">Update</button>
+    </form>
     <button type="submit" v-on:click="deleteUser">NUTZER LÖSCHEN</button>
+  </div>
 </template>
 
 <script>

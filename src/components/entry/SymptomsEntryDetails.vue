@@ -1,16 +1,29 @@
 <template>
   <div class="module-entry-layer-details">
     <header class="fine-header">
-      <a class="left-button shadow-button" v-on:click="closeEntryDetails()">
+      <a class="left-button" v-on:click="closeEntryDetails()">
           <IconComponent name="close-full" :size=32 :color="module + '-primary'" />
       </a>
       <div class="center">
           <h1 :class="module + '-primary'">Details</h1>
       </div>
-      <a class="right-button shadow-button" v-on:click="saveEntryDetails()">
+      <a class="right-button" v-on:click="saveEntryDetails()">
           <IconComponent name="check-full" :size=32 :color="module + '-primary'" />
       </a>
     </header>
+    <div class="set-intensity">
+      <div class="plain-s-book">
+        Auswahl:
+      </div>
+      <div class="plain-s-bold">
+        {{ entry.category }} | {{ entry.location.title }}
+      </div>
+      <Slider
+        module="symptoms"
+        ref="intensitySlider"
+        v-on:updateIntensity="setIntensity"
+      />
+    </div>
     <ModuleEntryNotes
       v-model="entryDetailsText"
     />
@@ -27,6 +40,7 @@
 <script>
 import IconComponent from '@/components/IconComponent.vue';
 import SelectEntry from '@/components/SelectEntry.vue';
+import Slider from '@/components/Slider.vue';
 import ModuleEntryNotes from '@/components/entry/ModuleEntryNotes.vue';
 
 export default {
@@ -35,6 +49,7 @@ export default {
     IconComponent,
     SelectEntry,
     ModuleEntryNotes,
+    Slider,
   },
   props: {
     module: String,
@@ -88,6 +103,7 @@ export default {
     },
   },
   mounted() {
+    // console.log(this.entry);
     this.tags = this.entry.tags;
     for (let i = 0; i < this.entry.tags.length; i += 1) {
       this.tagList.push({

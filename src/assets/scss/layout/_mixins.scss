@@ -1,13 +1,13 @@
 @mixin boxshadow {
-    -webkit-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
-    -moz-box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
-    box-shadow: 0px 20px 25px 0px rgba(2,45,38,0.1);
+    -webkit-box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
+    box-shadow: 0px 7px 10px 0px rgba(2,45,38,0.1);
 }
 
 @mixin boxshadow-top {
-    -webkit-box-shadow: 0px -20px 25px rgba(2,45,38,0.1);
-    -moz-box-shadow: 0px -20px 25px rgba(2,45,38,0.1);
-    box-shadow: 0px -20px 25px rgba(2, 45, 38, 0.06);
+    -webkit-box-shadow: 0px -7px 10px rgba(2,45,38,0.1);
+    -moz-box-shadow: 0px -7px 10px rgba(2,45,38,0.1);
+    box-shadow: 0px -7px 10px rgba(2, 45, 38, 0.06);
 }
 
 @mixin grayWhiteBlur {
@@ -43,5 +43,44 @@
     &::-moz-focus-inner {
         border: 0;
         padding: 0;
+    }
+}
+
+@mixin fade-transition {
+    .fade-enter-active {
+        transition: all 1s ease;
+    }
+     
+    .fade-leave-active {
+        transition: all 0.4s ease;
+    }
+    
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
+    
+    .fade-enter-to,
+    .fade-leave-from {
+        opacity: 1;
+    }
+}
+
+
+@mixin fade-up-down-transition {
+    .fade-up-down-enter-active {
+        transition: all 1s ease;
+    }
+    
+    .fade-up-down-enter-from,
+    .fade-up-down-leave-to {
+        height: 24px;
+        opacity: 0;
+    }
+    
+    .fade-up-down-enter-to,
+    .fade-up-down-leave-from {
+        opacity: 1;
+        height: 100%;
     }
 }

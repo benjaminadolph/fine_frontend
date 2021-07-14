@@ -14,9 +14,12 @@
         width: 90%;
         justify-content: flex-start;
         margin-bottom: .5em;
+        align-items: center;
 
         h2 {
             margin-left: 0.5em;
+            font-weight: 500;
+            font-size: 22px;
         }
     }
 }

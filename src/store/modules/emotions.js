@@ -56,8 +56,9 @@ export default ({
     },
     [CREATE_EMOTION_SUCCESS]: (state, resp) => {
       state.status = 'success';
-      state.symptoms.push(resp.data);
+      state.emotions.push(resp.data);
       state.latestEmotion = resp.data;
+      console.log(resp.data);
     },
     [CREATE_EMOTION_ERROR]: (state) => {
       state.status = 'error';
@@ -142,7 +143,7 @@ export default ({
     [UPDATE_EMOTION]: async ({ commit, rootState }, req) => {
       const emotionid = req.emotion_id;
       const userid = rootState.user.id;
-      commit(UPDATE_SYMPTOM_START);
+      commit(UPDATE_EMOTION_START);
       await axios.patch(`/api/emotions/${emotionid}`, req, { params: { userid } })
         .then((resp) => {
           commit(UPDATE_EMOTION_SUCCESS, resp);

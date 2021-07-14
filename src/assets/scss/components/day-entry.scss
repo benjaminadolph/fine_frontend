@@ -12,6 +12,7 @@
         align-items: stretch;
         margin: 16px 0;
         position: relative;
+        transition: background-color 1s;
 
         .intensity-bar {
             width: 10px;
@@ -22,6 +23,13 @@
 
         .entry-headline {
             width: 100%;
+        }
+
+        .entry-headline, 
+        .intensity-bar {
+            left: 0;
+            transition: left 1s;
+            position: relative;
         }
 
         .date {
@@ -36,16 +44,24 @@
             line-height: 19px;
         }
 
-        .delete-entry {
+        .edit-icons {
             display: flex;
             right: 0;
             position: absolute;
-            background-color: firebrick;
             width: 0;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             height: 100%;
             transition: width 0.5s;
+
+            .delete-entry, 
+            .edit-entry {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
             .icon-wrapper {
                 opacity: 0;
@@ -53,14 +69,51 @@
         }
 
         &.show-delete-entry {
-            .delete-entry {
+            background-color: $FINE_WHITE;
+            .entry-headline, 
+            .intensity-bar {
+                left: -$EDGE_GRID;
+            }
+            .edit-icons {
                 display: flex;
-                width: 25%;
+                width: 120px;
 
                 .icon-wrapper {
                     opacity: 1;
+                }
+
+                .delete-entry {
+                    border-right: solid 1px $FINE_GREY_LIGHT;
                 }
             }
         }
     }
 }
+
+.dayentries-enter-active {
+    transition: all 1s ease;
+}
+ 
+.dayentries-leave-active {
+    transition: all 0.4s ease;
+}
+
+.dayentries-enter-from,
+.dayentries-leave-to {
+    opacity: 0;
+    transform: translateY(-21px);
+}
+
+.dayentries-enter-to,
+.dayentries-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dayentries-move {
+    transition: all 1s ease;
+}
+
+
+
+

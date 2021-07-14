@@ -1,10 +1,7 @@
 <template>
   <div>
     <header class="fine-header">
-      <a class="left-button shadow-button">
-          <IconComponent name="arrow-left" :size=16 />
-      </a>
-      <div class="center">
+      <div>
           <h1>Kalender</h1>
       </div>
       <a class="right-button shadow-button">
@@ -351,7 +348,6 @@ export default {
     },
 
     deleteEntry(entry) {
-      console.log(entry);
       if (entry.module === 'symptoms') {
         this.deleteSymptom(entry._id, entry.date);
       } else if (entry.module === 'emotions') {
@@ -363,6 +359,11 @@ export default {
   mounted() {
     this.getAllSymptoms();
     this.getAllEmotions();
+
+    this.emitter.on('updateEntry', () => {
+      this.getAllSymptoms();
+      this.getAllEmotions();
+    });
   },
 
 };

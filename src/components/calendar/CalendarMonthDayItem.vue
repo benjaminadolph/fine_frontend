@@ -9,14 +9,15 @@
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
       }]" >
-      <ul class="day-entries">
+
+      <transition-group name="fade" class="day-entries" tag="ul">
         <li
           class="day-entry"
           v-for="entry in entries"
           :key="entry"
           :class="`${entry.module}-bgcolor-intensity-${entry.averageIntensity}`"
         ></li>
-      </ul>
+      </transition-group>
       <span class="date">{{ day.label }}</span>
     </div>
   </div>

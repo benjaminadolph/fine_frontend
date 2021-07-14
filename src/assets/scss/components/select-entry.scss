@@ -74,6 +74,7 @@
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+        margin-bottom: 30px;
     
         li {
             margin-right: 10px;
@@ -89,3 +90,5 @@
         }
     }
 }
+
+@include fade-up-down-transition;
