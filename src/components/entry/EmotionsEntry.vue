@@ -83,6 +83,7 @@ export default {
       intensity: 0,
       tags: [],
       detailsText: '',
+      defaultEmotionsList: [],
       // photos: [],
       // audio: [],
       emotionList: [],
@@ -97,6 +98,7 @@ export default {
     if (this.entryid) {
       this.getEmotion(this.entryid);
     }
+    // this.setDefaultEmotionsList();
   },
   methods: {
     getAllEmotions() {
@@ -234,6 +236,37 @@ export default {
       } else {
         this.$emit('close');
       }
+    },
+    setDefaultEmotionsList() {
+      this.defaultEmotionsList = [
+        {
+          title: 'Freude',
+          isSelected: false,
+        },
+        {
+          title: 'Trauer',
+          isSelected: false,
+        },
+        {
+          title: 'Ärger',
+          isSelected: false,
+        },
+        {
+          title: 'Angst',
+          isSelected: false,
+        },
+        {
+          title: 'Überraschung',
+          isSelected: false,
+        },
+        {
+          title: 'Ekel',
+          isSelected: false,
+        },
+      ];
+      this.defaultEmotionsList.forEach((element) => {
+        this.emotionList.push(element);
+      });
     },
   },
 };

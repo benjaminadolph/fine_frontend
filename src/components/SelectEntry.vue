@@ -158,6 +158,7 @@ export default {
     },
     setOption(option) {
       this.option = option;
+      console.log(this.selectedOptions);
       if (this.selectedOptions.includes(option)) {
         this.option.isSelected = false;
         if (this.isMultiselect) {
