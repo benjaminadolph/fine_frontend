@@ -24,7 +24,7 @@
 import dayjs from 'dayjs';
 
 export default {
-  name: 'SwipeSlider',
+  name: 'MonthYearSlider',
   components: {},
   props: {
     items: Array,
