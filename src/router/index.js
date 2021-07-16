@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/exampleview',
     name: 'ExampleView',
-    component: () => import('../views/ExampleView.vue'),
+    component: () => import('../components/examples/ExampleView.vue'),
     beforeEnter: ifAuthenticated,
   },
   {

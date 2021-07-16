@@ -1,3 +1,4 @@
+<!-- Grundlage: https://css-tricks.com/lets-make-a-vue-powered-monthly-calendar/ -->
 <template>
   <div>
     <header class="fine-header">
@@ -9,7 +10,7 @@
       </a>
     </header>
     <div class="calendar-navigation">
-      <SwipeSlider
+      <MonthYearSlider
         :items="getYears"
         :active=5
         :selectedDate="selectedDate"
@@ -17,7 +18,7 @@
         identifier="year"
         @dateSelected="selectDate"
       />
-      <SwipeSlider
+      <MonthYearSlider
         :items="getMonths"
         :active=month
         :selectedDate="selectedDate"
@@ -52,7 +53,7 @@
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
-import SwipeSlider from '@/components/SwipeSlider.vue';
+import MonthYearSlider from '@/components/calendar/MonthYearSlider.vue';
 import CalendarMonthDayItem from '@/components/calendar/CalendarMonthDayItem.vue';
 import DayEntry from '@/components/calendar/DayEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
@@ -79,7 +80,7 @@ export default {
 
   components: {
     CalendarMonthDayItem,
-    SwipeSlider,
+    MonthYearSlider,
     IconComponent,
     DayEntry,
   },
