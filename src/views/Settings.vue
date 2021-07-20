@@ -1,17 +1,14 @@
 <template>
   <div class="settings">
-     <header>
-        <router-link to="/dashboard">
-        <div class="shadow-button">
-            <IconComponent v-bind:name="'arrow-left'" :size="16" />
-        </div>
-        </router-link>
+     <header class="fine-header">
         <div class="center">
-            <h1>Einstellungen</h1>
-            <Time />
+          <h1>Einstellungen</h1>
         </div>
-         <div class="right-button">
-      </div>
+        <router-link to="/">
+          <a class="right-button shadow-button">
+              <IconComponent v-bind:name="'arrow-left'" :size="16" />
+          </a>
+        </router-link>
     </header>
     <section class="personal-data">
       <form @submit.prevent="updateUser">
@@ -58,30 +55,33 @@
           <!-- @Jen hier würde ich mit v-for über ein array laufen, weil das ja eigtl immer
            das gleiche ist, aber mit anderen Modulnamen -->
           <!-- das array allModules musst du halt noch erstellen in mounted() -->
-         <div class="line" v-for="module in allModules" :key="module._id">
+         <div class="line" v-for="module in allModules" :key="module">
             <IconComponent
               class="icon"
-              v-bind:name="module.label"
+              v-bind:name="module.name"
               :size="24"
-              v-bind:color="module.label + '-primary'"
+              v-bind:color="module.name + '-primary'"
             />
               <!-- // brauchst du auf das p ein id oder reicht eine class??
               habs jetzt mal als class geschrieben,
               damit es nicht kollidiert -->
-              <p v-bind:class="module.label + '-primary'"
+              <p v-bind:class="module.name + '-primary'"
                class="plain-m-bold">{{ module.title }}</p>
-              <label :for="module.label" class="select-modules">
-                <div class="checkbox-border" v-bind:class="module.label + '-primary'">
-                  <div class="checkbox-background" v-bind:class="module.label + '-soft-bgcolor'">
-                      <input type="checkbox" v-model="module.selected" :name="module.label"
+              <label :for="module.name" class="select-modules">
+                <div class="checkbox-border" v-bind:class="module.name + '-primary'">
+                  <div class="checkbox-background" v-bind:class="module.name + '-soft-bgcolor'">
+                      <input type="checkbox" v-model="module.selected" :name="module.name"
                       :id="module.name" class="checkbox-input"
-                       v-bind:class="module.label + '-primary-bgcolor'"
-                      @change="updateModulesSelected" />
+                       v-bind:class="module.name + '-primary-bgcolor'"
+                      @change="updateModulesSelected(module)" />
                       <!-- , emotions, sleep, activity,
                        nutrition, countermeasures -->
                     <!-- // Das icon muss zu den svg icons und ins iconsprite! das geht auch
                     über die zwei farben, indem man das svg richtig abspeichert
-                    :checked="module.name" -->
+                    :checked="module.name"
+                    v-bind:class="[module.selected ? checked : !checked]"
+                    v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen
+                     ? 'open' : '', primaryColor]" -->
                   </div>
                 </div>
               </label>
@@ -99,13 +99,11 @@ import {
 } from '@/store/modules/user';
 import { AUTH_LOGOUT } from '@/store/modules/auth';
 import IconComponent from '../components/IconComponent.vue';
-import Time from '../components/Time.vue';
 
 export default {
   name: 'Settings',
   components: {
     IconComponent,
-    Time,
   },
   data() {
     return {
@@ -117,52 +115,34 @@ export default {
       email: '',
       password: '',
       modulesSelected: [],
-      symptoms: false,
-      sleep: false,
-      emotions: false,
-      activity: false,
-      nutrition: false,
-      countermeasures: false,
       allModules: [
         {
-          id: 0,
           name: 'symptoms',
-          label: 'symptoms',
           title: 'Symptome',
           selected: false,
         },
         {
-          id: 1,
           name: 'sleep',
-          label: 'sleep',
           title: 'Schlaf',
           selected: false,
         },
         {
-          id: 2,
           name: 'emotions',
-          label: 'emotions',
           title: 'Gefühle',
           selected: false,
         },
         {
-          id: 3,
           name: 'activity',
-          label: 'activity',
           title: 'Bewegung',
           selected: false,
         },
         {
-          id: 4,
           name: 'nutrition',
-          label: 'nutrition',
           title: 'Ernährung',
           selected: false,
         },
         {
-          id: 5,
           name: 'countermeasures',
-          label: 'countermeasures',
           title: 'Maßnahmen',
           selected: false,
         },
@@ -175,31 +155,29 @@ export default {
   mounted() {
     this.getAllModulesSelected();
     this.getProfile();
+    this.setModulesTrue(this.modulesSelected, this.allModules);
   },
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
       console.log(this.modulesSelected);
-      for (let i = 0; i < this.modulesSelected.length; i += 1) {
-        if (this.modulesSelected[i] === this.allModules.name) {
-          this.allModules.selected = true;
+    },
+    setModulesTrue(modules, compare) {
+      /* eslint-disable-next-line */
+      const compareModule = modules.map((module) => {
+        for (let i = 0; i < this.allModules.length; i += 1) {
+          if (this.allModules[i].name === module.toLowerCase()) {
+            this.allModules[i].selected = true;
+            console.log(this.allModules[i]);
+          }
         }
-      //   if (this.modulesSelected[i] === 'nutrition') {
-      //     this.nutrition = true;
-      //   }
-      //   if (this.modulesSelected[i] === 'sleep') {
-      //     this.sleep = true;
-      //   }
-      //   if (this.modulesSelected[i] === 'activity') {
-      //     this.activity = true;
-      //   }
-      //   if (this.modulesSelected[i] === 'emotions') {
-      //     this.emotions = true;
-      //   }
-      //   if (this.modulesSelected[i] === 'countermeasures') {
-      //     this.countermeasures = true;
-      //   }
-      }
+        return compare.reduce((obj, val) => {
+          /* eslint-disable-next-line */
+          if (module.toLowerCase() === val.toLowerCase) obj[module];
+          return obj;
+        }, { [module]: true });
+      });
+      return compareModule;
     },
     getProfile() {
       this.profile = this.getUserProfile;
@@ -215,24 +193,18 @@ export default {
       const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < checkboxes.length; i++) {
-        this.modulesSelected.push(checkboxes[i].name);
+        if (this.modulesSelected === checkboxes[i].name) {
+          this.modulesSelected.splice(checkboxes[i].name);
+        } else this.modulesSelected.push(checkboxes[i].name);
       }
-      // if (this.modulesSelected.some((el) => el === checkboxes[i].name)) return;
-      //   this.modulesSelected.push(checkboxes[i].name);
-      // let enabledSettings = [];
-      // checkboxes.forEach((checkbox) => {
-      //   checkbox.addEventListener('change', () => {
-      //     enabledSettings = Array.from(checkboxes).filter((i) => i.checked).map((i) => i.value);
-      //     console.log(enabledSettings);
-      //   });
-      // });
+      this.setModulesTrue(this.modulesSelected, this.allModules);
 
       this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
         modulesSelected: this.modulesSelected,
       })
         .then(() => {
           this.modulesSelected = this.getModulesSelected;
-          this.$router.go();
+          this.emitter.emit('modulesUpdated');
         })
         .catch((err) => {
           console.log(err);
@@ -264,6 +236,9 @@ export default {
           console.log(err);
         });
     },
+    goToDashboard() {
+      this.$router.push({ name: 'Dashboard', params: '/dashboard' });
+    },
     onChange() {
       switch (this.allModules.name) {
         case 'symptoms':
@@ -287,6 +262,9 @@ export default {
         default:
           break;
       }
+    },
+    activate(module) {
+      console.log(module);
     },
   },
 };
