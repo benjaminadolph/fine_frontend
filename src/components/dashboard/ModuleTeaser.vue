@@ -91,6 +91,7 @@ export default {
       }
     },
     getButtonLabel() {
+      this.setModuleName();
       let buttonLabel = `${this.moduleName} hinzufügen`;
       if (this.module === 'sleep') {
         buttonLabel = 'Jetzt schlafen';
