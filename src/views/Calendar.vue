@@ -1,6 +1,6 @@
 <!-- Grundlage: https://css-tricks.com/lets-make-a-vue-powered-monthly-calendar/ -->
 <template>
-  <div>
+  <div class="calendar-view">
     <header class="fine-header">
       <div>
           <h1>Kalender</h1>

@@ -16,6 +16,11 @@ $BASE_FONT_SIZE: 11px;
     font-size: ceil(1.5 * $SCALE_FACTOR * $BASE_FONT_SIZE);
 }
 
+@mixin plain-l-bold {
+    font-weight: 700;
+    font-size: ceil(1.5 * $SCALE_FACTOR * $BASE_FONT_SIZE);
+}
+
 @mixin plain-m-bold {
     font-weight: 700;
     font-size: ceil($BASE_FONT_SIZE * $SCALE_FACTOR);

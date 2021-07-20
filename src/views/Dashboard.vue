@@ -1,5 +1,5 @@
 <template>
-  <div class="view">
+  <div class="dashboard-view">
     <header class="fine-header">
       <div>
           <h1>Dashboard</h1>

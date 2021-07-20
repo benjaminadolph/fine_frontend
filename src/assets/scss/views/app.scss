@@ -71,26 +71,12 @@ ul, ol {
   padding: 0;
 }
 
-#app {
-  margin-bottom: 150px;
-}
-
-//TODO: remove if not necessary anymore
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: $FINE_PRIMARY;
+.center {
+  text-align: center;
 }
 
 .fine-header {
-  margin: 20px $EDGE_GRID;
+  margin: 30px $EDGE_GRID;
   position: relative;
   display: flex;
   justify-content: space-between;

@@ -7,12 +7,16 @@ header {
   z-index: 100;
   left: 0;
   background-color: $BACKGROUND_COLOR;
-  padding: 25px 0 40px;
+  padding: 30px 0 40px;
   margin-top: 0;
 
   .center {
     margin-top: 7px;
   }
+}
+
+.calendar-view {
+  margin-bottom: 150px;
 }
 
 .calendar-navigation {

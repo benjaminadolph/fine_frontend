@@ -1,24 +1,19 @@
 @import '../init';
 
 .view{
-    position: absolute;
     z-index: 101;
-    width: 100vw;
+    position: absolute;
+    width: 100%;
     min-height: 100vh;
-    background-color: #F8F9FB;
+    background-color: $BACKGROUND_COLOR;
     padding: 0 16px 0 16px;
     flex-direction: column;
     display: flex;
     align-content: space-between;
 
-
     .logo{
-        margin: auto;
-        padding-left: 30px;
-        padding-top: 64px;
-        max-width: 300px;
-        width: 250px;
-        
+        margin: 22vh auto;
+        width: 250px; 
     }
 
     .login{

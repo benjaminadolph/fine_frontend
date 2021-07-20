@@ -1,8 +1,9 @@
 @import '../init';
 
-.view {
+.dashboard-view {
     background-color: inherit;
     box-sizing: inherit;
+    margin-bottom: 150px;
 
     header {
         margin: 30px $EDGE_GRID;
