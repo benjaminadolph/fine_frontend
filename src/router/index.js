@@ -40,11 +40,6 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
-  },
-  {
     path: '/calendar',
     name: 'Kalender',
     component: () => import('../views/Calendar.vue'),
@@ -69,12 +64,6 @@ const routes = [
     component: () => import('../components/entry/SymptomsEntryDetails.vue'),
     beforeEnter: ifAuthenticated,
     props: true,
-  },
-  {
-    path: '/exampleview',
-    name: 'ExampleView',
-    component: () => import('../components/examples/ExampleView.vue'),
-    beforeEnter: ifAuthenticated,
   },
   {
     path: '/settings',
