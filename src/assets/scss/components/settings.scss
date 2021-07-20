@@ -38,6 +38,7 @@
         background-color: $FINE_WHITE;
         width: 90%;
         margin: 0 auto 2em;
+        padding-bottom: 2em;
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -48,12 +49,18 @@
             margin-bottom: .5em;
         }
 
+        .select {
+            margin-bottom: .5em;;
+        }
+
         .line {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            margin: 1em 0 1em 0;
+            margin: 1em 0 0 0;
+            padding-bottom: 1em;
+            border-bottom: .5px solid $FINE_GREY_MEDIUM;
 
             .label {
                 color: $FINE_GREY_MEDIUM;
@@ -76,243 +83,54 @@
                 margin-right: 2em;
             }
 
-            #symptoms {
-                color: $SYMPTOMS_PRIMARY;
-            }
-
-            #sleep {
-                color: $SLEEP_PRIMARY;
-            }
-
-            #nutrition {
-                color: $NUTRITION_PRIMARY;
-            }
-
-            #activity {
-                color: $ACTIVITY_PRIMARY;
-            }
-
-            #emotions {
-                color: $EMOTIONS_PRIMARY;
-            }
-
-            #countermeasures {
-                color: $COUNTERMEASURES_PRIMARY;
-            }
-
-            //input[type=checkbox] mit SVG
-
             .select-modules {
-                position: relative;
-
-                .checkbox__input {
-                    position: absolute;
-                    width: 2em;
-                    height: 2em;
-                    opacity: 0;
-                    right: 10%;
-                    cursor: pointer;
-                    z-index: 1;
-                }
-            }
-    
-            .select-modules .checkbox__input:focus:not(:focus-visible) + svg {
-                outline: none;
-            }
-
-            .select-modules {
-                width: 1.5em;
-                height: 1.5em;
-            }
-
-            svg {
-                width: 100%;
-                height: 100%;
-            }
-
-            .select-modules, svg {
                 position: absolute;
                 right: 10%;
-            }
 
-            .checkbox__input + svg {
-                .checkbox__bg_1 {
-                    fill: $SYMPTOMS_SOFT;
-                }
+                 //input[type=checkbox]
 
-                .checkbox__bg_2 {
-                    fill: $SLEEP_SOFT;
-                }
+            .checkbox-border {
+                position: relative;
+                width: 2.2em;
+                height: 2.2em;
+                right: 10%;
+                border-radius: 50%;
+                border: 1.5px solid;
 
-                .checkbox__bg_3 {
-                    fill: $NUTRITION_SOFT;
-                }
+                .checkbox-background {
+                    position: relative;
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 50%;
+                    border: 1px solid transparent;
+                    cursor: pointer;
 
-                .checkbox__bg_4 {
-                    fill: $ACTIVITY_SOFT;
-                }
-
-                .checkbox__bg_5 {
-                    fill: $EMOTIONS_SOFT;
-                }
-
-                .checkbox__bg_6 {
-                    fill: $COUNTERMEASURES_SOFT;
-                }
-
-                .checkbox__unchecked1 {
-                    display: initial;
-                    stroke: $SYMPTOMS_PRIMARY;
-                }
-
-                .checkbox__unchecked2 {
-                    display: initial;
-                    stroke: $SLEEP_PRIMARY;
-                }
-
-                .checkbox__unchecked3 {
-                    display: initial;
-                    stroke: $NUTRITION_PRIMARY;
-                }
-
-                .checkbox__unchecked4 {
-                    display: initial;
-                    stroke: $ACTIVITY_PRIMARY;
-                }
-
-                .checkbox__unchecked5 {
-                    display: initial;
-                    stroke: $EMOTIONS_PRIMARY;
-                }
-
-                .checkbox__unchecked6 {
-                    display: initial;
-                    stroke: $COUNTERMEASURES_PRIMARY;
-                }
-
-                .checkbox__checkmark_1,
-                .checkbox__checkmark_2,
-                .checkbox__checkmark_3,
-                .checkbox__checkmark_4,
-                .checkbox__checkmark_5,
-                .checkbox__checkmark_6 {
-                    display: none;
-                }
-
-                .checkbox__checkmark_outline_1 {
-                    stroke: $SYMPTOMS_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_2 {
-                    stroke: $SLEEP_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_3 {
-                    stroke: $NUTRITION_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_4 {
-                    stroke: $ACTIVITY_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_5 {
-                    stroke: $EMOTIONS_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_6 {
-                    stroke: $COUNTERMEASURES_PRIMARY;
+                    .checkbox-input, input[type=checkbox] {
+                        -webkit-appearance: none;
+                        position: relative;
+                        margin: -3%;
+                        width: 2em;
+                        height: 2em;
+                        border-radius: 50%;
+                        background-color: transparent !important;
+                        cursor: pointer;
+                        z-index: 1;
+                    }
+    
+                    .checkbox-input:checked, input[type=checkbox]:checked {
+                        height: 1em;
+                        width: 1em;
+                        border-radius: 50%;
+                        margin: 22.5% auto;
+                        padding: 0;
+                        position: relative;
+                        background-color: currentColor !important;
+                        z-index: 2;
+                    }
                 }
             }
-
-            .checkbox__input:checked + svg {
-                .checkbox__bg_1 {
-                    fill: $SYMPTOMS_PRIMARY;
-                }
-
-                .checkbox__bg_2 {
-                    fill: $SLEEP_PRIMARY;
-                }
-
-                .checkbox__bg_3 {
-                    fill: $NUTRITION_PRIMARY;
-                }
-
-                .checkbox__bg_4 {
-                    fill: $ACTIVITY_PRIMARY;
-                }
-
-                .checkbox__bg_5 {
-                    fill: $EMOTIONS_PRIMARY;
-                }
-
-                .checkbox__bg_6 {
-                    fill: $COUNTERMEASURES_PRIMARY;
-                }
-
-                .checkbox__unchecked1,
-                .checkbox__unchecked2,
-                .checkbox__unchecked3,
-                .checkbox__unchecked4,
-                .checkbox__unchecked5,
-                .checkbox__unchecked6 {
-                    display: none;
-                }
-
-                .checkbox__checkmark_1 {
-                    display: initial;
-                    stroke: $SYMPTOMS_SOFT; 
-                }
-
-                .checkbox__checkmark_2 {
-                    display: initial;
-                    stroke: $SLEEP_SOFT; 
-                }
-
-                .checkbox__checkmark_3 {
-                    display: initial;
-                    stroke: $NUTRITION_SOFT; 
-                }
-
-                .checkbox__checkmark_4 {
-                    display: initial;
-                    stroke: $ACTIVITY_SOFT; 
-                }
-
-                .checkbox__checkmark_5 {
-                    display: initial;
-                    stroke: $EMOTIONS_SOFT; 
-                }
-
-                .checkbox__checkmark_6 {
-                    display: initial;
-                    stroke: $COUNTERMEASURES_SOFT; 
-                }
-
-                .checkbox__checkmark_outline_1 {
-                    stroke: $SYMPTOMS_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_2 {
-                    stroke: $SLEEP_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_3 {
-                    stroke: $NUTRITION_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_4 {
-                    stroke: $ACTIVITY_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_5 {
-                    stroke: $EMOTIONS_PRIMARY;
-                }
-
-                .checkbox__checkmark_outline_6 {
-                    stroke: $COUNTERMEASURES_PRIMARY;
-                }
             }
-        }
+         }
 
         hr {
             border: .5px solid $FINE_GREY_MEDIUM;
