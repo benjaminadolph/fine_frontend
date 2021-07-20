@@ -90,3 +90,23 @@
         height: 100%;
     }
 }
+
+@mixin slide-toggle-transition {
+    .slide-toggle-enter-active,
+    .slide-toggle-leave-active {
+        transition: all 1s ease-in-out;
+    }
+    
+    .slide-toggle-enter-from,
+    .slide-toggle-leave-to {
+        max-height: 0;
+        overflow:hidden;
+        opacity: 0;
+    }
+    
+    .slide-toggle-enter-to,
+    .slide-toggle-leave-from {
+        opacity: 1;
+        max-height: 1000px;
+    }
+}

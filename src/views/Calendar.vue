@@ -5,11 +5,18 @@
       <div>
           <h1>Kalender</h1>
       </div>
-      <a class="right-button shadow-button">
+      <a class="right-button shadow-button" v-on:click="showFilter = !showFilter">
           <IconComponent name="filter" :size=16 :width=18 />
       </a>
     </header>
     <div class="calendar-navigation">
+      <transition name="slide-toggle">
+        <div class="filter" v-show="showFilter">
+            <ModulesSelected
+              :showAll=false
+            />
+        </div>
+      </transition>
       <MonthYearSlider
         :items="getYears"
         :active=5
@@ -57,6 +64,7 @@ import MonthYearSlider from '@/components/calendar/MonthYearSlider.vue';
 import CalendarMonthDayItem from '@/components/calendar/CalendarMonthDayItem.vue';
 import DayEntry from '@/components/calendar/DayEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
+import ModulesSelected from '@/components/ModulesSelected.vue';
 import { mapGetters } from 'vuex';
 import {
   GET_ALL_SYMPTOMS,
@@ -83,6 +91,7 @@ export default {
     MonthYearSlider,
     IconComponent,
     DayEntry,
+    ModulesSelected,
   },
 
   data() {
@@ -94,6 +103,8 @@ export default {
       symptoms: {},
       emotions: {},
       modulesSelected: [],
+      showFilter: false,
+      filterModules: [],
     };
   },
 
@@ -374,7 +385,6 @@ export default {
     this.emitter.on('updateEntry', () => {
       this.getAllSymptoms();
       this.getAllEmotions();
-      this.getAllModulesSelected();
     });
   },
 

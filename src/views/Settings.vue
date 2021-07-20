@@ -54,9 +54,6 @@
       <section class="modules">
           <h2 class="plain-s-bold">Module auswählen</h2>
           <hr class="select">
-          <!-- @Jen hier würde ich mit v-for über ein array laufen, weil das ja eigtl immer
-           das gleiche ist, aber mit anderen Modulnamen -->
-          <!-- das array allModules musst du halt noch erstellen in mounted() -->
          <div class="line" v-for="module in allModules" :key="module">
             <IconComponent
               class="icon"
@@ -64,9 +61,6 @@
               :size="24"
               v-bind:color="module.name + '-primary'"
             />
-              <!-- // brauchst du auf das p ein id oder reicht eine class??
-              habs jetzt mal als class geschrieben,
-              damit es nicht kollidiert -->
               <p v-bind:class="module.name + '-primary'"
                class="plain-m-bold">{{ module.title }}</p>
               <label :for="module.name" class="select-modules">
@@ -76,14 +70,6 @@
                       :id="module.name" class="checkbox-input"
                        v-bind:class="module.name + '-primary-bgcolor'"
                       @change="updateModulesSelected(module)" />
-                      <!-- , emotions, sleep, activity,
-                       nutrition, countermeasures -->
-                    <!-- // Das icon muss zu den svg icons und ins iconsprite! das geht auch
-                    über die zwei farben, indem man das svg richtig abspeichert
-                    :checked="module.name"
-                    v-bind:class="[module.selected ? checked : !checked]"
-                    v-bind:class="[isOpen ? softBgColor : primaryBgColor, isOpen
-                     ? 'open' : '', primaryColor]" -->
                   </div>
                 </div>
               </label>
@@ -162,7 +148,6 @@ export default {
   methods: {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
-      console.log(this.modulesSelected);
     },
     setModulesTrue(modules, compare) {
       /* eslint-disable-next-line */
@@ -170,7 +155,6 @@ export default {
         for (let i = 0; i < this.allModules.length; i += 1) {
           if (this.allModules[i].name === module.toLowerCase()) {
             this.allModules[i].selected = true;
-            console.log(this.allModules[i]);
           }
         }
         return compare.reduce((obj, val) => {
@@ -247,33 +231,6 @@ export default {
     },
     goToDashboard() {
       this.$router.push({ name: 'Dashboard', params: '/dashboard' });
-    },
-    onChange() {
-      switch (this.allModules.name) {
-        case 'symptoms':
-          this.symptoms = false;
-          break;
-        case 'sleep':
-          this.sleep = false;
-          break;
-        case 'emotions':
-          this.emotions = false;
-          break;
-        case 'activity':
-          this.activity = false;
-          break;
-        case 'nutrition':
-          this.nutrition = false;
-          break;
-        case 'countermeasures':
-          this.countermeasures = false;
-          break;
-        default:
-          break;
-      }
-    },
-    activate(module) {
-      console.log(module);
     },
   },
 };

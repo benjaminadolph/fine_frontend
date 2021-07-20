@@ -98,7 +98,6 @@ export default ({
       await axios.patch(`/api/user/modulesSelected/${id}`, req)
         .then((resp) => {
           commit(UPDATE_USER_MODULESSELECTED_SUCCESS, resp);
-          console.log(resp);
         })
         .catch(() => {
           commit(UPDATE_USER_MODULESSELECTED_ERROR);
@@ -110,7 +109,6 @@ export default ({
       await axios.patch(`/api/user/${id}`, req)
         .then((resp) => {
           commit(UPDATE_USER_SUCCESS, resp);
-          console.log(resp);
         })
         .catch(() => {
           commit(UPDATE_USER_ERROR);

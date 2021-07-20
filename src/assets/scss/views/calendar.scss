@@ -68,3 +68,5 @@ header {
   padding: 0 $EDGE_GRID;
   margin-bottom: 4px;
 }
+
+@include slide-toggle-transition();

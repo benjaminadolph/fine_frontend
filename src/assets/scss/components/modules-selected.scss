@@ -1,0 +1,101 @@
+@import '../init';
+
+.modules-selected {
+    padding: 0 $EDGE_GRID;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 30px;
+
+    h2 {
+        color: $FINE_GREY_MEDIUM;
+        text-align: left;
+        margin-bottom: .5em;
+    }
+
+    .select {
+        margin-bottom: .5em;;
+    }
+
+    .line {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 1em 0 0 0;
+        padding-bottom: 1em;
+        border-bottom: .5px solid $FINE_GREY_MEDIUM;
+        position: relative;
+
+        .label {
+            color: $FINE_GREY_MEDIUM;
+            margin-right: 1em;
+            width: 50%;
+            text-align: left;
+        }
+
+        .entry {
+            display: flex;
+            text-align: left;
+            align-items: flex-start;
+            color: $FINE_GREY_DARK;
+            border: none;
+            cursor: text;
+            width: 100%;
+        }
+
+        .icon {
+            margin-right: 2em;
+        }
+
+        .select-modules {
+            position: absolute;
+            right: 0;
+            
+            .checkbox-border {
+                position: relative;
+                width: 2.2em;
+                height: 2.2em;
+                right: 10%;
+                border-radius: 50%;
+                border: 1.5px solid;
+
+                .checkbox-background {
+                    position: relative;
+                    width: 2em;
+                    height: 2em;
+                    border-radius: 50%;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+
+                    .checkbox-input, input[type=checkbox] {
+                        -webkit-appearance: none;
+                        position: relative;
+                        margin: -3%;
+                        width: 2em;
+                        height: 2em;
+                        border-radius: 50%;
+                        background-color: transparent !important;
+                        cursor: pointer;
+                        z-index: 1;
+                    }
+
+                    .checkbox-input:checked, input[type=checkbox]:checked {
+                        height: 1em;
+                        width: 1em;
+                        border-radius: 50%;
+                        margin: 22.5% auto;
+                        padding: 0;
+                        position: relative;
+                        background-color: currentColor !important;
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+     }
+
+    hr {
+        border: .5px solid $FINE_GREY_MEDIUM;
+    }
+}
