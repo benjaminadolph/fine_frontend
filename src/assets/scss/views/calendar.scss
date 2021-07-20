@@ -27,10 +27,15 @@ header {
   left: 0;
   z-index: 100;
   padding-bottom: 15px;
+  @include boxshadow-bottom;
+
+  .swipe-slider.month {
+    margin-top: 10px;
+  }
 }
 
 .calendar-month {
-  margin-top: 165px;
+  margin-top: 175px;
   position: relative;
   background-color: var(--grey-200);
   border: solid 1px var(--grey-300);

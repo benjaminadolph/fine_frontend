@@ -6,7 +6,7 @@
           <h1>Kalender</h1>
       </div>
       <a class="right-button shadow-button">
-          <IconComponent name="filter" :size=16 />
+          <IconComponent name="filter" :size=16 :width=18 />
       </a>
     </header>
     <div class="calendar-navigation">
@@ -93,11 +93,12 @@ export default {
       showDayEntries: false,
       symptoms: {},
       emotions: {},
+      modulesSelected: [],
     };
   },
 
   computed: {
-    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserEmotions']),
+    ...mapGetters(['getUserProfile', 'getUserSymptoms', 'getUserEmotions', 'getModulesSelected']),
     days() {
       return [
         ...this.previousMonthDays,
@@ -282,18 +283,26 @@ export default {
       }
     },
 
+    getAllModulesSelected() {
+      this.modulesSelected = this.getModulesSelected;
+    },
+
     setDayEntries(date) {
       const dayEntries = [];
-      Object.values(this.symptoms).forEach((value) => {
-        if (dayjs(value.date).format('YYYY-MM-DD') === date) {
-          dayEntries.push(value);
-        }
-      });
-      Object.values(this.emotions).forEach((value) => {
-        if (dayjs(value.date).format('YYYY-MM-DD') === date) {
-          dayEntries.push(value);
-        }
-      });
+      if (this.modulesSelected.includes('symptoms')) {
+        Object.values(this.symptoms).forEach((value) => {
+          if (dayjs(value.date).format('YYYY-MM-DD') === date) {
+            dayEntries.push(value);
+          }
+        });
+      }
+      if (this.modulesSelected.includes('emotions')) {
+        Object.values(this.emotions).forEach((value) => {
+          if (dayjs(value.date).format('YYYY-MM-DD') === date) {
+            dayEntries.push(value);
+          }
+        });
+      }
       return dayEntries;
     },
 
@@ -360,10 +369,12 @@ export default {
   mounted() {
     this.getAllSymptoms();
     this.getAllEmotions();
+    this.getAllModulesSelected();
 
     this.emitter.on('updateEntry', () => {
       this.getAllSymptoms();
       this.getAllEmotions();
+      this.getAllModulesSelected();
     });
   },
 
