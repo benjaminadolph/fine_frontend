@@ -47,7 +47,9 @@
           </div>
         <button id="update" type="submit">Änderungen speichern</button>
         </form>
-        <button id="delete" type="submit" v-on:click="deleteUser">Nutzer löschen</button>
+        <button id="delete" type="submit" v-on:click="deleteUser">Account löschen</button>
+        <p>Du bist eingeloggt als: {{getUserProfile.email}}</p>
+        <button @click="logout" type="button">Logout</button>
       </section>
       <section class="modules">
           <h2 class="plain-s-bold">Module auswählen</h2>
@@ -236,6 +238,13 @@ export default {
           console.log(err);
         });
     },
+    logout() {
+      this.$store.dispatch(AUTH_LOGOUT)
+        .then(() => {
+          this.$router.push('/login');
+          console.log('Logged Out');
+        });
+    },
     goToDashboard() {
       this.$router.push({ name: 'Dashboard', params: '/dashboard' });
     },
@@ -271,5 +280,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/components/settings.scss";
+  @import "@/assets/scss/views/settings.scss";
 </style>
