@@ -1,0 +1,15 @@
+@import '../init';
+
+.statistics-view {
+  .center {
+    color: $FINE_PRIMARY;
+    margin-top: 150px;
+    font-weight: 700;
+  }
+
+  .coming-soon-background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
