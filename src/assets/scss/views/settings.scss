@@ -137,8 +137,8 @@
         }
     }
 
-    button[type=submit] {
+    button {
         margin: .5rem auto;
-        width: 40%;
+        min-width: 90%;
     }
 }

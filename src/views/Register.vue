@@ -1,16 +1,70 @@
 <template>
-  <div class="about">
-    <form @submit.prevent="register">
-        <h1>Please register</h1>
-        <input v-model="firstName" type="text" placeholder="first name" required>
-        <input v-model="lastName" type="text" placeholder="last name" required>
-        <input v-model="gender" type="text" placeholder="gender" required>
-        <input v-model="birthDate" type="text" placeholder="birthDate" required>
-        <input v-model="email" type="email" placeholder="email" required>
-        <input v-model="password" type="password" placeholder="password" required>
-        <button type="submit">Register</button>
-    </form>
+  <div class="view">
+      <div class="logo">
+            <img alt="Logo" src="../assets/images/fineLogo.svg">
+      </div>
+      <form @submit.prevent="register" class="register">
+            <div class="headline">
+                <h1>REGISTRIERUNG</h1>
+                <div class='line'>
+                     <hr class="hr-primary"/>
+                </div>
+            </div>
+            <div class='text'>
+                <p @click="focus">Vorname</p>
+                <input type="vorname" id="firstname" v-model="firstName" required>
+            </div>
+            <div class='line'>
+                <hr style="" />
+            </div>
+            <div class='text'>
+                <p @click="focus">Nachname</p>
+                <input type="nachname" id="lastname" v-model="lastName" required>
+            </div>
+            <div class='line'>
+                <hr/>
+            </div>
+            <div class='text'>
+                <p @click="focus">Geburtstag</p>
+                <input type="date" id="birthday" name="birthday" v-model="birthDate" required>
+            </div>
+            <div class='line'>
+                <hr/>
+            </div>
+             <div id='text-gender'>
+                <p @click="focus">Geschlecht</p>
+                <select id="gender" name="gender" v-model="gender">
+                    <option value="Divers" selected>Divers</option>
+                    <option value="Männlich">Männlich</option>
+                    <option value="Weiblich">Weiblich</option>
+                </select>
+            </div>
+            <div class='line'>
+                <hr/>
+            </div>
+            <div class='text'>
+            <p @click="focus">Email</p>
+            <input type="email" id="email" v-model="email" required>
+            </div>
+            <div class='line'>
+                <hr/>
+            </div>
+            <div class='text'>
+                <p @click="focus">Passwort</p>
+                <input type="password" id="password" v-model="password" required>
+            </div>
+            <div class='line'>
+                <hr/>
+            </div>
+            <button type="submit">Registrierung</button>
+            <div id="login">
+                <router-link to="/login">
+                    Du hast bereits ein Konto?<br />Zum Login
+                </router-link>
+            </div>
+      </form>
   </div>
+
 </template>
 
 <script>

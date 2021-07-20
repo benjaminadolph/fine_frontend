@@ -1,37 +1,169 @@
 @import '../init';
 
-.about {
-    @include boxshadow();
-    display: block;
-    padding: 50px;
-    background-color: $FINE_WHITE;
-    width: 90%;
-    margin: 0 auto;
 
-    form {
-        display: flex;
-        flex-direction: column;
+.view{
+    position: absolute;
+    z-index: 101;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #F8F9FB;
+    padding: 0 16px 0 16px;
+    flex-direction: column;
+    display: flex;
+    align-content: space-between;
 
-        h1 {
-            margin-bottom: .5rem;
-            text-align: center;
+
+    .logo{
+        margin: auto;
+        padding-left: 30px;
+        padding-top: 64px;
+        max-width: 147px;
+        width: 147px;
+        
+    }
+
+    .register{
+        width: 100%;
+
+        .headline{
+            color: $FINE_PRIMARY;
+            font-size: 14px;
+        }
+
+        .text{
+            display: flex;
+            flex-direction: row;
+            color: $FINE_GREY_MEDIUM;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        #text-gender{
+            color: $FINE_GREY_MEDIUM;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        #firstname{
+            padding-left: 30px;
+        }
+
+        #lastname{
+            padding-left: 20px;
+        }
+
+        #birthday{
+            padding-left: 17px;
+        }
+
+        #gender{
+            margin-left: 42px;
+            margin-top: 24px;
+            color: $FINE_GREY_DARK;
+            background-color: $FINE_GREY_LIGHT;
+        }
+
+        #email{
+            padding-left: 51px;
+        }
+
+        #password{
+            padding-left: 31px;
+        }
+
+        .line {
+            width: 100%;
+            background-color: $FINE_PRIMARY;
+        }
+
+
+        h1{
+            font-size: 11px;
+        }
+
+        p{
+            float: left;
+            font-size: 11px;
+            padding-top: 18px;
+        }
+
+        button{
+            margin-top: 24px; 
+            margin-bottom: 24px;
+            border-radius: 40px;
+            width: 100%;
         }
 
         input {
-            padding: 10px;
-            margin: .5rem auto;
-            text-align: left;
+            border: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -ms-appearence: none;
+            -moz-appearance: none;
+            border-radius: 0px;
+            background-color: $BACKGROUND_COLOR;
+            outline: none;
             width: 100%;
-            border: 1px solid $FINE_GREY_DARK;
-            border-radius: $BASE_BORDER_RADIUS;
+            height: 48px;
+            margin-top: 8px;
+            margin-left: 24px;
+            font-size: 16px;
+            color: $FINE_GREY_DARK;
         }
 
-        input:focus {
-            border-color: $FINE_PRIMARY;
-        }
+        .toggle-buttons input[type="radio"] {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            white-space: nowrap;
+            position: absolute;
+            width: 0px;
+            
+          }
 
-        button {
-            margin-top: .5rem;
-        }
+          .toggle-buttons label {
+            float: left;
+            padding-top: 24px;
+            padding-right: 16px;
+            font-size: 14px;
+            color: $FINE_GREY_DARK;
+          }
+           
+          .toggle-buttons input:checked + label {
+            background: $BACKGROUND_COLOR;
+            color: $FINE_PRIMARY;
+            font-weight: bold;
+            box-shadow: none;
+          }
+          
+          input:hover + label,
+          input:focus + label {
+            font-weight: bold;
+            background: $BACKGROUND_COLOR; 
+          }
     }
+
+    hr {
+        height: 1px; 
+        border: 0; 
+        background-color: #979797;
+    }
+
+    .hr-primary {
+        background-color: $FINE_PRIMARY;
+    }
+
+    #login{
+        color: $FINE_GREY_DARK;
+        font-size: 11px;
+        letter-spacing: 2%;
+        text-align: center;
+        margin: 0;
+        padding:0;
+        text-decoration: underline;
+        padding-bottom: 24px;
+    }
+
+    
 }
