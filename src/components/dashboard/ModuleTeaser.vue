@@ -8,7 +8,7 @@
       />
       <h2 class="" v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
-    <LastEntry :lastEntry="lastEntry" />
+    <LastEntry :lastEntry="lastEntry" v-on:updateIntensity="setIntensity"/>
     <SelectEntry
     :module="module"
     :buttonLabel="getButtonLabel()" />
@@ -19,10 +19,13 @@
 import { mapGetters } from 'vuex';
 import {
   GET_LAST_SYMPTOM,
+  UPDATE_SYMPTOM,
 } from '@/store/modules/symptoms';
 import {
   GET_LAST_EMOTION,
+  UPDATE_EMOTION,
 } from '@/store/modules/emotions';
+
 import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import LastEntry from './LastEntry.vue';
@@ -44,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getLastUserSymptom', 'getLastUserEmotion']),
+    ...mapGetters(['getUserProfile', 'getLastUserSymptom', 'getLastUserEmotion', 'getUserSymptoms', 'getUserEmotions']),
   },
   mounted() {
     // console.log(this.module);
@@ -111,6 +114,51 @@ export default {
       this.$store.dispatch(GET_LAST_EMOTION)
         .then(() => {
           this.lastEntry = this.getLastUserEmotion;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    setIntensity(intensity) {
+      if (this.module === 'emotions') {
+        this.updateEmotion(intensity);
+      } else if (this.module === 'symptoms') {
+        this.updateSymptom(intensity);
+      }
+      this.lastEntry.intensity = intensity;
+    },
+    updateEmotion(intensity) {
+      this.$store.dispatch(UPDATE_EMOTION, {
+        emotion_id: this.lastEntry._id,
+        date: this.lastEntry.date,
+        module: 'emotions',
+        intensity,
+        emotion: this.lastEntry.emotion,
+        detailsText: this.lastEntry.detailsText,
+        tags: this.lastEntry.tags,
+        // photos: this.photos,
+        // audio: this.audio,
+      })
+        .then(() => {
+          // this.emotionEntries = this.getUserEmotions;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateSymptom(intensity) {
+      this.$store.dispatch(UPDATE_SYMPTOM, {
+        date: this.lastEntry.date,
+        symptom_id: this.lastEntry._id,
+        module: this.lastEntry.module,
+        intensity,
+        detailsText: this.lastEntry.detailsText,
+        // photos: entry.photos,
+        // audio: entry.audio,
+        tags: this.lastEntry.tags,
+      })
+        .then(() => {
+          // this.symptoms = this.getUserSymptoms;
         })
         .catch((err) => {
           console.log(err);

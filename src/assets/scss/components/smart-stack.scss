@@ -1,29 +1,10 @@
 @import '../init';
 
-/* .component {
-    @include boxshadow();
-    padding: 1em;
-    background-color: white;
-    width: calc(100% - (2 * #{$EDGE_GRID}));
-    margin: $EDGE_GRID auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-
-    header {
-        padding-left: 2em;
-
-        p {
-            text-align: left;
-            margin: 0;
-        }
-    }
-} */
-
 .cards-box {
 	position: relative;
     width: calc(100% - (2 * #{$EDGE_GRID}));
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .cards-box .card {

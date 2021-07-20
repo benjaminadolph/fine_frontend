@@ -13,7 +13,7 @@
         <div class="content-placeholder">
           <img src="@/assets/images/fine_smile.svg" />
           <header>
-            <p class="plain-m-bold">Guten Morgen Eva!</p>
+            <p class="plain-m-bold">Guten Morgen {{ firstName }}!</p>
             <p class="plain-m-book">Wie geht es dir? Trage jetzt deine Gefühlslage ein.</p>
           </header>
         </div>
@@ -22,7 +22,7 @@
          <div class="content-placeholder">
           <img src="@/assets/images/fine_smile.svg" />
           <header>
-            <p class="plain-m-bold">Hallo Eva!</p>
+            <p class="plain-m-bold">Hallo {{ firstName }}!</p>
             <p class="plain-m-book">Wie hast du dein Essen vertragen? Bewerte jetzt!</p>
           </header>
         </div>
@@ -31,7 +31,7 @@
          <div class="content-placeholder">
           <img src="@/assets/images/fine_smile.svg" />
           <header>
-            <p class="plain-m-bold">Gut gemacht Eva!</p>
+            <p class="plain-m-bold">Gut gemacht {{ firstName }}!</p>
             <p class="plain-m-book">Du hast heute 3 Einträge gemacht. Weiter so!</p>
           </header>
         </div>

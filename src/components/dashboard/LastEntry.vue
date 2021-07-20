@@ -12,7 +12,6 @@
       </p>
       <p class="plain-m-bold">
         {{ getTitle() + ' | '  + getDate() + ' | ' + getTime() + ' Uhr' }}
-        {{ lastEntry.intensity }}
       </p>
       <Slider
         :module="lastEntry.module"
@@ -73,7 +72,6 @@ export default {
     },
     updateEntryIntensity(intensity) {
       this.$emit('updateIntensity', intensity);
-      // console.log(intensity);
     },
   },
 };
