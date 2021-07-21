@@ -75,6 +75,4 @@ To generate a sprite run (inside the fine_frontend-Folder)
 For Windows-User please use
 `npm run icons-win`
 
-# Touch Events
-Library: https://github.com/robinrodricks/vue3-touch-events#readme
 

@@ -165,13 +165,12 @@ export default {
         this.showIntensityControl = true;
       } else if (target instanceof SVGCircleElement || target instanceof SVGTextElement) {
         const id = target.getAttribute('_id');
-        console.log(id);
         this.lastClickedElement = target;
 
         if (target instanceof SVGTextElement) {
           this.lastClickedElement = target.previousElementSibling;
         }
-        if (target.classList.contains('intensity-set')) {
+        if (this.lastClickedElement.classList.contains('intensity-set')) {
           this.getSymptom(id);
           this.entryDetails = true;
         } else {
@@ -204,7 +203,6 @@ export default {
     },
 
     setCircle(element) {
-      console.log(element);
       if (!document.getElementById(`circle-${element.location.x}-${element.location.y}`)) {
         const circleContainer = this.createCircle(element.location, element);
 
@@ -486,6 +484,7 @@ export default {
     },
     setSymptom(symptom) {
       this.setCircle(symptom);
+      this.currentEntries.push(symptom);
     },
 
     cancelAndClose() {

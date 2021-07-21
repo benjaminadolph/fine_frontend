@@ -105,7 +105,7 @@ export default {
       this.selectedEntry.intensity = intensity;
     },
   },
-  mounted() {
+  updated() {
     // console.log(this.entry);
     this.tags = this.entry.tags;
     for (let i = 0; i < this.entry.tags.length; i += 1) {
@@ -115,7 +115,9 @@ export default {
       });
     }
     this.selectedEntry = this.entry;
-    this.entryDetailsText = this.entry.detailsText;
+    if (!this.entryDetailsText) {
+      this.entryDetailsText = this.entry.detailsText;
+    }
     this.$refs.intensitySlider.setInput(this.entry.intensity);
   },
 };
