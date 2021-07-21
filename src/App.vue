@@ -1,7 +1,9 @@
 <template>
   <div>
     <Navigation v-on:showEntryLayer="showEntryLayer"/>
-    <router-view />
+    <transition name="fade" appear>
+      <router-view />
+    </transition>
     <ModuleEntry
       v-if="showEntry"
       module='symptoms'
