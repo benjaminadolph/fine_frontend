@@ -118,7 +118,8 @@ export default {
     getTitle(entry) {
       let titleString = '';
       if (entry.module === 'symptoms') {
-        titleString = `${entry.category} | ${entry.location.title}`;
+        const location = entry.location.title.replace('-', ' ');
+        titleString = `${entry.category} | ${location}`;
       } else if (entry.module === 'emotions') {
         titleString = entry.emotion.join(' | ');
       }
