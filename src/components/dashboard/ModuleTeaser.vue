@@ -9,9 +9,9 @@
       <h2 class="" v-bind:class="module + '-primary'">{{ moduleName }}</h2>
     </header>
     <LastEntry :lastEntry="lastEntry" v-on:updateIntensity="setIntensity"/>
-    <SelectEntry
+    <!-- <SelectEntry
     :module="module"
-    :buttonLabel="getButtonLabel()" />
+    :buttonLabel="getButtonLabel()" /> -->
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import {
   UPDATE_EMOTION,
 } from '@/store/modules/emotions';
 
-import SelectEntry from '@/components/SelectEntry.vue';
+// import SelectEntry from '@/components/SelectEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import LastEntry from './LastEntry.vue';
 
@@ -34,7 +34,7 @@ export default {
   name: 'ModuleTeaser',
   components: {
     LastEntry,
-    SelectEntry,
+    // SelectEntry,
     IconComponent,
   },
   props: {

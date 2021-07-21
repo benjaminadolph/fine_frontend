@@ -81,7 +81,7 @@ export default {
       this.$parent.entryDetails = false;
     },
     saveEntryDetails() {
-      this.selectedEntry = this.entry;
+      console.log(this.selectedEntry);
       this.selectedEntry.detailsText = this.entryDetailsText;
       this.selectedEntry.tags = this.tags;
       this.$emit('saveEntryDetails', this.selectedEntry);
@@ -101,6 +101,9 @@ export default {
         _this.tags.push(tag.title);
       });
     },
+    setIntensity(intensity) {
+      this.selectedEntry.intensity = intensity;
+    },
   },
   mounted() {
     // console.log(this.entry);
@@ -111,7 +114,9 @@ export default {
         isSelected: true,
       });
     }
+    this.selectedEntry = this.entry;
     this.entryDetailsText = this.entry.detailsText;
+    this.$refs.intensitySlider.setInput(this.entry.intensity);
   },
 };
 </script>

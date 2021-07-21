@@ -148,8 +148,8 @@ export default {
       const { target } = mouseEvent;
       const figure = document.getElementById('figure');
 
-      if (target.id && target !== figure && target instanceof SVGCircleElement === false) {
-        this.showIntensityControl = true;
+      // eslint-disable-next-line
+      if (target.id && target !== figure && (target instanceof SVGPathElement || target instanceof SVGRectElement)) {
         const figureRect = figure.getBoundingClientRect();
 
         const relativeX = mouseEvent.clientX - figureRect.left;
@@ -162,10 +162,15 @@ export default {
           front: this.front, x, y, title: target.id,
         };
         this.addCirclePulsation(this.location);
-      } else if (target instanceof SVGCircleElement) {
-        this.lastClickedElement = target;
+        this.showIntensityControl = true;
+      } else if (target instanceof SVGCircleElement || target instanceof SVGTextElement) {
         const id = target.getAttribute('_id');
+        console.log(id);
+        this.lastClickedElement = target;
 
+        if (target instanceof SVGTextElement) {
+          this.lastClickedElement = target.previousElementSibling;
+        }
         if (target.classList.contains('intensity-set')) {
           this.getSymptom(id);
           this.entryDetails = true;
@@ -179,32 +184,34 @@ export default {
       this.lastClickedElement.setAttributeNS(null, 'class', `circle color-${intensity} intensity-set`);
       this.showIntensityControl = false;
       this.removeCirclePulsation(this.lastClickedElement);
+      const cx = this.lastClickedElement.getAttribute('cx');
+      const cy = this.lastClickedElement.getAttribute('cy');
+      document.getElementById(`${cx}-${cy}-text`).textContent = intensity;
+      document.getElementById(`${cx}-${cy}-text`).setAttributeNS(null, 'class', 'text-circle intensity-set');
+
       const newSymptom = {
         date: this.entry.date,
         module: 'symptoms',
         intensity,
         category: this.category,
         location: this.location,
-        detailsText: '',
+        detailsText: this.entry.detailsText,
         // photos: this.photos,
         // audio: this.audio,
-        tags: [],
+        tags: this.entry.tags,
       };
       this.createSymptom(newSymptom);
     },
 
     setCircle(element) {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttributeNS(null, 'cx', element.location.x);
-      circle.setAttributeNS(null, 'cy', element.location.y);
-      circle.setAttributeNS(null, 'class', `circle color-${element.intensity} intensity-set`);
-      circle.setAttributeNS(null, 'r', 10);
-      circle.setAttributeNS(null, '_id', element._id);
-      circle.setAttributeNS(null, 'style', 'fill: currentColor;');
-      circle.setAttributeNS(null, 'id', `circle-${element.location.x}-${element.location.y}`);
-      setTimeout(() => {
-        document.getElementById('figure').appendChild(circle);
-      }, 400);
+      console.log(element);
+      if (!document.getElementById(`circle-${element.location.x}-${element.location.y}`)) {
+        const circleContainer = this.createCircle(element.location, element);
+
+        setTimeout(() => {
+          document.getElementById('figure').appendChild(circleContainer);
+        }, 300);
+      }
     },
     removeCircle(element) {
       if (!element) {
@@ -214,16 +221,43 @@ export default {
       }
       this.showIntensityControl = false;
     },
+    createCircle(location, element) {
+      const circleContainer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      circleContainer.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
+      circleContainer.setAttributeNS(null, 'width', '20px');
+      circleContainer.setAttributeNS(null, 'height', '20px');
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttributeNS(null, 'cx', location.x);
+      circle.setAttributeNS(null, 'cy', location.y);
+      circle.setAttributeNS(null, 'class', 'circle');
+      circle.setAttributeNS(null, 'r', 15);
+      circle.setAttributeNS(null, 'style', 'fill: currentColor;');
+      circle.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
+      this.lastClickedElement = circle;
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttributeNS(null, 'x', location.x);
+      text.setAttributeNS(null, 'y', location.y + 5);
+      text.setAttributeNS(null, 'text-anchor', 'middle');
+      text.setAttributeNS(null, 'fill', 'white');
+      text.setAttributeNS(null, 'class', 'text-circle');
+      text.setAttributeNS(null, 'id', `${location.x}-${location.y}-text`);
+
+      if (element) {
+        circle.setAttributeNS(null, 'class', `circle color-${element.intensity} intensity-set`);
+        circle.setAttributeNS(null, '_id', element._id);
+        text.setAttributeNS(null, '_id', element._id);
+        text.textContent = element.intensity;
+      }
+
+      circleContainer.appendChild(circle);
+      circleContainer.appendChild(text);
+      return circleContainer;
+    },
     addCirclePulsation(location) {
-      const element = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      element.setAttributeNS(null, 'cx', location.x);
-      element.setAttributeNS(null, 'cy', location.y);
-      element.setAttributeNS(null, 'class', 'circle');
-      element.setAttributeNS(null, 'r', 10);
-      element.setAttributeNS(null, 'style', 'fill: currentColor;');
-      element.setAttributeNS(null, 'id', `circle-${location.x}-${location.y}`);
-      document.getElementById('figure').appendChild(element);
-      this.lastClickedElement = element;
+      const circleContainer = this.createCircle(location);
+      document.getElementById('figure').appendChild(circleContainer);
 
       this.createSVG('animate', {
         attributeType: 'SVG',
@@ -234,7 +268,7 @@ export default {
         from: '2%',
         to: '6%',
         class: 'circle-pulsation-animation',
-      }, element);
+      }, this.lastClickedElement);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -245,7 +279,7 @@ export default {
         from: '3%',
         to: '0%',
         class: 'circle-pulsation-animation',
-      }, element);
+      }, this.lastClickedElement);
 
       this.createSVG('animate', {
         attributeType: 'CSS',
@@ -256,7 +290,7 @@ export default {
         from: '1',
         to: '0',
         class: 'circle-pulsation-animation',
-      }, element);
+      }, this.lastClickedElement);
     },
     removeCirclePulsation(target) {
       const animationElements = target.children;
@@ -299,6 +333,7 @@ export default {
           this.symptoms = this.getUserSymptoms;
           this.entry = this.symptoms[this.symptoms.length - 1];
           this.lastClickedElement.setAttributeNS(null, '_id', this.entry._id);
+          this.lastClickedElement.nextElementSibling.setAttributeNS(null, '_id', this.entry._id);
           this.currentEntries.push(this.entry);
         })
         .catch((err) => {
@@ -330,6 +365,8 @@ export default {
         .then(() => {
           this.symptoms = this.getUserSymptoms;
           this.entryDetails = false;
+          this.lastClickedElement.setAttributeNS(null, 'class', `circle color-${entry.intensity} intensity-set`);
+          this.lastClickedElement.nextElementSibling.textContent = entry.intensity;
         })
         .catch((err) => {
           console.log(err);
