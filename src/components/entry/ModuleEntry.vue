@@ -1,37 +1,39 @@
 <template>
-  <div class="module-entry-layer">
-    <ul
-      class="module-slider"
-      v-touch:swipe.left="nextModule"
-      v-touch:swipe.right="prevModule"
-      v-if="!id"
-    >
-      <li
-        v-for="_module in modulesSelected"
-        :key="_module"
-        :class="{ 'active': !isNotActive(_module)}"
-        v-on:click="goToLayer(_module)">
-        <IconComponent
-          :name="_module"
-          :size="getSize(_module)"
-          :color="_module + '-primary'"
-          :class="{ 'not-active': isNotActive(_module)}"
-        />
-      </li>
-    </ul>
-    <SymptomsEntry
-      v-if="currentModule === 'symptoms'"
-      ref="symptomsEntry"
-      :entryid='id'
-      v-on:close="closeLayer"
-    />
-    <EmotionsEntry
-      v-if="currentModule === 'emotions'"
-      ref="emotionsEntry"
-      :entryid='id'
-      v-on:close="closeLayer"
-    />
-  </div>
+  <transition name="slide-bottom" appear>
+    <div class="module-entry-layer">
+      <ul
+        class="module-slider"
+        v-touch:swipe.left="nextModule"
+        v-touch:swipe.right="prevModule"
+        v-if="!id"
+      >
+        <li
+          v-for="_module in modulesSelected"
+          :key="_module"
+          :class="{ 'active': !isNotActive(_module)}"
+          v-on:click="goToLayer(_module)">
+          <IconComponent
+            :name="_module"
+            :size="getSize(_module)"
+            :color="_module + '-primary'"
+            :class="{ 'not-active': isNotActive(_module)}"
+          />
+        </li>
+      </ul>
+      <SymptomsEntry
+        v-if="currentModule === 'symptoms'"
+        ref="symptomsEntry"
+        :entryid='id'
+        v-on:close="closeLayer"
+      />
+      <EmotionsEntry
+        v-if="currentModule === 'emotions'"
+        ref="emotionsEntry"
+        :entryid='id'
+        v-on:close="closeLayer"
+      />
+    </div>
+  </transition>
 </template>
 
 <script>

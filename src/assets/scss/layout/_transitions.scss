@@ -57,18 +57,38 @@
 // slide in
 .slide-in-enter-active,
 .slide-in-leave-active {
-    transition: all 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .slide-in-enter-from,
 .slide-in-leave-to {
-    width: 0;
+    left: 100vw;
     overflow:hidden;
-    opacity: 0;
+    position: absolute;
+    width: 100%;
 }
 
 .slide-in-enter-to,
 .slide-in-leave-from {
-    opacity: 1;
+    left: 0;
+    overflow:hidden;
+    position: absolute;
     width: 100%;
+}
+
+// slide bottom
+.slide-bottom-enter-active,
+.slide-bottom-leave-active {
+    transition: all 1s ease-in-out;
+}
+
+.slide-bottom-enter-from,
+.slide-bottom-leave-to {
+    top: 100vh;
+    overflow:hidden;
+}
+
+.slide-bottom-enter-to,
+.slide-bottom-leave-from {
+    top: 0;
 }
