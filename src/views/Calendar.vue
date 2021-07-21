@@ -12,9 +12,7 @@
     <div class="calendar-navigation">
       <transition name="slide-toggle">
         <div class="filter" v-show="showFilter">
-            <ModulesSelected
-              :showAll=false
-            />
+            <ModulesSelected :showAll=false />
         </div>
       </transition>
       <MonthYearSlider

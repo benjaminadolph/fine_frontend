@@ -122,5 +122,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/views/module-entry-details.scss";
+  @import "@/assets/scss/components/module-entry-details.scss";
 </style>

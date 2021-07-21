@@ -51,30 +51,7 @@
         <p>Du bist eingeloggt als: {{getUserProfile.email}}</p>
         <button @click="logout" type="button">Logout</button>
       </section>
-      <section class="modules">
-          <h2 class="plain-s-bold">Module auswählen</h2>
-          <hr class="select">
-         <div class="line" v-for="module in allModules" :key="module">
-            <IconComponent
-              class="icon"
-              v-bind:name="module.name"
-              :size="24"
-              v-bind:color="module.name + '-primary'"
-            />
-              <p v-bind:class="module.name + '-primary'"
-               class="plain-m-bold">{{ module.title }}</p>
-              <label :for="module.name" class="select-modules">
-                <div class="checkbox-border" v-bind:class="module.name + '-primary'">
-                  <div class="checkbox-background" v-bind:class="module.name + '-soft-bgcolor'">
-                      <input type="checkbox" v-model="module.selected" :name="module.name"
-                      :id="module.name" class="checkbox-input"
-                       v-bind:class="module.name + '-primary-bgcolor'"
-                      @change="updateModulesSelected(module)" />
-                  </div>
-                </div>
-              </label>
-          </div>
-      </section>
+      <ModulesSelected :showAll=true v-on:updateSelectedModules="updateModulesSelected" />
   </div>
 </template>
 
@@ -87,11 +64,13 @@ import {
 } from '@/store/modules/user';
 import { AUTH_LOGOUT } from '@/store/modules/auth';
 import IconComponent from '../components/IconComponent.vue';
+import ModulesSelected from '../components/ModulesSelected.vue';
 
 export default {
   name: 'Settings',
   components: {
     IconComponent,
+    ModulesSelected,
   },
   data() {
     return {
@@ -102,69 +81,15 @@ export default {
       gender: '',
       email: '',
       password: '',
-      modulesSelected: [],
-      allModules: [
-        {
-          name: 'symptoms',
-          title: 'Symptome',
-          selected: false,
-        },
-        {
-          name: 'sleep',
-          title: 'Schlaf',
-          selected: false,
-        },
-        {
-          name: 'emotions',
-          title: 'Gefühle',
-          selected: false,
-        },
-        {
-          name: 'activity',
-          title: 'Bewegung',
-          selected: false,
-        },
-        {
-          name: 'nutrition',
-          title: 'Ernährung',
-          selected: false,
-        },
-        {
-          name: 'countermeasures',
-          title: 'Maßnahmen',
-          selected: false,
-        },
-      ],
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getModulesSelected']),
+    ...mapGetters(['getUserProfile']),
   },
   mounted() {
-    this.getAllModulesSelected();
     this.getProfile();
-    this.setModulesTrue(this.modulesSelected, this.allModules);
   },
   methods: {
-    getAllModulesSelected() {
-      this.modulesSelected = this.getModulesSelected;
-    },
-    setModulesTrue(modules, compare) {
-      /* eslint-disable-next-line */
-      const compareModule = modules.map((module) => {
-        for (let i = 0; i < this.allModules.length; i += 1) {
-          if (this.allModules[i].name === module.toLowerCase()) {
-            this.allModules[i].selected = true;
-          }
-        }
-        return compare.reduce((obj, val) => {
-          /* eslint-disable-next-line */
-          if (module.toLowerCase() === val.toLowerCase) obj[module];
-          return obj;
-        }, { [module]: true });
-      });
-      return compareModule;
-    },
     getProfile() {
       this.profile = this.getUserProfile;
       this.firstName = this.profile.firstName;
@@ -174,22 +99,11 @@ export default {
       this.email = this.profile.email;
       this.password = this.profile.password;
     },
-    updateModulesSelected() {
-      this.modulesSelected = [];
-      const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < checkboxes.length; i++) {
-        if (this.modulesSelected === checkboxes[i].name) {
-          this.modulesSelected.splice(checkboxes[i].name);
-        } else this.modulesSelected.push(checkboxes[i].name);
-      }
-      this.setModulesTrue(this.modulesSelected, this.allModules);
-
+    updateModulesSelected(modulesSelected) {
       this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
-        modulesSelected: this.modulesSelected,
+        modulesSelected,
       })
         .then(() => {
-          this.modulesSelected = this.getModulesSelected;
           this.emitter.emit('modulesUpdated');
         })
         .catch((err) => {

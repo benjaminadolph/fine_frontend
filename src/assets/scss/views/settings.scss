@@ -33,7 +33,7 @@
         }
     }
 
-    .personal-data, .modules {
+    .personal-data, .modules-selected {
         @include boxshadow();
         padding: 15px 15px 0 15px;
         background-color: $FINE_WHITE;

@@ -5,9 +5,9 @@
     <div class="line" v-for="module in allModules" :key="module">
       <IconComponent
         class="icon"
-        v-bind:name="module.name"
-        :size="24"
-        v-bind:color="module.name + '-primary'"
+        :name="module.name"
+        :size=24
+        :color="`${module.name}-primary`"
       />
         <p v-bind:class="module.name + '-primary'"
           class="plain-m-bold">{{ module.title }}</p>
@@ -17,7 +17,7 @@
                 <input type="checkbox" v-model="module.selected" :name="module.name"
                 :id="module.name" class="checkbox-input"
                 v-bind:class="module.name + '-primary-bgcolor'"
-                @change="updateSelectedModules(module.name)" />
+                v-on:click="updateModulesSelected(module.name)" />
             </div>
           </div>
         </label>
@@ -78,7 +78,7 @@ export default {
     };
   },
   methods: {
-    updateSelectedModules(module) {
+    updateModulesSelected(module) {
       if (this.selectedModules.includes(module)) {
         const index = this.selectedModules.indexOf(module);
         if (index > -1) {
@@ -87,10 +87,9 @@ export default {
       } else {
         this.selectedModules.push(module);
       }
-      this.$emit('updateSelectedModules', this.selectedModules);
-    },
-    arrayRemove(arr, value) {
-      return arr.filter((ele) => ele !== value);
+      if (this.showAll) {
+        this.$emit('updateSelectedModules', this.selectedModules);
+      }
     },
   },
   computed: {
@@ -98,17 +97,18 @@ export default {
   },
   mounted() {
     this.selectedModules = this.getModulesSelected;
+    const modulesArray = [];
 
-    if (!this.showAll && this.selectedModules.length) {
-      const modules = [];
-
+    if (this.selectedModules.length) {
       for (let i = 0; i < this.allModules.length; i += 1) {
         if (this.selectedModules.includes(this.allModules[i].name)) {
           this.allModules[i].selected = true;
-          modules.push(this.allModules[i]);
+          modulesArray.push(this.allModules[i]);
         }
       }
-      this.allModules = modules;
+      if (!this.showAll) {
+        this.allModules = modulesArray;
+      }
     }
   },
 };

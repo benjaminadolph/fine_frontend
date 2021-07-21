@@ -40,10 +40,6 @@ import EmotionsEntry from '@/components/entry/EmotionsEntry.vue';
 import IconComponent from '@/components/IconComponent.vue';
 import { mapGetters } from 'vuex';
 
-import {
-  UPDATE_USER_MODULESSELECTED,
-} from '@/store/modules/user';
-
 export default {
   name: 'ModuleEntry',
   components: {
@@ -62,7 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getUserProfile', 'getModulesSelected']),
+    ...mapGetters(['getModulesSelected']),
   },
   mounted() {
     this.getAllModulesSelected();
@@ -123,22 +119,10 @@ export default {
     getAllModulesSelected() {
       this.modulesSelected = this.getModulesSelected;
     },
-    updateModulesSelected() {
-      this.modulesSelected = [];
-      this.$store.dispatch(UPDATE_USER_MODULESSELECTED, {
-        modulesSelected: this.modulesSelected,
-      })
-        .then(() => {
-          this.modulesSelected = this.getModulesSelected;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/views/module-entry.scss";
+  @import "@/assets/scss/components/module-entry.scss";
 </style>
