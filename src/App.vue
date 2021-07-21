@@ -1,9 +1,7 @@
 <template>
   <div>
-    <Navigation v-on:showEntryLayer="showEntryLayer"/>
-    <transition name="fade" appear>
-      <router-view />
-    </transition>
+    <Navigation v-on:showEntryLayer="showEntryLayer" v-if="showNavigation" />
+    <router-view />
     <ModuleEntry
       v-if="showEntry"
       module='symptoms'
@@ -26,6 +24,7 @@ export default {
   data() {
     return {
       showEntry: false,
+      showNavigation: false,
     };
   },
   created() {
@@ -50,6 +49,15 @@ export default {
       this.showEntry = true;
       const { body } = document;
       body.classList.add('noScroll');
+    },
+  },
+  watch: {
+    $route() {
+      if (this.$route.path === '/login' || this.$route.path === '/register') {
+        this.showNavigation = false;
+      } else {
+        this.showNavigation = true;
+      }
     },
   },
 };

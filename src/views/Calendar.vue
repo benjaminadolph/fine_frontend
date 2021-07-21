@@ -1,57 +1,59 @@
 <!-- Grundlage: https://css-tricks.com/lets-make-a-vue-powered-monthly-calendar/ -->
 <template>
-  <div class="calendar-view">
-    <header class="fine-header">
-      <div>
-          <h1>Kalender</h1>
-      </div>
-      <a class="right-button shadow-button" v-on:click="showFilter = !showFilter">
-          <IconComponent name="filter" :size=16 :width=18 />
-      </a>
-    </header>
-    <div class="calendar-navigation">
-      <transition name="slide-toggle">
-        <div class="filter" v-show="showFilter">
-            <ModulesSelected :showAll=false />
+  <transition name="fade" appear>
+    <div class="calendar-view">
+      <header class="fine-header">
+        <div>
+            <h1>Kalender</h1>
         </div>
-      </transition>
-      <MonthYearSlider
-        :items="getYears"
-        :active=5
-        :selectedDate="selectedDate"
-        :showItems=3
-        identifier="year"
-        @dateSelected="selectDate"
-      />
-      <MonthYearSlider
-        :items="getMonths"
-        :active=month
-        :selectedDate="selectedDate"
-        :showItems=5
-        identifier="month"
-        @dateSelected="selectDate"
-      />
-    </div>
-    <div class="calendar-month">
-      <div v-for="week in weeksArray" :key="week" class="weeks-grid">
-        <CalendarMonthDayItem
-          v-for="day in week.dayElements"
-          :key="day.date"
-          :day="day"
-          :is-today="day.date === today"
-          :is-empty="isEmpty(day)"
-          v-on:showDayEntries="getDayEntries"
-          v-on:hideDayEntries="removeDayEntries"
+        <a class="right-button shadow-button" v-on:click="showFilter = !showFilter">
+            <IconComponent name="filter" :size=16 :width=18 />
+        </a>
+      </header>
+      <div class="calendar-navigation">
+        <transition name="slide-toggle">
+          <div class="filter" v-show="showFilter">
+              <ModulesSelected :showAll=false />
+          </div>
+        </transition>
+        <MonthYearSlider
+          :items="getYears"
+          :active=5
+          :selectedDate="selectedDate"
+          :showItems=3
+          identifier="year"
+          @dateSelected="selectDate"
         />
-        <DayEntry
-          v-if="showDayEntries && week.week === dayEntryWeek"
-          :entries="dayEntries"
-          :week="dayEntryWeek"
-          v-on:removeEntry="deleteEntry"
+        <MonthYearSlider
+          :items="getMonths"
+          :active=month
+          :selectedDate="selectedDate"
+          :showItems=5
+          identifier="month"
+          @dateSelected="selectDate"
         />
       </div>
+      <div class="calendar-month">
+        <div v-for="week in weeksArray" :key="week" class="weeks-grid">
+          <CalendarMonthDayItem
+            v-for="day in week.dayElements"
+            :key="day.date"
+            :day="day"
+            :is-today="day.date === today"
+            :is-empty="isEmpty(day)"
+            v-on:showDayEntries="getDayEntries"
+            v-on:hideDayEntries="removeDayEntries"
+          />
+          <DayEntry
+            v-if="showDayEntries && week.week === dayEntryWeek"
+            :entries="dayEntries"
+            :week="dayEntryWeek"
+            v-on:removeEntry="deleteEntry"
+          />
+        </div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

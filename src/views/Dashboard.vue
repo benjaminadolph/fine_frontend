@@ -1,18 +1,20 @@
 <template>
-  <div class="dashboard-view">
-    <header class="fine-header">
-      <div>
-          <h1>Dashboard</h1>
-      </div>
-      <router-link to="/settings">
-        <a class="right-button shadow-button">
-            <IconComponent v-bind:name="'settings'" :size=16 />
-        </a>
-      </router-link>
-    </header>
-    <SmartStack />
-    <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
-  </div>
+  <transition name="fade" appear>
+    <div class="dashboard-view">
+      <header class="fine-header">
+        <div>
+            <h1>Dashboard</h1>
+        </div>
+        <router-link to="/settings">
+          <a class="right-button shadow-button">
+              <IconComponent v-bind:name="'settings'" :size=16 />
+          </a>
+        </router-link>
+      </header>
+      <SmartStack />
+      <ModuleTeaser v-for="module in modulesSelected" :key="module" :module="module" />
+    </div>
+  </transition>
 </template>
 
 <script>

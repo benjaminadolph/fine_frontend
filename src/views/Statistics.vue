@@ -1,13 +1,15 @@
 <template>
-  <div class="statistics-view">
-    <header class="fine-header">
-      <div>
-          <h1>Statistik</h1>
-      </div>
-    </header>
-    <div class="center plain-l-medium">coming<br> soon</div>
-    <img class="coming-soon-background" src="../assets/images/coming-soon-background.svg" alt="">
-  </div>
+  <transition name="fade" appear>
+    <div class="statistics-view">
+      <header class="fine-header">
+        <div>
+            <h1>Statistik</h1>
+        </div>
+      </header>
+      <div class="center plain-l-medium">coming<br> soon</div>
+      <img class="coming-soon-background" src="../assets/images/coming-soon-background.svg" alt="">
+    </div>
+  </transition>
 </template>
 
 <script>

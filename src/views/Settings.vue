@@ -1,58 +1,60 @@
 <template>
-  <div class="settings">
-     <header class="fine-header">
-        <div class="center">
-          <h1>Einstellungen</h1>
-        </div>
-        <router-link to="/">
-          <a class="right-button shadow-button">
-              <IconComponent v-bind:name="'arrow-left'" :size="16" />
-          </a>
-        </router-link>
-    </header>
-    <section class="personal-data">
-      <form @submit.prevent="updateUser">
-          <h2 class="plain-s-bold">Persönliche Daten</h2>
-          <hr>
-          <div class="line">
-              <p class="plain-s-book label">Vorname</p>
-              <input type="text" v-model="firstName" placeholder="Vorname"
-              class="plain-m-bold entry">
+  <transition name="slide-in" appear>
+    <div class="settings">
+      <header class="fine-header">
+          <div class="center">
+            <h1>Einstellungen</h1>
           </div>
-          <div class="line">
-              <p class="plain-s-book label">Nachname</p>
-              <input type="text" v-model="lastName" placeholder="Nachname"
-              class="plain-m-bold entry">
-          </div>
-          <div class="line">
-              <p class="plain-s-book label">Geburtsdatum</p>
-              <input type="text" v-model="birthDate" placeholder="Geburtsdatum"
-              class="plain-m-bold entry">
-          </div>
-          <div class="line">
-              <p class="plain-s-book label">Geschlecht</p>
-              <input type="text" v-model="gender" placeholder="Geschlecht"
-              class="plain-m-bold entry">
-          </div>
-          <div class="line">
-              <p class="plain-s-book label">E-Mail</p>
-              <input type="email" v-model="email" placeholder="E-Mail"
-              class="plain-m-bold entry">
-          </div>
-          <div class="line">
-              <p class="plain-s-book label">Passwort</p>
-              <input type="password" v-model="password" placeholder="Passwort"
-              name="pw" id="password"
-               class="plain-m-bold entry">
-          </div>
-        <button id="update" type="submit">Änderungen speichern</button>
-        </form>
-        <button id="delete" type="submit" v-on:click="deleteUser">Account löschen</button>
-        <p>Du bist eingeloggt als: {{getUserProfile.email}}</p>
-        <button @click="logout" type="button">Logout</button>
-      </section>
-      <ModulesSelected :showAll=true v-on:updateSelectedModules="updateModulesSelected" />
-  </div>
+          <router-link to="/">
+            <a class="right-button shadow-button">
+                <IconComponent v-bind:name="'arrow-left'" :size="16" />
+            </a>
+          </router-link>
+      </header>
+      <section class="personal-data">
+        <form @submit.prevent="updateUser">
+            <h2 class="plain-s-bold">Persönliche Daten</h2>
+            <hr>
+            <div class="line">
+                <p class="plain-s-book label">Vorname</p>
+                <input type="text" v-model="firstName" placeholder="Vorname"
+                class="plain-m-bold entry">
+            </div>
+            <div class="line">
+                <p class="plain-s-book label">Nachname</p>
+                <input type="text" v-model="lastName" placeholder="Nachname"
+                class="plain-m-bold entry">
+            </div>
+            <div class="line">
+                <p class="plain-s-book label">Geburtsdatum</p>
+                <input type="text" v-model="birthDate" placeholder="Geburtsdatum"
+                class="plain-m-bold entry">
+            </div>
+            <div class="line">
+                <p class="plain-s-book label">Geschlecht</p>
+                <input type="text" v-model="gender" placeholder="Geschlecht"
+                class="plain-m-bold entry">
+            </div>
+            <div class="line">
+                <p class="plain-s-book label">E-Mail</p>
+                <input type="email" v-model="email" placeholder="E-Mail"
+                class="plain-m-bold entry">
+            </div>
+            <div class="line">
+                <p class="plain-s-book label">Passwort</p>
+                <input type="password" v-model="password" placeholder="Passwort"
+                name="pw" id="password"
+                class="plain-m-bold entry">
+            </div>
+          <button id="update" type="submit">Änderungen speichern</button>
+          </form>
+          <button id="delete" type="submit" v-on:click="deleteUser">Account löschen</button>
+          <p>Du bist eingeloggt als: {{getUserProfile.email}}</p>
+          <button @click="logout" type="button">Logout</button>
+        </section>
+        <ModulesSelected :showAll=true v-on:updateSelectedModules="updateModulesSelected" />
+    </div>
+  </transition>
 </template>
 
 <script>
